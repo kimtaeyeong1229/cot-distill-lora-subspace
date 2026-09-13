@@ -1,0 +1,34 @@
+[2026-09-11 15:51:34] interpolate lambda=0.0
+lambda=0.0: 339 tensors -> experiments/lambda_lora_bits/sweep/teachers/lambda0.0 (tokenizer from reasoning)
+[2026-09-11 15:51:44] generate lambda=0.0
+[4000/4000] 3442 tok/sample, 4717 tok/s, 12.2 min
+[2026-09-11 16:50:05] interpolate lambda=0.1
+lambda=0.1: 339 tensors -> experiments/lambda_lora_bits/sweep/teachers/lambda0.1 (tokenizer from reasoning)
+[2026-09-11 16:50:16] generate lambda=0.1
+[4000/4000] 2477 tok/sample, 4999 tok/s, 8.3 min
+[2026-09-11 17:29:28] interpolate lambda=0.2
+lambda=0.2: 339 tensors -> experiments/lambda_lora_bits/sweep/teachers/lambda0.2 (tokenizer from reasoning)
+[2026-09-11 17:29:39] generate lambda=0.2
+[4000/4000] 1926 tok/sample, 5452 tok/s, 5.9 min
+[2026-09-11 17:58:22] interpolate lambda=0.3
+lambda=0.3: 339 tensors -> experiments/lambda_lora_bits/sweep/teachers/lambda0.3 (tokenizer from reasoning)
+[2026-09-11 17:58:32] generate lambda=0.3
+[4000/4000] 1262 tok/sample, 5766 tok/s, 3.6 min
+[2026-09-11 18:18:14] interpolate lambda=0.4
+lambda=0.4: 339 tensors -> experiments/lambda_lora_bits/sweep/teachers/lambda0.4 (tokenizer from reasoning)
+[2026-09-11 18:18:24] generate lambda=0.4
+[4000/4000] 901 tok/sample, 6437 tok/s, 2.3 min
+[2026-09-11 18:31:57] interpolate lambda=0.6
+lambda=0.6: 339 tensors -> experiments/lambda_lora_bits/sweep/teachers/lambda0.6 (tokenizer from reasoning)
+[2026-09-11 18:32:07] generate lambda=0.6
+[4000/4000] 925 tok/sample, 6075 tok/s, 2.5 min
+[2026-09-11 18:46:13] interpolate lambda=0.8
+lambda=0.8: 339 tensors -> experiments/lambda_lora_bits/sweep/teachers/lambda0.8 (tokenizer from reasoning)
+[2026-09-11 18:46:23] generate lambda=0.8
+[4000/4000] 570 tok/sample, 6408 tok/s, 1.5 min
+[2026-09-11 18:54:01] interpolate lambda=1.0
+lambda=1.0: 339 tensors -> experiments/lambda_lora_bits/sweep/teachers/lambda1.0 (tokenizer from reasoning)
+[2026-09-11 18:54:11] generate lambda=1.0
+[4000/4000] 508 tok/sample, 10281 tok/s, 0.8 min
+[2026-09-11 18:59:22] generation finished (STOP_AFTER_GENERATION=1)
+gen_exit=0

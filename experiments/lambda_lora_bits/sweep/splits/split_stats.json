@@ -1,0 +1,95 @@
+{
+  "shared": 2413,
+  "n_train": 2113,
+  "n_held": 300,
+  "per_lambda": {
+    "0.0": {
+      "generated": 4000,
+      "teacher_accuracy": 0.76475,
+      "truncated_rate": 0.1855,
+      "too_long_for_student": 2,
+      "kept": 3057,
+      "avg_teacher_tokens_all": 3851.31025,
+      "avg_student_tokens_kept": 2747.4380111220153,
+      "train_tokens": 5070016,
+      "held_tokens": 682675
+    },
+    "0.1": {
+      "generated": 4000,
+      "teacher_accuracy": 0.81025,
+      "truncated_rate": 0.10675,
+      "too_long_for_student": 2,
+      "kept": 3239,
+      "avg_teacher_tokens_all": 2825.57675,
+      "avg_student_tokens_kept": 1996.0355047854275,
+      "train_tokens": 3405736,
+      "held_tokens": 491894
+    },
+    "0.2": {
+      "generated": 4000,
+      "teacher_accuracy": 0.81275,
+      "truncated_rate": 0.071,
+      "too_long_for_student": 3,
+      "kept": 3248,
+      "avg_teacher_tokens_all": 2230.549,
+      "avg_student_tokens_kept": 1534.9842980295566,
+      "train_tokens": 2599187,
+      "held_tokens": 348566
+    },
+    "0.3": {
+      "generated": 4000,
+      "teacher_accuracy": 0.807,
+      "truncated_rate": 0.0425,
+      "too_long_for_student": 1,
+      "kept": 3227,
+      "avg_teacher_tokens_all": 1532.1575,
+      "avg_student_tokens_kept": 970.1571118686086,
+      "train_tokens": 1541154,
+      "held_tokens": 215928
+    },
+    "0.4": {
+      "generated": 4000,
+      "teacher_accuracy": 0.79925,
+      "truncated_rate": 0.0355,
+      "too_long_for_student": 0,
+      "kept": 3197,
+      "avg_teacher_tokens_all": 1116.50425,
+      "avg_student_tokens_kept": 673.6553018454802,
+      "train_tokens": 1164398,
+      "held_tokens": 169837
+    },
+    "0.6": {
+      "generated": 4000,
+      "teacher_accuracy": 0.79425,
+      "truncated_rate": 0.05975,
+      "too_long_for_student": 0,
+      "kept": 3177,
+      "avg_teacher_tokens_all": 1114.1305,
+      "avg_student_tokens_kept": 573.4627006610009,
+      "train_tokens": 1058062,
+      "held_tokens": 155091
+    },
+    "0.8": {
+      "generated": 4000,
+      "teacher_accuracy": 0.82325,
+      "truncated_rate": 0.00725,
+      "too_long_for_student": 0,
+      "kept": 3293,
+      "avg_teacher_tokens_all": 680.44775,
+      "avg_student_tokens_kept": 545.383540844215,
+      "train_tokens": 998917,
+      "held_tokens": 143017
+    },
+    "1.0": {
+      "generated": 4000,
+      "teacher_accuracy": 0.815,
+      "truncated_rate": 0.0005,
+      "too_long_for_student": 0,
+      "kept": 3260,
+      "avg_teacher_tokens_all": 579.81575,
+      "avg_student_tokens_kept": 510.7288343558282,
+      "train_tokens": 963232,
+      "held_tokens": 138446
+    }
+  }
+}

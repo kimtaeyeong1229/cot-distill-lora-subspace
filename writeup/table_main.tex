@@ -1,0 +1,38 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llrrrrrr}
+\toprule
+& & \multicolumn{1}{c}{Data} & \multicolumn{3}{c}{What the adapter wrote} & \multicolumn{2}{c}{Behaviour} \\
+\cmidrule(lr){3-3}\cmidrule(lr){4-6}\cmidrule(lr){7-8}
+Student & $\lambda$ & $H$ & $W_{\text{tr}}$ & $W_{\text{ho}}$ & $\Delta W / W$ & Acc & $\Delta$Acc \\
+\midrule
+\multirow{7}{*}{\texttt{Qwen2.5-0.5B-Instruct}} & base & -- & -- & -- & -- & 53.1 & -- \\
+ & 0.0 & 1.152 & 0.435 & +0.394 & 0.09 & 19.6 & -33.5 \\
+ & 0.2 & 0.740 & 0.333 & +0.271 & 0.19 & 35.4 & -17.7 \\
+ & 0.4 & 0.297 & 0.121 & +0.018 & 0.85 & 50.3 & -2.8 \\
+ & 0.6 & 0.220 & 0.095 & -0.007 & \cellcolor{gray!20}1.07 & 53.6 & +0.5 \\
+ & 0.8 & 0.190 & 0.086 & -0.016 & \cellcolor{gray!20}1.18 & \textbf{55.8} & +2.7 \\
+ & 1.0 & 0.185 & 0.084 & -0.017 & \cellcolor{gray!20}1.20 & 53.4 & +0.3 \\
+\midrule
+\multirow{7}{*}{\texttt{Llama-3.2-1B-Instruct}} & base & -- & -- & -- & -- & 45.3 & -- \\
+ & 0.0 & 1.213 & 0.501 & +0.457 & 0.09 & 19.1 & -26.3 \\
+ & 0.2 & 0.830 & 0.408 & +0.349 & 0.15 & 40.7 & -4.7 \\
+ & 0.4 & 0.496 & 0.260 & +0.155 & 0.40 & 52.8 & +7.5 \\
+ & 0.6 & 0.466 & 0.270 & +0.160 & 0.41 & 51.4 & +6.1 \\
+ & 0.8 & 0.453 & 0.272 & +0.164 & 0.40 & 52.4 & +7.1 \\
+ & 1.0 & 0.455 & 0.276 & +0.166 & 0.40 & \textbf{55.5} & +10.2 \\
+\midrule
+\multirow{7}{*}{\texttt{Qwen2.5-1.5B-Instruct}} & base & -- & -- & -- & -- & 81.2 & -- \\
+ & 0.0 & 0.976 & 0.411 & +0.374 & 0.09 & 41.9 & -39.2 \\
+ & 0.2 & 0.635 & 0.324 & +0.273 & 0.16 & 69.2 & -11.9 \\
+ & 0.4 & 0.240 & 0.114 & +0.031 & 0.73 & 80.0 & -1.2 \\
+ & 0.6 & 0.169 & 0.082 & +0.004 & 0.95 & 81.5 & +0.3 \\
+ & 0.8 & 0.144 & 0.072 & -0.003 & \cellcolor{gray!20}1.05 & 83.0 & +1.8 \\
+ & 1.0 & 0.141 & 0.068 & -0.006 & \cellcolor{gray!20}1.09 & \textbf{83.8} & +2.7 \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{What a LoRA adapter writes during chain-of-thought distillation, across the teacher spectrum.} $\lambda$ interpolates the teacher from DeepSeek-R1-Distill-Qwen-1.5B ($\lambda{=}0$, long CoT) to Qwen2.5-Math-1.5B-Instruct ($\lambda{=}1$, short CoT). $H$: information density of the training CoT under the base student, measured before training (bits/token). $W_{\text{tr}}$, $W_{\text{ho}}$: codelength the adapter saves on training and held-out CoT (bits/token). $\Delta W / W$: memorisation share, the part of $W$ that does not transfer to held-out problems; shaded where $\ge 1$. Acc: held-out accuracy on 300 MATH problems (mean of 4 samples); bold marks the best $\lambda$ per student. All adapters use rank 16 on every linear layer, the same 2{,}113 problems, 3 epochs and seed 0. Across the 18 conditions, $\log H$ correlates with $\Delta W / W$ at $r{=}{-}0.96$, whereas $\lambda$ reaches $\rho{=}0.76$.}
+\label{tab:main}
+\end{table*}

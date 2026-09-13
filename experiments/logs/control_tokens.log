@@ -1,0 +1,11 @@
+[2026-09-12 10:07:07] build 375-problem subsets (same problems for every lambda)
+lambda=0.0: subset 375 problems, 932,485 tokens/epoch (full set: 2113 problems, 5,070,016 tokens/epoch)
+lambda=1.0: subset 375 problems, 168,506 tokens/epoch (full set: 2113 problems, 963,232 tokens/epoch)
+[2026-09-12 10:07:07] train lambda0.0_n375_e3 (lambda=0.0, 3 epochs)
+[2026-09-12 10:14:40] bits lambda0.0_n375_e3
+[2026-09-12 10:19:10] train lambda1.0_n375_e3 (lambda=1.0, 3 epochs)
+[2026-09-12 10:20:45] bits lambda1.0_n375_e3
+[2026-09-12 10:22:05] train lambda0.0_n375_e17 (lambda=0.0, 17 epochs)
+[2026-09-12 11:04:19] bits lambda0.0_n375_e17
+[2026-09-12 11:07:57] done
+control_exit=0

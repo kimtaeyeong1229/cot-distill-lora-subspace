@@ -1,0 +1,18 @@
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights: 100%|██████████| 338/338 [00:00<00:00, 7471.83it/s]
+[W912 17:04:19.471947217 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 499122176 bytes (free: 364969984, total: 16609247232).
+[W912 17:04:20.631356814 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 568328192 bytes (free: 121700352, total: 16609247232).
+[W912 17:04:23.551946126 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 614465536 bytes (free: 341901312, total: 16609247232).
+train {"n": 2113, "tokens": 5070016, "H_base_bits": 4946113.071058054, "H_tuned_bits": 2863877.0085832058, "W_bits": 2082236.062474849, "W_clipped_bits": 2082236.062474849, "H_base_bits_per_token": 0.9755616295999963, "W_bits_per_token": 0.4106961521373599, "W_bits_per_sample": 985.4406353406763, "W_over_H": 0.4209843229543122}
+held {"n": 300, "tokens": 682675, "H_base_bits": 671648.7300464191, "H_tuned_bits": 416375.43115627393, "W_bits": 255273.29889014518, "W_clipped_bits": 255273.29889014518, "H_base_bits_per_token": 0.9838484345353485, "W_bits_per_token": 0.37393093183454085, "W_bits_per_sample": 850.9109963004839, "W_over_H": 0.3800696516950202}
+c=0.25: CL=74746785 bits (4.048/param), zeros=0.099, retained W=0.9997
+c=0.5: CL=56497170 bits (3.060/param), zeros=0.196, retained W=0.9997
+c=0.75: CL=46038384 bits (2.493/param), zeros=0.290, retained W=0.9993
+c=1: CL=38837438 bits (2.103/param), zeros=0.380, retained W=0.9985
+c=1.25: CL=33455644 bits (1.812/param), zeros=0.465, retained W=0.9970
+c=1.5: CL=29268534 bits (1.585/param), zeros=0.543, retained W=0.9959
+c=2: CL=22984568 bits (1.245/param), zeros=0.680, retained W=0.9793
+c=2.5: CL=17760775 bits (0.962/param), zeros=0.787, retained W=0.8891
+c=3: CL=12974092 bits (0.703/param), zeros=0.866, retained W=0.6832
+c=4: CL=5684295 bits (0.308/param), zeros=0.955, retained W=0.2843
+{"delta_W_bits": 284261.1272919264, "delta_W_token_scaled_bits": 186400.25517881755, "trainable_params": 18464768}
+{"c_star": 1.5, "fidelity_met": true, "CL_update_bits": 29268533.522004005, "CL_update_bits_per_param": 1.585101611999891}

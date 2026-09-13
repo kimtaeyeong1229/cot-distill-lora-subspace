@@ -1,0 +1,464 @@
+<title>증류된 LoRA의 내용물</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F6F7F5;
+    --surface: #FFFFFF;
+    --ink: #17212B;
+    --muted: #5B6773;
+    --rule: #D9DFE4;
+    --accent: #1F4E79;
+    --pos: #0F766E;
+    --neg: #B4530A;
+    --pos-soft: rgba(15, 118, 110, 0.10);
+    --neg-soft: rgba(180, 83, 10, 0.10);
+    --alt: #6B5B95;
+    --serif: "Gowun Batang", "Nanum Myeongjo", Georgia, serif;
+    --sans: "Noto Sans KR", system-ui, -apple-system, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0E141A;
+      --surface: #141D25;
+      --ink: #E7EDF2;
+      --muted: #94A2AE;
+      --rule: #243139;
+      --accent: #86B6E4;
+      --pos: #57BDAF;
+      --neg: #E2A461;
+      --pos-soft: rgba(87, 189, 175, 0.14);
+      --neg-soft: rgba(226, 164, 97, 0.14);
+      --alt: #A99BD4;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0E141A;
+    --surface: #141D25;
+    --ink: #E7EDF2;
+    --muted: #94A2AE;
+    --rule: #243139;
+    --accent: #86B6E4;
+    --pos: #57BDAF;
+    --neg: #E2A461;
+    --pos-soft: rgba(87, 189, 175, 0.14);
+    --neg-soft: rgba(226, 164, 97, 0.14);
+    --alt: #A99BD4;
+  }
+
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-weight: 400; line-height: 1.75; }
+  .page { max-width: 960px; margin: 0 auto; padding: 64px 28px 96px; display: flex; flex-direction: column; gap: 44px; }
+  .prose { max-width: 68ch; display: flex; flex-direction: column; gap: 18px; }
+  p { margin: 0; }
+  a { color: var(--accent); }
+
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(34px, 5vw, 52px); line-height: 1.18; margin: 14px 0 0; text-wrap: balance; letter-spacing: -0.01em; }
+  .deck { font-family: var(--serif); font-size: clamp(18px, 2.2vw, 22px); line-height: 1.6; color: var(--muted); margin-top: 18px; max-width: 60ch; }
+  h2 { font-family: var(--serif); font-weight: 700; font-size: clamp(24px, 3vw, 30px); line-height: 1.3; margin: 0; text-wrap: balance; }
+  h3 { font-family: var(--sans); font-weight: 700; font-size: 17px; margin: 0; letter-spacing: -0.01em; }
+  section { display: flex; flex-direction: column; gap: 22px; }
+  .section-head { display: flex; flex-direction: column; gap: 8px; border-top: 2px solid var(--ink); padding-top: 14px; }
+
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .fact { font-family: var(--mono); font-size: 12px; color: var(--muted); border: 1px solid var(--rule); border-radius: 2px; padding: 5px 9px; }
+  .fact b { color: var(--ink); font-weight: 500; }
+
+  .tldr { background: var(--surface); border-left: 3px solid var(--accent); padding: 22px 26px; display: flex; flex-direction: column; gap: 12px; }
+  .tldr h3 { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+  .tldr ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .tldr li::marker { font-family: var(--mono); color: var(--muted); }
+
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
+  caption { caption-side: bottom; text-align: left; font-size: 13px; color: var(--muted); padding: 10px 16px; }
+  th, td { padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  thead th { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.num, th.num { font-family: var(--mono); white-space: nowrap; }
+  td.paper { font-weight: 500; min-width: 190px; }
+  td .sub { display: block; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .pos { color: var(--pos); }
+  .neg { color: var(--neg); }
+  tr.mark td { background: var(--pos-soft); }
+  tr.mark-neg td { background: var(--neg-soft); }
+
+  figure { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  figure svg { width: 100%; height: auto; display: block; background: var(--surface); border: 1px solid var(--rule); }
+  .legend { display: flex; gap: 18px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .legend span { display: flex; align-items: center; gap: 7px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  figcaption { font-size: 13px; color: var(--muted); max-width: 68ch; }
+
+  blockquote { margin: 0; font-family: var(--serif); font-size: clamp(19px, 2.4vw, 24px); line-height: 1.5; border-left: 3px solid var(--neg); padding: 4px 0 4px 22px; text-wrap: balance; }
+
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .claim { border: 1px solid var(--rule); background: var(--surface); padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; }
+  .claim h3 { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+  .claim.yes h3 { color: var(--pos); }
+  .claim.no h3 { color: var(--neg); }
+  .claim ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; }
+
+  .steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .steps li { display: grid; grid-template-columns: 30px 1fr; gap: 14px; align-items: baseline; font-size: 15px; }
+  .steps .n { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  footer { border-top: 1px solid var(--rule); padding-top: 20px; color: var(--muted); font-size: 14px; display: flex; flex-direction: column; gap: 10px; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--pos-soft); padding: 1px 5px; border-radius: 2px; }
+  @media (max-width: 640px) { .page { padding: 44px 18px 72px; } }
+</style>
+
+<div class="page">
+  <header>
+    <div class="eyebrow">실험 기록 · LoRA 증류 · 2026.09</div>
+    <h1>증류된 LoRA는 무엇을 담고 있나</h1>
+    <p class="deck">같은 풀이가 어떤 모델에게는 가르침이 되고 어떤 모델에게는 암기가 됩니다. 무엇이 그것을 가르는지, 계열이 다른 student 둘로 재 봤습니다.</p>
+    <div class="facts">
+      <span class="fact">teacher <b>R1-Distill-Qwen-1.5B ↔ Qwen2.5-Math-1.5B-Instruct</b></span>
+      <span class="fact">student <b>Qwen2.5-0.5B · Llama-3.2-1B</b></span>
+      <span class="fact">adapter <b>LoRA r=16</b></span>
+      <span class="fact">데이터 <b>MATH 2,113문제</b></span>
+      <span class="fact">GPU <b>RTX 5070 Ti 16GB ×1</b></span>
+    </div>
+  </header>
+
+  <div class="tldr">
+    <h3>세 줄 요약</h3>
+    <ol>
+      <li><b>암기는 “아직 배울 것이 남았는가”로 결정됩니다.</b> 학습 예산을 고정하면 데이터가 student에게 남긴 토큰당 정보량이 전부 설명하고(1 bit 이상이면 써진 것의 90%가 새 문제에도 통하며, 0.2 bits 아래면 전부 학습 문제 전용), 같은 데이터를 반복하면 남은 정보가 소진되어 암기로 넘어갑니다.</li>
+      <li>teacher 스타일도 student 계열도 <b>그 자체로는 결정하지 못합니다.</b> 계열이 다른 두 student의 12개 조건이 정보량 축에서 하나의 곡선 위에 놓입니다.</li>
+      <li>그런데 <b>adapter 파일의 부호 길이는 이 차이에 반응하지 않습니다.</b> 흡수량이 1.8배 달라도 같은 값입니다.</li>
+    </ol>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <div class="eyebrow">1 · 선행 연구</div>
+      <h2>서로 만난 적 없는 두 갈래</h2>
+    </div>
+    <div class="prose">
+      <p>이 질문은 두 연구 흐름 사이에 걸쳐 있습니다. 한쪽은 작은 모델에 추론을 가르치는 방법을 연구하고, 다른 쪽은 모델이 학습 데이터를 얼마나 품고 있는지를 측정합니다.</p>
+      <h3>갈래 A · CoT 증류: “작은 모델은 긴 추론을 잘 못 배운다”</h3>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>논문</th><th>teacher → student</th><th>데이터 · 벤치마크</th><th>확립한 것</th></tr></thead>
+        <tbody>
+          <tr><td class="paper">MI-Distillation<span class="sub">arXiv 2608.29623</span></td><td>QwQ-32B ↔ Qwen2.5-32B-Instruct<br>→ Qwen2.5-3B, Llama3.2-3B</td><td>MATH train 7,500<span class="sub">GSM8K · MATH-500 · AMC23 · AIME24 · GPQA-D · Minerva · Olympiad</span></td><td>작은 student는 Long CoT로 <b>오히려 나빠짐</b>(1.5B −15.1%p). 보간 teacher에서 고르면 +1.1~1.4점</td></tr>
+          <tr><td class="paper">Revisiting the Capacity Gap<span class="sub">arXiv 2604.08880</span></td><td>Qwen2.5-3B~72B, QwQ-32B-Preview, Gemma-2 → Qwen2.5-0.5B~32B</td><td>MATH train<span class="sub">MATH · GSM8K · AMC23 · AIME24 · Olympiad · BBH 15개</span></td><td><b>증류 전 baseline과 비교해야 한다.</b> 대부분의 작은 student 설정에서 증류는 성능을 떨어뜨림</td></tr>
+          <tr><td class="paper">RSR<span class="sub">arXiv 2601.14249</span></td><td>teacher 11종(4B~671B) → student 5종(Qwen3, LLaMA-3.1, Qwen2.5)</td><td>NuminaMath 5,000</td><td>student surprisal <b>단독은 예측력 약함</b>(0.49). rank와의 비율은 0.86</td></tr>
+          <tr><td class="paper">EDIT<span class="sub">ACL 2025 long 21</span></td><td>gpt-3.5-turbo → LLaMA2-7B, Mistral-7B 등</td><td>BBH<span class="sub">BB-sub · AGIEval · ARC-E/C</span></td><td>핵심 추론 단계를 강조해 학습하면 평균 41.8 → 46.5</td></tr>
+          <tr><td class="paper">Multi-Teacher Compatibility<span class="sub">arXiv 2601.13992</span></td><td>70B급 teacher 4종 → Qwen2.5-1.5B/7B, Llama3.1-8B</td><td>MATH 소량<span class="sub">MATH500 · GSM8K · SVAMP · CSQA · StrategyQA · GPQA-D</span></td><td>문제마다 맞는 teacher를 고르면 도메인 외 +16.09</td></tr>
+          <tr><td class="paper">On-Policy Distillation<span class="sub">arXiv 2604.13016</span></td><td>다양</td><td>추론 벤치마크</td><td>오프폴리시의 노출 편향. 온폴리시가 해법이나 teacher를 매 step 띄워야 함</td></tr>
+        </tbody>
+      </table>
+      <caption>공통점: 측정하는 것이 전부 정답률입니다.</caption>
+    </div>
+
+    <div class="prose"><h3>갈래 B · 암기 측정: “모델이 데이터를 얼마나 품고 있나”</h3></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>논문</th><th>모델</th><th>데이터</th><th>확립한 것</th></tr></thead>
+        <tbody>
+          <tr><td class="paper">How Many Bits Can an Adapter Write?<span class="sub">arXiv 2607.21351</span></td><td>GPT-style 2M·8M, Qwen2.5-0.5B</td><td>균일 랜덤 토큰, canary 문서, 산술, key-value</td><td>adapter는 파라미터당 <b>1.7–2.8 bits</b>. <b>위치가 중요</b>(MLP가 attention의 2배). 유출은 쓴 bit 수를 따라감</td></tr>
+          <tr><td class="paper">Memorization Dynamics in KD<span class="sub">arXiv 2601.15394</span></td><td>Pythia 12B→1.4B, OLMo-2 7B→1B, Qwen-3 8B→1.7B</td><td>FineWeb 1M · WikiText-103 · Nemotron-CC-v2</td><td>soft KD가 일반 FT보다 덜 외움(0.07% vs 0.17%). <b>hard 증류는 soft의 2.7배</b>. 엔트로피 낮은 예시가 외워짐</td></tr>
+          <tr><td class="paper">From Teacher to Student<span class="sub">arXiv 2506.16170</span></td><td>GPT-2 1.5B → 760M/340M/120M</td><td>Dolly 15k</td><td>증류 방식별 암기: SFT 0.52–0.65 &gt; word-KD 0.47 &gt; seq-KD 0.32 &gt; reverse-KL 0.06–0.09</td></tr>
+          <tr><td class="paper">LoRA in Federated Learning<span class="sub">arXiv 2502.05087 · TMLR</span></td><td>Llama-3.2-1B/3B, Llama-2-7B, Mistral-7B</td><td>MedMCQA · PubMedQA · Medical Meadow + i2b2 canary</td><td>LoRA는 full FT 대비 암기 최대 10배 감소. <b>rank를 올리면 암기 급증, 정확도는 평평</b>(r16 0.003 → r64 0.21)</td></tr>
+          <tr><td class="paper">Dataset Distillation Leak<span class="sub">arXiv 2506.14457</span></td><td>toy net, grokking transformer, GPT-2</td><td>합성 데이터</td><td>soft label로 <b>student가 본 적 없는</b> teacher 암기 데이터가 새어나감</td></tr>
+          <tr><td class="paper">KD의 정보이론적 일반화<span class="sub">arXiv 2605.13143</span></td><td>이론</td><td>—</td><td>증류 발산으로 일반화 격차의 상·하한 증명. 실측 없음</td></tr>
+        </tbody>
+      </table>
+      <caption>공통점: 추론 데이터도, CoT 증류도 다루지 않습니다.</caption>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div class="eyebrow">2 · 빈칸</div>
+      <h2>아무도 재지 않은 것</h2>
+    </div>
+    <div class="prose">
+      <p>갈래 A는 “student가 표면 패턴을 외운다”를 <b>전제</b>하고 이를 고치는 방법을 제안합니다. 실제로 얼마나 외웠는지는 재지 않고 도메인 외 정답률로 간접 추정합니다. EDIT 저자들도 한계 절에서 “정답률만으로는 불충분하다”고 인정합니다.</p>
+      <p>갈래 B는 암기를 정확히 재지만, <b>무엇을 가르쳤는지는 변수로 두지 않습니다.</b> 축은 증류 방식이나 LoRA rank입니다. LoRA 프라이버시 논문 저자들은 “중복 삽입되지 않은 정상 데이터가 왜 그대로 재현되는가”를 향후 과제로 남겼습니다.</p>
+    </div>
+    <blockquote>rank도, 문제 수도, 학습 설정도 고정한 채 teacher의 풀이 스타일만 바꾸면, adapter에 써지는 정보의 성격은 어떻게 달라지는가?</blockquote>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div class="eyebrow">3 · 실험</div>
+      <h2>스타일만 바꾸고, 써진 것을 센다</h2>
+    </div>
+    <div class="prose">
+      <p>두 teacher의 가중치를 λ로 선형 보간해 8단계 스펙트럼을 만듭니다. λ=0은 R1식 긴 추론, λ=1은 교과서식 짧은 풀이입니다. 8개 teacher가 <b>모두 정답을 낸 2,413문제</b>만 남겨 학습 2,113 / held-out 300으로 나눕니다. 모든 조건이 같은 문제, 같은 LoRA r=16, 같은 seed 초기값, 3 epoch·201 step으로 학습합니다. 다른 것은 풀이의 스타일뿐입니다.</p>
+      <p>측정은 셋입니다. <b>흡수량 W</b>는 학습 후 그 풀이를 예측하는 부호 길이가 얼마나 줄었는가, <b>암기량 ΔW</b>는 그 이득 중 held-out 문제로 넘어가지 않는 부분, <b>파일 bits CL</b>은 adapter 가중치 자체를 재현하는 비용입니다.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>λ</th><th class="num">학습 CoT 길이</th><th class="num">데이터 bits</th><th class="num">흡수 W</th><th class="num">held-out 이득 / 토큰</th><th class="num">암기 비중</th><th class="num">CL / param</th><th class="num">MATH-500</th></tr></thead>
+        <tbody>
+          <tr class="mark"><td class="num">0.0 <span class="sub">긴 추론</span></td><td class="num">2,747</td><td class="num">584만</td><td class="num">221만</td><td class="num pos">+0.393</td><td class="num">0.09</td><td class="num">1.584</td><td class="num">12.8% ± 0.2</td></tr>
+          <tr><td class="num">0.2</td><td class="num">1,535</td><td class="num">192만</td><td class="num">86만</td><td class="num pos">+0.271</td><td class="num">0.19</td><td class="num">1.587</td><td class="num">—</td></tr>
+          <tr><td class="num">0.4</td><td class="num">674</td><td class="num">35만</td><td class="num">14만</td><td class="num pos">+0.018</td><td class="num">0.85</td><td class="num">1.586</td><td class="num">—</td></tr>
+          <tr class="mark-neg"><td class="num">0.6</td><td class="num">573</td><td class="num">23만</td><td class="num">10만</td><td class="num neg">−0.007</td><td class="num">1.07</td><td class="num">1.586</td><td class="num">—</td></tr>
+          <tr><td class="num">0.8 <span class="sub">최적</span></td><td class="num">545</td><td class="num">19만</td><td class="num">8.7만</td><td class="num neg">−0.016</td><td class="num">1.19</td><td class="num">1.586</td><td class="num">32.6% ± 1.0</td></tr>
+          <tr><td class="num">1.0 <span class="sub">짧은 풀이</span></td><td class="num">511</td><td class="num">17.8만</td><td class="num">8.1만</td><td class="num neg">−0.017</td><td class="num">1.20</td><td class="num">1.586</td><td class="num">31.6% ± 0.2</td></tr>
+        </tbody>
+      </table>
+      <caption>학습하지 않은 기본 student의 MATH-500 정답률은 31.8%입니다. 암기 비중은 흡수량 중 held-out으로 넘어가지 않는 비율(ΔW/W)이며, 1을 넘으면 새 문제에서는 오히려 손해라는 뜻입니다.</caption>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 720 320" role="img" aria-label="λ에 따른 held-out 토큰당 이득. λ=0에서 +0.393로 시작해 λ≈0.5에서 0을 지나고 λ=1.0에서 −0.017이 된다.">
+        <text x="70" y="20" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.65">held-out 토큰당 이득 (bits)</text>
+        <line x1="70" y1="52" x2="690" y2="52" stroke="currentColor" stroke-width="1" opacity="0.12"></line>
+        <line x1="70" y1="140" x2="690" y2="140" stroke="currentColor" stroke-width="1" opacity="0.12"></line>
+        <text x="60" y="56" text-anchor="end" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.40</text>
+        <text x="60" y="144" text-anchor="end" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.20</text>
+        <text x="60" y="232" text-anchor="end" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0</text>
+        <line x1="70" y1="228" x2="690" y2="228" stroke="currentColor" stroke-width="1.5" opacity="0.45"></line>
+        <line x1="380" y1="36" x2="380" y2="250" stroke="var(--neg)" stroke-width="1.5" stroke-dasharray="5 4"></line>
+        <text x="388" y="46" fill="var(--neg)" font-family="JetBrains Mono, monospace" font-size="12">부호 반전 λ≈0.5</text>
+        <polyline points="70,55 132,82 194,109 256,182 318,220 442,231 566,235 690,236" fill="none" stroke="currentColor" stroke-width="2" opacity="0.55"></polyline>
+        <circle cx="70" cy="55" r="5" fill="var(--pos)"></circle>
+        <circle cx="132" cy="82" r="5" fill="var(--pos)"></circle>
+        <circle cx="194" cy="109" r="5" fill="var(--pos)"></circle>
+        <circle cx="256" cy="182" r="5" fill="var(--pos)"></circle>
+        <circle cx="318" cy="220" r="5" fill="var(--pos)"></circle>
+        <circle cx="442" cy="231" r="5" fill="var(--neg)"></circle>
+        <circle cx="566" cy="235" r="5" fill="var(--neg)"></circle>
+        <circle cx="690" cy="236" r="5" fill="var(--neg)"></circle>
+        <text x="70" y="42" text-anchor="middle" fill="var(--pos)" font-family="JetBrains Mono, monospace" font-size="12">+0.393</text>
+        <text x="690" y="258" text-anchor="end" fill="var(--neg)" font-family="JetBrains Mono, monospace" font-size="12">−0.017</text>
+        <text x="70" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.0</text>
+        <text x="194" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.2</text>
+        <text x="318" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.4</text>
+        <text x="442" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.6</text>
+        <text x="566" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.8</text>
+        <text x="690" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">1.0</text>
+        <text x="380" y="308" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.65">λ · instruct teacher 쪽 가중치</text>
+      </svg>
+      <figcaption>처음 보는 문제의 풀이를 예측할 때 줄어든 부호 길이입니다. 양수면 새 문제에도 통하는 것을 배웠다는 뜻이고, 음수면 학습 문제에만 맞춰졌다는 뜻입니다. λ=0.4와 0.6 사이에서 부호가 뒤집힙니다.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h3>“암기”라는 표현이 정당한가</h3>
+      <p>bits는 우리가 정의한 지표이므로, 행동으로도 확인했습니다. 서로 다른 세 방법이 같은 순서를 가리킵니다.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>검증 방법</th><th class="num">긴 추론 λ=0.0</th><th class="num">최적 λ=0.8</th><th class="num">짧은 풀이 λ=1.0</th></tr></thead>
+        <tbody>
+          <tr><td>bits 암기 비중</td><td class="num">0.09</td><td class="num">1.19</td><td class="num">1.20</td></tr>
+          <tr><td>학습 문제 − held-out 정답률<span class="sub">기본 student의 격차를 보정</span></td><td class="num">−1.8%p</td><td class="num neg">+3.1%p</td><td class="num neg">+5.3%p</td></tr>
+          <tr><td>teacher 원문 앞부분 재현<span class="sub">기본 student는 19토큰</span></td><td class="num">7토큰</td><td class="num neg">42토큰</td><td class="num neg">34토큰</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose">
+      <h3>덤으로 나온 것</h3>
+      <p><b>긴 CoT 증류가 실패하는 방식.</b> 정답률이 31.8%에서 12.8%로 떨어진 원인은 답변의 71%가 길이 제한에서 잘렸고, 그중 95%가 <code>000000…</code> 같은 반복 루프였기 때문입니다. 말투는 따라 했지만 유지할 힘이 없었습니다.</p>
+      <p><b>작은 보간 teacher의 불안정성.</b> λ=0.4~0.8 구간 teacher에서 잘린 출력의 89–100%가 반복 루프였습니다. 14B·32B를 쓴 원 논문에는 없던 현상입니다.</p>
+      <p><b>가중치 구조.</b> 긴 CoT LoRA의 업데이트가 1.2–1.7배 크고 방향이 더 집중되어 있으며, 차이는 attention보다 MLP에서 가장 큽니다. MI-Distillation이 학습 중 gradient에서 본 특징이 학습이 끝난 가중치에도 남아 있습니다.</p>
+    </div>
+    <div class="prose">
+      <h3>통제 실험: 토큰 양인가, 정보량인가</h3>
+      <p>λ가 커지면 정보량만 줄어드는 게 아니라 학습 토큰도 5배 줄어듭니다. 그래서 λ=0.0 데이터를 375문제로 잘라 <b>총 학습 토큰을 λ=1.0 전체와 같게</b> 맞춰 다시 학습했습니다.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>조건</th><th class="num">총 토큰</th><th class="num">문제당 반복</th><th class="num">처음 보는 문제 이득</th><th class="num">암기 비중</th></tr></thead>
+        <tbody>
+          <tr><td>λ0.0 · 2,113문제 · 3ep</td><td class="num">15.2M</td><td class="num">3회</td><td class="num pos">+0.394</td><td class="num">0.094</td></tr>
+          <tr class="mark"><td>λ0.0 · 375문제 · 3ep <span class="sub">토큰을 λ1.0에 맞춤</span></td><td class="num">2.8M</td><td class="num">3회</td><td class="num pos">+0.291</td><td class="num">0.087</td></tr>
+          <tr class="mark-neg"><td>λ0.0 · 375문제 · 17ep <span class="sub">반복만 늘림</span></td><td class="num">15.9M</td><td class="num">17회</td><td class="num pos">+0.126</td><td class="num">0.825</td></tr>
+          <tr><td>λ1.0 · 2,113문제 · 3ep</td><td class="num">2.9M</td><td class="num">3회</td><td class="num neg">−0.017</td><td class="num">1.203</td></tr>
+          <tr><td>λ1.0 · 375문제 · 3ep</td><td class="num">0.5M</td><td class="num">3회</td><td class="num neg">−0.011</td><td class="num">1.129</td></tr>
+        </tbody>
+      </table>
+      <caption>반복을 고정하면 토큰 양은 거의 무관합니다. 토큰을 5.4배 줄여도 암기 비중은 그대로이고, 비슷한 토큰을 쓴 λ=1.0과는 13배 차이입니다. 그러나 같은 데이터를 17번 반복하면 0.83까지 뜁니다.</caption>
+    </div>
+    <div class="prose">
+      <h3>반복은 어디까지 도움이 되는가</h3>
+      <p>같은 375문제로 epoch만 바꿔 두 끝점을 다시 학습했습니다. 밀도가 높은 데이터에는 <b>최적 지점이 있고</b>, 낮은 데이터에는 없습니다.</p>
+    </div>
+    <figure>
+      <svg viewBox="0 0 720 350" role="img" aria-label="epoch에 따른 held-out 이득과 암기 비중. 밀도가 높은 데이터는 6 epoch에서 이득이 정점을 찍고, 낮은 데이터는 1 epoch부터 이득이 0이며 계속 악화된다.">
+        <text x="70" y="24" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.65">처음 보는 문제 이득 (bits/token)</text>
+        <line x1="70" y1="145" x2="330" y2="145" stroke="currentColor" stroke-width="1.5" opacity="0.45"></line>
+        <text x="62" y="149" text-anchor="end" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.6">0</text>
+        <polyline points="70,84 135,58 200,46 265,56 330,107" fill="none" stroke="var(--accent)" stroke-width="2.5"></polyline>
+        <polyline points="70,145 135,148 200,183 265,236 330,244" fill="none" stroke="var(--alt)" stroke-width="2.5"></polyline>
+        <circle cx="70" cy="84" r="4.5" fill="var(--accent)"></circle><circle cx="135" cy="58" r="4.5" fill="var(--accent)"></circle><circle cx="200" cy="46" r="6" fill="var(--accent)"></circle><circle cx="265" cy="56" r="4.5" fill="var(--accent)"></circle><circle cx="330" cy="107" r="4.5" fill="var(--accent)"></circle>
+        <circle cx="70" cy="145" r="4.5" fill="var(--alt)"></circle><circle cx="135" cy="148" r="4.5" fill="var(--alt)"></circle><circle cx="200" cy="183" r="4.5" fill="var(--alt)"></circle><circle cx="265" cy="236" r="4.5" fill="var(--alt)"></circle><circle cx="330" cy="244" r="4.5" fill="var(--alt)"></circle>
+        <text x="200" y="36" text-anchor="middle" fill="var(--accent)" font-family="JetBrains Mono, monospace" font-size="11">정점 +0.329</text>
+        <text x="330" y="262" text-anchor="end" fill="var(--alt)" font-family="JetBrains Mono, monospace" font-size="11">−0.329</text>
+        <text x="410" y="24" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.65">암기 비중 ΔW / W</text>
+        <line x1="420" y1="175" x2="680" y2="175" stroke="var(--neg)" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.8"></line>
+        <text x="680" y="168" text-anchor="end" fill="var(--neg)" font-family="JetBrains Mono, monospace" font-size="10">1.0 · 전부 암기</text>
+        <line x1="420" y1="250" x2="680" y2="250" stroke="currentColor" stroke-width="1.5" opacity="0.45"></line>
+        <text x="412" y="254" text-anchor="end" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.6">0</text>
+        <polyline points="420,249 485,244 550,235 615,214 680,188" fill="none" stroke="var(--accent)" stroke-width="2.5"></polyline>
+        <polyline points="420,177 485,165 550,116 615,53 680,43" fill="none" stroke="var(--alt)" stroke-width="2.5"></polyline>
+        <circle cx="420" cy="249" r="4.5" fill="var(--accent)"></circle><circle cx="485" cy="244" r="4.5" fill="var(--accent)"></circle><circle cx="550" cy="235" r="4.5" fill="var(--accent)"></circle><circle cx="615" cy="214" r="4.5" fill="var(--accent)"></circle><circle cx="680" cy="188" r="4.5" fill="var(--accent)"></circle>
+        <circle cx="420" cy="177" r="4.5" fill="var(--alt)"></circle><circle cx="485" cy="165" r="4.5" fill="var(--alt)"></circle><circle cx="550" cy="116" r="4.5" fill="var(--alt)"></circle><circle cx="615" cy="53" r="4.5" fill="var(--alt)"></circle><circle cx="680" cy="43" r="4.5" fill="var(--alt)"></circle>
+        <text x="680" y="36" text-anchor="end" fill="var(--alt)" font-family="JetBrains Mono, monospace" font-size="11">2.76</text>
+        <text x="680" y="205" text-anchor="end" fill="var(--accent)" font-family="JetBrains Mono, monospace" font-size="11">0.83</text>
+        <text x="70" y="285" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.6">1</text>
+        <text x="135" y="285" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.6">3</text>
+        <text x="200" y="285" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.6">6</text>
+        <text x="265" y="285" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.6">12</text>
+        <text x="330" y="285" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.6">17</text>
+        <text x="420" y="285" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.6">1</text>
+        <text x="485" y="285" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.6">3</text>
+        <text x="550" y="285" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.6">6</text>
+        <text x="615" y="285" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.6">12</text>
+        <text x="680" y="285" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="10" opacity="0.6">17</text>
+        <text x="200" y="312" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.65">epoch</text>
+        <text x="550" y="312" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.65">epoch</text>
+      </svg>
+      <div class="legend"><span><i class="dot" style="background: var(--accent)"></i>λ=0.0 · 밀도 1.16</span><span><i class="dot" style="background: var(--alt)"></i>λ=1.0 · 밀도 0.19</span></div>
+      <figcaption>1 epoch 시점에서 두 조건 모두 데이터가 담은 정보의 약 17%를 흡수했지만(0.180 vs 0.164), 암기 비중은 0.016과 0.970으로 60배 차이입니다. 포화도가 아니라 밀도가 성격을 정합니다.</figcaption>
+    </figure>
+    <div class="prose">
+      <p>두 축은 하나로 묶입니다. <b>정보 밀도가 “무엇이 써질지”를 정하고, 반복이 “얼마나 멀리 갈지”를 정합니다.</b> 밀도가 높으면 거의 순수한 일반화로 시작해 반복할수록 암기가 섞이고, 밀도가 낮으면 1회 노출부터 이미 암기입니다. adapter 논문이 말한 “데이터 bit가 용량보다 작으면 기본적으로 전부 암기”와 같은 이야기이기도 합니다.</p>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="section-head">
+      <div class="eyebrow">4 · 두 번째 student</div>
+      <h2>λ는 경계가 아니었다</h2>
+    </div>
+    <div class="prose">
+      <p>첫 student만 보면 “λ≈0.5가 경계”라고 쓰고 싶어집니다. 그런데 짧은 CoT를 만든 teacher가 student와 같은 Qwen 집안이라, 집안 효과일 수 있습니다. 그래서 <b>Llama-3.2-1B</b>로 같은 실험을 반복했습니다. teacher CoT도 문제도 학습 설정도 같고, student만 바꿨습니다.</p>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 720 320" role="img" aria-label="λ에 따른 held-out 이득. Qwen은 λ 0.4와 0.6 사이에서 0을 지나 음수가 되고, Llama는 λ=1.0에서도 +0.166으로 양수를 유지한다.">
+        <text x="70" y="20" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.65">held-out 토큰당 이득 (bits)</text>
+        <line x1="70" y1="70" x2="690" y2="70" stroke="currentColor" stroke-width="1" opacity="0.12"></line>
+        <line x1="70" y1="150" x2="690" y2="150" stroke="currentColor" stroke-width="1" opacity="0.12"></line>
+        <text x="60" y="74" text-anchor="end" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.40</text>
+        <text x="60" y="154" text-anchor="end" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.20</text>
+        <text x="60" y="234" text-anchor="end" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0</text>
+        <line x1="70" y1="230" x2="690" y2="230" stroke="currentColor" stroke-width="1.5" opacity="0.45"></line>
+        <polyline points="70,47 194,90 318,168 442,166 566,164 690,164" fill="none" stroke="var(--alt)" stroke-width="2.5"></polyline>
+        <polyline points="70,72 194,122 318,223 442,233 566,236 690,237" fill="none" stroke="var(--accent)" stroke-width="2.5"></polyline>
+        <circle cx="70" cy="47" r="5" fill="var(--alt)"></circle><circle cx="194" cy="90" r="5" fill="var(--alt)"></circle><circle cx="318" cy="168" r="5" fill="var(--alt)"></circle><circle cx="442" cy="166" r="5" fill="var(--alt)"></circle><circle cx="566" cy="164" r="5" fill="var(--alt)"></circle><circle cx="690" cy="164" r="5" fill="var(--alt)"></circle>
+        <circle cx="70" cy="72" r="5" fill="var(--accent)"></circle><circle cx="194" cy="122" r="5" fill="var(--accent)"></circle><circle cx="318" cy="223" r="5" fill="var(--accent)"></circle><circle cx="442" cy="233" r="5" fill="var(--accent)"></circle><circle cx="566" cy="236" r="5" fill="var(--accent)"></circle><circle cx="690" cy="237" r="5" fill="var(--accent)"></circle>
+        <text x="682" y="152" text-anchor="end" fill="var(--alt)" font-family="JetBrains Mono, monospace" font-size="12">Llama +0.166</text>
+        <text x="682" y="255" text-anchor="end" fill="var(--accent)" font-family="JetBrains Mono, monospace" font-size="12">Qwen −0.017</text>
+        <text x="70" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.0</text>
+        <text x="194" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.2</text>
+        <text x="318" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.4</text>
+        <text x="442" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.6</text>
+        <text x="566" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.8</text>
+        <text x="690" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">1.0</text>
+        <text x="380" y="308" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.65">λ · instruct teacher 쪽 가중치</text>
+      </svg>
+      <div class="legend"><span><i class="dot" style="background: var(--accent)"></i>Qwen2.5-0.5B</span><span><i class="dot" style="background: var(--alt)"></i>Llama-3.2-1B</span></div>
+      <figcaption>λ축에서는 두 계열이 어긋납니다. Qwen은 λ 0.4와 0.6 사이에서 부호가 뒤집히지만, Llama는 가장 짧은 풀이에서도 여전히 배웁니다.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>Llama에서는 <b>부호가 끝까지 뒤집히지 않습니다.</b> 가장 짧은 풀이에서도 여전히 배웁니다. 이유는 학습 전 정보량에 있습니다. 같은 λ=1.0 풀이가 Qwen에게는 토큰당 0.185 bits인 “거의 아는 글”인데, Llama에게는 0.455 bits로 <b>2.5배 낯선 글</b>입니다. 배울 것이 남아 있으니 암기로 넘어가지 않습니다.</p>
+      <p>두 계열을 λ가 아니라 정보량 순으로 세우면, 12개 조건이 하나의 곡선 위에 놓입니다.</p>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 720 320" role="img" aria-label="학습 전 토큰당 정보량에 대한 암기 비중. 두 student의 12개 조건이 하나의 감소 곡선 위에 놓인다.">
+        <text x="70" y="20" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.65">암기 비중 ΔW / W</text>
+        <line x1="70" y1="81" x2="690" y2="81" stroke="var(--neg)" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.8"></line>
+        <text x="682" y="74" text-anchor="end" fill="var(--neg)" font-family="JetBrains Mono, monospace" font-size="11">1.0 · 전부 암기</text>
+        <line x1="70" y1="165" x2="690" y2="165" stroke="currentColor" stroke-width="1" opacity="0.12"></line>
+        <line x1="70" y1="250" x2="690" y2="250" stroke="currentColor" stroke-width="1.5" opacity="0.45"></line>
+        <text x="60" y="85" text-anchor="end" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">1.0</text>
+        <text x="60" y="169" text-anchor="end" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.5</text>
+        <text x="60" y="254" text-anchor="end" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0</text>
+        <polyline points="158,47 161,50 175,69 212,106 292,181 306,182 423,218 619,235" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.25"></polyline>
+        <circle cx="619" cy="235" r="5.5" fill="var(--accent)"></circle><circle cx="423" cy="218" r="5.5" fill="var(--accent)"></circle><circle cx="212" cy="106" r="5.5" fill="var(--accent)"></circle><circle cx="175" cy="69" r="5.5" fill="var(--accent)"></circle><circle cx="161" cy="50" r="5.5" fill="var(--accent)"></circle><circle cx="158" cy="47" r="5.5" fill="var(--accent)"></circle>
+        <circle cx="649" cy="235" r="5.5" fill="var(--alt)"></circle><circle cx="466" cy="225" r="5.5" fill="var(--alt)"></circle><circle cx="307" cy="182" r="5.5" fill="var(--alt)"></circle><circle cx="292" cy="181" r="5.5" fill="var(--alt)"></circle><circle cx="286" cy="182" r="5.5" fill="var(--alt)"></circle><circle cx="287" cy="182" r="5.5" fill="var(--alt)"></circle>
+        <text x="640" y="256" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.65">긴 추론 CoT</text>
+        <text x="175" y="262" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.65">짧은 풀이 · Qwen</text>
+        <text x="165" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.2</text>
+        <text x="261" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.4</text>
+        <text x="356" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.6</text>
+        <text x="452" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">0.8</text>
+        <text x="547" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">1.0</text>
+        <text x="642" y="284" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.6">1.2</text>
+        <text x="380" y="308" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" opacity="0.65">학습 전 토큰당 정보량 H (bits)</text>
+      </svg>
+      <div class="legend"><span><i class="dot" style="background: var(--accent)"></i>Qwen2.5-0.5B</span><span><i class="dot" style="background: var(--alt)"></i>Llama-3.2-1B</span></div>
+      <figcaption>같은 12개 조건을 정보량 축에 놓으면 계열 구분 없이 한 곡선 위에 모입니다. Llama의 λ=0.4~1.0이 한 덩어리로 뭉치는 이유는 그 구간의 정보량이 0.45~0.50으로 거의 같기 때문입니다.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h3>그러나 성능은 별개입니다</h3>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>λ</th><th class="num">Qwen 정답률<span class="sub">기본 0.531</span></th><th class="num">Llama 정답률<span class="sub">기본 0.453</span></th><th class="num">Llama held 이득</th><th class="num">Llama 암기 비중</th></tr></thead>
+        <tbody>
+          <tr><td class="num">0.0</td><td class="num">0.196</td><td class="num">0.191 <span class="sub">답변 81% 잘림</span></td><td class="num pos">+0.457</td><td class="num">0.09</td></tr>
+          <tr><td class="num">0.4</td><td class="num">0.503</td><td class="num">0.528</td><td class="num pos">+0.155</td><td class="num">0.40</td></tr>
+          <tr><td class="num">0.6</td><td class="num">0.536</td><td class="num">0.514</td><td class="num pos">+0.160</td><td class="num">0.41</td></tr>
+          <tr><td class="num">0.8</td><td class="num">0.557</td><td class="num">0.524</td><td class="num pos">+0.164</td><td class="num">0.40</td></tr>
+          <tr><td class="num">1.0</td><td class="num">0.534</td><td class="num">0.555</td><td class="num pos">+0.166</td><td class="num">0.40</td></tr>
+        </tbody>
+      </table>
+      <caption>Llama의 λ=0.4~1.0은 bits로는 거의 같은데 정답률은 0.514~0.555로 흩어집니다. bits는 무엇이 써졌는지를 말하지, 그것이 문제 풀이로 이어지는지까지 말하지 않습니다.</caption>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div class="eyebrow">5 · 주장</div>
+      <h2>무엇을 말하고, 무엇을 말하지 않는가</h2>
+    </div>
+    <div class="cols">
+      <div class="claim yes">
+        <h3>주장합니다</h3>
+        <ul>
+          <li><b>정보 밀도가 “무엇이 써질지”를 정하고, 반복이 “얼마나 멀리 갈지”를 정한다.</b> 같은 소진 정도(17%)에서도 밀도에 따라 암기 비중이 0.016 대 0.970으로 갈린다. teacher 스타일과 student 계열은 밀도를 통해서만 작용한다.</li>
+          <li>이 값은 <b>학습 전에 계산할 수 있다.</b> teacher 풀이를 student로 한 번 읽히면 나온다.</li>
+          <li>bits로 잰 암기량이 <b>실제 행동과 순서가 일치한다.</b> 학습셋 과적합과 원문 재현이 같은 순서를 가리킨다.</li>
+          <li>가중치 부호 길이는 이 차이에 <b>반응하지 않는다.</b></li>
+        </ul>
+      </div>
+      <div class="claim no">
+        <h3>주장하지 않습니다</h3>
+        <ul>
+          <li>“λ에 경계가 있다”는 <b>틀린 서술입니다.</b> Qwen에서만 성립했고 Llama에서는 성립하지 않았습니다.</li>
+          <li><b>bits는 성능을 예측하지 않습니다.</b> 무엇이 써졌는지와 그것이 정답률로 이어지는지는 다른 문제입니다.</li>
+          <li>“CoT 증류로 얻는 게 없다”는 Capacity Gap 논문이 먼저 보고했습니다. 우리 몫은 <b>원인 규명</b>뿐입니다.</li>
+          <li>“많이 흡수한다고 잘하는 게 아니다”는 <b>rank 축에서 이미 확립</b>되었습니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div class="eyebrow">6 · 한계와 다음</div>
+      <h2>아직 못 막은 반론</h2>
+    </div>
+    <ol class="steps">
+      <li><span class="n">01</span><span><b>점 12개, 대부분 seed 1개.</b> 곡선이라 부르려면 전환 구간(정보량 0.2~0.5)에 점과 반복이 더 필요합니다.</span></li>
+      <li><span class="n">02</span><span><b>student 둘.</b> “계열 무관”은 아직 강한 표현입니다. 세 번째가 필요합니다.</span></li>
+      <li><span class="n">03</span><span><b>epoch 곡선은 두 끝점에서만 그렸습니다.</b> 중간 밀도에서도 정점이 같은 자리(6 epoch)에 오는지는 미확인입니다.</span></li>
+      <li><span class="n">04</span><span><b>수학 한 도메인, 그것도 증류가 손해인 영역.</b> 증류가 이득인 영역에서도 같은 관계가 성립하는지 확인해야 합니다.</span></li>
+      <li><span class="n">05</span><span><b>프라이버시 축.</b> canary를 심고 정보량별 유출을 비교하면, LoRA 프라이버시 연구가 남긴 열린 질문에 정면으로 답할 수 있습니다.</span></li>
+    </ol>
+  </section>
+
+  <footer>
+    <p>재현 정보 · RTX 5070 Ti 16GB 한 장, Docker 컨테이너(PyTorch 2.13.0+cu130, vLLM 0.29, PEFT 0.20). teacher 보간은 텐서 단위 스트리밍으로 처리해 RAM 15GB에서 1.5B 모델 두 개를 섞습니다. teacher CoT 3.2만 건 생성, LoRA 14개 학습, bits 측정 14건, 평가 19건에 약 11시간이 걸렸습니다.</p>
+    <p>측정 정의는 <i>How Many Bits Can an Adapter Write?</i>(arXiv 2607.21351)의 압축 기반 방식을, teacher 스펙트럼 구성은 <i>MI-Distillation</i>(arXiv 2608.29623)의 모델 보간을 따랐습니다.</p>
+  </footer>
+</div>

@@ -1,0 +1,5 @@
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 17392.06it/s]
+trainable params: 8,798,208 || all params: 502,830,976 || trainable%: 1.7497
+{"step": 10, "epoch": 0, "loss": 0.6318488234130637, "grad_norm": 0.18945269286632538, "lr": 1.587464671688189e-05, "tokens": 781954, "elapsed_min": 2.075541059176127}
+{"step": 12, "epoch": 0, "loss": 0.6574514798256432, "grad_norm": 0.19430118799209595, "lr": 0.0, "tokens": 932485, "elapsed_min": 2.4879839340845744}
+{"steps": 12, "train_samples": 375, "train_label_tokens_per_epoch": 932485, "trainable_params": 8798208, "minutes": 2.4887810230255125, "peak_mem_gb": 5.909660816192627}

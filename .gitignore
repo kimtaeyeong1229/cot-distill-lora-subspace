@@ -1,0 +1,37 @@
+# --- secrets ---
+hf.key
+*.key
+.env
+*.token
+
+# --- model weights and checkpoints (tens of GB, re-downloadable) ---
+models/
+*.safetensors
+*.bin
+*.pth
+*.gguf
+**/teachers/
+**/teachers_r1tok/
+
+# --- LoRA adapters (each >100MB for larger students) ---
+**/runs/
+
+# --- raw teacher generations and training splits (regenerable, ~220MB) ---
+**/cot/
+**/splits/lambda*/
+**/pilot/*.jsonl
+
+# --- caches and scratch ---
+**/cache/
+**/smoke/
+__pycache__/
+*.pyc
+.venv/
+
+# --- runs excluded from the study ---
+experiments/lambda_lora_bits/sweep_smollm2/
+experiments/logs/sweep_smollm2.log
+experiments/logs/smollm2_download.log
+
+# --- paper PDFs (see papers/*.md for arXiv links) ---
+materials/*.pdf
