@@ -1,0 +1,16 @@
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 9705.94it/s]
+[W916 00:56:13.953134307 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 526385152 bytes (free: 262733824, total: 25274613760).
+train {"n": 1015, "tokens": 1733490, "H_base_bits": 1810969.7559201426, "H_tuned_bits": 1142102.638830928, "W_bits": 668867.1170892146, "W_clipped_bits": 668867.1170892146, "H_base_bits_per_token": 1.0446958193702547, "W_bits_per_token": 0.3858500003399008, "W_bits_per_sample": 658.9823813686844, "W_over_H": 0.36934195886080234}
+held {"n": 300, "tokens": 516309, "H_base_bits": 541010.1887535489, "H_tuned_bits": 368000.4436804502, "W_bits": 173009.74507309872, "W_clipped_bits": 173009.74507309872, "H_base_bits_per_token": 1.0478418713474855, "W_bits_per_token": 0.33508953954530857, "W_bits_per_sample": 576.6991502436624, "W_over_H": 0.3197901789459854}
+c=0.25: CL=35575587 bits (4.044/param), zeros=0.093, retained W=0.9997
+c=0.5: CL=26885280 bits (3.056/param), zeros=0.185, retained W=0.9997
+c=0.75: CL=21905098 bits (2.490/param), zeros=0.275, retained W=0.9990
+c=1: CL=18483199 bits (2.101/param), zeros=0.362, retained W=0.9994
+c=1.25: CL=15923743 bits (1.810/param), zeros=0.446, retained W=0.9975
+c=1.5: CL=13946981 bits (1.585/param), zeros=0.525, retained W=0.9974
+c=2: CL=11116279 bits (1.263/param), zeros=0.665, retained W=0.9923
+c=2.5: CL=8663014 bits (0.985/param), zeros=0.779, retained W=0.9414
+c=3: CL=6248565 bits (0.710/param), zeros=0.864, retained W=0.7936
+c=4: CL=2467535 bits (0.280/param), zeros=0.960, retained W=0.3268
+{"delta_W_bits": 83517.47959189734, "delta_W_token_scaled_bits": 87992.75118281774, "trainable_params": 8798208}
+{"c_star": 2.0, "fidelity_met": true, "CL_update_bits": 11116279.405374954, "CL_update_bits_per_param": 1.2634708574035705}

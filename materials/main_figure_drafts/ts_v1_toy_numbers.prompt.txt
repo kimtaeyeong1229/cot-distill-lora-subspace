@@ -1,0 +1,13 @@
+Create a clean overview figure for an NLP paper on chain-of-thought distillation (full page width, very wide landscape, white background, flat vector, sans-serif).
+Style: copy the look of input image 1 exactly (three rounded light panels with thin grey borders, numbered blue circles, sky blue #5B9BD5 and coral #F28C6B palette, black arrows between panels, bold panel titles). Input image 2 is only a reference for how distillation papers draw a teacher model and a student model; do not copy its text, llamas or layout. Use simple friendly model icons: a LARGE rounded robot-head or brain-chip icon for teachers and a SMALL version of the same icon for the student, so the size difference says teacher vs student. No animals, no logos, no title above the figure, no caption below. Spell every text exactly as given; keep text short and large.
+
+Panel 1 title: "Teachers". Two large teacher icons, left one light blue labeled "Reasoning teacher", right one coral labeled "Instruct teacher", joined by a horizontal gradient slider (blue to coral) with ticks labeled "λ = 0", "0.2", "0.4", "0.6", "0.8", "1". Under the left end a blue speech bubble "Okay, let me think... wait, let me re-check..." labeled "long CoT"; under the right end a coral speech bubble "36 × 10 = 360, so 3000 / 360 ..." labeled "short solution".
+
+Panel 2 title: "Distill into a student". The teacher's rationales (a small stack of text cards) flow by an arrow into a SMALL student icon. The student has a small snowflake badge (frozen base) and a blue plug-in block labeled "LoRA". Below, two stacks of problem cards: "train problems" (arrow into the student) and "unseen problems" (with a small lock, kept aside, no arrow).
+
+Panel 3 title: "Memorized or learned?". Top small grey line: "How many bits easier does the student find the rationale?"
+Two rows, each row a problem card icon on the left and a horizontal arrow bar on the right:
+Row 1: card "train problem" and a bar labeled "+120 bits".
+Row 2: card "unseen problem" and a shorter bar labeled "+80 bits".
+The first 80 bits of both bars are sky blue; the extra 40 bits at the end of the train bar is coral with diagonal hatching. A dashed vertical line aligns the end of the unseen bar with the blue/coral boundary.
+Bottom: two big labeled chips side by side: a blue chip "80 bits learned (transfers)" and a coral chip "40 bits memorized".

@@ -1,0 +1,7 @@
+[2026-09-17 16:28:44] train pairB/qwen0.5b lambda0.0_halfB
+[2026-09-17 16:52:16] train pairB/qwen0.5b lambda0.2_halfB
+[2026-09-17 17:11:56] train pairB/qwen0.5b lambda0.4_halfB
+[2026-09-17 17:28:41] train pairB/qwen0.5b lambda0.6_halfB
+[2026-09-17 17:37:34] train pairB/qwen0.5b lambda0.8_halfB
+[2026-09-17 17:43:04] train pairB/qwen0.5b lambda1.0_halfB
+[2026-09-17 17:48:30] done pairB/qwen0.5b

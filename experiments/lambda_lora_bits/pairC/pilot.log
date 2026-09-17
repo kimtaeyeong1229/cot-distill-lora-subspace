@@ -1,0 +1,41 @@
+[2026-09-13 15:47:39] download deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files:  14%|█▍        | 1/7 [00:00<00:03,  1.62it/s]Fetching 7 files:  71%|███████▏  | 5/7 [00:01<00:00,  5.09it/s]Fetching 7 files:  86%|████████▌ | 6/7 [19:37<04:34, 274.26s/it]Fetching 7 files: 100%|██████████| 7/7 [20:25<00:00, 217.89s/it]Fetching 7 files: 100%|██████████| 7/7 [20:25<00:00, 175.09s/it]
+[2026-09-13 16:08:06] download Qwen/Qwen2.5-Math-7B-Instruct
+Fetching 11 files:   0%|          | 0/11 [00:00<?, ?it/s]Fetching 11 files:   9%|▉         | 1/11 [00:00<00:06,  1.48it/s]Fetching 11 files:  36%|███▋      | 4/11 [00:00<00:01,  4.96it/s]Fetching 11 files:  45%|████▌     | 5/11 [00:01<00:01,  3.86it/s]Fetching 11 files:  55%|█████▍    | 6/11 [00:01<00:01,  3.52it/s]Fetching 11 files:  73%|███████▎  | 8/11 [11:42<07:52, 157.34s/it]Fetching 11 files:  82%|████████▏ | 9/11 [16:50<06:27, 193.75s/it]Fetching 11 files:  91%|█████████ | 10/11 [16:52<02:24, 144.45s/it]Fetching 11 files: 100%|██████████| 11/11 [20:24<00:00, 162.58s/it]Fetching 11 files: 100%|██████████| 11/11 [20:24<00:00, 111.28s/it]
+[2026-09-13 16:28:31] download Qwen/Qwen2.5-0.5B-Instruct
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files:  14%|█▍        | 1/7 [00:00<00:01,  3.64it/s]Fetching 7 files:  43%|████▎     | 3/7 [00:00<00:00,  6.71it/s]Fetching 7 files:  86%|████████▌ | 6/7 [00:00<00:00, 12.65it/s]Fetching 7 files:  86%|████████▌ | 6/7 [00:20<00:00, 12.65it/s]Fetching 7 files: 100%|██████████| 7/7 [01:19<00:00, 17.83s/it]Fetching 7 files: 100%|██████████| 7/7 [01:19<00:00, 11.31s/it]
+[2026-09-13 16:29:51] interpolate lambda=0.0 (instruct template)
+lambda=0.0: 339 tensors in 4 file(s) -> experiments/lambda_lora_bits/pairC/teachers/lambda0.0 (tokenizer from instruct, tied=False, eos=[151643, 151645])
+[2026-09-13 16:31:08] pilot generate lambda=0.0 template=reasoning
+stop_token_ids=[151643, 151645]
+[200/200] 2151 tok/sample, 1286 tok/s, 5.6 min
+[2026-09-13 16:38:48] pilot generate lambda=0.0 template=instruct
+stop_token_ids=[151643, 151645]
+[200/200] 1783 tok/sample, 1271 tok/s, 4.7 min
+[2026-09-13 16:44:28] interpolate lambda=0.4 (instruct template)
+lambda=0.4: 339 tensors in 4 file(s) -> experiments/lambda_lora_bits/pairC/teachers/lambda0.4 (tokenizer from instruct, tied=False, eos=[151643, 151645])
+[2026-09-13 16:46:01] pilot generate lambda=0.4 template=reasoning
+stop_token_ids=[151643, 151645]
+[200/200] 623 tok/sample, 652 tok/s, 3.2 min
+[2026-09-13 16:50:24] pilot generate lambda=0.4 template=instruct
+stop_token_ids=[151643, 151645]
+[200/200] 734 tok/sample, 719 tok/s, 3.4 min
+[2026-09-13 16:54:49] interpolate lambda=1.0 (instruct template)
+lambda=1.0: 339 tensors in 4 file(s) -> experiments/lambda_lora_bits/pairC/teachers/lambda1.0 (tokenizer from instruct, tied=False, eos=[151643, 151645])
+[2026-09-13 16:56:28] pilot generate lambda=1.0 template=reasoning
+stop_token_ids=[151643, 151645]
+[200/200] 797 tok/sample, 751 tok/s, 3.5 min
+[2026-09-13 17:01:12] pilot generate lambda=1.0 template=instruct
+stop_token_ids=[151643, 151645]
+[200/200] 536 tok/sample, 568 tok/s, 3.1 min
+[2026-09-13 17:05:32] pilot report: reasoning template
+{"0.0": {"generated": 200, "teacher_accuracy": 0.975, "truncated_rate": 0.015, "too_long_for_student": 0, "kept": 195, "avg_teacher_tokens_all": 2150.655, "avg_student_tokens_kept": 2030.6615384615384}}
+{"0.4": {"generated": 200, "teacher_accuracy": 0.96, "truncated_rate": 0.01, "too_long_for_student": 0, "kept": 192, "avg_teacher_tokens_all": 623.05, "avg_student_tokens_kept": 525.4479166666666}}
+{"1.0": {"generated": 200, "teacher_accuracy": 0.9, "truncated_rate": 0.045, "too_long_for_student": 0, "kept": 180, "avg_teacher_tokens_all": 797.24, "avg_student_tokens_kept": 441.45}}
+Shared problems across 3 lambdas: 175
+[2026-09-13 17:05:38] pilot report: instruct template
+{"0.0": {"generated": 200, "teacher_accuracy": 0.975, "truncated_rate": 0.01, "too_long_for_student": 0, "kept": 195, "avg_teacher_tokens_all": 1782.625, "avg_student_tokens_kept": 1695.1384615384616}}
+{"0.4": {"generated": 200, "teacher_accuracy": 0.945, "truncated_rate": 0.025, "too_long_for_student": 0, "kept": 189, "avg_teacher_tokens_all": 733.58, "avg_student_tokens_kept": 527.9047619047619}}
+{"1.0": {"generated": 200, "teacher_accuracy": 0.95, "truncated_rate": 0.01, "too_long_for_student": 0, "kept": 190, "avg_teacher_tokens_all": 536.055, "avg_student_tokens_kept": 436.08947368421053}}
+Shared problems across 3 lambdas: 183
+[2026-09-13 17:05:43] pilot done

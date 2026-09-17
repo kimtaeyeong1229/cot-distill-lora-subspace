@@ -1,0 +1,150 @@
+[2026-09-13 10:55:04] generate sweep (models/Qwen2.5-0.5B-Instruct, max_model_len=16384)
+[gen] math500        base             items=  500 x4  avg_tokens=   898  13635 tok/s   2.2 min
+[gen] math500        lambda0.0_seed0  items=  500 x4  avg_tokens=  6281   9859 tok/s  21.2 min
+[gen] math500        lambda0.2_seed0  items=  500 x4  avg_tokens=  3077  10745 tok/s   9.5 min
+[gen] math500        lambda0.4_seed0  items=  500 x4  avg_tokens=  1359  11158 tok/s   4.1 min
+[gen] math500        lambda0.6_seed0  items=  500 x4  avg_tokens=  1018  12401 tok/s   2.7 min
+[gen] math500        lambda0.8_seed0  items=  500 x4  avg_tokens=   847  12941 tok/s   2.2 min
+[gen] math500        lambda1.0_seed0  items=  500 x4  avg_tokens=   828  12668 tok/s   2.2 min
+[gen] gsm8k          base             items= 1319 x4  avg_tokens=   371  15379 tok/s   2.1 min
+[gen] gsm8k          lambda0.0_seed0  items= 1319 x4  avg_tokens=  5279   9877 tok/s  47.0 min
+[gen] gsm8k          lambda0.2_seed0  items= 1319 x4  avg_tokens=  1389  10453 tok/s  11.7 min
+[gen] gsm8k          lambda0.4_seed0  items= 1319 x4  avg_tokens=   443  12035 tok/s   3.2 min
+[gen] gsm8k          lambda0.6_seed0  items= 1319 x4  avg_tokens=   387  13450 tok/s   2.5 min
+[gen] gsm8k          lambda0.8_seed0  items= 1319 x4  avg_tokens=   355  14329 tok/s   2.2 min
+[gen] gsm8k          lambda1.0_seed0  items= 1319 x4  avg_tokens=   338  14502 tok/s   2.0 min
+[gen] amc23          base             items=   40 x16 avg_tokens=  1251  13003 tok/s   1.0 min
+[gen] amc23          lambda0.0_seed0  items=   40 x16 avg_tokens=  7229   9976 tok/s   7.7 min
+[gen] amc23          lambda0.2_seed0  items=   40 x16 avg_tokens=  4115  10854 tok/s   4.0 min
+[gen] amc23          lambda0.4_seed0  items=   40 x16 avg_tokens=  1902  11302 tok/s   1.8 min
+[gen] amc23          lambda0.6_seed0  items=   40 x16 avg_tokens=  1356  11689 tok/s   1.2 min
+[gen] amc23          lambda0.8_seed0  items=   40 x16 avg_tokens=  1256  11631 tok/s   1.2 min
+[gen] amc23          lambda1.0_seed0  items=   40 x16 avg_tokens=  1181  11315 tok/s   1.1 min
+[gen] aime24         base             items=   30 x16 avg_tokens=  2010  11124 tok/s   1.4 min
+[gen] aime24         lambda0.0_seed0  items=   30 x16 avg_tokens=  7632   9719 tok/s   6.3 min
+[gen] aime24         lambda0.2_seed0  items=   30 x16 avg_tokens=  5151  10358 tok/s   4.0 min
+[gen] aime24         lambda0.4_seed0  items=   30 x16 avg_tokens=  2904  11590 tok/s   2.0 min
+[gen] aime24         lambda0.6_seed0  items=   30 x16 avg_tokens=  2254  10732 tok/s   1.7 min
+[gen] aime24         lambda0.8_seed0  items=   30 x16 avg_tokens=  1761  11303 tok/s   1.2 min
+[gen] aime24         lambda1.0_seed0  items=   30 x16 avg_tokens=  1944  10219 tok/s   1.5 min
+[gen] minervamath    base             items=  272 x4  avg_tokens=  1031  13372 tok/s   1.4 min
+[gen] minervamath    lambda0.0_seed0  items=  272 x4  avg_tokens=  6341   9796 tok/s  11.7 min
+[gen] minervamath    lambda0.2_seed0  items=  272 x4  avg_tokens=  2811  10947 tok/s   4.7 min
+[gen] minervamath    lambda0.4_seed0  items=  272 x4  avg_tokens=  1282  12127 tok/s   1.9 min
+[gen] minervamath    lambda0.6_seed0  items=  272 x4  avg_tokens=  1065  12530 tok/s   1.5 min
+[gen] minervamath    lambda0.8_seed0  items=  272 x4  avg_tokens=   886  12481 tok/s   1.3 min
+[gen] minervamath    lambda1.0_seed0  items=  272 x4  avg_tokens=   862  11979 tok/s   1.3 min
+[gen] olympiadbench  base             items=  674 x4  avg_tokens=  1425  11294 tok/s   5.7 min
+[gen] olympiadbench  lambda0.0_seed0  items=  674 x4  avg_tokens=  7226   9773 tok/s  33.2 min
+[gen] olympiadbench  lambda0.2_seed0  items=  674 x4  avg_tokens=  4230  10506 tok/s  18.1 min
+[gen] olympiadbench  lambda0.4_seed0  items=  674 x4  avg_tokens=  2287  10377 tok/s   9.9 min
+[gen] olympiadbench  lambda0.6_seed0  items=  674 x4  avg_tokens=  1666  10850 tok/s   6.9 min
+[gen] olympiadbench  lambda0.8_seed0  items=  674 x4  avg_tokens=  1440  10948 tok/s   5.9 min
+[gen] olympiadbench  lambda1.0_seed0  items=  674 x4  avg_tokens=  1410  10735 tok/s   5.9 min
+[gen] gpqa_diamond   base             items=  198 x4  avg_tokens=   772  12360 tok/s   0.8 min
+[gen] gpqa_diamond   lambda0.0_seed0  items=  198 x4  avg_tokens=  6159   9902 tok/s   8.2 min
+[gen] gpqa_diamond   lambda0.2_seed0  items=  198 x4  avg_tokens=  2672  10984 tok/s   3.2 min
+[gen] gpqa_diamond   lambda0.4_seed0  items=  198 x4  avg_tokens=  1727  11058 tok/s   2.1 min
+[gen] gpqa_diamond   lambda0.6_seed0  items=  198 x4  avg_tokens=  1258  11367 tok/s   1.5 min
+[gen] gpqa_diamond   lambda0.8_seed0  items=  198 x4  avg_tokens=  1002  10946 tok/s   1.2 min
+[gen] gpqa_diamond   lambda1.0_seed0  items=  198 x4  avg_tokens=  1045  10738 tok/s   1.3 min
+[2026-09-13 15:34:36] score sweep
+[score] aime24         base             acc=0.0000±0.0000 tokens=2010 trunc=16.5% timeouts=0
+[score] aime24         lambda0.0_seed0  acc=0.0000±0.0000 tokens=7632 trunc=90.8% timeouts=0
+[score] aime24         lambda0.2_seed0  acc=0.0042±0.0167 tokens=5151 trunc=52.1% timeouts=0
+[score] aime24         lambda0.4_seed0  acc=0.0042±0.0114 tokens=2904 trunc=25.4% timeouts=0
+[score] aime24         lambda0.6_seed0  acc=0.0083±0.0149 tokens=2254 trunc=17.5% timeouts=0
+[score] aime24         lambda0.8_seed0  acc=0.0021±0.0083 tokens=1761 trunc=12.1% timeouts=0
+[score] aime24         lambda1.0_seed0  acc=0.0021±0.0083 tokens=1944 trunc=15.0% timeouts=1
+[score] amc23          base             acc=0.1094±0.0455 tokens=1251 trunc=6.7% timeouts=1
+[score] amc23          lambda0.0_seed0  acc=0.0328±0.0198 tokens=7229 trunc=83.8% timeouts=0
+[score] amc23          lambda0.2_seed0  acc=0.0766±0.0347 tokens=4115 trunc=38.0% timeouts=0
+[score] amc23          lambda0.4_seed0  acc=0.1234±0.0487 tokens=1902 trunc=13.6% timeouts=0
+[score] amc23          lambda0.6_seed0  acc=0.1250±0.0524 tokens=1356 trunc=7.3% timeouts=0
+[score] amc23          lambda0.8_seed0  acc=0.1250±0.0577 tokens=1256 trunc=6.6% timeouts=0
+[score] amc23          lambda1.0_seed0  acc=0.1453±0.0440 tokens=1181 trunc=6.1% timeouts=0
+[score] gpqa_diamond   base             acc=0.1894±0.0315 tokens=772 trunc=2.5% timeouts=0
+[score] gpqa_diamond   lambda0.0_seed0  acc=0.1553±0.0252 tokens=6159 trunc=69.3% timeouts=0
+[score] gpqa_diamond   lambda0.2_seed0  acc=0.2348±0.0208 tokens=2672 trunc=20.2% timeouts=0
+[score] gpqa_diamond   lambda0.4_seed0  acc=0.2045±0.0029 tokens=1727 trunc=12.8% timeouts=0
+[score] gpqa_diamond   lambda0.6_seed0  acc=0.2487±0.0492 tokens=1258 trunc=6.7% timeouts=0
+[score] gpqa_diamond   lambda0.8_seed0  acc=0.2298±0.0346 tokens=1002 trunc=4.3% timeouts=0
+[score] gpqa_diamond   lambda1.0_seed0  acc=0.2487±0.0331 tokens=1045 trunc=5.3% timeouts=0
+[score] gsm8k          base             acc=0.4611±0.0074 tokens=371 trunc=0.7% timeouts=0
+[score] gsm8k          lambda0.0_seed0  acc=0.2470±0.0164 tokens=5279 trunc=58.5% timeouts=0
+[score] gsm8k          lambda0.2_seed0  acc=0.4077±0.0135 tokens=1389 trunc=8.9% timeouts=0
+[score] gsm8k          lambda0.4_seed0  acc=0.4805±0.0078 tokens=443 trunc=1.5% timeouts=0
+[score] gsm8k          lambda0.6_seed0  acc=0.4810±0.0105 tokens=387 trunc=0.9% timeouts=0
+[score] gsm8k          lambda0.8_seed0  acc=0.4691±0.0068 tokens=355 trunc=0.5% timeouts=0
+[score] gsm8k          lambda1.0_seed0  acc=0.4721±0.0040 tokens=338 trunc=0.4% timeouts=0
+[score] math500        base             acc=0.3225±0.0178 tokens=898 trunc=4.0% timeouts=0
+[score] math500        lambda0.0_seed0  acc=0.1195±0.0025 tokens=6281 trunc=70.2% timeouts=0
+[score] math500        lambda0.2_seed0  acc=0.2315±0.0186 tokens=3077 trunc=25.4% timeouts=2
+[score] math500        lambda0.4_seed0  acc=0.2925±0.0246 tokens=1359 trunc=8.6% timeouts=1
+[score] math500        lambda0.6_seed0  acc=0.3105±0.0060 tokens=1018 trunc=4.7% timeouts=1
+[score] math500        lambda0.8_seed0  acc=0.3180±0.0170 tokens=847 trunc=3.0% timeouts=0
+[score] math500        lambda1.0_seed0  acc=0.3215±0.0115 tokens=828 trunc=3.4% timeouts=0
+[score] minervamath    base             acc=0.0662±0.0052 tokens=1031 trunc=4.8% timeouts=0
+[score] minervamath    lambda0.0_seed0  acc=0.0561±0.0055 tokens=6341 trunc=70.3% timeouts=0
+[score] minervamath    lambda0.2_seed0  acc=0.0450±0.0157 tokens=2811 trunc=21.0% timeouts=0
+[score] minervamath    lambda0.4_seed0  acc=0.0570±0.0237 tokens=1282 trunc=6.7% timeouts=0
+[score] minervamath    lambda0.6_seed0  acc=0.0625±0.0108 tokens=1065 trunc=4.0% timeouts=0
+[score] minervamath    lambda0.8_seed0  acc=0.0625±0.0127 tokens=886 trunc=2.7% timeouts=0
+[score] minervamath    lambda1.0_seed0  acc=0.0726±0.0148 tokens=862 trunc=3.1% timeouts=0
+[score] olympiadbench  base             acc=0.0716±0.0079 tokens=1425 trunc=9.2% timeouts=1
+[score] olympiadbench  lambda0.0_seed0  acc=0.0297±0.0040 tokens=7226 trunc=83.7% timeouts=8
+[score] olympiadbench  lambda0.2_seed0  acc=0.0553±0.0050 tokens=4230 trunc=38.8% timeouts=2
+[score] olympiadbench  lambda0.4_seed0  acc=0.0827±0.0124 tokens=2287 trunc=18.1% timeouts=4
+[score] olympiadbench  lambda0.6_seed0  acc=0.0864±0.0074 tokens=1666 trunc=10.7% timeouts=2
+[score] olympiadbench  lambda0.8_seed0  acc=0.0753±0.0078 tokens=1440 trunc=8.6% timeouts=3
+[score] olympiadbench  lambda1.0_seed0  acc=0.0838±0.0098 tokens=1410 trunc=8.7% timeouts=0
+[2026-09-13 15:47:38] generate sweep_llama (models/Llama-3.2-1B-Instruct, max_model_len=16384)
+[gen] math500        base             items=  500 x4  avg_tokens=  1009   5259 tok/s   6.4 min
+[gen] math500        lambda0.0_seed0  items=  500 x4  avg_tokens=  7531   3755 tok/s  66.9 min
+[gen] math500        lambda0.2_seed0  items=  500 x4  avg_tokens=  3520   4323 tok/s  27.1 min
+[gen] math500        lambda0.4_seed0  items=  500 x4  avg_tokens=  1105   6021 tok/s   6.1 min
+[gen] math500        lambda0.6_seed0  items=  500 x4  avg_tokens=   979   6136 tok/s   5.3 min
+[gen] math500        lambda0.8_seed0  items=  500 x4  avg_tokens=   829   6811 tok/s   4.1 min
+[gen] math500        lambda1.0_seed0  items=  500 x4  avg_tokens=   881   5993 tok/s   4.9 min
+[gen] gsm8k          base             items= 1319 x4  avg_tokens=   214   8317 tok/s   2.3 min
+[gen] gsm8k          lambda0.0_seed0  items= 1319 x4  avg_tokens=  7320   3742 tok/s 172.0 min
+[gen] gsm8k          lambda0.2_seed0  items= 1319 x4  avg_tokens=  2329   4291 tok/s  47.7 min
+[gen] gsm8k          lambda0.4_seed0  items= 1319 x4  avg_tokens=   455   6181 tok/s   6.5 min
+[gen] gsm8k          lambda0.6_seed0  items= 1319 x4  avg_tokens=   356   7893 tok/s   4.0 min
+[gen] gsm8k          lambda0.8_seed0  items= 1319 x4  avg_tokens=   350   8013 tok/s   3.8 min
+[gen] gsm8k          lambda1.0_seed0  items= 1319 x4  avg_tokens=   371   7689 tok/s   4.2 min
+[gen] amc23          base             items=   40 x16 avg_tokens=  1424   5456 tok/s   2.8 min
+[gen] amc23          lambda0.0_seed0  items=   40 x16 avg_tokens=  8043   3706 tok/s  23.2 min
+[gen] amc23          lambda0.2_seed0  items=   40 x16 avg_tokens=  4699   4170 tok/s  12.0 min
+[gen] amc23          lambda0.4_seed0  items=   40 x16 avg_tokens=  1545   5853 tok/s   2.8 min
+[gen] amc23          lambda0.6_seed0  items=   40 x16 avg_tokens=  1340   6267 tok/s   2.3 min
+[gen] amc23          lambda0.8_seed0  items=   40 x16 avg_tokens=  1160   6257 tok/s   2.0 min
+[gen] amc23          lambda1.0_seed0  items=   40 x16 avg_tokens=  1213   5955 tok/s   2.2 min
+[gen] aime24         base             items=   30 x16 avg_tokens=  2076   5074 tok/s   3.3 min
+[gen] aime24         lambda0.0_seed0  items=   30 x16 avg_tokens=  8178   3764 tok/s  17.4 min
+[gen] aime24         lambda0.2_seed0  items=   30 x16 avg_tokens=  5462   4116 tok/s  10.6 min
+[gen] aime24         lambda0.4_seed0  items=   30 x16 avg_tokens=  2330   5113 tok/s   3.6 min
+[gen] aime24         lambda0.6_seed0  items=   30 x16 avg_tokens=  1960   5289 tok/s   3.0 min
+[gen] aime24         lambda0.8_seed0  items=   30 x16 avg_tokens=  1567   5794 tok/s   2.2 min
+[gen] aime24         lambda1.0_seed0  items=   30 x16 avg_tokens=  1882   5016 tok/s   3.0 min
+[gen] minervamath    base             items=  272 x4  avg_tokens=   804   6698 tok/s   2.2 min
+[gen] minervamath    lambda0.0_seed0  items=  272 x4  avg_tokens=  7388   3785 tok/s  35.4 min
+[gen] minervamath    lambda0.2_seed0  items=  272 x4  avg_tokens=  2987   4693 tok/s  11.5 min
+[gen] minervamath    lambda0.4_seed0  items=  272 x4  avg_tokens=   963   7070 tok/s   2.5 min
+[gen] minervamath    lambda0.6_seed0  items=  272 x4  avg_tokens=   869   7203 tok/s   2.2 min
+[gen] minervamath    lambda0.8_seed0  items=  272 x4  avg_tokens=   757   7298 tok/s   1.9 min
+[gen] minervamath    lambda1.0_seed0  items=  272 x4  avg_tokens=   788   6932 tok/s   2.1 min
+[gen] olympiadbench  base             items=  674 x4  avg_tokens=  2073   4751 tok/s  19.6 min
+[gen] olympiadbench  lambda0.0_seed0  items=  674 x4  avg_tokens=  7980   3742 tok/s  95.8 min
+[gen] olympiadbench  lambda0.2_seed0  items=  674 x4  avg_tokens=  4901   4147 tok/s  53.1 min
+[gen] olympiadbench  lambda0.4_seed0  items=  674 x4  avg_tokens=  2135   4904 tok/s  19.6 min
+[gen] olympiadbench  lambda0.6_seed0  items=  674 x4  avg_tokens=  1780   5087 tok/s  15.7 min
+[gen] olympiadbench  lambda0.8_seed0  items=  674 x4  avg_tokens=  1323   5991 tok/s   9.9 min
+[gen] olympiadbench  lambda1.0_seed0  items=  674 x4  avg_tokens=  1504   5099 tok/s  13.3 min
+[gen] gpqa_diamond   base             items=  198 x4  avg_tokens=   797   6033 tok/s   1.7 min
+[gen] gpqa_diamond   lambda0.0_seed0  items=  198 x4  avg_tokens=  7265   3693 tok/s  26.0 min
+[gen] gpqa_diamond   lambda0.2_seed0  items=  198 x4  avg_tokens=  2900   4505 tok/s   8.5 min
+[gen] gpqa_diamond   lambda0.4_seed0  items=  198 x4  avg_tokens=  1193   6144 tok/s   2.6 min
+[gen] gpqa_diamond   lambda0.6_seed0  items=  198 x4  avg_tokens=  1015   6290 tok/s   2.1 min
+[gen] gpqa_diamond   lambda0.8_seed0  items=  198 x4  avg_tokens=   803   6366 tok/s   1.7 min
+[gen] gpqa_diamond   lambda1.0_seed0  items=  198 x4  avg_tokens=   957   5933 tok/s   2.1 min

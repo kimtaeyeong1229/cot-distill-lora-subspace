@@ -1,0 +1,21 @@
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 4406.34it/s]
+held 0 16.8 0.0 0
+held 50 8.2 -0.0 0
+held 100 4.2 -0.0 0
+held 150 44.8 0.0 0
+held 200 33.6 0.0 0
+held 250 8.3 0.0 0
+held mean floor 22.84328418460057
+train 0 30.2 -0.0 0
+train 50 29.0 -0.0 0
+train 100 19.6 -0.0 0
+train 150 17.3 0.0 0
+train 200 44.6 -0.0 1
+train 250 20.3 0.0 0
+train 300 10.3 -0.0 0
+train 350 24.1 0.0 0
+train 400 31.7 0.0 0
+train 450 14.5 -0.0 0
+train 500 23.6 0.0 0
+train 550 27.9 -0.0 0
+train mean floor 22.85044030850976

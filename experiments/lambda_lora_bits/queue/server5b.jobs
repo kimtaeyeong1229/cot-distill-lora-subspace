@@ -1,0 +1,3 @@
+# server5 두 번째 레인 (3090 여유분). server2에서 무거운 작업을 떼어옴.
+q1-B-olmo1b-s0	SEEDS="0" STAGES=train MAX_MODEL_LEN=4096 TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=6144 STUDENT=models/OLMo-2-1B-Instruct TAG=pairB/olmo1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
+q2-B-olmo1b-s12	SEEDS="1 2" STAGES=train MAX_MODEL_LEN=4096 TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=6144 STUDENT=models/OLMo-2-1B-Instruct TAG=pairB/olmo1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh

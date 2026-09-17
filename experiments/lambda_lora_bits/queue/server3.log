@@ -1,0 +1,61 @@
+[2026-09-16 16:01:23] runner started (pid 116)
+[2026-09-16 16:01:23] START t1-B-llama1b-s2: SEEDS="2" STAGES=train STUDENT=models/Llama-3.2-1B-Instruct TAG=pairB/llama1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-16 17:55:09] FAILED t1-B-llama1b-s2 (queue paused)
+[2026-09-16 17:56:09] START t1-B-llama1b-s2: SEEDS="2" STAGES=train STUDENT=models/Llama-3.2-1B-Instruct TRAIN_TOKEN_BUDGET=8192 TAG=pairB/llama1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-16 18:12:02] DONE t1-B-llama1b-s2
+[2026-09-16 18:12:02] START t2-B-olmo1b-s0: SEEDS="0" STAGES=train MAX_MODEL_LEN=4096 TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=4096 STUDENT=models/OLMo-2-1B-Instruct TAG=pairB/olmo1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-16 19:48:28] DONE t2-B-olmo1b-s0
+[2026-09-16 19:48:28] START t3-B-olmo1b-s2: SEEDS="2" STAGES=train MAX_MODEL_LEN=4096 TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=4096 STUDENT=models/OLMo-2-1B-Instruct TAG=pairB/olmo1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-16 21:24:56] DONE t3-B-olmo1b-s2
+[2026-09-16 21:32:56] START t4-D-olmo1b-s1: SEEDS="1" STAGES=train MAX_MODEL_LEN=4096 TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=4096 STUDENT=models/OLMo-2-1B-Instruct TAG=pairD/olmo1b SPLITS=experiments/lambda_lora_bits/pairD/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-16 22:05:30] DONE t4-D-olmo1b-s1
+[2026-09-16 22:05:30] START t5-D-olmo1b-s2: SEEDS="2" STAGES=train MAX_MODEL_LEN=4096 TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=4096 STUDENT=models/OLMo-2-1B-Instruct TAG=pairD/olmo1b SPLITS=experiments/lambda_lora_bits/pairD/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-16 22:38:07] DONE t5-D-olmo1b-s2
+[2026-09-16 22:45:07] START e1-D-olmo1b-eval: STAGES=eval,eval500 SEEDS="0 1 2" MAX_MODEL_LEN=4096 MAX_NEW_TOKENS=3840 STUDENT=models/OLMo-2-1B-Instruct TAG=pairD/olmo1b SPLITS=experiments/lambda_lora_bits/pairD/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-16 23:23:17] runner started (pid 3871)
+[2026-09-16 23:23:17] START e1-D-olmo1b-eval: STAGES=eval,eval500 SEEDS="0 1 2" MAX_MODEL_LEN=4096 MAX_NEW_TOKENS=3840 STUDENT=models/OLMo-2-1B-Instruct TAG=pairD/olmo1b SPLITS=experiments/lambda_lora_bits/pairD/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-16 23:23:25] FAILED e1-D-olmo1b-eval (queue paused)
+[2026-09-16 23:23:47] runner started (pid 3974)
+[2026-09-16 23:23:47] START e2-B-llama1b-eval: STAGES=eval,eval500 SEEDS="0 1 2" STUDENT=models/Llama-3.2-1B-Instruct TAG=pairB/llama1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-16 23:23:55] runner started (pid 4048)
+[2026-09-16 23:23:55] START e2-B-llama1b-eval: STAGES=eval,eval500 SEEDS="0 1 2" STUDENT=models/Llama-3.2-1B-Instruct TAG=pairB/llama1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-16 23:24:15] FAILED e2-B-llama1b-eval (queue paused)
+[2026-09-16 23:24:44] runner started (pid 4186)
+[2026-09-16 23:24:44] START t0-D-olmo1b-s0-fill: SEEDS="0" LAMBDAS="0.6 0.8 1.0" STAGES=train MAX_MODEL_LEN=4096 TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=4096 STUDENT=models/OLMo-2-1B-Instruct TAG=pairD/olmo1b SPLITS=experiments/lambda_lora_bits/pairD/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-16 23:33:11] DONE t0-D-olmo1b-s0-fill
+[2026-09-16 23:33:11] START e2-B-llama1b-eval: STAGES=eval,eval500 SEEDS="0 1 2" STUDENT=models/Llama-3.2-1B-Instruct TAG=pairB/llama1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-16 23:36:54] FAILED e2-B-llama1b-eval (queue paused)
+[2026-09-16 23:37:30] runner started (pid 5093)
+[2026-09-16 23:37:30] START e2-B-llama1b-eval: STAGES=eval,eval500 SEEDS="0 1 2" STUDENT=models/Llama-3.2-1B-Instruct TAG=pairB/llama1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-17 05:19:34] DONE e2-B-llama1b-eval
+[2026-09-17 05:19:34] START e1-D-olmo1b-eval: STAGES=eval,eval500 SEEDS="0 1 2" MAX_MODEL_LEN=4096 MAX_NEW_TOKENS=3840 STUDENT=models/OLMo-2-1B-Instruct TAG=pairD/olmo1b SPLITS=experiments/lambda_lora_bits/pairD/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-17 10:17:02] DONE e1-D-olmo1b-eval
+[2026-09-17 10:22:02] START e9-B-olmo1b-m500: STAGES=eval500 SEEDS="0 1 2" MAX_MODEL_LEN=4096 MAX_NEW_TOKENS=3840 STUDENT=models/OLMo-2-1B-Instruct TAG=pairB/olmo1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-17 13:56:52] DONE e9-B-olmo1b-m500
+[2026-09-17 14:02:52] START e10-D-llama1b-m500: STAGES=eval500 SEEDS="0 1 2" STUDENT=models/Llama-3.2-1B-Instruct TAG=pairD/llama1b SPLITS=experiments/lambda_lora_bits/pairD/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-17 15:44:45] FAILED e10-D-llama1b-m500 (queue paused)
+[2026-09-17 15:45:45] START e10-D-llama1b-m500: STAGES=eval500 SEEDS="0 1 2" STUDENT=models/Llama-3.2-1B-Instruct TAG=pairD/llama1b SPLITS=experiments/lambda_lora_bits/pairD/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-17 15:46:01] FAILED e10-D-llama1b-m500 (queue paused)
+[2026-09-17 15:51:01] START e10-D-llama1b-m500: STAGES=eval500 SEEDS="0 1 2" STUDENT=models/Llama-3.2-1B-Instruct TAG=pairD/llama1b SPLITS=experiments/lambda_lora_bits/pairD/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-17 15:51:17] FAILED e10-D-llama1b-m500 (queue paused)
+[2026-09-17 15:51:23] runner started (pid 7469)
+[2026-09-17 15:51:23] START h-A-llama: while pgrep -f 'eval_stud[e]nt.py' >/dev/null; do sleep 120; done; STUDENT=models/Llama-3.2-1B-Instruct TAG=sweep_llama SPLITS=experiments/lambda_lora_bits/sweep/splits bash experiments/lambda_lora_bits/run_halves.sh
+[2026-09-17 15:51:29] FAILED h-A-llama (queue paused)
+[2026-09-17 15:52:17] START h-A-llama: until [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits|head -1)" -lt 3000 ]; do sleep 120; done; STUDENT=models/Llama-3.2-1B-Instruct TAG=sweep_llama SPLITS=experiments/lambda_lora_bits/sweep/splits bash experiments/lambda_lora_bits/run_halves.sh
+[2026-09-17 15:52:29] START h-A-llama: until [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits|head -1)" -lt 3000 ]; do sleep 120; done; STUDENT=models/Llama-3.2-1B-Instruct TAG=sweep_llama SPLITS=experiments/lambda_lora_bits/sweep/splits bash experiments/lambda_lora_bits/run_halves.sh
+[2026-09-17 15:52:49] runner started (pid 7597)
+[2026-09-17 15:52:49] START h-A-llama: until [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits|head -1)" -lt 3000 ]; do sleep 120; done; STUDENT=models/Llama-3.2-1B-Instruct TAG=sweep_llama SPLITS=experiments/lambda_lora_bits/sweep/splits bash experiments/lambda_lora_bits/run_halves.sh
+[2026-09-17 16:28:47] runner started (pid 8512)
+[2026-09-17 16:28:47] START t0-D-olmo1b-s0-fill: SEEDS="0" LAMBDAS="0.6 0.8 1.0" STAGES=train MAX_MODEL_LEN=4096 TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=4096 STUDENT=models/OLMo-2-1B-Instruct TAG=pairD/olmo1b SPLITS=experiments/lambda_lora_bits/pairD/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-17 16:28:58] DONE t0-D-olmo1b-s0-fill
+[2026-09-17 16:28:58] START e2-B-llama1b-eval: STAGES=eval,eval500 SEEDS="0 1 2" STUDENT=models/Llama-3.2-1B-Instruct TAG=pairB/llama1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
+[2026-09-17 16:29:27] runner started (pid 8846)
+[2026-09-17 16:29:27] START r-s3-A-llama: until [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits|head -1)" -lt 3000 ]; do sleep 120; done; STUDENT=models/Llama-3.2-1B-Instruct TAG=sweep_llama SPLITS=experiments/lambda_lora_bits/sweep/splits bash experiments/lambda_lora_bits/run_halves.sh
+[2026-09-17 17:04:53] DONE r-s3-A-llama
+[2026-09-17 17:04:53] START r-s3-A-olmo: until [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits|head -1)" -lt 3000 ]; do sleep 120; done; TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=4096 STUDENT=models/OLMo-2-1B-Instruct TAG=sweep_olmo2 SPLITS=experiments/lambda_lora_bits/sweep/splits bash experiments/lambda_lora_bits/run_halves.sh
+[2026-09-17 18:01:21] DONE r-s3-A-olmo
+[2026-09-17 18:01:22] START r-s3-B-olmo: until [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits|head -1)" -lt 3000 ]; do sleep 120; done; TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=4096 STUDENT=models/OLMo-2-1B-Instruct TAG=pairB/olmo1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_halves.sh
+[2026-09-17 19:38:01] DONE r-s3-B-olmo
+[2026-09-17 19:38:01] START r-s3-B-llama: until [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits|head -1)" -lt 3000 ]; do sleep 120; done; STUDENT=models/Llama-3.2-1B-Instruct TAG=pairB/llama1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_halves.sh
+[2026-09-17 21:28:14] DONE r-s3-B-llama
+[2026-09-17 21:28:14] START r-s3-B-qwen-A: until [ "$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits|head -1)" -lt 3000 ]; do sleep 120; done; HALVES=halfA STUDENT=models/Qwen2.5-0.5B-Instruct TAG=pairB/qwen0.5b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_halves.sh

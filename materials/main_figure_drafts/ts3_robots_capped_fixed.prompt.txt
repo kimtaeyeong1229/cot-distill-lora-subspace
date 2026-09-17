@@ -1,0 +1,3 @@
+Make only these two small fixes to this figure and keep everything else pixel-identical (all robots, panels, text, arrows, colors, layout):
+1. In panel 3, the two horizontal bars are in the wrong cards. In the LEFT card (labeled "predictable to student (low ρ)" and "mostly memorized") the bar must be mostly coral with diagonal hatching, with only a short solid blue segment at its left end. In the RIGHT card (labeled "new to student (high ρ)" and "mostly understood") the bar must be mostly solid blue, with only a short coral hatched segment at its right end.
+2. In panel 1, delete the small lightbulb icon at the left end of the gradient slider and the small clipboard icon at the right end of the slider. Leave the slider itself and its tick labels unchanged.

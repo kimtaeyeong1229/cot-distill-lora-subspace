@@ -1,0 +1,17 @@
+e1-B-qwen0.5b-eval
+e9-B-olmo1b-eval
+h-B-llama
+h-D-olmo
+p1-B-qwen0.5b-s12
+p2-B-llama1b-s12
+s1-01-wait-B-splits
+s1-02-sweep-qwen0.5b-B
+s1-03-sweep-qwen1.5b-B
+s1-04-sweep-llama1b-B
+t1-B-llama1b-s1
+t2-B-olmo1b-s1
+r-s1-D-olmo
+r-s1-D-qwen-B
+r-s1-A-qwen
+r-s1-B-qwen-A
+r-s1-

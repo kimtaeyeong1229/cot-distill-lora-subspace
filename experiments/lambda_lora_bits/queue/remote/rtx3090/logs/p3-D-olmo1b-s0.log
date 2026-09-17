@@ -1,0 +1,14 @@
+[2026-09-17 01:13:11] tokenizer length check for models/OLMo-2-1B-Instruct
+lambda=0.0: mean=2087 max=8097 over_4096=57 (5.6%) truncated_tokens=2.8%
+lambda=0.2: mean=1691 max=7706 over_4096=24 (2.4%) truncated_tokens=1.8%
+lambda=0.4: mean=1401 max=8050 over_4096=21 (2.1%) truncated_tokens=2.4%
+lambda=0.6: mean=808 max=6899 over_4096=4 (0.4%) truncated_tokens=0.6%
+lambda=0.8: mean=445 max=2949 over_4096=0 (0.0%) truncated_tokens=0.0%
+lambda=1.0: mean=469 max=1477 over_4096=0 (0.0%) truncated_tokens=0.0%
+[2026-09-17 01:13:22] train lambda0.0_seed0
+[2026-09-17 01:13:26] train lambda0.2_seed0
+[2026-09-17 01:13:30] train lambda0.4_seed0
+[2026-09-17 01:13:34] train lambda0.6_seed0
+[2026-09-17 01:13:38] train lambda0.8_seed0
+[2026-09-17 01:13:42] train lambda1.0_seed0
+[2026-09-17 01:13:46] done

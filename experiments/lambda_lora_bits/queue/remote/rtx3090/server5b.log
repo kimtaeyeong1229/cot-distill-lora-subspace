@@ -1,0 +1,2 @@
+[2026-09-16 09:32:59] runner started (pid 14299)
+[2026-09-16 09:32:59] START q1-B-olmo1b-s0: SEEDS="0" STAGES=train MAX_MODEL_LEN=4096 TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=6144 STUDENT=models/OLMo-2-1B-Instruct TAG=pairB/olmo1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh

@@ -1,0 +1,178 @@
+{
+  "run_dir": "experiments/lambda_lora_bits/pairC/qwen3b/runs/lambda0.6_seed0",
+  "train_file": "experiments/lambda_lora_bits/pairC/splits/lambda0.6/train.jsonl",
+  "held_file": "experiments/lambda_lora_bits/pairC/splits/lambda0.6/held.jsonl",
+  "train": {
+    "n": 1640,
+    "tokens": 852822,
+    "H_base_bits": 171591.2321950211,
+    "H_tuned_bits": 71382.2019449219,
+    "W_bits": 100209.03025009921,
+    "W_clipped_bits": 100209.03025009921,
+    "H_base_bits_per_token": 0.20120404046216103,
+    "W_bits_per_token": 0.11750286724556731,
+    "W_bits_per_sample": 61.10306722567025,
+    "W_over_H": 0.5839985468267235
+  },
+  "held": {
+    "n": 300,
+    "tokens": 152789,
+    "H_base_bits": 30475.314137475405,
+    "H_tuned_bits": 24796.641941096947,
+    "W_bits": 5678.672196378459,
+    "W_clipped_bits": 5909.839225875797,
+    "H_base_bits_per_token": 0.1994601321919471,
+    "W_bits_per_token": 0.03716676067242052,
+    "W_bits_per_sample": 18.92890732126153,
+    "W_over_H": 0.18633678953272587
+  },
+  "delta_W_bits": 69165.6222432303,
+  "delta_W_token_scaled_bits": 68512.3990799242,
+  "delta_W_clipped_bits": 67901.90914864486,
+  "delta_W_bits_per_train_token": 0.08110206144216531,
+  "trainable_params": 29933568,
+  "CL": {
+    "sweep": {
+      "0.25": {
+        "bits": 120790707.50876765,
+        "bits_per_param": 4.035292669045256,
+        "zero_fraction": 0.1009716583068213,
+        "retained_W": 1.0000780352580898
+      },
+      "0.5": {
+        "bits": 91293204.23128264,
+        "bits_per_param": 3.049860418620414,
+        "zero_fraction": 0.19989808765864464,
+        "retained_W": 0.9990691312456799
+      },
+      "0.75": {
+        "bits": 74325368.64770444,
+        "bits_per_param": 2.483010667077992,
+        "zero_fraction": 0.2961576448220272,
+        "retained_W": 0.9996495359346287
+      },
+      "1.0": {
+        "bits": 62719420.690581016,
+        "bits_per_param": 2.095287160240337,
+        "zero_fraction": 0.3868058762657362,
+        "retained_W": 1.0003909357689769
+      },
+      "1.25": {
+        "bits": 54038947.802851155,
+        "bits_per_param": 1.8052959073522794,
+        "zero_fraction": 0.471867369770286,
+        "retained_W": 0.9998512887433368
+      },
+      "1.5": {
+        "bits": 47282769.25502348,
+        "bits_per_param": 1.5795901529354428,
+        "zero_fraction": 0.5504519207332718,
+        "retained_W": 0.9972715306342843
+      },
+      "2.0": {
+        "bits": 36852613.6008332,
+        "bits_per_param": 1.2311467046238256,
+        "zero_fraction": 0.6875208461617406,
+        "retained_W": 0.988232399044652
+      },
+      "2.5": {
+        "bits": 28426002.75684591,
+        "bits_per_param": 0.9496362998505862,
+        "zero_fraction": 0.7915541508449644,
+        "retained_W": 0.9452844284379381
+      },
+      "3.0": {
+        "bits": 20822651.026437752,
+        "bits_per_param": 0.6956287678915442,
+        "zero_fraction": 0.8680297651118637,
+        "retained_W": 0.8284409567692461
+      },
+      "4.0": {
+        "bits": 9423417.578758528,
+        "bits_per_param": 0.31481103685195594,
+        "zero_fraction": 0.9540811172259852,
+        "retained_W": 0.4254077083154798
+      }
+    },
+    "fidelity_met": true,
+    "fidelity_subset_W_bits": 8225.056573248272,
+    "c_star": 1.5,
+    "CL_update_bits": 47282769.25502348,
+    "CL_update_bits_per_param": 1.5795901529354428,
+    "zero_fraction": 0.5504519207332718
+  },
+  "cross": {
+    "lambda0.0": {
+      "n": 300,
+      "tokens": 510560,
+      "H_base_bits": 469847.35626651737,
+      "H_tuned_bits": 437878.1805576566,
+      "W_bits": 31969.175708860766,
+      "W_clipped_bits": 32266.84981906657,
+      "H_base_bits_per_token": 0.9202588457116057,
+      "W_bits_per_token": 0.06261590353506104,
+      "W_bits_per_sample": 106.56391902953588,
+      "W_over_H": 0.06804162092747094
+    },
+    "lambda0.2": {
+      "n": 300,
+      "tokens": 351053,
+      "H_base_bits": 206007.41279578424,
+      "H_tuned_bits": 183545.72243424813,
+      "W_bits": 22461.690361536097,
+      "W_clipped_bits": 22855.041279284487,
+      "H_base_bits_per_token": 0.586827096751158,
+      "W_bits_per_token": 0.06398375846819739,
+      "W_bits_per_sample": 74.87230120512032,
+      "W_over_H": 0.10903340834537074
+    },
+    "lambda0.4": {
+      "n": 300,
+      "tokens": 165452,
+      "H_base_bits": 36541.424891135655,
+      "H_tuned_bits": 32938.939780316156,
+      "W_bits": 3602.4851108194966,
+      "W_clipped_bits": 4112.161468389193,
+      "H_base_bits_per_token": 0.22085816364344737,
+      "W_bits_per_token": 0.02177359663720896,
+      "W_bits_per_sample": 12.008283702731655,
+      "W_over_H": 0.09858633377193235
+    },
+    "lambda0.6": {
+      "n": 300,
+      "tokens": 152789,
+      "H_base_bits": 30475.314137475405,
+      "H_tuned_bits": 24796.641941096947,
+      "W_bits": 5678.672196378459,
+      "W_clipped_bits": 5909.839225875797,
+      "H_base_bits_per_token": 0.1994601321919471,
+      "W_bits_per_token": 0.03716676067242052,
+      "W_bits_per_sample": 18.92890732126153,
+      "W_over_H": 0.18633678953272587
+    },
+    "lambda0.8": {
+      "n": 300,
+      "tokens": 144667,
+      "H_base_bits": 19842.73293171655,
+      "H_tuned_bits": 20855.756384187116,
+      "W_bits": -1013.0234524705671,
+      "W_clipped_bits": 917.8876588221865,
+      "H_base_bits_per_token": 0.13716143233575417,
+      "W_bits_per_token": -0.007002450126639573,
+      "W_bits_per_sample": -3.376744841568557,
+      "W_over_H": -0.05105261739683823
+    },
+    "lambda1.0": {
+      "n": 300,
+      "tokens": 142790,
+      "H_base_bits": 19863.776949057275,
+      "H_tuned_bits": 22627.28105763097,
+      "W_bits": -2763.504108573697,
+      "W_clipped_bits": 409.0429231780058,
+      "H_base_bits_per_token": 0.13911182119936463,
+      "W_bits_per_token": -0.01935362496374884,
+      "W_bits_per_sample": -9.211680361912324,
+      "W_over_H": -0.13912279198769656
+    }
+  }
+}

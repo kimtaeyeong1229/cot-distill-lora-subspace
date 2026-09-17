@@ -1,0 +1,20 @@
+[2026-09-14 07:18:48] generate lambda=0.0 (reasoning template)
+[4000/4000] 2892 tok/sample, 465 tok/s, 103.7 min
+[2026-09-14 15:34:16] interpolate lambda=0.2 (reasoning template)
+lambda=0.2: 291 tensors in 4 file(s) -> experiments/lambda_lora_bits/pairD/teachers/lambda0.2 (tokenizer from reasoning, tied=False, eos=[128001, 128008, 128009])
+[2026-09-14 15:36:04] generate lambda=0.2 (reasoning template)
+[4000/4000] 2571 tok/sample, 453 tok/s, 94.5 min
+[2026-09-14 23:03:39] generate lambda=0.4 (reasoning template)
+[4000/4000] 2252 tok/sample, 453 tok/s, 82.8 min
+[2026-09-15 05:44:23] interpolate lambda=0.6 (reasoning template)
+lambda=0.6: 291 tensors in 4 file(s) -> experiments/lambda_lora_bits/pairD/teachers/lambda0.6 (tokenizer from reasoning, tied=False, eos=[128001, 128008, 128009])
+[2026-09-15 05:45:51] generate lambda=0.6 (reasoning template)
+[4000/4000] 4094 tok/sample, 313 tok/s, 218.3 min
+[2026-09-15 20:18:02] interpolate lambda=0.8 (reasoning template)
+lambda=0.8: 291 tensors in 4 file(s) -> experiments/lambda_lora_bits/pairD/teachers/lambda0.8 (tokenizer from reasoning, tied=False, eos=[128001, 128008, 128009])
+[2026-09-15 20:20:27] generate lambda=0.8 (reasoning template)
+[4000/4000] 767 tok/sample, 505 tok/s, 25.3 min
+[2026-09-15 22:30:59] generate lambda=1.0 (reasoning template)
+[4000/4000] 700 tok/sample, 544 tok/s, 21.4 min
+[2026-09-16 00:12:07] build splits
+[2026-09-16 00:13:07] pair D teachers done

@@ -1,0 +1,14 @@
+[2026-09-17 20:18:47] done pairD/qwen0.5b
+ lambda0.0_halfA
+[2026-09-17 19:27:25] train pairD/qwen0.5b lambda0.2_halfA
+[2026-09-17 19:34:36] train pairD/qwen0.5b lambda0.4_halfA
+[2026-09-17 19:40:33] train pairD/qwen0.5b lambda0.6_halfA
+[2026-09-17 19:44:08] train pairD/qwen0.5b lambda0.8_halfA
+[2026-09-17 19:46:09] train pairD/qwen0.5b lambda1.0_halfA
+[2026-09-17 19:48:12] train pairD/qwen0.5b lambda0.0_halfB
+[2026-09-17 19:57:23] train pairD/qwen0.5b lambda0.2_halfB
+[2026-09-17 20:04:51] train pairD/qwen0.5b lambda0.4_halfB
+[2026-09-17 20:10:54] train pairD/qwen0.5b lambda0.6_halfB
+[2026-09-17 20:14:28] train pairD/qwen0.5b lambda0.8_halfB
+[2026-09-17 20:16:27] train pairD/qwen0.5b lambda1.0_halfB
+[2026-09-17 20:18:28] done pairD/qwen0.5b

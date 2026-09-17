@@ -21,6 +21,7 @@ _ARTEFACTS = [
     "<think>", "</think>", "<|box_start|>", "<|box_end|>",
     "<|im_start|>", "<|im_end|>", "<|endoftext|>", "<|object_ref_start|>", "<|object_ref_end|>",
     "<｜begin▁of▁sentence｜>", "<｜end▁of▁sentence｜>", "<｜User｜>", "<｜Assistant｜>",
+    "<|begin_of_text|>", "<|end_of_text|>", "<|eot_id|>", "<|eom_id|>", "<|start_header_id|>", "<|end_header_id|>",
 ]
 
 

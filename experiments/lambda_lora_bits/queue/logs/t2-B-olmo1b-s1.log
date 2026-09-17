@@ -1,0 +1,17 @@
+[2026-09-16 20:43:05] download models/OLMo-2-1B-Instruct
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files:  12%|█▎        | 1/8 [00:00<00:01,  4.26it/s]Fetching 8 files: 100%|██████████| 8/8 [00:28<00:00,  3.66s/it]Fetching 8 files: 100%|██████████| 8/8 [00:28<00:00,  3.54s/it]
+downloaded allenai/OLMo-2-0425-1B-Instruct -> models/OLMo-2-1B-Instruct
+[2026-09-16 20:43:34] tokenizer length check for models/OLMo-2-1B-Instruct
+lambda=0.0: mean=3023 max=8132 over_4096=657 (29.1%) truncated_tokens=17.1%
+lambda=0.2: mean=2471 max=8151 over_4096=381 (16.9%) truncated_tokens=7.8%
+lambda=0.4: mean=2049 max=7654 over_4096=168 (7.4%) truncated_tokens=2.8%
+lambda=0.6: mean=1076 max=7799 over_4096=33 (1.5%) truncated_tokens=1.6%
+lambda=0.8: mean=684 max=5311 over_4096=3 (0.1%) truncated_tokens=0.2%
+lambda=1.0: mean=675 max=6338 over_4096=6 (0.3%) truncated_tokens=0.3%
+[2026-09-16 20:43:58] train lambda0.0_seed1
+[2026-09-16 21:44:45] train lambda0.2_seed1
+[2026-09-16 22:41:17] train lambda0.4_seed1
+[2026-09-16 23:31:47] train lambda0.6_seed1
+[2026-09-16 23:59:58] train lambda0.8_seed1
+[2026-09-17 00:18:16] train lambda1.0_seed1
+[2026-09-17 00:36:15] done

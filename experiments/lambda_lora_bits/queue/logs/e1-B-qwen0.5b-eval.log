@@ -1,0 +1,10 @@
+[2026-09-17 00:36:15] tokenizer length check for models/Qwen2.5-0.5B-Instruct
+lambda=0.0: mean=3204 max=8190 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.2: mean=2623 max=8180 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.4: mean=2182 max=7819 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.6: mean=1154 max=8114 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.8: mean=733 max=5399 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=1.0: mean=725 max=6439 over_8192=0 (0.0%) truncated_tokens=0.0%
+[2026-09-17 00:36:38] eval val (18 adapters)
+[2026-09-17 01:46:03] eval math500 (18 adapters)
+[2026-09-17 05:34:10] done

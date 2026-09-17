@@ -15,7 +15,7 @@ STUDENTS = [  # key, label, directory for pair A
     ("qwen3b", "Qwen2.5-3B", "sweep_qwen3b"),
     ("llama3b", "Llama-3.2-3B", "sweep_llama3b"),
 ]
-OTHER_BENCH = ["gsm8k", "amc23", "aime24", "minerva", "olympiadbench", "gpqa_diamond"]
+OTHER_BENCH = ["gsm8k", "amc23", "aime24", "minervamath", "olympiadbench", "gpqa_diamond"]
 
 
 def pair_dir(pair):
@@ -55,7 +55,8 @@ def main():
     print("== 묶음별 teacher 준비 (보간 · 생성 · 공통 분할)")
     for pair in PAIRS:
         pd = pair_dir(pair)
-        interp = sum(exists(pd / "teachers" / f"lambda{lam}" / "model.safetensors") for lam in LAMBDAS)
+        interp = sum(exists(pd / "teachers" / f"lambda{lam}" / "model.safetensors")
+                     or exists(pd / "teachers" / f"lambda{lam}" / "model.safetensors.index.json") for lam in LAMBDAS)
         gen = sum(exists(pd / "cot" / f"lambda{lam}.jsonl") for lam in LAMBDAS)
         split = int(exists(pd / "splits" / "split_stats.json"))
         tick("1. teacher 보간", interp, 6)

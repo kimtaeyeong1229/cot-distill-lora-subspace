@@ -1,0 +1,35 @@
+[2026-09-14 05:28:33] interpolate lambda=0.0 (instruct template)
+lambda=0.0: 291 tensors in 4 file(s) -> experiments/lambda_lora_bits/pairD/teachers/lambda0.0 (tokenizer from instruct, tied=False, eos=[128001, 128008, 128009])
+[2026-09-14 05:30:00] pilot generate lambda=0.0 template=reasoning
+stop_token_ids=[128001, 128008, 128009]
+[200/200] 2184 tok/sample, 550 tok/s, 13.2 min
+[2026-09-14 05:44:39] pilot generate lambda=0.0 template=instruct
+stop_token_ids=[128001, 128008, 128009]
+[200/200] 479 tok/sample, 998 tok/s, 1.6 min
+[2026-09-14 05:47:26] interpolate lambda=0.4 (instruct template)
+lambda=0.4: 291 tensors in 4 file(s) -> experiments/lambda_lora_bits/pairD/teachers/lambda0.4 (tokenizer from instruct, tied=False, eos=[128001, 128008, 128009])
+[2026-09-14 05:49:14] pilot generate lambda=0.4 template=reasoning
+stop_token_ids=[128001, 128008, 128009]
+[200/200] 1138 tok/sample, 597 tok/s, 6.4 min
+[2026-09-14 05:57:10] pilot generate lambda=0.4 template=instruct
+stop_token_ids=[128001, 128008, 128009]
+[200/200] 1088 tok/sample, 455 tok/s, 8.0 min
+[2026-09-14 06:06:33] interpolate lambda=1.0 (instruct template)
+lambda=1.0: 291 tensors in 4 file(s) -> experiments/lambda_lora_bits/pairD/teachers/lambda1.0 (tokenizer from instruct, tied=False, eos=[128001, 128008, 128009])
+[2026-09-14 06:09:50] pilot generate lambda=1.0 template=reasoning
+stop_token_ids=[128001, 128008, 128009]
+[200/200] 440 tok/sample, 448 tok/s, 3.3 min
+[2026-09-14 06:14:33] pilot generate lambda=1.0 template=instruct
+stop_token_ids=[128001, 128008, 128009]
+[200/200] 444 tok/sample, 424 tok/s, 3.5 min
+[2026-09-14 06:19:11] pilot report: reasoning template
+{"0.0": {"generated": 200, "teacher_accuracy": 0.825, "truncated_rate": 0.045, "too_long_for_student": 2, "kept": 163, "avg_teacher_tokens_all": 2183.515, "avg_student_tokens_kept": 3024.7852760736196}}
+{"0.4": {"generated": 200, "teacher_accuracy": 0.82, "truncated_rate": 0.01, "too_long_for_student": 0, "kept": 164, "avg_teacher_tokens_all": 1137.695, "avg_student_tokens_kept": 1549.310975609756}}
+{"1.0": {"generated": 200, "teacher_accuracy": 0.84, "truncated_rate": 0.005, "too_long_for_student": 0, "kept": 168, "avg_teacher_tokens_all": 440.125, "avg_student_tokens_kept": 590.2857142857143}}
+Shared problems across 3 lambdas: 144
+[2026-09-14 06:19:18] pilot report: instruct template
+{"0.0": {"generated": 200, "teacher_accuracy": 0.88, "truncated_rate": 0.0, "too_long_for_student": 0, "kept": 176, "avg_teacher_tokens_all": 479.455, "avg_student_tokens_kept": 491.67045454545456}}
+{"0.4": {"generated": 200, "teacher_accuracy": 0.865, "truncated_rate": 0.05, "too_long_for_student": 0, "kept": 173, "avg_teacher_tokens_all": 1087.905, "avg_student_tokens_kept": 667.3583815028902}}
+{"1.0": {"generated": 200, "teacher_accuracy": 0.91, "truncated_rate": 0.01, "too_long_for_student": 0, "kept": 182, "avg_teacher_tokens_all": 444.32, "avg_student_tokens_kept": 342.13186813186815}}
+Shared problems across 3 lambdas: 151
+[2026-09-14 06:19:23] pilot done

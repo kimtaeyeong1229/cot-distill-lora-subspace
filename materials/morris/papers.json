@@ -1,0 +1,52 @@
+[
+ [
+  "How much do language models memorize?",
+  "2505.24832",
+  "How much do language models memorize"
+ ],
+ [
+  "Harnessing the Universal Geometry of Embeddings",
+  "2505.12540",
+  "Harnessing the Universal Geometry of Embeddings"
+ ],
+ [
+  "Contextual Document Embeddings",
+  "2410.02525",
+  "Contextual Document Embeddings"
+ ],
+ [
+  "Extracting Prompts by Inverting LLM Outputs",
+  "2405.15012",
+  "Extracting Prompts by Inverting LLM Outputs"
+ ],
+ [
+  "Do language models plan ahead for future tokens?",
+  "2404.00859",
+  "Do language models plan ahead for future tokens"
+ ],
+ [
+  "Language Model Inversion",
+  "2311.13647",
+  "Language Model Inversion"
+ ],
+ [
+  "Text Embeddings Reveal (Almost) As Much as Text",
+  "2310.06816",
+  "Text Embeddings Reveal (Almost) As Much as Text"
+ ],
+ [
+  "Tree Prompting: Efficient Task Adaptation without Fine-Tuning",
+  "2310.14034",
+  "Tree Prompting Efficient Task Adaptation without Fine-Tuning"
+ ],
+ [
+  "iPrompt: Explaining Patterns in Data with Language Models via Interpretable Autoprompting",
+  "2210.01848",
+  "iPrompt Explaining Patterns in Data with Language Models via Interpretable Autoprompting"
+ ],
+ [
+  "Unsupervised Text Deidentification",
+  "2210.11528",
+  "Unsupervised Text Deidentification"
+ ]
+]

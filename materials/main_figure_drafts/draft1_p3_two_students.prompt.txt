@@ -1,0 +1,9 @@
+Edit input image 1 (a three-panel research figure). Keep panels 1 and 2, the arrows between panels, the light panel backgrounds, thin grey borders and blue number circles EXACTLY as they are, with identical text. Panel 3 must keep exactly the same position, width and height as now (its top and bottom edges aligned with panels 1 and 2). Add nothing outside the panels.
+Redesign only the inside of panel 3. Keep the number circle "3". Remove all current content of panel 3 (title, bars, axis, magnifier, balance icon, formula line).
+Style for the new content: clean white rounded cards with thin light grey borders like the middle panel of input image 2, simple flat icons, blue #5B9BD5 means "transferred / understood", coral #F28C6B with diagonal hatching means "memorized". Do not copy text from image 2. Spell every text exactly as given, keep it short and large. Meaning to convey: the same teacher rationale is memorized by a student that already finds it predictable, and understood (transferred to unseen problems) by a student that finds it new. The deciding factor is predictability to the student (rho), not the teacher's style.
+
+New panel 3 title next to the circle: "Memorize or understand?".
+At the top center, one small coral text card "same rationale" with two thin arrows splitting down-left and down-right.
+Left white card: a small robot student icon with a tiny thought bubble "I expected this". Label "predictable to student (low ρ)". Under it one horizontal bar that is mostly coral hatched with a small blue start, labeled "mostly memorized".
+Right white card: the same small robot student icon with a tiny thought bubble "this is new". Label "new to student (high ρ)". Under it one horizontal bar that is mostly blue with a small coral hatched end, labeled "mostly understood".
+At the bottom, one short centered italic blue line: "depends on the student, not the teacher".

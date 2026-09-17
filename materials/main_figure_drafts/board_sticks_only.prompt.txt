@@ -1,0 +1,5 @@
+Make a minimal edit to this figure. Keep every character exactly as drawn (same robot designs, faces, glasses, colors, poses as far as possible), all three panels, all other icons, all text, speech bubbles, colors and layout unchanged.
+Only change panel 1:
+- Make the two teacher robots the SAME size: enlarge the coral Instruct teacher on the right so it matches the height and scale of the blue Reasoning teacher on the left.
+- Remove the small chalkboard each teacher is holding, and instead each teacher holds a thin wooden pointer stick in the same hand, raised slightly as if pointing. No chalkboards anywhere in panel 1.
+Do not change anything else, not even the slider labels or the panel 3 bars.

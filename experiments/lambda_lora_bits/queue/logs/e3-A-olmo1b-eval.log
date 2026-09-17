@@ -1,0 +1,10 @@
+[2026-09-17 03:51:22] tokenizer length check for models/OLMo-2-1B-Instruct
+lambda=0.0: mean=2339 max=7954 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.2: mean=1246 max=7057 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.4: mean=604 max=4869 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.6: mean=556 max=2316 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.8: mean=529 max=1891 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=1.0: mean=513 max=1853 over_8192=0 (0.0%) truncated_tokens=0.0%
+[2026-09-17 03:51:40] eval val (18 adapters)
+[2026-09-17 05:26:03] eval math500 (18 adapters)
+[2026-09-17 10:02:39] done

@@ -50,6 +50,11 @@ def main() -> None:
         return
 
     tokenizer = AutoTokenizer.from_pretrained(args.model)
+    # interpolate.py records both endpoints' end-of-turn ids; older teacher dirs fall back to pair A's.
+    generation_config = Path(args.model) / "generation_config.json"
+    stop_ids = json.loads(generation_config.read_text()).get("eos_token_id") if generation_config.exists() else None
+    stop_ids = stop_ids if isinstance(stop_ids, list) else ([stop_ids] if stop_ids is not None else STOP_TOKEN_IDS)
+    print(f"stop_token_ids={stop_ids}")
     llm = LLM(
         model=args.model,
         dtype="bfloat16",
@@ -63,7 +68,7 @@ def main() -> None:
         top_p=args.top_p,
         max_tokens=args.max_new_tokens,
         seed=args.seed,
-        stop_token_ids=STOP_TOKEN_IDS,
+        stop_token_ids=stop_ids,
         skip_special_tokens=False,
     )
     print("Example prompt:\n" + build_prompt(tokenizer, pending[0]["problem"]))

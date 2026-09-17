@@ -1,0 +1,29 @@
+[2026-09-14 06:34:46] pilot generate lambda=0.0 template=reasoning
+stop_token_ids=[128001, 128008, 128009]
+[200/200] 2155 tok/sample, 607 tok/s, 11.8 min
+[2026-09-14 06:47:49] pilot generate lambda=0.0 template=instruct
+stop_token_ids=[128001, 128008, 128009]
+[200/200] 454 tok/sample, 1042 tok/s, 1.5 min
+[2026-09-14 06:50:15] pilot generate lambda=0.4 template=reasoning
+stop_token_ids=[128001, 128008, 128009]
+[200/200] 1471 tok/sample, 597 tok/s, 8.2 min
+[2026-09-14 06:59:29] pilot generate lambda=0.4 template=instruct
+stop_token_ids=[128001, 128008, 128009]
+[200/200] 1079 tok/sample, 455 tok/s, 7.9 min
+[2026-09-14 07:08:23] pilot generate lambda=1.0 template=reasoning
+stop_token_ids=[128001, 128008, 128009]
+[200/200] 550 tok/sample, 501 tok/s, 3.7 min
+[2026-09-14 07:13:15] pilot generate lambda=1.0 template=instruct
+stop_token_ids=[128001, 128008, 128009]
+[200/200] 414 tok/sample, 413 tok/s, 3.3 min
+[2026-09-14 07:17:37] pilot report: reasoning template
+{"0.0": {"generated": 200, "teacher_accuracy": 0.975, "truncated_rate": 0.015, "too_long_for_student": 2, "kept": 193, "avg_teacher_tokens_all": 2155.26, "avg_student_tokens_kept": 2088.9689119170985}}
+{"0.4": {"generated": 200, "teacher_accuracy": 0.94, "truncated_rate": 0.02, "too_long_for_student": 1, "kept": 187, "avg_teacher_tokens_all": 1471.35, "avg_student_tokens_kept": 1281.2085561497327}}
+{"1.0": {"generated": 200, "teacher_accuracy": 0.91, "truncated_rate": 0.02, "too_long_for_student": 0, "kept": 182, "avg_teacher_tokens_all": 549.615, "avg_student_tokens_kept": 393.07142857142856}}
+Shared problems across 3 lambdas: 172
+[2026-09-14 07:17:43] pilot report: instruct template
+{"0.0": {"generated": 200, "teacher_accuracy": 0.91, "truncated_rate": 0.0, "too_long_for_student": 0, "kept": 182, "avg_teacher_tokens_all": 453.795, "avg_student_tokens_kept": 476.0}}
+{"0.4": {"generated": 200, "teacher_accuracy": 0.88, "truncated_rate": 0.05, "too_long_for_student": 0, "kept": 176, "avg_teacher_tokens_all": 1079.425, "avg_student_tokens_kept": 664.0852272727273}}
+{"1.0": {"generated": 200, "teacher_accuracy": 0.925, "truncated_rate": 0.005, "too_long_for_student": 0, "kept": 185, "avg_teacher_tokens_all": 414.25, "avg_student_tokens_kept": 349.4108108108108}}
+Shared problems across 3 lambdas: 160
+[2026-09-14 07:17:48] pilot done

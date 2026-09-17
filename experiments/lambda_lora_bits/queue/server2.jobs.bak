@@ -1,0 +1,16 @@
+s2-01-wait-llama-gen	while pgrep -f '[b]ench_generate.py --student_dir experiments/lambda_lora_bits/sweep_llama' >/dev/null; do sleep 60; done
+s2-01a-memtest-llama3b-tb8192	mkdir -p experiments/lambda_lora_bits/smoke && PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True TOKEN_BUDGET=8192 bash experiments/lambda_lora_bits/memtest_student.sh models/Llama-3.2-3B-Instruct llama3b_tb8192
+s2-02-score-llama1b-A	python experiments/lambda_lora_bits/bench_score.py --student_dir experiments/lambda_lora_bits/sweep_llama
+s2-03-sweep-qwen3b-A	PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True STUDENT=models/Qwen2.5-3B-Instruct TAG=sweep_qwen3b SPLITS=experiments/lambda_lora_bits/sweep/splits bash experiments/lambda_lora_bits/run_student.sh
+s2-03b-B-gen-lambda1.0-0.8	PAIR=B TEMPLATE=reasoning LAMBDAS="1.0 0.8" PUSH_TO=server1 bash experiments/lambda_lora_bits/gen_pair_lambdas.sh
+s2-04-wait-C-splits	bash experiments/lambda_lora_bits/queue/wait_for.sh experiments/lambda_lora_bits/pairC/splits/split_stats.json
+s2-05-sweep-qwen0.5b-C	 STUDENT=models/Qwen2.5-0.5B-Instruct TAG=pairC/qwen0.5b SPLITS=experiments/lambda_lora_bits/pairC/splits bash experiments/lambda_lora_bits/run_student.sh
+s2-06-sweep-qwen1.5b-C	 STUDENT=models/Qwen2.5-1.5B-Instruct TAG=pairC/qwen1.5b SPLITS=experiments/lambda_lora_bits/pairC/splits bash experiments/lambda_lora_bits/run_student.sh
+s2-07-sweep-llama1b-C	 STUDENT=models/Llama-3.2-1B-Instruct TAG=pairC/llama1b SPLITS=experiments/lambda_lora_bits/pairC/splits bash experiments/lambda_lora_bits/run_student.sh
+s2-08-sweep-olmo1b-C	MAX_MODEL_LEN=4096 MAX_NEW_TOKENS=3840 TRAIN_MAX_LEN=4096 STUDENT=models/OLMo-2-1B-Instruct TAG=pairC/olmo1b SPLITS=experiments/lambda_lora_bits/pairC/splits bash experiments/lambda_lora_bits/run_student.sh
+s2-09p-pilot-validity-A	bash experiments/lambda_lora_bits/pilot_validity.sh > experiments/lambda_lora_bits/pilot_validity.log 2>&1
+s2-09f-pilot-floor-A	bash experiments/lambda_lora_bits/pilot_floor.sh > experiments/lambda_lora_bits/pilot_floor.log 2>&1
+s2-09t-theory-analysis-A	bash experiments/lambda_lora_bits/pilot_theory.sh > experiments/lambda_lora_bits/pilot_theory.log 2>&1
+#paused-analysis s2-09-sweep-qwen3b-C	PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True STUDENT=models/Qwen2.5-3B-Instruct TAG=pairC/qwen3b SPLITS=experiments/lambda_lora_bits/pairC/splits bash experiments/lambda_lora_bits/run_student.sh
+#paused-analysis s2-10-sweep-llama3b-C	PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True TRAIN_TOKEN_BUDGET=8192 STUDENT=models/Llama-3.2-3B-Instruct TAG=pairC/llama3b SPLITS=experiments/lambda_lora_bits/pairC/splits bash experiments/lambda_lora_bits/run_student.sh
+#paused-analysis s2-11-sweep-llama3b-A	PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True TRAIN_TOKEN_BUDGET=8192 STUDENT=models/Llama-3.2-3B-Instruct TAG=sweep_llama3b SPLITS=experiments/lambda_lora_bits/sweep/splits bash experiments/lambda_lora_bits/run_student.sh

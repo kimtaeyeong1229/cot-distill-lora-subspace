@@ -1,0 +1,17 @@
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 9989.31it/s]
+[W916 01:36:37.531107743 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 304087040 bytes (free: 216596480, total: 25274613760).
+[W916 01:36:42.052600280 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 515899392 bytes (free: 363397120, total: 25274613760).
+train {"n": 1015, "tokens": 392710, "H_base_bits": 193023.02593524265, "H_tuned_bits": 105539.62803937391, "W_bits": 87483.39789586874, "W_clipped_bits": 87483.39789586874, "H_base_bits_per_token": 0.4915154336157537, "W_bits_per_token": 0.22276844973611248, "W_bits_per_sample": 86.19053979888545, "W_over_H": 0.45322778187726975}
+held {"n": 300, "tokens": 118367, "H_base_bits": 59020.34199214238, "H_tuned_bits": 46241.81329870014, "W_bits": 12778.52869344224, "W_clipped_bits": 12791.299877440295, "H_base_bits_per_token": 0.4986215921003521, "W_bits_per_token": 0.10795685193881943, "W_bits_per_sample": 42.595095644807465, "W_over_H": 0.21651058367543005}
+c=0.25: CL=35625481 bits (4.049/param), zeros=0.096, retained W=1.0001
+c=0.5: CL=26930290 bits (3.061/param), zeros=0.191, retained W=0.9997
+c=0.75: CL=21946539 bits (2.494/param), zeros=0.283, retained W=0.9991
+c=1: CL=18515934 bits (2.105/param), zeros=0.372, retained W=0.9993
+c=1.25: CL=15958249 bits (1.814/param), zeros=0.457, retained W=1.0000
+c=1.5: CL=13974155 bits (1.588/param), zeros=0.536, retained W=1.0010
+c=2: CL=11020682 bits (1.253/param), zeros=0.674, retained W=0.9991
+c=2.5: CL=8528763 bits (0.969/param), zeros=0.784, retained W=0.9569
+c=3: CL=6203081 bits (0.705/param), zeros=0.866, retained W=0.8512
+c=4: CL=2628766 bits (0.299/param), zeros=0.957, retained W=0.4914
+{"delta_W_bits": 44249.375816389154, "delta_W_token_scaled_bits": 45087.66257097496, "trainable_params": 8798208}
+{"c_star": 2.0, "fidelity_met": true, "CL_update_bits": 11020681.979683325, "CL_update_bits_per_param": 1.2526053009525717}

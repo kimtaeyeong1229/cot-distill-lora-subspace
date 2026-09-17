@@ -1,0 +1,9 @@
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 17097.99it/s]
+[W915 15:23:00.009806360 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 509607936 bytes (free: 201392128, total: 16609247232).
+[W915 15:23:03.089411372 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 639631360 bytes (free: 125894656, total: 16609247232).
+[W915 15:23:08.037835416 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 754974720 bytes (free: 501284864, total: 16609247232).
+[W915 15:23:11.706279272 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 832569344 bytes (free: 33619968, total: 16609247232).
+[W915 15:23:14.528711131 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 935329792 bytes (free: 398524416, total: 16609247232).
+train 600 71.74389316846927 623
+held 300 73.34429016391437 323
+resample 197 71.87013507494467 204

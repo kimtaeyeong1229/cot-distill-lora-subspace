@@ -1,0 +1,10 @@
+# server3 (5090): 쌍 B Llama-1B seed2, 쌍 B OLMo seed0·seed2
+t0-D-olmo1b-s0-fill	SEEDS="0" LAMBDAS="0.6 0.8 1.0" STAGES=train MAX_MODEL_LEN=4096 TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=4096 STUDENT=models/OLMo-2-1B-Instruct TAG=pairD/olmo1b SPLITS=experiments/lambda_lora_bits/pairD/splits bash experiments/lambda_lora_bits/run_student.sh
+e2-B-llama1b-eval	STAGES=eval,eval500 SEEDS="0 1 2" STUDENT=models/Llama-3.2-1B-Instruct TAG=pairB/llama1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
+e1-D-olmo1b-eval	STAGES=eval,eval500 SEEDS="0 1 2" MAX_MODEL_LEN=4096 MAX_NEW_TOKENS=3840 STUDENT=models/OLMo-2-1B-Instruct TAG=pairD/olmo1b SPLITS=experiments/lambda_lora_bits/pairD/splits bash experiments/lambda_lora_bits/run_student.sh
+e9-B-olmo1b-m500	STAGES=eval500 SEEDS="0 1 2" MAX_MODEL_LEN=4096 MAX_NEW_TOKENS=3840 STUDENT=models/OLMo-2-1B-Instruct TAG=pairB/olmo1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
+e10-D-llama1b-m500	STAGES=eval500 SEEDS="0 1 2" STUDENT=models/Llama-3.2-1B-Instruct TAG=pairD/llama1b SPLITS=experiments/lambda_lora_bits/pairD/splits bash experiments/lambda_lora_bits/run_student.sh
+# 데이터 재표집 기준선 (108회 중 3칸)
+h-A-llama	while pgrep -f 'eval_stud[e]nt.py' >/dev/null; do sleep 120; done; STUDENT=models/Llama-3.2-1B-Instruct TAG=sweep_llama SPLITS=experiments/lambda_lora_bits/sweep/splits bash experiments/lambda_lora_bits/run_halves.sh
+h-A-olmo	while pgrep -f 'eval_stud[e]nt.py' >/dev/null; do sleep 120; done; MAX_MODEL_LEN=4096 TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=4096 STUDENT=models/OLMo-2-1B-Instruct TAG=sweep_olmo2 SPLITS=experiments/lambda_lora_bits/sweep/splits bash experiments/lambda_lora_bits/run_halves.sh
+h-B-olmo	while pgrep -f 'eval_stud[e]nt.py' >/dev/null; do sleep 120; done; MAX_MODEL_LEN=4096 TRAIN_MAX_LEN=4096 TRAIN_TOKEN_BUDGET=4096 STUDENT=models/OLMo-2-1B-Instruct TAG=pairB/olmo1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_halves.sh

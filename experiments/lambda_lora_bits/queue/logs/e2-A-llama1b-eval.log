@@ -1,0 +1,28 @@
+[2026-09-16 22:55:12] tokenizer length check for models/Llama-3.2-1B-Instruct
+lambda=0.0: mean=2358 max=7965 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.2: mean=1268 max=7069 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.4: mean=627 max=4892 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.6: mean=579 max=2339 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.8: mean=552 max=1914 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=1.0: mean=536 max=1876 over_8192=0 (0.0%) truncated_tokens=0.0%
+[2026-09-16 22:55:28] train lambda0.0_seed0
+[2026-09-16 22:55:31] train lambda0.2_seed0
+[2026-09-16 22:55:35] train lambda0.4_seed0
+[2026-09-16 22:55:38] train lambda0.6_seed0
+[2026-09-16 22:55:41] train lambda0.8_seed0
+[2026-09-16 22:55:45] train lambda1.0_seed0
+[2026-09-16 22:55:48] train lambda0.0_seed1
+[2026-09-16 22:55:51] train lambda0.2_seed1
+[2026-09-16 22:55:54] train lambda0.4_seed1
+[2026-09-16 22:55:58] train lambda0.6_seed1
+[2026-09-16 22:56:01] train lambda0.8_seed1
+[2026-09-16 22:56:04] train lambda1.0_seed1
+[2026-09-16 22:56:08] train lambda0.0_seed2
+[2026-09-16 22:56:11] train lambda0.2_seed2
+[2026-09-16 22:56:14] train lambda0.4_seed2
+[2026-09-16 22:56:17] train lambda0.6_seed2
+[2026-09-16 22:56:21] train lambda0.8_seed2
+[2026-09-16 22:56:24] train lambda1.0_seed2
+[2026-09-16 22:56:27] eval val (18 adapters)
+[2026-09-17 00:34:24] eval math500 (18 adapters)
+[2026-09-17 03:51:22] done

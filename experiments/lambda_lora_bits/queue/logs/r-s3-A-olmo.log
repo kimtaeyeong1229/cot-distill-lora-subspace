@@ -1,0 +1,13 @@
+[2026-09-17 17:04:53] train sweep_olmo2 lambda0.0_halfA
+[2026-09-17 17:15:46] train sweep_olmo2 lambda0.2_halfA
+[2026-09-17 17:22:03] train sweep_olmo2 lambda0.4_halfA
+[2026-09-17 17:25:11] train sweep_olmo2 lambda0.6_halfA
+[2026-09-17 17:28:02] train sweep_olmo2 lambda0.8_halfA
+[2026-09-17 17:30:43] train sweep_olmo2 lambda1.0_halfA
+[2026-09-17 17:33:20] train sweep_olmo2 lambda0.0_halfB
+[2026-09-17 17:44:04] train sweep_olmo2 lambda0.2_halfB
+[2026-09-17 17:50:22] train sweep_olmo2 lambda0.4_halfB
+[2026-09-17 17:53:20] train sweep_olmo2 lambda0.6_halfB
+[2026-09-17 17:56:07] train sweep_olmo2 lambda0.8_halfB
+[2026-09-17 17:58:48] train sweep_olmo2 lambda1.0_halfB
+[2026-09-17 18:01:21] done sweep_olmo2

@@ -1,0 +1,13 @@
+[2026-09-17 16:29:30] train pairD/olmo1b lambda0.0_halfA
+[2026-09-17 16:40:01] train pairD/olmo1b lambda0.2_halfA
+[2026-09-17 16:48:41] train pairD/olmo1b lambda0.4_halfA
+[2026-09-17 16:55:56] train pairD/olmo1b lambda0.6_halfA
+[2026-09-17 17:00:20] train pairD/olmo1b lambda0.8_halfA
+[2026-09-17 17:02:50] train pairD/olmo1b lambda1.0_halfA
+[2026-09-17 17:05:25] train pairD/olmo1b lambda0.0_halfB
+[2026-09-17 17:16:05] train pairD/olmo1b lambda0.2_halfB
+[2026-09-17 17:24:59] train pairD/olmo1b lambda0.4_halfB
+[2026-09-17 17:32:22] train pairD/olmo1b lambda0.6_halfB
+[2026-09-17 17:36:45] train pairD/olmo1b lambda0.8_halfB
+[2026-09-17 17:39:12] train pairD/olmo1b lambda1.0_halfB
+[2026-09-17 17:41:44] done pairD/olmo1b

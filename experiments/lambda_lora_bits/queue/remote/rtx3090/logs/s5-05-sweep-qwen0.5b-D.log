@@ -1,0 +1,22 @@
+[2026-09-16 00:13:07] tokenizer length check for models/Qwen2.5-0.5B-Instruct
+lambda=0.0: mean=2225 max=8131 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.2: mean=1802 max=7939 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.4: mean=1494 max=8166 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.6: mean=863 max=7091 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=0.8: mean=481 max=3388 over_8192=0 (0.0%) truncated_tokens=0.0%
+lambda=1.0: mean=504 max=1543 over_8192=0 (0.0%) truncated_tokens=0.0%
+[2026-09-16 00:13:18] train lambda0.0_seed0
+[2026-09-16 00:32:06] bits lambda0.0_seed0
+[2026-09-16 00:40:55] train lambda0.2_seed0
+[2026-09-16 00:56:05] bits lambda0.2_seed0
+[2026-09-16 01:02:25] train lambda0.4_seed0
+[2026-09-16 01:14:53] bits lambda0.4_seed0
+[2026-09-16 01:20:26] train lambda0.6_seed0
+[2026-09-16 01:28:11] bits lambda0.6_seed0
+[2026-09-16 01:32:09] train lambda0.8_seed0
+[2026-09-16 01:36:23] bits lambda0.8_seed0
+[2026-09-16 01:39:16] train lambda1.0_seed0
+[2026-09-16 01:43:33] bits lambda1.0_seed0
+[2026-09-16 01:46:31] eval val
+[2026-09-16 02:22:16] analyze
+[2026-09-16 02:22:17] done

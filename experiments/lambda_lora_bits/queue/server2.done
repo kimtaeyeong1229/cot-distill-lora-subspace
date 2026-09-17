@@ -1,0 +1,14 @@
+p1-A-qwen0.5b-s12
+p2-A-llama1b-s12
+p3-A-olmo1b-s12
+e1-A-qwen0.5b-eval
+e2-A-llama1b-eval
+e3-A-olmo1b-eval
+e9-D-llama1b-m500
+h-A-qwen
+h-B-qwen
+r-s2-B-qwen-B
+r-s2-D-qwen-A
+r-s2-B-llama-B
+r-s2-D-llama-B
+r-s2-
