@@ -26,3 +26,9 @@ D-B-qwen
 D-B-olmo
 L-s-A-qwen
 L-a-A-llama
+L-s-A-llama
+L-a-A-olmo
+L-s-A-olmo
+G-A-qwen
+G-B-qwen
+G-B-olmo

@@ -1,0 +1,503 @@
+{
+  "A/Qwen": {
+    "lambda0_markers_per_1k": 20.316065487719232,
+    "graft2": {
+      "head_markers_per_1k": 18.06666666666667,
+      "completed": 0.31,
+      "accuracy": 0.09,
+      "truncated": 0.69
+    },
+    "graft4": {
+      "head_markers_per_1k": 27.78033993811684,
+      "completed": 0.0,
+      "accuracy": 0.045,
+      "truncated": 1.0
+    },
+    "graft8": {
+      "head_markers_per_1k": 1.53381051882808,
+      "completed": 0.01,
+      "accuracy": 0.015,
+      "truncated": 0.99
+    },
+    "graft_orth2": {
+      "head_markers_per_1k": 0.5548274773525164,
+      "completed": 0.9475,
+      "accuracy": 0.2925,
+      "truncated": 0.0525
+    },
+    "graft_orth4": {
+      "head_markers_per_1k": 3.158810462926207,
+      "completed": 0.03,
+      "accuracy": 0.0325,
+      "truncated": 0.97
+    },
+    "graft_orth8": {
+      "head_markers_per_1k": 0.9128913915194949,
+      "completed": 0.0,
+      "accuracy": 0.035,
+      "truncated": 1.0
+    },
+    "graft_full2": {
+      "head_markers_per_1k": 12.925,
+      "completed": 0.2775,
+      "accuracy": 0.1425,
+      "truncated": 0.7225
+    },
+    "graft_full4": {
+      "head_markers_per_1k": 45.04857934626557,
+      "completed": 0.0075,
+      "accuracy": 0.0425,
+      "truncated": 0.9925
+    },
+    "graft_full8": {
+      "head_markers_per_1k": 1.2137366429472383,
+      "completed": 0.0075,
+      "accuracy": 0.0075,
+      "truncated": 0.9925
+    }
+  },
+  "A/Llama": {
+    "lambda0_markers_per_1k": 30.246015931072876,
+    "graft2": {
+      "head_markers_per_1k": 8.703916762543145,
+      "completed": 0.085,
+      "accuracy": 0.0675,
+      "truncated": 0.915
+    },
+    "graft4": {
+      "head_markers_per_1k": 17.073374561256895,
+      "completed": 0.0,
+      "accuracy": 0.0375,
+      "truncated": 1.0
+    },
+    "graft8": {
+      "head_markers_per_1k": 1.687087102135585,
+      "completed": 0.0,
+      "accuracy": 0.03,
+      "truncated": 1.0
+    },
+    "graft_orth2": {
+      "head_markers_per_1k": 1.0837079745667284,
+      "completed": 0.59,
+      "accuracy": 0.1825,
+      "truncated": 0.41
+    },
+    "graft_orth4": {
+      "head_markers_per_1k": 2.6785937799881507,
+      "completed": 0.0,
+      "accuracy": 0.0475,
+      "truncated": 1.0
+    },
+    "graft_orth8": {
+      "head_markers_per_1k": 0.017674089784376106,
+      "completed": 0.0,
+      "accuracy": 0.0225,
+      "truncated": 1.0
+    },
+    "graft_full2": {
+      "head_markers_per_1k": 7.667752931665319,
+      "completed": 0.24,
+      "accuracy": 0.1175,
+      "truncated": 0.76
+    },
+    "graft_full4": {
+      "head_markers_per_1k": 16.702874331550802,
+      "completed": 0.0,
+      "accuracy": 0.0325,
+      "truncated": 1.0
+    },
+    "graft_full8": {
+      "head_markers_per_1k": 24.339244626031267,
+      "completed": 0.0,
+      "accuracy": 0.0375,
+      "truncated": 1.0
+    }
+  },
+  "A/OLMo": {
+    "lambda0_markers_per_1k": 14.343728204478575,
+    "graft2": {
+      "head_markers_per_1k": 6.478026097431535,
+      "completed": 0.0025,
+      "accuracy": 0.05,
+      "truncated": 0.9975
+    },
+    "graft4": {
+      "head_markers_per_1k": 12.990784315400187,
+      "completed": 0.0,
+      "accuracy": 0.04,
+      "truncated": 1.0
+    },
+    "graft8": {
+      "head_markers_per_1k": 0.4185692541856926,
+      "completed": 0.0025,
+      "accuracy": 0.015,
+      "truncated": 0.9975
+    },
+    "graft_orth2": {
+      "head_markers_per_1k": 0.2486559716017732,
+      "completed": 0.7125,
+      "accuracy": 0.105,
+      "truncated": 0.2875
+    },
+    "graft_orth4": {
+      "head_markers_per_1k": 3.2583333333333333,
+      "completed": 0.03,
+      "accuracy": 0.055,
+      "truncated": 0.97
+    },
+    "graft_orth8": {
+      "head_markers_per_1k": 0.4511956685215822,
+      "completed": 0.4925,
+      "accuracy": 0.0025,
+      "truncated": 0.5075
+    },
+    "graft_full2": {
+      "head_markers_per_1k": 11.564603129540256,
+      "completed": 0.0175,
+      "accuracy": 0.0475,
+      "truncated": 0.9825
+    },
+    "graft_full4": {
+      "head_markers_per_1k": 39.44447701934111,
+      "completed": 0.005,
+      "accuracy": 0.0425,
+      "truncated": 0.995
+    },
+    "graft_full8": {
+      "head_markers_per_1k": 28.942098832473526,
+      "completed": 0.03,
+      "accuracy": 0.02,
+      "truncated": 0.97
+    }
+  },
+  "B/Qwen": {
+    "lambda0_markers_per_1k": 11.00753966765445,
+    "graft2": {
+      "head_markers_per_1k": 21.39952742362381,
+      "completed": 0.0,
+      "accuracy": 0.025,
+      "truncated": 1.0
+    },
+    "graft4": {
+      "head_markers_per_1k": 31.93969276178976,
+      "completed": 0.0,
+      "accuracy": 0.0275,
+      "truncated": 1.0
+    },
+    "graft8": {
+      "head_markers_per_1k": 4.858583497512272,
+      "completed": 0.0,
+      "accuracy": 0.035,
+      "truncated": 1.0
+    },
+    "graft_orth2": {
+      "head_markers_per_1k": 1.240984203110858,
+      "completed": 0.6075,
+      "accuracy": 0.195,
+      "truncated": 0.3925
+    },
+    "graft_orth4": {
+      "head_markers_per_1k": 0.7989896646820794,
+      "completed": 0.405,
+      "accuracy": 0.0575,
+      "truncated": 0.595
+    },
+    "graft_orth8": {
+      "head_markers_per_1k": 6.7358028263247824,
+      "completed": 0.0075,
+      "accuracy": 0.0175,
+      "truncated": 0.9925
+    },
+    "graft_full2": {
+      "head_markers_per_1k": 11.745248169789777,
+      "completed": 0.105,
+      "accuracy": 0.075,
+      "truncated": 0.895
+    },
+    "graft_full4": {
+      "head_markers_per_1k": 42.719650201452474,
+      "completed": 0.0,
+      "accuracy": 0.02,
+      "truncated": 1.0
+    },
+    "graft_full8": {
+      "head_markers_per_1k": 38.11850011063642,
+      "completed": 0.0,
+      "accuracy": 0.0475,
+      "truncated": 1.0
+    }
+  },
+  "B/Llama": {
+    "lambda0_markers_per_1k": 52.68191534062883,
+    "graft2": {
+      "head_markers_per_1k": 19.233333333333334,
+      "completed": 0.0,
+      "accuracy": 0.0625,
+      "truncated": 1.0
+    },
+    "graft4": {
+      "head_markers_per_1k": 0.11666666666666667,
+      "completed": 0.0,
+      "accuracy": 0.0075,
+      "truncated": 1.0
+    },
+    "graft8": {
+      "head_markers_per_1k": 3.5561184723304757,
+      "completed": 0.0,
+      "accuracy": 0.0,
+      "truncated": 1.0
+    },
+    "graft_orth2": {
+      "head_markers_per_1k": 1.1702206701835203,
+      "completed": 0.6775,
+      "accuracy": 0.1475,
+      "truncated": 0.3225
+    },
+    "graft_orth4": {
+      "head_markers_per_1k": 18.124375057767768,
+      "completed": 0.01,
+      "accuracy": 0.0325,
+      "truncated": 0.99
+    },
+    "graft_orth8": {
+      "head_markers_per_1k": 0.05468066491688539,
+      "completed": 0.0,
+      "accuracy": 0.01,
+      "truncated": 1.0
+    },
+    "graft_full2": {
+      "head_markers_per_1k": 103.20204449789537,
+      "completed": 0.0,
+      "accuracy": 0.045,
+      "truncated": 1.0
+    }
+  },
+  "B/OLMo": {
+    "lambda0_markers_per_1k": 14.744806794595744,
+    "graft2": {
+      "head_markers_per_1k": 59.7425027476841,
+      "completed": 0.0,
+      "accuracy": 0.04,
+      "truncated": 1.0
+    },
+    "graft4": {
+      "head_markers_per_1k": 617.058551312281,
+      "completed": 0.0,
+      "accuracy": 0.015,
+      "truncated": 1.0
+    },
+    "graft8": {
+      "head_markers_per_1k": 18.625814265606078,
+      "completed": 0.0025,
+      "accuracy": 0.0225,
+      "truncated": 0.9975
+    },
+    "graft_orth2": {
+      "head_markers_per_1k": 0.6253563611616914,
+      "completed": 0.6725,
+      "accuracy": 0.09,
+      "truncated": 0.3275
+    },
+    "graft_orth4": {
+      "head_markers_per_1k": 2.5933653773050964,
+      "completed": 0.08,
+      "accuracy": 0.035,
+      "truncated": 0.92
+    },
+    "graft_orth8": {
+      "head_markers_per_1k": 0.0,
+      "completed": 0.4075,
+      "accuracy": 0.0125,
+      "truncated": 0.5925
+    },
+    "graft_full2": {
+      "head_markers_per_1k": 126.59732029070366,
+      "completed": 0.0025,
+      "accuracy": 0.0375,
+      "truncated": 0.9975
+    },
+    "graft_full4": {
+      "head_markers_per_1k": 1676.4997627981197,
+      "completed": 0.295,
+      "accuracy": 0.005,
+      "truncated": 0.705
+    },
+    "graft_full8": {
+      "head_markers_per_1k": 376.2579585130417,
+      "completed": 0.0,
+      "accuracy": 0.015,
+      "truncated": 1.0
+    }
+  },
+  "C/Qwen": {
+    "lambda0_markers_per_1k": 16.955267921811966,
+    "graft2": {
+      "head_markers_per_1k": 13.658788626287542,
+      "completed": 0.0,
+      "accuracy": 0.0475,
+      "truncated": 1.0
+    },
+    "graft4": {
+      "head_markers_per_1k": 1104.034909558905,
+      "completed": 0.005,
+      "accuracy": 0.0025,
+      "truncated": 0.995
+    },
+    "graft8": {
+      "head_markers_per_1k": 1269.766938841724,
+      "completed": 0.0025,
+      "accuracy": 0.005,
+      "truncated": 0.9975
+    },
+    "graft_orth2": {
+      "head_markers_per_1k": 0.23655933545023608,
+      "completed": 0.7325,
+      "accuracy": 0.18,
+      "truncated": 0.2675
+    },
+    "graft_orth4": {
+      "head_markers_per_1k": 0.29308814416587115,
+      "completed": 0.0925,
+      "accuracy": 0.0175,
+      "truncated": 0.9075
+    },
+    "graft_orth8": {
+      "head_markers_per_1k": 0.012213292948044652,
+      "completed": 0.01,
+      "accuracy": 0.0,
+      "truncated": 0.99
+    },
+    "graft_full2": {
+      "head_markers_per_1k": 1.6666666666666667,
+      "completed": 0.0025,
+      "accuracy": 0.08,
+      "truncated": 0.9975
+    },
+    "graft_full4": {
+      "head_markers_per_1k": 243.87861641574887,
+      "completed": 0.01,
+      "accuracy": 0.0025,
+      "truncated": 0.99
+    },
+    "graft_full8": {
+      "head_markers_per_1k": 3699.157612013185,
+      "completed": 0.0025,
+      "accuracy": 0.0075,
+      "truncated": 0.9975
+    }
+  },
+  "C/Llama": {
+    "lambda0_markers_per_1k": 21.348677134867714,
+    "graft2": {
+      "head_markers_per_1k": 29.25,
+      "completed": 0.0,
+      "accuracy": 0.06,
+      "truncated": 1.0
+    },
+    "graft4": {
+      "head_markers_per_1k": 68.14221999916636,
+      "completed": 0.0,
+      "accuracy": 0.03,
+      "truncated": 1.0
+    },
+    "graft8": {
+      "head_markers_per_1k": 255.74494949494948,
+      "completed": 0.0,
+      "accuracy": 0.015,
+      "truncated": 1.0
+    },
+    "graft_orth2": {
+      "head_markers_per_1k": 0.18966763005780346,
+      "completed": 0.8225,
+      "accuracy": 0.2725,
+      "truncated": 0.1775
+    },
+    "graft_orth4": {
+      "head_markers_per_1k": 0.3279129601291473,
+      "completed": 0.325,
+      "accuracy": 0.08,
+      "truncated": 0.675
+    },
+    "graft_orth8": {
+      "head_markers_per_1k": 0.1866558066924591,
+      "completed": 0.0025,
+      "accuracy": 0.0325,
+      "truncated": 0.9975
+    },
+    "graft_full2": {
+      "head_markers_per_1k": 16.633333333333333,
+      "completed": 0.0575,
+      "accuracy": 0.0825,
+      "truncated": 0.9425
+    },
+    "graft_full4": {
+      "head_markers_per_1k": 33.316107091654715,
+      "completed": 0.0,
+      "accuracy": 0.04,
+      "truncated": 1.0
+    },
+    "graft_full8": {
+      "head_markers_per_1k": 98.54636929985986,
+      "completed": 0.0,
+      "accuracy": 0.025,
+      "truncated": 1.0
+    }
+  },
+  "C/OLMo": {
+    "lambda0_markers_per_1k": 14.045184217651952,
+    "graft2": {
+      "head_markers_per_1k": 10.900377969762419,
+      "completed": 0.0025,
+      "accuracy": 0.05,
+      "truncated": 0.9975
+    },
+    "graft4": {
+      "head_markers_per_1k": 12.892627378126397,
+      "completed": 0.0025,
+      "accuracy": 0.03,
+      "truncated": 0.9975
+    },
+    "graft8": {
+      "head_markers_per_1k": 61.85535918933591,
+      "completed": 0.0,
+      "accuracy": 0.0275,
+      "truncated": 1.0
+    },
+    "graft_orth2": {
+      "head_markers_per_1k": 0.055789043031948524,
+      "completed": 0.71,
+      "accuracy": 0.12,
+      "truncated": 0.29
+    },
+    "graft_orth4": {
+      "head_markers_per_1k": 0.06750770009704231,
+      "completed": 0.245,
+      "accuracy": 0.05,
+      "truncated": 0.755
+    },
+    "graft_orth8": {
+      "head_markers_per_1k": 0.08697618592029502,
+      "completed": 0.045,
+      "accuracy": 0.01,
+      "truncated": 0.955
+    },
+    "graft_full2": {
+      "head_markers_per_1k": 9.643774203531311,
+      "completed": 0.01,
+      "accuracy": 0.045,
+      "truncated": 0.99
+    },
+    "graft_full4": {
+      "head_markers_per_1k": 35.27664314890457,
+      "completed": 0.05,
+      "accuracy": 0.025,
+      "truncated": 0.95
+    },
+    "graft_full8": {
+      "head_markers_per_1k": 126.77100417906023,
+      "completed": 0.02,
+      "accuracy": 0.0225,
+      "truncated": 0.98
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "ampV",
+  "adapter": "experiments/lambda_lora_bits/pairD/olmo1b/runs_steer_loo/ampV/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.0775,
+  "avg_tokens": 3365.1275,
+  "truncated_rate": 0.7975,
+  "reflective_per_1k_words": 13.628107653383127,
+  "think_tag_rate": 0.0
+}

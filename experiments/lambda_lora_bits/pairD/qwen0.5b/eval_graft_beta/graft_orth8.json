@@ -1,0 +1,11 @@
+{
+  "name": "graft_orth8",
+  "adapter": "experiments/lambda_lora_bits/pairD/qwen0.5b/runs_graft_beta/graft_orth8/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.0,
+  "avg_tokens": 7636.6475,
+  "truncated_rate": 0.99,
+  "reflective_per_1k_words": 0.0008261629275909502,
+  "think_tag_rate": 0.0
+}

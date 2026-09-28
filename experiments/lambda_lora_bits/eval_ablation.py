@@ -9,10 +9,12 @@ this measures.
 
 Per adapter it reports accuracy (mean over samples, MI-Distillation grader), mean tokens, truncation
 rate, reflective-marker density, and the tag rate, which is kept only to show it stays at zero.
-Full generations are not stored -- the metrics are computed while the outputs are in memory.
+Generations are also written to <name>.samples.jsonl.gz so that a high marker density can be checked
+against the text (a looping response repeats "wait" without re-checking anything).
 """
 
 import argparse
+import gzip
 import json
 import re
 from pathlib import Path
@@ -72,8 +74,11 @@ def main():
         request = LoRARequest(name, lora_id, str(path)) if path else None
         outputs = llm.generate(prompts, params, lora_request=request)
         correct = tokens = truncated = markers = words = tagged = total = 0
+        records = []
         for row, out in zip(problems, outputs):
             for c in out.outputs:
+                records.append({"problem": row["problem"], "text": c.text,
+                                "finish_reason": c.finish_reason, "tokens": len(c.token_ids)})
                 total += 1
                 correct += is_correct(row["problem"], c.text, str(row["answer"]))
                 tokens += len(c.token_ids)
@@ -89,6 +94,8 @@ def main():
             "reflective_per_1k_words": markers / max(words, 1) * 1000,
             "think_tag_rate": tagged / total,
         }
+        with gzip.open(out_dir / f"{name}.samples.jsonl.gz", "wt") as f:
+            f.writelines(json.dumps(r, ensure_ascii=False) + "\n" for r in records)
         (out_dir / f"{name}.json").write_text(json.dumps(summary, indent=2))
         print(json.dumps(summary, ensure_ascii=False), flush=True)
 

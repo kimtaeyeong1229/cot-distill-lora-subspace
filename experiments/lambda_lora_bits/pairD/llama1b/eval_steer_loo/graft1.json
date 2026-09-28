@@ -1,0 +1,11 @@
+{
+  "name": "graft1",
+  "adapter": "experiments/lambda_lora_bits/pairD/llama1b/runs_steer_loo/graft1/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.295,
+  "avg_tokens": 1507.4825,
+  "truncated_rate": 0.1175,
+  "reflective_per_1k_words": 0.6749156355455568,
+  "think_tag_rate": 0.0
+}

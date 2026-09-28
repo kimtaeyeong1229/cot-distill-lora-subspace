@@ -1,0 +1,11 @@
+{
+  "name": "graft_full8",
+  "adapter": "experiments/lambda_lora_bits/sweep/runs_graft_beta/graft_full8/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.0075,
+  "avg_tokens": 7644.7225,
+  "truncated_rate": 0.9925,
+  "reflective_per_1k_words": 2.3925960982279015,
+  "think_tag_rate": 0.0
+}
