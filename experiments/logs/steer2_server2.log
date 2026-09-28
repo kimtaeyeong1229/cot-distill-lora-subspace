@@ -1,0 +1,3 @@
+[2026-09-21 13:46:19] 1차 25/25 완료 — 노름보존 증폭 시작
+bash: line 5: experiments/lambda_lora_bits/queue/logs/steer_server2.log: Permission denied
+[2026-09-21 13:46:19] server2 2차 완료

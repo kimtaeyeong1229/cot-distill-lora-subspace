@@ -1,0 +1,10 @@
+{
+  "tag": "sweep_llama",
+  "source_lambda": "0.0",
+  "seed": 0,
+  "variant": "rm_energy",
+  "cliff": "0.4",
+  "modules": 112,
+  "dims_removed_mean": 13.669642857142858,
+  "rank": 16
+}

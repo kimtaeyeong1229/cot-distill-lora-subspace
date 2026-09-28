@@ -1,0 +1,11 @@
+{
+  "name": "lambda1.0_rm_decisive",
+  "adapter": "experiments/lambda_lora_bits/sweep/runs_ablation/lambda1.0_rm_decisive/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.4025,
+  "avg_tokens": 662.895,
+  "truncated_rate": 0.015,
+  "reflective_per_1k_words": 0.18029794234973295,
+  "think_tag_rate": 0.0
+}

@@ -1,0 +1,10 @@
+{
+  "tag": "pairD/olmo1b",
+  "source_lambda": "0.0",
+  "seed": 0,
+  "variant": "rm_pre",
+  "cliff": "0.8",
+  "modules": 112,
+  "dims_removed_mean": 5.598214285714286,
+  "rank": 16
+}

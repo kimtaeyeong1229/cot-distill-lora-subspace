@@ -1,0 +1,10 @@
+{
+  "tag": "pairB/llama1b",
+  "source_lambda": "0.0",
+  "seed": 0,
+  "variant": "rm_decisive",
+  "cliff": "0.6",
+  "modules": 112,
+  "dims_removed_mean": 14.776785714285714,
+  "rank": 16
+}

@@ -1,0 +1,175 @@
+2026-09-28 10:09:40 server2 gpu=100,15016 runner=up done=0/10 now=L-a-A-qwen | sweep:0/16,0/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 10:09:42 server5 gpu=100,21442 runner=up done=0/8 now=L-a-C-qwen | qwen0.5b:0/16,0/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 10:14:44 server2 gpu=100,15016 runner=up done=0/10 now=L-a-A-qwen | sweep:2/16,0/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 10:14:46 server5 gpu=100,21442 runner=up done=0/8 now=L-a-C-qwen | qwen0.5b:2/16,0/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 10:19:46 server2 gpu=100,14239 runner=up done=0/10 now=L-a-A-qwen | sweep:3/16,0/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 10:19:48 server5 gpu=100,21442 runner=up done=0/8 now=L-a-C-qwen | qwen0.5b:4/16,0/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 10:27:00 server2 gpu=100,14239 runner=up done=0/10 now=L-a-A-qwen | sweep:5/16,0/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 10:27:04 server5 gpu=0,21442 runner=up done=0/8 now=L-a-C-qwen | qwen0.5b:6/16,0/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 10:32:04 server2 gpu=100,14239 runner=up done=0/10 now=L-a-A-qwen | sweep:7/16,0/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 10:32:08 server5 gpu=100,21442 runner=up done=0/8 now=L-a-C-qwen | qwen0.5b:9/16,0/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 10:37:08 server2 gpu=99,14239 runner=up done=0/10 now=L-a-A-qwen | sweep:13/16,0/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 10:37:11 server5 gpu=100,21442 runner=up done=0/8 now=L-a-C-qwen | qwen0.5b:13/16,0/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 10:42:11 server2 gpu=0,129 runner=up done=0/10 now=L-a-A-qwen | sweep:16/16,0/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 10:42:13 server5 gpu=100,21438 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,0/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 10:42:13 DONE server5 L-a-C-qwen
+2026-09-28 10:47:13 server2 gpu=0,129 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,0/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 10:47:13 DONE server2 L-a-A-qwen
+2026-09-28 10:47:13 ALERT server2 GPU idle for 10+ min with 9 jobs left
+2026-09-28 10:47:15 server5 gpu=100,21438 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,1/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 10:52:15 server2 gpu=0,1723 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,0/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 10:52:15 ALERT server2 GPU idle for 10+ min with 9 jobs left
+2026-09-28 10:52:17 server5 gpu=100,21438 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,2/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 10:57:18 server2 gpu=100,14239 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,0/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 10:57:20 server5 gpu=100,21438 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,3/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 11:02:20 server2 gpu=100,14239 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,1/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 11:02:22 server5 gpu=100,21438 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,4/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 11:07:22 server2 gpu=99,14239 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 11:07:24 server5 gpu=100,21442 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,5/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 11:12:24 server2 gpu=100,14239 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 11:12:27 server5 gpu=100,21442 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 11:17:27 server2 gpu=99,14239 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 11:17:29 server5 gpu=100,21442 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 11:22:29 server2 gpu=100,14165 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 11:22:31 server5 gpu=100,21442 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 11:27:31 server2 gpu=100,14165 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 11:27:34 server5 gpu=100,21282 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 11:32:34 server2 gpu=99,14165 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 11:32:36 server5 gpu=100,21282 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 11:37:36 server2 gpu=99,14165 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 11:37:38 server5 gpu=100,21284 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 11:42:38 server2 gpu=100,14047 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 11:42:41 server5 gpu=100,21284 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 11:47:41 server2 gpu=99,14047 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 11:47:43 server5 gpu=100,21284 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 11:52:43 server2 gpu=100,14047 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 11:52:46 server5 gpu=100,21284 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 11:57:46 server2 gpu=100,14047 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 11:57:48 server5 gpu=100,21284 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 12:02:48 server2 gpu=100,14239 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 12:02:50 server5 gpu=100,21194 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 12:07:50 server2 gpu=100,14239 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 12:07:53 server5 gpu=100,21194 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 12:12:53 server2 gpu=99,14239 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 12:12:55 server5 gpu=100,21194 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 12:17:55 server2 gpu=99,14047 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 12:17:58 server5 gpu=100,21194 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 12:22:58 server2 gpu=99,14047 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 12:23:00 server5 gpu=100,21194 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 12:28:00 server2 gpu=100,14047 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 12:28:02 server5 gpu=100,21194 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 12:33:02 server2 gpu=100,14047 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 12:33:04 server5 gpu=100,21282 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 12:38:04 server2 gpu=100,14047 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 12:38:07 server5 gpu=100,21284 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 12:43:07 server2 gpu=99,14047 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 12:43:10 server5 gpu=100,21284 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 12:48:10 server2 gpu=100,14235 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,2/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 12:48:12 server5 gpu=100,21284 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 12:53:12 server2 gpu=100,14237 runner=up done=1/10 now=L-s-A-qwen | sweep:16/16,3/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 qwen0.5b:0/16,0/9 olmo1b:0/16,0/9 
+2026-09-28 12:53:15 server5 gpu=100,21284 runner=up done=1/8 now=L-s-C-qwen | qwen0.5b:16/16,6/9 llama1b:0/16,0/9 olmo1b:0/16,0/9 llama1b:0/16,0/9 
+2026-09-28 12:57:08 server2 gpu=100,14239 runner=up done=1/6 now=L-s-A-qwen | sweep:16/16,4/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 12:57:08 DONE server2 L-a-A-qwen
+2026-09-28 12:57:10 server5 gpu=100,21284 runner=up done=1/6 now=L-s-C-qwen | pairD-qwen0.5b:16/16,6/9 pairD-llama1b:0/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 12:57:10 DONE server5 L-a-C-qwen
+2026-09-28 12:57:12 server1 gpu=0,1934 runner=up done=0/6 now=L-a-B-qwen | pairB-qwen0.5b:0/16,0/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 13:02:13 server2 gpu=35,3503 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 13:02:13 DONE server2 L-s-A-qwen
+2026-09-28 13:02:14 server5 gpu=100,21284 runner=up done=1/6 now=L-s-C-qwen | pairD-qwen0.5b:16/16,6/9 pairD-llama1b:0/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 13:02:15 server1 gpu=100,13930 runner=up done=0/6 now=L-a-B-qwen | pairB-qwen0.5b:0/16,0/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 13:07:15 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 13:07:17 server5 gpu=100,21442 runner=up done=1/6 now=L-s-C-qwen | pairD-qwen0.5b:16/16,7/9 pairD-llama1b:0/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 13:07:18 server1 gpu=100,13930 runner=up done=0/6 now=L-a-B-qwen | pairB-qwen0.5b:2/16,0/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 13:12:18 server2 gpu=99,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:0/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 13:12:20 server5 gpu=100,21282 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:0/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 13:12:20 DONE server5 L-s-C-qwen
+2026-09-28 13:12:21 server1 gpu=0,13930 runner=up done=0/6 now=L-a-B-qwen | pairB-qwen0.5b:4/16,0/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 13:17:21 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:2/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 13:17:22 server5 gpu=100,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:0/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 13:17:23 server1 gpu=100,13930 runner=up done=0/6 now=L-a-B-qwen | pairB-qwen0.5b:7/16,0/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 13:22:23 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:2/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 13:22:25 server5 gpu=99,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:1/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 13:22:26 server1 gpu=100,13930 runner=up done=0/6 now=L-a-B-qwen | pairB-qwen0.5b:10/16,0/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 13:27:26 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:2/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 13:27:28 server5 gpu=100,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:2/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 13:27:29 server1 gpu=100,13930 runner=up done=0/6 now=L-a-B-qwen | pairB-qwen0.5b:14/16,0/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 13:32:29 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:3/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 13:32:30 server5 gpu=100,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:2/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 13:32:31 server1 gpu=100,14156 runner=up done=1/6 now=L-s-B-qwen | pairB-qwen0.5b:16/16,0/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 13:32:31 DONE server1 L-a-B-qwen
+2026-09-28 13:37:31 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:3/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 13:37:33 server5 gpu=100,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:3/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 13:37:34 server1 gpu=100,14158 runner=up done=1/6 now=L-s-B-qwen | pairB-qwen0.5b:16/16,1/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 13:42:34 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:4/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 13:42:36 server5 gpu=100,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:4/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 13:42:37 server1 gpu=100,14160 runner=up done=1/6 now=L-s-B-qwen | pairB-qwen0.5b:16/16,2/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 13:47:37 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:4/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 13:47:38 server5 gpu=100,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:4/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 13:47:39 server1 gpu=100,14160 runner=up done=1/6 now=L-s-B-qwen | pairB-qwen0.5b:16/16,4/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 13:52:40 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:5/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 13:52:41 server5 gpu=99,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:6/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 13:52:42 server1 gpu=100,14160 runner=up done=1/6 now=L-s-B-qwen | pairB-qwen0.5b:16/16,5/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 13:57:42 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:6/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 13:57:44 server5 gpu=100,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:6/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 13:57:45 server1 gpu=99,14160 runner=up done=1/6 now=L-s-B-qwen | pairB-qwen0.5b:16/16,7/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 14:02:45 server2 gpu=99,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:6/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 14:02:47 server5 gpu=100,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:7/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 14:02:48 server1 gpu=100,13966 runner=up done=2/6 now=L-a-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 14:02:48 DONE server1 L-s-B-qwen
+2026-09-28 14:07:48 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:7/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 14:07:50 server5 gpu=100,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:7/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 14:07:51 server1 gpu=99,13966 runner=up done=2/6 now=L-a-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:0/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 14:12:51 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:7/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 14:12:53 server5 gpu=100,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:8/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 14:12:53 server1 gpu=100,13966 runner=up done=2/6 now=L-a-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:2/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 14:17:53 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:9/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 14:17:55 server5 gpu=100,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:11/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 14:17:56 server1 gpu=100,13966 runner=up done=2/6 now=L-a-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:2/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 14:22:56 server2 gpu=100,14163 runner=up done=2/6 now=L-a-A-llama | sweep:16/16,9/9 sweep_llama:14/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 14:22:57 server5 gpu=100,21284 runner=up done=2/6 now=L-a-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:14/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 14:22:58 server1 gpu=100,13966 runner=up done=2/6 now=L-a-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:3/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 14:27:58 server2 gpu=100,14163 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 14:27:58 DONE server2 L-a-A-llama
+2026-09-28 14:28:00 server5 gpu=100,21282 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 14:28:00 DONE server5 L-a-C-llama
+2026-09-28 14:28:00 server1 gpu=100,13966 runner=up done=2/6 now=L-a-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:4/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 14:33:01 server2 gpu=100,14163 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,0/9 sweep_olmo2:0/16,0/9 
+2026-09-28 14:33:02 server5 gpu=100,21282 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 14:33:03 server1 gpu=100,13966 runner=up done=2/6 now=L-a-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:6/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 14:38:03 server2 gpu=99,14165 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,1/9 sweep_olmo2:0/16,0/9 
+2026-09-28 14:38:04 server5 gpu=100,21282 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,0/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 14:38:05 server1 gpu=100,13966 runner=up done=2/6 now=L-a-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:7/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 14:43:05 server2 gpu=99,14165 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,1/9 sweep_olmo2:0/16,0/9 
+2026-09-28 14:43:07 server5 gpu=100,21284 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,1/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 14:43:07 server1 gpu=100,13966 runner=up done=2/6 now=L-a-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:8/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 14:48:07 server2 gpu=100,14165 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,1/9 sweep_olmo2:0/16,0/9 
+2026-09-28 14:48:09 server5 gpu=100,21284 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,1/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 14:48:10 server1 gpu=98,13966 runner=up done=2/6 now=L-a-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:10/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 14:53:10 server2 gpu=100,14165 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,2/9 sweep_olmo2:0/16,0/9 
+2026-09-28 14:53:11 server5 gpu=61,21284 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,1/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 14:53:12 server1 gpu=99,13966 runner=up done=2/6 now=L-a-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:13/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 14:58:13 server2 gpu=99,14165 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,2/9 sweep_olmo2:0/16,0/9 
+2026-09-28 14:58:14 server5 gpu=100,21284 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,2/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 14:58:15 server1 gpu=100,13966 runner=up done=2/6 now=L-a-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:14/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 15:03:15 server2 gpu=100,14165 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,3/9 sweep_olmo2:0/16,0/9 
+2026-09-28 15:03:16 server5 gpu=100,21284 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,2/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 15:03:17 server1 gpu=100,13966 runner=up done=3/6 now=L-s-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:16/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 15:03:17 DONE server1 L-a-B-olmo
+2026-09-28 15:08:17 server2 gpu=100,14165 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,3/9 sweep_olmo2:0/16,0/9 
+2026-09-28 15:08:20 server5 gpu=100,21284 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,3/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 15:08:21 server1 gpu=100,13966 runner=up done=3/6 now=L-s-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:16/16,0/9 pairB-llama1b:0/16,0/9 
+2026-09-28 15:13:21 server2 gpu=100,14165 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,3/9 sweep_olmo2:0/16,0/9 
+2026-09-28 15:13:22 server5 gpu=100,21284 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,3/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 15:13:23 server1 gpu=100,13966 runner=up done=3/6 now=L-s-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:16/16,1/9 pairB-llama1b:0/16,0/9 
+2026-09-28 15:18:23 server2 gpu=100,14165 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,4/9 sweep_olmo2:0/16,0/9 
+2026-09-28 15:18:25 server5 gpu=100,21284 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,3/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 15:18:25 server1 gpu=100,13966 runner=up done=3/6 now=L-s-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:16/16,1/9 pairB-llama1b:0/16,0/9 
+2026-09-28 15:23:25 server2 gpu=100,14165 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,4/9 sweep_olmo2:0/16,0/9 
+2026-09-28 15:23:27 server5 gpu=100,21284 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,4/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 15:23:27 server1 gpu=100,13966 runner=up done=3/6 now=L-s-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:16/16,1/9 pairB-llama1b:0/16,0/9 
+2026-09-28 15:28:28 server2 gpu=99,14165 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,6/9 sweep_olmo2:0/16,0/9 
+2026-09-28 15:28:29 server5 gpu=100,21284 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,4/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 15:28:30 server1 gpu=99,13966 runner=up done=3/6 now=L-s-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:16/16,2/9 pairB-llama1b:0/16,0/9 
+2026-09-28 15:33:30 server2 gpu=100,14165 runner=up done=3/6 now=L-s-A-llama | sweep:16/16,9/9 sweep_llama:16/16,8/9 sweep_olmo2:0/16,0/9 
+2026-09-28 15:33:32 server5 gpu=100,21284 runner=up done=3/6 now=L-s-C-llama | pairD-qwen0.5b:16/16,9/9 pairD-llama1b:16/16,5/9 pairD-olmo1b:0/16,0/9 
+2026-09-28 15:33:32 server1 gpu=99,13966 runner=up done=3/6 now=L-s-B-olmo | pairB-qwen0.5b:16/16,9/9 pairB-olmo1b:16/16,3/9 pairB-llama1b:0/16,0/9 

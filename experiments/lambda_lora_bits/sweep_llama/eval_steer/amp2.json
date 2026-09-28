@@ -1,0 +1,11 @@
+{
+  "name": "amp2",
+  "adapter": "experiments/lambda_lora_bits/sweep_llama/runs_steer/amp2/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.0275,
+  "avg_tokens": 7679.335,
+  "truncated_rate": 1.0,
+  "reflective_per_1k_words": 10.208386681211131,
+  "think_tag_rate": 0.0
+}

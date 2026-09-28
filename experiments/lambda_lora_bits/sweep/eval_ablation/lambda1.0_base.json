@@ -1,0 +1,11 @@
+{
+  "name": "lambda1.0_base",
+  "adapter": "experiments/lambda_lora_bits/sweep/runs/lambda1.0_seed0/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.345,
+  "avg_tokens": 866.12,
+  "truncated_rate": 0.0475,
+  "reflective_per_1k_words": 0.18362216889440458,
+  "think_tag_rate": 0.0
+}

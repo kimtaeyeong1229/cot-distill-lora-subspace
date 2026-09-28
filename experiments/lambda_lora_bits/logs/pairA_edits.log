@@ -1,0 +1,84 @@
+=== sweep ablate ===
+[sweep] 절벽 λ0.4 | 문턱 전 6개, 후 12개 adapter 로 합의 구역 계산
+  합의 차원 평균: 문턱 전 6.5, 후 1.9
+  lambda0.0_rm_pre: 168개 모듈, 평균 6.5차원 제거
+  lambda0.0_rm_rand: 168개 모듈, 평균 6.5차원 제거
+  lambda0.0_rm_post: 168개 모듈, 평균 6.5차원 제거
+  lambda0.0_rm_least: 168개 모듈, 평균 6.5차원 제거
+  lambda0.0_rm_energy: 168개 모듈, 평균 12.5차원 제거
+  lambda0.0_rm_scale: 168개 모듈, 평균 0.0차원 제거
+  lambda0.0_rm_decisive: 168개 모듈, 평균 11.2차원 제거
+  lambda1.0_rm_pre: 168개 모듈, 평균 6.5차원 제거
+  lambda1.0_rm_rand: 168개 모듈, 평균 6.5차원 제거
+  lambda1.0_rm_post: 168개 모듈, 평균 6.5차원 제거
+  lambda1.0_rm_least: 168개 모듈, 평균 6.5차원 제거
+  lambda1.0_rm_energy: 168개 모듈, 평균 2.3차원 제거
+  lambda1.0_rm_scale: 168개 모듈, 평균 0.0차원 제거
+  lambda1.0_rm_decisive: 168개 모듈, 평균 1.3차원 제거
+=== sweep steer ===
+[sweep] 절벽 λ0.4 | 합의 차원 평균 6.5
+  ampn1: rank 16, λ0 + 1·V 성분, 노름 보존
+  ampn4: rank 16, λ0 + 4·V 성분, 노름 보존
+  ampV: rank 16, λ0 전부 V로 투영 후 원래 노름
+  amp1: rank 16, λ0 + 1·V 성분
+  amp2: rank 16, λ0 + 2·V 성분
+  graft1: rank 32, λ1 + 1·λ0의 graft 성분
+  graft_rand1: rank 32, λ1 + 1·λ0의 graft_rand 성분
+  graft_full1: rank 32, λ1 + 1·λ0의 graft_full 성분
+  graft_orth1: rank 32, λ1 + 1·λ0의 graft_orth 성분
+=== sweep_llama ablate ===
+[sweep_llama] 절벽 λ0.4 | 문턱 전 6개, 후 12개 adapter 로 합의 구역 계산
+  합의 차원 평균: 문턱 전 6.6, 후 3.8
+  lambda0.0_rm_pre: 112개 모듈, 평균 6.6차원 제거
+  lambda0.0_rm_rand: 112개 모듈, 평균 6.6차원 제거
+  lambda0.0_rm_post: 112개 모듈, 평균 6.6차원 제거
+  lambda0.0_rm_least: 112개 모듈, 평균 6.6차원 제거
+  lambda0.0_rm_energy: 112개 모듈, 평균 13.7차원 제거
+  lambda0.0_rm_scale: 112개 모듈, 평균 0.0차원 제거
+  lambda0.0_rm_decisive: 112개 모듈, 평균 13.3차원 제거
+  lambda1.0_rm_pre: 112개 모듈, 평균 6.6차원 제거
+  lambda1.0_rm_rand: 112개 모듈, 평균 6.6차원 제거
+  lambda1.0_rm_post: 112개 모듈, 평균 6.6차원 제거
+  lambda1.0_rm_least: 112개 모듈, 평균 6.6차원 제거
+  lambda1.0_rm_energy: 112개 모듈, 평균 3.4차원 제거
+  lambda1.0_rm_scale: 112개 모듈, 평균 0.0차원 제거
+  lambda1.0_rm_decisive: 112개 모듈, 평균 1.2차원 제거
+=== sweep_llama steer ===
+[sweep_llama] 절벽 λ0.4 | 합의 차원 평균 6.6
+  ampn1: rank 16, λ0 + 1·V 성분, 노름 보존
+  ampn4: rank 16, λ0 + 4·V 성분, 노름 보존
+  ampV: rank 16, λ0 전부 V로 투영 후 원래 노름
+  amp1: rank 16, λ0 + 1·V 성분
+  amp2: rank 16, λ0 + 2·V 성분
+  graft1: rank 32, λ1 + 1·λ0의 graft 성분
+  graft_rand1: rank 32, λ1 + 1·λ0의 graft_rand 성분
+  graft_full1: rank 32, λ1 + 1·λ0의 graft_full 성분
+  graft_orth1: rank 32, λ1 + 1·λ0의 graft_orth 성분
+=== sweep_olmo2 ablate ===
+[sweep_olmo2] 절벽 λ0.4 | 문턱 전 6개, 후 12개 adapter 로 합의 구역 계산
+  합의 차원 평균: 문턱 전 6.4, 후 2.5
+  lambda0.0_rm_pre: 112개 모듈, 평균 6.4차원 제거
+  lambda0.0_rm_rand: 112개 모듈, 평균 6.4차원 제거
+  lambda0.0_rm_post: 112개 모듈, 평균 6.4차원 제거
+  lambda0.0_rm_least: 112개 모듈, 평균 6.4차원 제거
+  lambda0.0_rm_energy: 112개 모듈, 평균 14.8차원 제거
+  lambda0.0_rm_scale: 112개 모듈, 평균 0.0차원 제거
+  lambda0.0_rm_decisive: 112개 모듈, 평균 14.6차원 제거
+  lambda1.0_rm_pre: 112개 모듈, 평균 6.4차원 제거
+  lambda1.0_rm_rand: 112개 모듈, 평균 6.4차원 제거
+  lambda1.0_rm_post: 112개 모듈, 평균 6.4차원 제거
+  lambda1.0_rm_least: 112개 모듈, 평균 6.4차원 제거
+  lambda1.0_rm_energy: 112개 모듈, 평균 4.0차원 제거
+  lambda1.0_rm_scale: 112개 모듈, 평균 0.0차원 제거
+  lambda1.0_rm_decisive: 112개 모듈, 평균 1.1차원 제거
+=== sweep_olmo2 steer ===
+[sweep_olmo2] 절벽 λ0.4 | 합의 차원 평균 6.4
+  ampn1: rank 16, λ0 + 1·V 성분, 노름 보존
+  ampn4: rank 16, λ0 + 4·V 성분, 노름 보존
+  ampV: rank 16, λ0 전부 V로 투영 후 원래 노름
+  amp1: rank 16, λ0 + 1·V 성분
+  amp2: rank 16, λ0 + 2·V 성분
+  graft1: rank 32, λ1 + 1·λ0의 graft 성분
+  graft_rand1: rank 32, λ1 + 1·λ0의 graft_rand 성분
+  graft_full1: rank 32, λ1 + 1·λ0의 graft_full 성분
+  graft_orth1: rank 32, λ1 + 1·λ0의 graft_orth 성분

@@ -1,0 +1,10 @@
+{
+  "tag": "sweep",
+  "source_lambda": "0.0",
+  "seed": 0,
+  "variant": "rm_decisive",
+  "cliff": "0.4",
+  "modules": 168,
+  "dims_removed_mean": 11.18452380952381,
+  "rank": 16
+}

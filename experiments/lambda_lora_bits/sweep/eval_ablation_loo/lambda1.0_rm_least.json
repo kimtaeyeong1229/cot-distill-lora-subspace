@@ -1,0 +1,11 @@
+{
+  "name": "lambda1.0_rm_least",
+  "adapter": "experiments/lambda_lora_bits/sweep/runs_ablation_loo/lambda1.0_rm_least/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.385,
+  "avg_tokens": 748.485,
+  "truncated_rate": 0.0275,
+  "reflective_per_1k_words": 0.16917134237460174,
+  "think_tag_rate": 0.0
+}

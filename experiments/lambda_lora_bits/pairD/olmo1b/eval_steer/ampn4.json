@@ -1,0 +1,11 @@
+{
+  "name": "ampn4",
+  "adapter": "experiments/lambda_lora_bits/pairD/olmo1b/runs_steer/ampn4/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.04,
+  "avg_tokens": 3440.4675,
+  "truncated_rate": 0.8325,
+  "reflective_per_1k_words": 14.859860818489434,
+  "think_tag_rate": 0.0
+}

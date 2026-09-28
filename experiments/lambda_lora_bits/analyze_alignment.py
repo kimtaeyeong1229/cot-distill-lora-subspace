@@ -77,6 +77,29 @@ def main():
     if every:
         print(f"\n{len(every)}칸 r 평균 {st.mean(every):.3f} (최소 {min(every):.3f}, 최대 {max(every):.3f})"
               f" | p ≤ 0.05 인 칸 {sum(1 for c in by_pair.values() for _, _, p in c if p <= 0.05)}/{len(every)}")
+    # Pair level: the three students share one teacher profile, so the statistic is their mean r and
+    # the same teacher ordering is applied to all three. Pooled: the three pairs have separate teachers,
+    # so their orderings are permuted independently -- 120^3 joint orderings, enumerated exactly.
+    perms = [list(q) for q in permutations(range(len(INTERVALS)))]
+    null, pooled_obs, summary = [], 0.0, {}
+    for pair, cells in sorted(by_pair.items()):
+        rates = think[pair]["rates"]
+        teacher = [rates[LAMBDAS[i - 1]] - rates[LAMBDAS[i]] for i in range(1, len(LAMBDAS))]
+        profiles = [out[key]["adapter_profile"] for key, _, _ in cells]
+        dist = [st.mean(pearson([teacher[j] for j in q], ad) for ad in profiles) for q in perms]
+        obs = st.mean(r for _, r, _ in cells)
+        p_pair = sum(1 for x in dist if x >= obs - 1e-12) / len(dist)
+        summary[pair] = dict(mean_r=obs, p=p_pair, cells=len(cells))
+        null.append(dist); pooled_obs += obs
+        print(f"쌍 {pair}: 학생 평균 r {obs:.3f}, 정확 p {p_pair:.4f} (순열 {len(dist)}개)")
+    if len(null) == 3:
+        import numpy as np
+        A, B, C = (np.array(d) for d in null)
+        total = A[:, None, None] + B[None, :, None] + C[None, None, :]
+        p_pool = float((total >= pooled_obs - 1e-9).mean())
+        summary["pooled"] = dict(mean_r=pooled_obs / 3, p=p_pool, orderings=int(total.size))
+        print(f"세 쌍 합산: 평균 r {pooled_obs / 3:.3f}, 정확 p {p_pool:.2e} (결합 순열 {total.size:,}개)")
+    out["_summary"] = summary
     Path(a.output).write_text(json.dumps(out, indent=2))
     print(a.output)
 

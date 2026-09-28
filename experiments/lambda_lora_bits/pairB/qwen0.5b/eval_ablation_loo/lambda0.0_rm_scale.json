@@ -1,0 +1,11 @@
+{
+  "name": "lambda0.0_rm_scale",
+  "adapter": "experiments/lambda_lora_bits/pairB/qwen0.5b/runs_ablation_loo/lambda0.0_rm_scale/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.2125,
+  "avg_tokens": 4128.9175,
+  "truncated_rate": 0.405,
+  "reflective_per_1k_words": 4.043355645407903,
+  "think_tag_rate": 0.0
+}

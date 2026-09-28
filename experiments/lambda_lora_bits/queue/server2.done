@@ -12,3 +12,17 @@ r-s2-D-qwen-A
 r-s2-B-llama-B
 r-s2-D-llama-B
 r-s2-
+a-A-qwen
+a-A-llama
+a-A-olmo
+s-A-qwen
+s-A-llama
+s-A-olmo
+L-a-A-qwen
+D-A-qwen
+D-A-llama
+D-A-olmo
+D-B-qwen
+D-B-olmo
+L-s-A-qwen
+L-a-A-llama

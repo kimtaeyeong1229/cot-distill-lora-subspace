@@ -1,0 +1,11 @@
+{
+  "name": "lambda0.0_rm_rand",
+  "adapter": "experiments/lambda_lora_bits/pairB/llama1b/runs_ablation/lambda0.0_rm_rand/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.21,
+  "avg_tokens": 5129.0425,
+  "truncated_rate": 0.535,
+  "reflective_per_1k_words": 45.01502971628837,
+  "think_tag_rate": 0.0
+}

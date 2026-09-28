@@ -1,0 +1,11 @@
+{
+  "name": "ampV",
+  "adapter": "experiments/lambda_lora_bits/pairD/llama1b/runs_steer/ampV/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.1025,
+  "avg_tokens": 7540.39,
+  "truncated_rate": 0.9725,
+  "reflective_per_1k_words": 18.91576934521516,
+  "think_tag_rate": 0.0
+}

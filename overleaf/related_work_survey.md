@@ -23,7 +23,7 @@
 
 | 논문 | 시기 | 문턱 보고 | 우리와의 차이 |
 |---|---|---|---|
-| [Wu, Revisiting Model Interpolation](https://arxiv.org/abs/2510.10977) | 2025.10 (ACL 2026) | **예.** Think #R이 λ∈[0.4,0.6]에서 0→1 (Qwen3-4B), [0.5,0.8] (30B) | **우리와 같은 지표를 재지만, 데이터 생성도 증류도 안 함** |
+| [Wu, Revisiting Model Interpolation](https://arxiv.org/abs/2510.10977) | 2025.10 v1 / 2026.01 v2 (**프리프린트, 미게재**) | **예.** Think #R이 λ∈[0.4,0.6]에서 0→1 (Qwen3-4B), [0.5,0.8] (30B) | **같은 지표(Think #R)에 더해 모델 쌍 2개가 우리 쌍 B·D와 동일** (Qwen3-4B Ins/Thinking-2507, Llama-3.1-8B-Instruct + R1-Distill-Llama-8B). 다만 student·LoRA·증류·가중치 기하는 전혀 다루지 않음 |
 | [Lan, The Thinking Spectrum](https://arxiv.org/abs/2509.22034) | 2025.9 | **예.** λ≈0.6~0.7 임계 구간, 0.01 간격 | 정답률·토큰으로만 전이를 추론 |
 | [Yang, DAMI](https://arxiv.org/abs/2601.21414) | 2026.1 | **아니오.** "convex, monotonic Pareto frontier" | **정면 반대 주장.** 반드시 대응해야 함 |
 | [Huang, RAIN-Merging](https://arxiv.org/abs/2602.22538) | 2026.2 (ICLR 2026 Oral) | 아니오 | 형식 붕괴를 **막는 공학**, 우리는 통과시켜 측정 |
@@ -31,7 +31,7 @@
 | [Li, Scaling LMC to Billion Parameter Transformers](https://arxiv.org/abs/2606.23607) | 2026.6 | 아니오 | **손실 장벽만** 봄. 평평한 손실 경로가 계단형 모드 전환을 가릴 수 있음 |
 | [Shen, Merge-of-Thought Distillation](https://arxiv.org/abs/2509.08814) | 2025.9 | 아니오 | **student 쪽 병합.** 우리 설계의 정확한 거울상 |
 
-**이 갈래에서 아무도 안 한 것**: **보간·병합된 체크포인트를 teacher로 써서 학습 데이터를 생성한 논문이 0편**. 또 `</think>` 방출률을 order parameter로 잰 것은 Wu 하나뿐이고, 그조차 하류로 전파하지 않음. 그리고 임계 구간 보고값이 [0.4,0.6] / [0.6,0.7] / [0.5,0.8]로 **엇갈리고, DAMI는 전이 자체를 부정**함 — 존재·위치·실재성이 모두 미결. 계열 간 재현도 없음.
+**이 갈래에서 아무도 안 한 것**: ~~보간·병합된 체크포인트를 teacher로 써서 학습 데이터를 생성한 논문이 0편~~ — **2026-09-21 정정: MI-Distillation ([2608.29623](https://arxiv.org/abs/2608.29623))이 정확히 그것을 했다.** 공백은 "0편"이 아니라 **"있지만 학습 중 gradient까지만 보고 학습이 끝난 가중치는 열지 않았다"**로 써야 한다. 또 `</think>` 방출률을 order parameter로 잰 것은 Wu 하나뿐이고, 그조차 하류로 전파하지 않음. 그리고 임계 구간 보고값이 [0.4,0.6] / [0.6,0.7] / [0.5,0.8]로 **엇갈리고, DAMI는 전이 자체를 부정**함 — 존재·위치·실재성이 모두 미결. 계열 간 재현도 없음.
 
 ## C. LoRA 가중치가 담는 것과 읽는 방법
 
@@ -43,7 +43,7 @@
 | [Tariq, SAD-LoRA](https://arxiv.org/abs/2607.04306) | 2026.7 (ICML 2026 WS) | colspan(B) 주각을 **학습 손실로** 사용 | 정렬을 **최적화**, 우리는 **측정** |
 | [Lion, PoLAR](https://arxiv.org/abs/2506.03133) | 2025.6 | **stable rank가 r=16에서 중앙값 1.30~1.40** | ⚠️ **우리 φ의 분모에 직접 타격** |
 | [Zhu, Rank-Efficient LoRA](https://arxiv.org/abs/2609.12123) | 2026.9 | 유효 rank가 **optimizer 산물** (AdamW vs Muon) | ⚠️ optimizer 통제 필요 |
-| [Zhang, Rethinking Inter-LoRA Orthogonality](https://arxiv.org/abs/2510.03262) | 2025.9 | 직교성을 강제해도 **의미 분리가 안 됨** | ⚠️ 낮은 겹침 ≠ 기능적 독립 |
+| [Zhang, Rethinking Inter-LoRA Orthogonality](https://arxiv.org/abs/2510.03262) | 2025.10 | 직교성을 강제해도 **의미 분리가 안 됨** | ⚠️ 낮은 겹침 ≠ 기능적 독립 |
 | [Zhu, When Do Task Vectors Interfere?](https://arxiv.org/abs/2608.09490) | 2026.8 | 가중치 공간 구조가 **프롬프트 형식에 따라 무너짐** | ⚠️ 외적 타당도 경고 |
 
 **이 갈래에서 아무도 안 한 것**: **다른 데이터로 학습한 adapter들을, 같은 데이터·다른 seed 귀무분포에 대고 비교한 논문이 없음.** 조각은 다 있으나 결합된 적이 없다. 또 데이터 분포를 **연속적으로** 바꾼 사례가 없고(전부 범주적으로 다른 과제), 겹침 지표를 행동과 검증한 사람도 없다.
@@ -79,7 +79,7 @@
 
 **반드시 인용할 선행**
 - 지표: Hu et al. 2021 §7.2 (Grassmann), Tariq 2026 (colspan(B) 근거)
-- teacher 쪽 문턱: Wu ACL 2026, Klagges 2025, Lan 2025
+- teacher 쪽 문턱: Wu 2510.10977 (프리프린트), Klagges 2025, Lan 2025
 - 반대 주장: Yang DAMI 2026 (매끄럽다), Li LMC 2026 (손실 장벽 없음)
 - 이론적 여지: Xia 2026 (병합 계수 선형성 위배)
 - 평가 프로토콜: Kaiser 2026 (3종 분해), Bowyer ICML 2025 (오차막대)

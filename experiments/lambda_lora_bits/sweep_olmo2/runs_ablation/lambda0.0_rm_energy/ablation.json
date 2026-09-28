@@ -1,0 +1,10 @@
+{
+  "tag": "sweep_olmo2",
+  "source_lambda": "0.0",
+  "seed": 0,
+  "variant": "rm_energy",
+  "cliff": "0.4",
+  "modules": 112,
+  "dims_removed_mean": 14.839285714285714,
+  "rank": 16
+}

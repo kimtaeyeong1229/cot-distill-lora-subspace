@@ -78,3 +78,7 @@ experiments/hf_upload/
 #     server5 snapshot, and pilot_validity.py regenerates them) ---
 **/pilot_validity/pi/
 **/pilot_validity/canary/
+
+# --- partial files left by interrupted rsync, and training splits copied back from servers ---
+**/.*.safetensors.*
+experiments/archive_returned/

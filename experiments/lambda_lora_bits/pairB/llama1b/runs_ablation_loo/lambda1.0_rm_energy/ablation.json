@@ -1,0 +1,12 @@
+{
+  "tag": "pairB/llama1b",
+  "source_lambda": "1.0",
+  "seed": 0,
+  "variant": "rm_energy",
+  "cliff": "0.6",
+  "loo": true,
+  "pre_adapters": 8,
+  "modules": 112,
+  "dims_removed_mean": 6.705357142857143,
+  "rank": 16
+}

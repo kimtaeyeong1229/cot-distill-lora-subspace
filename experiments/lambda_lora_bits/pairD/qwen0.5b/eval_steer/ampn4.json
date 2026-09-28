@@ -1,0 +1,11 @@
+{
+  "name": "ampn4",
+  "adapter": "experiments/lambda_lora_bits/pairD/qwen0.5b/runs_steer/ampn4/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.0975,
+  "avg_tokens": 6892.5275,
+  "truncated_rate": 0.865,
+  "reflective_per_1k_words": 21.960839792106654,
+  "think_tag_rate": 0.0
+}
