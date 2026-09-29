@@ -25,7 +25,7 @@ for entry in ${CELLS}; do
     --data "${E}/data/math500.parquet" --out_dir "${E}/${tag}/${EVAL}" \
     --limit "${LIMIT}" --n_samples "${SAMPLES}" \
     --max_model_len "${maxlen}" --max_new_tokens "${newtok}" \
-    >> "${E}/${tag}/logs/${LOG}.log" 2>&1
+    >> "${E}/${tag}/logs/${LOG}.log" 2>&1 || exit 1
   chown -R "$(stat -c '%u:%g' .)" "${E}/${tag}" 2>/dev/null || true
 done
 echo "[$(date '+%F %T')] 완료"

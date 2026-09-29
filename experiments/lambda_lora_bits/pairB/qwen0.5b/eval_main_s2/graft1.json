@@ -1,0 +1,11 @@
+{
+  "name": "graft1",
+  "adapter": "experiments/lambda_lora_bits/pairB/qwen0.5b/runs_edit_s2/graft1/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.15,
+  "avg_tokens": 5741.24,
+  "truncated_rate": 0.685,
+  "reflective_per_1k_words": 7.20638727901427,
+  "think_tag_rate": 0.0
+}

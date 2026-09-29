@@ -1,0 +1,11 @@
+{
+  "name": "graft_orth1",
+  "adapter": "experiments/lambda_lora_bits/sweep/runs_edit_s2/graft_orth1/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.3675,
+  "avg_tokens": 856.485,
+  "truncated_rate": 0.0375,
+  "reflective_per_1k_words": 0.22537613449473107,
+  "think_tag_rate": 0.0
+}

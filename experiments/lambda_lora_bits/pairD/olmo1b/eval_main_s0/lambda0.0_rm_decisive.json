@@ -1,0 +1,11 @@
+{
+  "name": "lambda0.0_rm_decisive",
+  "adapter": "experiments/lambda_lora_bits/pairD/olmo1b/runs_edit_s0/lambda0.0_rm_decisive/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.1375,
+  "avg_tokens": 2782.6125,
+  "truncated_rate": 0.5675,
+  "reflective_per_1k_words": 14.31694023149072,
+  "think_tag_rate": 0.0
+}

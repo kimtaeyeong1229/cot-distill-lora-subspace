@@ -1,4 +1,4 @@
-<!-- Notion에서 동기화: 2026-09-28 -->
+<!-- Notion에서 동기화: 2026-09-29 -->
 # Methodology
 
 ## Distillation setup
@@ -26,11 +26,12 @@
     - 각 칸과 $\lambda$마다 학습 집합 전체로 seed를 셋 바꿔 학습하고, 데이터만 달라졌을 때의 차이를 재기 위해 seed를 고정한 채 학습 집합을 겹치지 않는 두 반쪽으로 나눠 따로 학습한 adapter도 만듦
 - **(평가)**
     - 생성은 teacher와 student 모두 $T=0.6$, top-p 0.95로 하며, 최대 길이는 teacher 8,192토큰, student 7,680토큰(OLMo 3,840)임
-        - 쌍 A의 Qwen·Llama 본 평가만 8,192토큰이라, 칸끼리 잘림 비율은 비교하지 않음
-    - 추론 형식은 teacher에서는 `</think>` 비율로 세고 ([Wu et al., 2026a](https://arxiv.org/abs/2510.10977)), 태그가 없는 student에서는 반성 표현(wait · recheck · alternatively 등)의 1천 단어당 빈도로 셈 ([Yeo et al., 2025](https://arxiv.org/abs/2502.03373); [Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393))
+    - student는 모든 실험에서 MATH-500의 앞 200문제를 seed 셋의 adapter가 각각 2회씩 풀게 해 평가함
+        - 앞 200문제는 난이도와 과목 비율이 전체 500문제와 같음
+    - 추론 형식은 teacher에서는 학습 데이터를 만든 4,000문제에서 `</think>` 비율로 세고 ([Wu et al., 2026a](https://arxiv.org/abs/2510.10977)), 태그가 없는 student에서는 문제마다 첫 응답에서 반성 표현(wait · recheck · alternatively 등)의 1천 단어당 빈도로 셈 ([Yeo et al., 2025](https://arxiv.org/abs/2502.03373); [Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393))
     - 키워드는 대리 지표이므로 평균 토큰 수와 생성 한도 도달 비율을 함께 적음 ([Chen et al., 2026](https://arxiv.org/abs/2601.06002); [Goyal et al., 2026](https://arxiv.org/abs/2608.04160))
         - 응답이 같은 문장을 되풀이하는 조건에서는 반복이 쌓이기 전인 앞 300단어에서 센 값을 함께 씀
-    - 정답률은 held-out 300문제와 MATH-500에서 4회 샘플링한 pass@1로 재며 (편집한 adapter는 MATH-500 200문제에서 2회), 잘림이 오답으로 섞이지 않도록 완주 응답만 채점한 값을 함께 씀 ([Wang et al., 2026](https://arxiv.org/abs/2601.21684))
+    - 정답률은 pass@1로 재며, 잘림이 오답으로 섞이지 않도록 완주 응답만 채점한 값을 함께 씀 ([Wang et al., 2026](https://arxiv.org/abs/2601.21684))
 
 ## Subspace analysis
 

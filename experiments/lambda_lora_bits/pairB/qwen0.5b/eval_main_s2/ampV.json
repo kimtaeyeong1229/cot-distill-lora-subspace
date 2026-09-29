@@ -1,0 +1,11 @@
+{
+  "name": "ampV",
+  "adapter": "experiments/lambda_lora_bits/pairB/qwen0.5b/runs_edit_s2/ampV/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.1725,
+  "avg_tokens": 5257.9825,
+  "truncated_rate": 0.4625,
+  "reflective_per_1k_words": 12.48709428767512,
+  "think_tag_rate": 0.0
+}

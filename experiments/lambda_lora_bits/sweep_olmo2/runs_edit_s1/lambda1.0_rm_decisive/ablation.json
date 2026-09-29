@@ -1,0 +1,12 @@
+{
+  "tag": "sweep_olmo2",
+  "source_lambda": "1.0",
+  "seed": 1,
+  "variant": "rm_decisive",
+  "cliff": "0.4",
+  "loo": true,
+  "pre_adapters": 5,
+  "modules": 112,
+  "dims_removed_mean": 1.0982142857142858,
+  "rank": 16
+}

@@ -1,4 +1,4 @@
-<!-- Notion에서 동기화: 2026-09-28 -->
+<!-- Notion에서 동기화: 2026-09-29 -->
 # Related Work
 
 ## Chain-of-Thought Distillation to Small Students

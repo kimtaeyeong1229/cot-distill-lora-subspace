@@ -1,0 +1,11 @@
+{
+  "name": "lambda1.0_rm_pre",
+  "adapter": "experiments/lambda_lora_bits/sweep_olmo2/runs_edit_s0/lambda1.0_rm_pre/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.205,
+  "avg_tokens": 559.7975,
+  "truncated_rate": 0.0075,
+  "reflective_per_1k_words": 0.3594277909567968,
+  "think_tag_rate": 0.0
+}

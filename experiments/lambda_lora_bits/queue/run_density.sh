@@ -6,7 +6,7 @@
 set -uo pipefail
 cd "$(dirname "$0")/../../.."
 E=experiments/lambda_lora_bits
-LIMIT="${LIMIT:-200}"; SAMPLES="${SAMPLES:-2}"
+LIMIT="${LIMIT:-200}"; SAMPLES="${SAMPLES:-2}"; EVAL="${EVAL:-eval_density}"
 for entry in ${CELLS}; do
   tag="${entry%%:*}"; student="${entry#*:}"
   mkdir -p "${E}/${tag}/logs"
@@ -19,10 +19,10 @@ for entry in ${CELLS}; do
   maxlen=8192; newtok=7680
   [[ "${student}" == *OLMo* ]] && maxlen=4096 && newtok=3840
   python3 "${E}/eval_ablation.py" --base "models/${student}" --adapters "${adapters[@]}" \
-    --data "${E}/data/math500.parquet" --out_dir "${E}/${tag}/eval_density" \
+    --data "${E}/data/math500.parquet" --out_dir "${E}/${tag}/${EVAL}" \
     --limit "${LIMIT}" --n_samples "${SAMPLES}" \
     --max_model_len "${maxlen}" --max_new_tokens "${newtok}" \
-    >> "${E}/${tag}/logs/eval_density.log" 2>&1
+    >> "${E}/${tag}/logs/${EVAL}.log" 2>&1 || exit 1
   chown -R "$(stat -c '%u:%g' .)" "${E}/${tag}" 2>/dev/null || true
 done
 echo "[$(date '+%F %T')] 완료"

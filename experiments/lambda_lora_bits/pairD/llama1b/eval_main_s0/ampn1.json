@@ -1,0 +1,11 @@
+{
+  "name": "ampn1",
+  "adapter": "experiments/lambda_lora_bits/pairD/llama1b/runs_edit_s0/ampn1/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.08,
+  "avg_tokens": 7059.4675,
+  "truncated_rate": 0.88,
+  "reflective_per_1k_words": 20.259461587296688,
+  "think_tag_rate": 0.0
+}

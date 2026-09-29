@@ -1,0 +1,12 @@
+{
+  "tag": "pairD/qwen0.5b",
+  "source_lambda": "0.0",
+  "seed": 1,
+  "variant": "rm_decisive",
+  "cliff": "0.6",
+  "loo": true,
+  "pre_adapters": 8,
+  "modules": 168,
+  "dims_removed_mean": 12.113095238095237,
+  "rank": 16
+}

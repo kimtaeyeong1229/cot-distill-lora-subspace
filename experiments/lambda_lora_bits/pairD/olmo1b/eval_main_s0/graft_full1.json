@@ -1,0 +1,11 @@
+{
+  "name": "graft_full1",
+  "adapter": "experiments/lambda_lora_bits/pairD/olmo1b/runs_edit_s0/graft_full1/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.0775,
+  "avg_tokens": 1901.3375,
+  "truncated_rate": 0.42,
+  "reflective_per_1k_words": 0.2635105460524093,
+  "think_tag_rate": 0.0
+}

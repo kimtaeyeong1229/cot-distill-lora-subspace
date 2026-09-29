@@ -1,0 +1,11 @@
+{
+  "name": "graft1",
+  "adapter": "experiments/lambda_lora_bits/sweep_olmo2/runs_edit_s2/graft1/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.09,
+  "avg_tokens": 1791.9675,
+  "truncated_rate": 0.3575,
+  "reflective_per_1k_words": 0.4753172677828397,
+  "think_tag_rate": 0.0
+}

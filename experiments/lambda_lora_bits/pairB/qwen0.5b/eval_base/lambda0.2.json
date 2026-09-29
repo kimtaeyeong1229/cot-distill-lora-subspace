@@ -1,0 +1,11 @@
+{
+  "name": "lambda0.2",
+  "adapter": "experiments/lambda_lora_bits/pairB/qwen0.5b/runs/lambda0.2_seed0/adapter",
+  "problems": 200,
+  "samples": 800,
+  "accuracy": 0.18375,
+  "avg_tokens": 5019.1125,
+  "truncated_rate": 0.5275,
+  "reflective_per_1k_words": 13.56659819737731,
+  "think_tag_rate": 0.0
+}

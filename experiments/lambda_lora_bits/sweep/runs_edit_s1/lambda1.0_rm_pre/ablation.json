@@ -1,0 +1,12 @@
+{
+  "tag": "sweep",
+  "source_lambda": "1.0",
+  "seed": 1,
+  "variant": "rm_pre",
+  "cliff": "0.4",
+  "loo": true,
+  "pre_adapters": 5,
+  "modules": 168,
+  "dims_removed_mean": 7.392857142857143,
+  "rank": 16
+}

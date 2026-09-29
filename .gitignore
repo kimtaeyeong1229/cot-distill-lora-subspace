@@ -57,6 +57,14 @@ experiments/lambda_lora_bits/benchmarks/
 **/eval_gsm8k/*.json
 **/eval_minervamath/*.json
 **/eval_olympiadbench/*.json
+# the pair-A MATH-500 re-run at the shared 7,680-token limit is the same kind of record; it stays on
+# server2 (not yet in the HF dataset repo) and experiments/main_density.json is derived from it
+**/eval_math500_7680/*.json
+# C/OLMo seed-0 adapters and evaluations superseded on 2026-09-29 (trained at max_len 8,192)
+**/runs_stale_maxlen8192/
+**/runs_stale_server2/
+**/eval_math500_stale_maxlen8192/
+**/eval_math500_stale_server2/
 
 # --- upload/transfer progress logs (carriage-return progress bars, no diff value) ---
 experiments/logs/hf_upload.log
