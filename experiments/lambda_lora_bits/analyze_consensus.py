@@ -64,6 +64,7 @@ for pair, stu, tag, br in CELLS:
     pre, post = (below, above) if ARGS.side == "pre" else (above, below)
     keys = set.intersection(*[set(a) for a in ads.values()])
     kw = pw = qw = cw = w = 0.0
+    pw_s = {sd: 0.0 for sd in SEEDS}; qw_s = {sd: 0.0 for sd in SEEDS}   # per-seed coverage, for the +- in Table 5
     for key in keys:
         wt = st.mean([ads[t][key][1] for t in ads])
         Us = {t: ads[t][key][0] for t in ads}; d = ads[pre[0]][key][2]
@@ -87,8 +88,13 @@ for pair, stu, tag, br in CELLS:
         # normalised by k, so the chance level is r/d, not k/d
         r_ = Us[pre[0]].shape[1]
         kw += k*wt; pw += st.mean(ps)*wt; qw += st.mean(qs)*wt; cw += (r_/d)*wt; w += wt
+        for sd in SEEDS:
+            pw_s[sd] += st.mean(v for t, v in zip(pre, ps) if t[1] == sd) * wt
+            qw_s[sd] += st.mean(v for t, v in zip(post, qs) if t[1] == sd) * wt
     print(f"{pair+'/'+stu:14s} {br:>4s} | {kw/w:8.1f} {pw/w:11.3f} {qw/w:8.3f} {cw/w:7.3f}", flush=True)
     RESULTS[f"{pair}/{stu}"] = dict(transition=br, dims=kw/w, in_loo=pw/w, out=qw/w, chance=cw/w,
-                                    built_from=len(pre), side=ARGS.side)
+                                    built_from=len(pre), side=ARGS.side,
+                                    in_loo_by_seed={sd: pw_s[sd]/w for sd in SEEDS},
+                                    out_by_seed={sd: qw_s[sd]/w for sd in SEEDS})
 out = E.parent / f"consensus_{ARGS.side}.json"
 out.write_text(json.dumps(RESULTS, indent=2)); print(out)

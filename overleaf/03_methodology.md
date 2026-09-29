@@ -28,6 +28,7 @@
     - 생성은 teacher와 student 모두 $T=0.6$, top-p 0.95로 하며, 최대 길이는 teacher 8,192토큰, student 7,680토큰(OLMo 3,840)임
     - student는 모든 실험에서 MATH-500의 앞 200문제를 seed 셋의 adapter가 각각 2회씩 풀게 해 평가함
         - 앞 200문제는 난이도와 과목 비율이 전체 500문제와 같음
+        - 표의 값은 seed마다 따로 잰 값의 평균 ± 표준편차임
     - 추론 형식은 teacher에서는 학습 데이터를 만든 4,000문제에서 `</think>` 비율로 세고 ([Wu et al., 2026a](https://arxiv.org/abs/2510.10977)), 태그가 없는 student에서는 문제마다 첫 응답에서 반성 표현(wait · recheck · alternatively 등)의 1천 단어당 빈도로 셈 ([Yeo et al., 2025](https://arxiv.org/abs/2502.03373); [Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393))
     - 키워드는 대리 지표이므로 평균 토큰 수와 생성 한도 도달 비율을 함께 적음 ([Chen et al., 2026](https://arxiv.org/abs/2601.06002); [Goyal et al., 2026](https://arxiv.org/abs/2608.04160))
         - 응답이 같은 문장을 되풀이하는 조건에서는 반복이 쌓이기 전인 앞 300단어에서 센 값을 함께 씀
