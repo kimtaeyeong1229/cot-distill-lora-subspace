@@ -1,0 +1,11 @@
+{
+  "name": "lambda0.6_halfB",
+  "adapter": "experiments/lambda_lora_bits/sweep_olmo2/runs/lambda0.6_halfB/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.18,
+  "avg_tokens": 745.3475,
+  "truncated_rate": 0.0475,
+  "reflective_per_1k_words": 0.6157752737660689,
+  "think_tag_rate": 0.0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "lambda0.4_halfA",
+  "adapter": "experiments/lambda_lora_bits/pairB/llama1b/runs/lambda0.4_halfA/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.1725,
+  "avg_tokens": 5644.8125,
+  "truncated_rate": 0.635,
+  "reflective_per_1k_words": 22.01864102742217,
+  "think_tag_rate": 0.0
+}

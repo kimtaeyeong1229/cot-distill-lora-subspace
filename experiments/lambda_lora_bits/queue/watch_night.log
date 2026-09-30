@@ -1,0 +1,14 @@
+2026-10-01 01:34:10 DONE server2 S-A-llama
+2026-10-01 01:44:15 DONE server1 S-B-llama
+2026-10-01 01:49:17 DONE server2 H-A-qwen
+2026-10-01 01:49:17 ALERT server1 FAILED H-B-qwen 
+2026-10-01 01:49:17 DONE server5 S-C-llama
+2026-10-01 02:19:40 DONE server5 H-C-qwen
+2026-10-01 02:24:41 DONE server1 H-B-qwen
+2026-10-01 02:34:44 DONE server2 H-A-olmo
+2026-10-01 03:14:55 DONE server2 H-A-llama
+2026-10-01 03:19:58 DONE server5 H-C-olmo
+2026-10-01 03:30:00 DONE server1 H-B-olmo
+2026-10-01 04:30:15 DONE server5 H-C-llama
+2026-10-01 04:45:18 DONE server1 H-B-llama
+2026-10-01 04:45:19 ALL-DONE overnight jobs, results pulled to server2

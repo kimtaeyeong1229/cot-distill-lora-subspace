@@ -16,7 +16,9 @@ import statistics as st
 from pathlib import Path
 
 D = Path("experiments/lambda_lora_bits/sae_llama")
-CONDS = ["base0.0", "base0.2", "base0.4", "base0.6", "base0.8", "base1.0", "lambda0.0_rm_pre", "graft2", "graft_orth2"]
+CONDS = ["base0.0", "base0.2", "base0.4", "base0.6", "base0.8", "base1.0",
+         "lambda0.0_rm_pre", "lambda0.0_rm_decisive", "lambda0.0_rm_scale", "lambda1.0_rm_pre",
+         "graft1", "graft_orth1", "graft_full1", "graft2", "graft_orth2", "graft_full2", "ampn1", "ampn4", "ampV"]
 VERIFY = [29679, 123803, 74538, 17318, 72260, 76271]   # self-questioning / checking / trying another way
 
 

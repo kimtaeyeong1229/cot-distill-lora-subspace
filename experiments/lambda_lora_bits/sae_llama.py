@@ -239,7 +239,7 @@ def cmd_score(a):
     scale = torch.tensor([sel["scale"][str(int(f))] for f in allf], device="cuda", dtype=torch.float64)
     pos = {int(f): j for j, f in enumerate(allf)}
     rd = Reader([a.layer])
-    conds = [f"base{l}" for l in LAMBDAS] + EDITS
+    conds = a.conds or ([f"base{l}" for l in LAMBDAS] + EDITS)
     out_dir = OUT / a.cell; out_dir.mkdir(parents=True, exist_ok=True)
     for cond in conds:
         for seed in SEEDS:
@@ -279,6 +279,7 @@ def main():
     c = sub.add_parser("check"); c.add_argument("--layers", type=int, nargs="+", default=[5, 8, 11]); c.add_argument("--n", type=int, default=10)
     s = sub.add_parser("select"); s.add_argument("--layer", type=int, required=True); s.add_argument("--n", type=int, default=100); s.add_argument("--top", type=int, default=100)
     r = sub.add_parser("score"); r.add_argument("--layer", type=int, required=True); r.add_argument("--cell", choices=CELLS, required=True)
+    r.add_argument("--conds", nargs="+", help="conditions to score (default: all lambdas + the three pilot edits)")
     for p in (c, s, r):
         p.add_argument("--max_resp", type=int, default=7680)
     a = ap.parse_args()
