@@ -90,3 +90,4 @@
 - 논문이 없는 모델·데이터(Llama 3.2, AIME24, AMC23)는 웹페이지를 PDF로 저장해 PDF 규칙을 지킴
 - 참고문헌 목록에서 저자 20명이 넘는 항목은 ACL 스타일이 자동으로 "and N others"로 줄여 표시함(bib에는 전체 저자가 있음)
 - 게재본 "찾지 못함"과 "확인불가"는 추가 확인 대상임. 게재가 확인되면 게재본 PDF와 서지로 교체함
+| lee2025goldswitch | Gold-Switch: Training-Free Superposition of Slow- and Fast- Thinking LLMs | Lee, Kwon, Hwang (3) | arXiv 2025 | https://arxiv.org/abs/2510.06750 | – (게재본 없음) | PDF 첫 페이지 저자·제목 = arXiv 초록; PDF materials/references/lee2025goldswitch.pdf | 3.3 대조 조건, 5.1 |

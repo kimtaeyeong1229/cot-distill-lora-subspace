@@ -1,0 +1,11 @@
+{
+  "name": "lambda0.0_gs_energy",
+  "adapter": "experiments/lambda_lora_bits/pairD/qwen0.5b/runs_edit_s1/lambda0.0_gs_energy/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.1975,
+  "avg_tokens": 2170.7575,
+  "truncated_rate": 0.215,
+  "reflective_per_1k_words": 3.6839850180509117,
+  "think_tag_rate": 0.0
+}

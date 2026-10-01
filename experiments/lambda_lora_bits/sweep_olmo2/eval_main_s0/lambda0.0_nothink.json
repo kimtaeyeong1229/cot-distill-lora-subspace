@@ -1,0 +1,14 @@
+{
+  "name": "lambda0.0_nothink",
+  "adapter": "experiments/lambda_lora_bits/sweep_olmo2/runs/lambda0.0_seed0/adapter",
+  "mode": "nothink",
+  "budget": null,
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.1225,
+  "avg_tokens": 2991.9675,
+  "truncated_rate": 0.62,
+  "forced_rate": 0.0,
+  "reflective_per_1k_words": 17.813137967480852,
+  "think_tag_rate": 0.0
+}

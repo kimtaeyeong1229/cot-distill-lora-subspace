@@ -2,6 +2,8 @@
 
 import json
 import math
+import os
+import select
 import signal
 import sys
 from pathlib import Path
@@ -94,6 +96,38 @@ def _raise_timeout(signum, frame):
 
 
 def is_correct(problem: str, response: str, answer: str, timeout: int = 5) -> bool:
+    """Grade in a forked child that is killed after the timeout.
+
+    SIGALRM only fires between Python bytecodes, so a response that sends a regex or sympy into a long
+    C-level loop hung the whole evaluation (2026-10-01, an OLMo merge run stuck for 40 minutes). The child
+    runs the same grading with the same alarm; a child that does not answer in time counts as wrong,
+    which is what the alarm was meant to do, so no result that previously finished changes.
+    """
+    _load_grader()                       # import in the parent, so the child never takes the import lock
+    r, w = os.pipe()
+    pid = os.fork()
+    if pid == 0:
+        os.close(r)
+        try:
+            ok = _grade(problem, response, answer, timeout)
+        except BaseException:
+            ok = False
+        os.write(w, b"1" if ok else b"0")
+        os._exit(0)
+    os.close(w)
+    try:
+        ready, _, _ = select.select([r], [], [], timeout + 5)
+        if ready:
+            return os.read(r, 1) == b"1"
+        os.kill(pid, signal.SIGKILL)
+        print(f"[is_correct] grading killed after {timeout + 5}s", file=sys.stderr, flush=True)
+        return False
+    finally:
+        os.close(r)
+        os.waitpid(pid, 0)
+
+
+def _grade(problem: str, response: str, answer: str, timeout: int = 5) -> bool:
     extract_math_answer, strip_string, eval_math = _load_grader()
     previous = signal.signal(signal.SIGALRM, _raise_timeout)
     signal.alarm(timeout)

@@ -1,0 +1,14 @@
+{
+  "name": "lambda0.0_budget",
+  "adapter": "experiments/lambda_lora_bits/sweep/runs/lambda0.0_seed1/adapter",
+  "mode": "budget",
+  "budget": 1346,
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.1825,
+  "avg_tokens": 1331.675,
+  "truncated_rate": 0.0,
+  "forced_rate": 0.8875,
+  "reflective_per_1k_words": 13.937091353202954,
+  "think_tag_rate": 0.0
+}

@@ -1,0 +1,11 @@
+{
+  "name": "merge0.7",
+  "adapter": "experiments/lambda_lora_bits/pairB/qwen0.5b/runs_edit_s0/merge0.7/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.285,
+  "avg_tokens": 2782.1925,
+  "truncated_rate": 0.28,
+  "reflective_per_1k_words": 4.884085759107547,
+  "think_tag_rate": 0.0
+}

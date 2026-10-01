@@ -1,0 +1,11 @@
+{
+  "name": "lambda0.0_rmseed",
+  "adapter": "experiments/lambda_lora_bits/pairD/olmo1b/runs_edit_s2/lambda0.0_rmseed/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.2075,
+  "avg_tokens": 718.395,
+  "truncated_rate": 0.01,
+  "reflective_per_1k_words": 1.5816945220646386,
+  "think_tag_rate": 0.0
+}

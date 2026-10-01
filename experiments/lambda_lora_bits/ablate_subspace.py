@@ -31,6 +31,12 @@ Variants written per source adapter:
             therefore decides nothing; this one takes the highest-energy directions of the region's
             orthogonal complement, so it matches the energy with a comparable number of directions and
             differs from the treatment only in which subspace it is.
+  gs_tau    Gold-Switch (Lee et al., 2025, arXiv 2510.06750) applied to this adapter: remove the top-r
+            singular components of dW, with r per module the largest rank whose reversed cumulative
+            energy e(r) = sum_{i>=r} s_i^2 / sum_i s_i^2 stays >= tau (0.6, the paper's value). The
+            external training-free baseline: "the top of the update's own spectrum" instead of the region.
+  gs_energy the same top singular components, taken until the dW energy removed matches rm_pre's --
+            decides whether the consensus region is anything more than the top of the spectrum.
 
 Applying all of them to the lambda1 adapter as well gives the third control: lambda1 barely uses the
 pre-threshold region to begin with, so removing it there should do little.
@@ -80,6 +86,14 @@ def left_basis(B, A, scale):
     return Qb @ U
 
 
+def spectrum(B, A, scale):
+    """Left singular vectors (descending) and singular values of dW = scale * B A."""
+    Qb, Rb = torch.linalg.qr(B.float() * scale)
+    Qa, Ra = torch.linalg.qr(A.float().T)
+    U, S, _ = torch.linalg.svd(Rb @ Ra.T)
+    return Qb @ U, S
+
+
 def consensus(bases, threshold=0.5, dims=None):
     """Eigenvectors of mean(U U^T), via the thin stacked SVD.
 
@@ -108,6 +122,15 @@ def main():
     ap.add_argument("--variants", nargs="+",
                     default=["rm_pre", "rm_rand", "rm_post", "rm_least", "rm_energy", "rm_scale",
                              "rm_decisive"])
+    ap.add_argument("--tau", type=float, default=0.6, help="Gold-Switch energy threshold")
+    ap.add_argument("--region", choices=["pre", "seed"], default="pre",
+                    help="seed: build the region only from the other seeds' lambda0 adapters -- what a "
+                         "practitioner who trained the same adapter a few times would have. Variants are "
+                         "written as rmseed / rmseed_other instead of rm_pre / rm_decisive")
+    ap.add_argument("--threshold", type=float, default=None,
+                    help="eigenvalue cut for the region (default 0.5; 0.75 for --region seed, where two "
+                         "members put almost every direction above 0.5: their paired directions have "
+                         "eigenvalue (1 + cos theta) / 2, so 0.75 keeps those within 60 degrees)")
     a = ap.parse_args()
 
     runs = EXP / a.tag / "runs"
@@ -118,6 +141,10 @@ def main():
 
     index = LAMBDAS.index(a.cliff)
     pre = [(l, s) for l in LAMBDAS[:index] for s in SEEDS]
+    if a.region == "seed":
+        pre = [("0.0", s) for s in SEEDS if s != a.seed]
+        a.sources = ["0.0"]
+    threshold = a.threshold if a.threshold is not None else (0.75 if a.region == "seed" else 0.5)
     post = [(l, s) for l in LAMBDAS[index:] for s in SEEDS]
     if a.loo:
         edited = {(lam, a.seed) for lam in a.sources}
@@ -149,7 +176,7 @@ def main():
 
     V_pre, V_post, k_pre, k_post = {}, {}, {}, {}
     for key in pre_bases:
-        V_pre[key], k_pre[key] = consensus(pre_bases[key])
+        V_pre[key], k_pre[key] = consensus(pre_bases[key], threshold=threshold)
         _, k_post[key] = consensus(post_bases[key])
         # dimension-matched to the treatment so the control differs only in which subspace it removes
         V_post[key], _ = consensus(post_bases[key], dims=k_pre[key])
@@ -175,7 +202,7 @@ def main():
 
         for variant in a.variants:
             tensors = {name: value.clone() for name, value in raw.items()}
-            removed = []
+            removed, energy_frac = [], []
             for key, names in parts.items():
                 if len(names) != 2 or key not in V_pre:
                     continue
@@ -220,6 +247,19 @@ def main():
                         if taken >= target:
                             break
                     V = Q[:, torch.stack(cols)]
+                elif variant in ("gs_tau", "gs_energy"):
+                    U, S = spectrum(B, raw[names["A"]], scale)
+                    e2 = S.pow(2)
+                    if variant == "gs_tau":
+                        tail = e2.flip(0).cumsum(0).flip(0) / e2.sum()     # e(r), r = 1..rank
+                        r = int((tail >= a.tau).sum())                     # largest r with e(r) >= tau
+                    else:
+                        # dW energy rm_pre takes: ||V^T dW||^2 = ||(V^T U) S||^2
+                        target = float(((V_pre[key].T @ U) * S).pow(2).sum())
+                        r = int((e2.cumsum(0) < target).sum()) + 1
+                    r = max(1, min(r, U.shape[1]))
+                    V = U[:, :r]
+                    energy_frac.append(float(e2[:r].sum() / e2.sum()))
                 elif variant == "rm_scale":
                     factor = (1 - pre_removed[key] / max(float(B.pow(2).sum()), 1e-12)) ** 0.5
                     tensors[names["B"]] = (B * factor).to(raw[names["B"]].dtype)
@@ -231,6 +271,8 @@ def main():
                 removed.append(V.shape[1])
 
             name = f"lambda{lam}_{variant}"
+            if a.region == "seed":
+                name = f"lambda{lam}_" + {"rm_pre": "rmseed", "rm_decisive": "rmseed_other"}.get(variant, f"seed_{variant}")
             dest = out_root / name / "adapter"
             dest.mkdir(parents=True, exist_ok=True)
             save_file(tensors, str(dest / "adapter_model.safetensors"))
@@ -239,7 +281,9 @@ def main():
                 "tag": a.tag, "source_lambda": lam, "seed": a.seed, "variant": variant,
                 "cliff": a.cliff, "loo": a.loo, "pre_adapters": len(pre), "modules": len(removed),
                 "dims_removed_mean": sum(removed) / max(len(removed), 1),
-                "rank": config["r"],
+                "rank": config["r"], "region": a.region, "threshold": threshold,
+                "energy_removed_mean": (sum(energy_frac) / len(energy_frac)) if energy_frac else None,
+                "tau": a.tau if variant == "gs_tau" else None,
             }, indent=2))
             # the trainer's umask leaves container-written files root-owned and mode 600, which makes
             # them unreadable to the ssh user that copies them to the other machines -- rsync then

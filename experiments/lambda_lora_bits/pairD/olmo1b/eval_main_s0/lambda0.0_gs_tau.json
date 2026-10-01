@@ -1,0 +1,11 @@
+{
+  "name": "lambda0.0_gs_tau",
+  "adapter": "experiments/lambda_lora_bits/pairD/olmo1b/runs_edit_s0/lambda0.0_gs_tau/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.205,
+  "avg_tokens": 995.625,
+  "truncated_rate": 0.055,
+  "reflective_per_1k_words": 3.5845797894874054,
+  "think_tag_rate": 0.0
+}
