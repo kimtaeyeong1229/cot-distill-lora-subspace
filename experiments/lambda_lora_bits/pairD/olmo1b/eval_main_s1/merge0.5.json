@@ -1,0 +1,11 @@
+{
+  "name": "merge0.5",
+  "adapter": "experiments/lambda_lora_bits/pairD/olmo1b/runs_edit_s1/merge0.5/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.145,
+  "avg_tokens": 1122.0325,
+  "truncated_rate": 0.14,
+  "reflective_per_1k_words": 1.5453018476435136,
+  "think_tag_rate": 0.0
+}
