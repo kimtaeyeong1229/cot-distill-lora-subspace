@@ -18,16 +18,20 @@ LAMBDAS="${LAMBDAS:-0.0 0.2 0.4 0.6 0.8 1.0}"
 HALVES="${HALVES:-halfA halfB}"
 TRAIN_MAX_LEN="${TRAIN_MAX_LEN:-8192}"
 TRAIN_TOKEN_BUDGET="${TRAIN_TOKEN_BUDGET:-8192}"
+# SEED 0 keeps the original names (lambda<l>_<half>); other seeds write lambda<l>_<half>_seed<S>, so the
+# baseline can be averaged over initialisations as every other quantity is
+SEED="${SEED:-0}"
+SUFFIX=""; [[ "${SEED}" != 0 ]] && SUFFIX="_seed${SEED}"
 
 RUNS="${EXP}/${TAG}/runs"; LOGS="${EXP}/${TAG}/logs"
 mkdir -p "${RUNS}" "${LOGS}"
 for half in ${HALVES}; do
   for lam in ${LAMBDAS}; do
-    name="lambda${lam}_${half}"
+    name="lambda${lam}_${half}${SUFFIX}"
     [[ -f "${RUNS}/${name}/adapter/adapter_model.safetensors" ]] && continue
     echo "[$(date '+%F %T')] train ${TAG} ${name}"
     python "${EXP}/train_lora.py" --base "${STUDENT}" --train "${SPLITS}/lambda${lam}/train_${half}.jsonl" \
-      --output "${RUNS}/${name}" --seed 0 --max_len "${TRAIN_MAX_LEN}" \
+      --output "${RUNS}/${name}" --seed "${SEED}" --max_len "${TRAIN_MAX_LEN}" \
       --token_budget "${TRAIN_TOKEN_BUDGET}" > "${LOGS}/train_${name}.log" 2>&1
     # hand each adapter over as soon as it is written: the trainer leaves it root-owned and mode 600,
     # which makes it invisible to the ssh user that collects results, and waiting for the whole cell

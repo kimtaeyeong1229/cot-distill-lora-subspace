@@ -1,0 +1,12 @@
+{
+  "name": "lambda0.0",
+  "adapter": "experiments/lambda_lora_bits/pairB/olmo1b/runs/lambda0.0_seed1/adapter",
+  "bench": "gsm8k",
+  "items": 200,
+  "samples": 400,
+  "max_new_tokens": 3840,
+  "accuracy": 0.535,
+  "avg_tokens": 1390.275,
+  "truncated_rate": 0.1175,
+  "reflective_per_1k_words": 13.4622709623136
+}

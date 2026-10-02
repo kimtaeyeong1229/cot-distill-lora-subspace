@@ -1,0 +1,12 @@
+{
+  "name": "lambda0.0_rm_decisive",
+  "adapter": "experiments/lambda_lora_bits/sweep_olmo2/runs_edit_s0/lambda0.0_rm_decisive/adapter",
+  "bench": "gpqa_diamond",
+  "items": 198,
+  "samples": 396,
+  "max_new_tokens": 1293,
+  "accuracy": 0.1590909090909091,
+  "avg_tokens": 1139.9747474747476,
+  "truncated_rate": 0.5681818181818182,
+  "reflective_per_1k_words": 6.284705456301304
+}

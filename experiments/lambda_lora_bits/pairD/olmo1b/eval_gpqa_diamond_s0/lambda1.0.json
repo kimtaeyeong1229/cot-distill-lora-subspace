@@ -1,0 +1,12 @@
+{
+  "name": "lambda1.0",
+  "adapter": "experiments/lambda_lora_bits/pairD/olmo1b/runs/lambda1.0_seed0/adapter",
+  "bench": "gpqa_diamond",
+  "items": 198,
+  "samples": 396,
+  "max_new_tokens": 1293,
+  "accuracy": 0.2297979797979798,
+  "avg_tokens": 533.0909090909091,
+  "truncated_rate": 0.06313131313131314,
+  "reflective_per_1k_words": 0.06183813867202597
+}

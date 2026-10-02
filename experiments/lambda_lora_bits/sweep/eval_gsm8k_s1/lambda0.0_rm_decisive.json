@@ -1,0 +1,12 @@
+{
+  "name": "lambda0.0_rm_decisive",
+  "adapter": "experiments/lambda_lora_bits/sweep/runs_edit_s1/lambda0.0_rm_decisive/adapter",
+  "bench": "gsm8k",
+  "items": 200,
+  "samples": 400,
+  "max_new_tokens": 7680,
+  "accuracy": 0.2875,
+  "avg_tokens": 4579.8525,
+  "truncated_rate": 0.54,
+  "reflective_per_1k_words": 32.462279107396164
+}
