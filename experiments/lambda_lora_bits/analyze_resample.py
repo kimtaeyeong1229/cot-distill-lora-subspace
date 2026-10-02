@@ -13,6 +13,10 @@ set (run_halves.sh).
 Both sides share the initialisation and the data budget, so the difference is attributable to the
 teacher alone. The crossing lambda is where a cell's treatment first drops below its own baseline,
 and that is the quantity compared against the lambda at which the teacher stops emitting </think>.
+
+With --seeds 0 1 2 the whole computation is repeated for the halves trained from each seed
+(run_halves.sh writes lambda<l>_<half>_seed<S> for S != 0) and R is reported as mean +- SD over seeds;
+"retention" in the output is the seed mean, so analyze_alignment.py reads it unchanged.
 """
 
 import argparse
@@ -76,53 +80,75 @@ def chance(x):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--output", default=str(EXP.parent / "phi_resample.json"))
+    ap.add_argument("--seeds", nargs="+", type=int, default=[0])
     a = ap.parse_args()
 
     results = {}
     for pair, student, tag in CELLS:
-        runs = EXP / tag / "runs"
-        basis = {}
-        for lam in LAMBDAS:
-            for half in HALVES:
-                p = runs / f"lambda{lam}_{half}" / "adapter" / "adapter_model.safetensors"
-                if p.exists():
-                    basis[(lam, half)] = load_basis(p)
-        if len(basis) < 12:
-            print(f"\n=== 쌍 {pair} / {student}: {len(basis)}/12 — 건너뜀")
+        per_seed = {}
+        for seed in a.seeds:
+            r = cell_rows(pair, student, tag, seed)
+            if r is not None:
+                per_seed[seed] = r
+        if len(per_seed) < len(a.seeds):
             continue
-
-        zero = TEACHER_ZERO[pair]
-        print(f"\n=== 쌍 {pair} / {student}  (teacher 0% 도달 λ{zero})")
-        print(f"{'lam':5s} {'처리 phi':>16s} {'재표집 기준선':>14s} {'유지율':>9s}")
-        rows, crossing = {}, None
+        rows = {}
         for lam in LAMBDAS:
-            # both quantities cross the halves, so neither inherits a shared training set and
-            # lambda0 is not compared against itself
-            treat = [overlap(basis[("0.0", "halfA")], basis[(lam, "halfB")]),
-                     overlap(basis[("0.0", "halfB")], basis[(lam, "halfA")])]
-            base = overlap(basis[(lam, "halfA")], basis[(lam, "halfB")])
-            tm = st.mean(treat)
-            ts = st.stdev(treat) if len(treat) > 1 else 0.0
-            # retention: how much of the lambda0 direction is left beyond what resampling alone destroys
-            ret = tm / base if base else float("nan")
-            print(f"{lam:5s} {tm:10.3f} +-{ts:4.3f} {base:14.3f} {ret:9.3f}")
-            rows[lam] = dict(treatment=tm, treatment_sd=ts, baseline=base, retention=ret)
-        # the cliff is the largest drop in retention between adjacent lambdas
-        drops = [(rows[LAMBDAS[i - 1]]["retention"] / rows[LAMBDAS[i]]["retention"], LAMBDAS[i])
-                 for i in range(1, len(LAMBDAS)) if rows[LAMBDAS[i]]["retention"]]
-        if drops:
-            factor, crossing = max(drops)
-            print(f"  가장 큰 낙차: λ{LAMBDAS[LAMBDAS.index(crossing) - 1]} → λ{crossing}  {factor:.1f}배")
-        ref = basis[("0.0", "halfA")]
-        print(f"  무작위 수준 {chance(ref):.3f} | adapter 분기 λ = {crossing or '없음'} | teacher 0% 도달 λ{zero}")
-        results[f"{pair}/{student}"] = dict(rows=rows, crossing=crossing, teacher_zero=zero,
-                                            chance=chance(ref), adapters=len(basis))
+            vals = {k: [per_seed[s][0][lam][k] for s in a.seeds] for k in ("treatment", "baseline", "retention")}
+            rows[lam] = dict(treatment=st.mean(vals["treatment"]), baseline=st.mean(vals["baseline"]),
+                             retention=st.mean(vals["retention"]),
+                             retention_sd=st.stdev(vals["retention"]) if len(a.seeds) > 1 else 0.0,
+                             retention_seeds=vals["retention"])
+        if len(a.seeds) > 1:
+            print(f"\n=== 쌍 {pair} / {student}: seed {a.seeds} 평균 R")
+            print("  " + "  ".join(f"λ{lam} {rows[lam]['retention']:.2f}±{rows[lam]['retention_sd']:.2f}" for lam in LAMBDAS))
+        results[f"{pair}/{student}"] = dict(rows=rows, seeds=a.seeds, teacher_zero=TEACHER_ZERO[pair],
+                                            chance=st.mean(per_seed[s][1] for s in a.seeds),
+                                            per_seed={str(s): per_seed[s][0] for s in a.seeds})
 
     Path(a.output).write_text(json.dumps(results, indent=2))
     print(f"\n{a.output}")
-    if results:
-        ok = sum(1 for v in results.values() if v["crossing"] == v["teacher_zero"])
-        print(f"분기 λ가 teacher 전환 구간의 끝과 일치: {ok}/{len(results)}")
+
+
+def cell_rows(pair, student, tag, seed):
+    """R(lambda) for one cell from the halves trained from one seed; None if any half is missing."""
+    runs = EXP / tag / "runs"
+    suffix = "" if seed == 0 else f"_seed{seed}"
+    basis = {}
+    for lam in LAMBDAS:
+        for half in HALVES:
+            p = runs / f"lambda{lam}_{half}{suffix}" / "adapter" / "adapter_model.safetensors"
+            if p.exists():
+                basis[(lam, half)] = load_basis(p)
+    if len(basis) < 12:
+        print(f"\n=== 쌍 {pair} / {student} seed {seed}: {len(basis)}/12 — 건너뜀")
+        return None
+
+    zero = TEACHER_ZERO[pair]
+    print(f"\n=== 쌍 {pair} / {student} seed {seed}  (teacher 0% 도달 λ{zero})")
+    print(f"{'lam':5s} {'처리 phi':>16s} {'재표집 기준선':>14s} {'유지율':>9s}")
+    rows, crossing = {}, None
+    for lam in LAMBDAS:
+        # both quantities cross the halves, so neither inherits a shared training set and
+        # lambda0 is not compared against itself
+        treat = [overlap(basis[("0.0", "halfA")], basis[(lam, "halfB")]),
+                 overlap(basis[("0.0", "halfB")], basis[(lam, "halfA")])]
+        base = overlap(basis[(lam, "halfA")], basis[(lam, "halfB")])
+        tm = st.mean(treat)
+        ts = st.stdev(treat) if len(treat) > 1 else 0.0
+        # retention: how much of the lambda0 direction is left beyond what resampling alone destroys
+        ret = tm / base if base else float("nan")
+        print(f"{lam:5s} {tm:10.3f} +-{ts:4.3f} {base:14.3f} {ret:9.3f}")
+        rows[lam] = dict(treatment=tm, treatment_sd=ts, baseline=base, retention=ret)
+    # the cliff is the largest drop in retention between adjacent lambdas
+    drops = [(rows[LAMBDAS[i - 1]]["retention"] / rows[LAMBDAS[i]]["retention"], LAMBDAS[i])
+             for i in range(1, len(LAMBDAS)) if rows[LAMBDAS[i]]["retention"]]
+    if drops:
+        factor, crossing = max(drops)
+        print(f"  가장 큰 낙차: λ{LAMBDAS[LAMBDAS.index(crossing) - 1]} → λ{crossing}  {factor:.1f}배")
+    ref = basis[("0.0", "halfA")]
+    print(f"  무작위 수준 {chance(ref):.3f} | adapter 분기 λ = {crossing or '없음'} | teacher 0% 도달 λ{zero}")
+    return rows, chance(ref)
 
 
 if __name__ == "__main__":
