@@ -1,4 +1,4 @@
-<!-- Notion에서 동기화: 2026-10-02 -->
+<!-- Notion에서 동기화: 2026-10-03 -->
 # Methodology
 
 ## Distillation setup
@@ -29,6 +29,7 @@
     - 정답률은 pass@1로 재고, 잘림이 오답으로 섞이지 않도록 완주 응답만 채점한 값을 함께 씀 ([Wang et al., 2026](https://arxiv.org/abs/2601.21684))
     - 생각하며 푸는지는 teacher에서는 `</think>` 비율로 ([Wu et al., 2026a](https://arxiv.org/abs/2510.10977)), student에서는 첫 응답의 반성 표현(wait · recheck · alternatively 등) 빈도로 셈 ([Yeo et al., 2025](https://arxiv.org/abs/2502.03373); [Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)). 반성 표현은 대리 지표이므로 토큰 수와 생성 한도 도달 비율을 함께 적고 ([Chen et al., 2026](https://arxiv.org/abs/2601.06002); [Goyal et al., 2026](https://arxiv.org/abs/2608.04160)), 같은 문장을 되풀이하는 조건은 앞 300단어에서 셈
     - 단어만의 착시인지는 공개 SAE가 있는 Llama student의 내부 feature로 다시 보며 ([EleutherAI SAE](https://huggingface.co/EleutherAI/sae-Llama-3.2-1B-131k)), 반성 단어를 끼우거나 지우는 것만으로 켜지고 꺼지는 feature는 버림 ([Ma et al., 2026](https://arxiv.org/abs/2601.05679))
+    - 수학 밖에서도 성립하는지는 MATH로 학습한 adapter를 그대로 GSM8K ([Cobbe et al., 2021](https://arxiv.org/abs/2110.14168))와 GPQA-Diamond ([Rein et al., 2024](https://openreview.net/forum?id=Ti67584b98))의 앞 200문제(GPQA-Diamond는 전체 198문제)에서 같은 설정으로 평가함
 
 ## Subspace analysis
 
