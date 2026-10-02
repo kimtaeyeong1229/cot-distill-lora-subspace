@@ -1,0 +1,14 @@
+{
+  "name": "lambda0.0_nothink",
+  "adapter": "experiments/lambda_lora_bits/pairD/qwen0.5b/runs/lambda0.0_seed1/adapter",
+  "mode": "nothink",
+  "budget": null,
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.1675,
+  "avg_tokens": 4730.8375,
+  "truncated_rate": 0.525,
+  "forced_rate": 0.0,
+  "reflective_per_1k_words": 13.808750987635866,
+  "think_tag_rate": 0.0
+}
