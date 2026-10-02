@@ -28,7 +28,7 @@
         - 찾은 부분공간을 투영 제거해 거부 행동만 없애거나 능력을 정밀 제거하는 절차까지 확립됨 ([Arditi et al., 2024](https://arxiv.org/abs/2406.11717); [Fu et al., 2026](https://arxiv.org/abs/2601.07411))
     - 가중치 일부만 고쳐 생각을 끄거나 늘리기도 함
         - 추론 모델의 업데이트에서 가장 큰 성분을 빼면 생각을 끌 수 있고 ([Lee et al., 2025](https://arxiv.org/abs/2510.06750)), 몇몇 attention head에서 한 방향을 빼면 오히려 추론이 길어짐 ([Sun et al., 2025](https://aclanthology.org/2025.emnlp-main.861/))
-        - LoRA 방향 하나의 크기로 추론 길이를 조절하도록 학습할 수도 있음 ([Ma et al., 2025](https://aclanthology.org/2025.acl-long.300/))
+        - LoRA 방향 하나의 크기로 추론 길이를 조절하도록 학습할 수도 있음 ([Ma et al., 2025a](https://aclanthology.org/2025.acl-long.300/))
     - 모델 내부의 신호를 SAE로 읽어 생각하는 방식을 찾기도 함
         - 추론 모델에서 반성·불확실성 feature를 찾아 키우면 풀이가 길어지고 ([Galichin et al., 2026](https://arxiv.org/abs/2503.18878)), 증류 모델에만 있는 반성·검산 feature로 과하게 생각하거나 간결하게 생각하도록 조절함 ([Baek & Tegmark, 2025](https://arxiv.org/abs/2503.03730))
     - 다만 이 연구들은 teacher가 하나로 고정되었거나 아예 없는 설정에서 쓰였고, 방향도 업데이트의 크기나 긴/짧은 풀이의 대조로 찾아, teacher가 바뀔 때 student 안에 생기는 자리는 다루지 않음

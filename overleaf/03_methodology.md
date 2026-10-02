@@ -63,6 +63,7 @@
 
     - 전환 전 adapter들이 다 같이 쓰는 방향은, teacher의 `</think>` 비율이 처음으로 절반 넘게 떨어지는 구간을 전환 구간으로 삼아 그 이전 adapter들의 $U$를 겹치고 절반 넘게 함께 쓰는 방향 $V$만 남겨 봄 ([Gerasimov et al., 2026](https://arxiv.org/abs/2606.12138)). 이하 $V$를 공유 구역이라 부름
         - 각 adapter가 $V$를 쓰는 정도는 $\lVert U_t^\top V \rVert_F^2 / k$($k$는 $V$의 차원)로 재어 무작위 수준 $r/d$와 비교하며, 채점과 편집 모두 그 adapter를 빼고 만든 $V$를 씀
+        - 실제로 쓸 수 있는지 보기 위해, 같은 데이터로 학습한 다른 seed의 $\lambda=0$ adapter 두 개만으로도 공유 구역을 만듦. adapter가 둘이면 짝지은 방향의 고윳값이 $(1+\cos\theta)/2$라 0.5 기준은 거의 모든 방향을 남기므로, 60° 안으로 겹치는 방향($\mu > 0.75$)만 남김
 
 ## Subspace interventions
 
@@ -91,3 +92,4 @@
 - **(대조)**
     - 효과가 $V$라는 자리 때문인지는, 같은 에너지를 $V$ 밖에서 지우거나 ([Lion et al., 2025](https://arxiv.org/abs/2506.03133); [Fu et al., 2026](https://arxiv.org/abs/2601.07411)), 업데이트 전체를 줄이거나, 가장 큰 특잇값 성분부터 지운 조건([Lee et al., 2025](https://arxiv.org/abs/2510.06750))과 비교함
     - 정답률이 오른 것이 짧아진 덕분일 뿐인지는 원래 adapter를 같은 길이에서 끊은 조건으로 ([Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)), 편집 자체의 부작용인지는 공유 구역을 거의 쓰지 않는 $\lambda=1$ adapter에 같은 편집을 한 조건으로 봄
+    - 생각 끄기 스위치로 쓸 수 있는지는, "생각을 끝냈다"는 문장을 답 앞에 넣는 방법(태그를 배우지 않은 student라 태그 없이 문장만 넣음) ([Ma et al., 2025b](https://arxiv.org/abs/2504.09858)), 같은 길이에서 끊고 답을 쓰게 하는 방법 ([Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)), 짧은 풀이 adapter와 반반 섞는 방법 ([Wu et al., 2025](https://arxiv.org/abs/2503.20641))과 비교함
