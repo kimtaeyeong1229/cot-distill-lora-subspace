@@ -6,7 +6,6 @@
     - 그런데 작은 student는 긴 추론 풀이를 배우면 오히려 성능이 떨어져 ([Li et al., 2025](https://arxiv.org/abs/2502.12143); [Luo et al., 2025](https://arxiv.org/abs/2506.07712)), 최근에는 추론 모델과 지시 모델을 비율 $\lambda$로 섞은 teacher로 풀이 길이를 조절하며 student에 맞는 지점을 고름 ([Lan et al., 2026](https://arxiv.org/abs/2608.29623))
 - **(문제)**
     - 하지만 $\lambda$를 바꿀 때 teacher의 무엇이 바뀌고, 그것이 student 안에 무엇을 남기는지는 알려져 있지 않음
-    - 그래서 가장 좋은 $\lambda$가 벤치마크마다 왜 다른지 설명하지 못하고, $\lambda$를 하나씩 바꿔 학습해 보며 고를 수밖에 없음
 - **(선행 접근)**
     - 섞은 teacher를 들여다본 연구들은 어느 $\lambda$에서 teacher가 생각하며 푸는 것을 통째로 그만둔다고 보고했지만 ([Wu et al., 2026a](https://arxiv.org/abs/2510.10977); [Lan et al., 2025](https://arxiv.org/abs/2509.22034)), 그런 전환이 없다는 보고도 있음 ([Yang et al., 2026](https://arxiv.org/abs/2601.21414))
     - 이들은 모두 출력의 정답률과 길이만 봤는데, 긴 풀이에서는 생각하는 방식과 길이가 함께 움직여 출력만으로는 둘 중 무엇이 바뀐 것인지 가릴 수 없음
