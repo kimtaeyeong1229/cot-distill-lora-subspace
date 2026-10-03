@@ -1,0 +1,102 @@
+{
+  "cells": {
+    "A/Qwen": {
+      "R_vs_think": 0.5324266005260693,
+      "R_vs_markers": 0.8084201856385691,
+      "tokens_vs_think": 0.13408139829425206,
+      "tokens_vs_markers": 0.9905196625575402,
+      "markers_vs_think": -0.07443961676630613,
+      "markers_vs_markers": 0.9948483371163165
+    },
+    "A/Llama": {
+      "R_vs_think": 0.84319421274904,
+      "R_vs_markers": 0.5539714479503816,
+      "tokens_vs_think": 0.16653491856641967,
+      "tokens_vs_markers": 0.986458119691325,
+      "markers_vs_think": -0.08657366314903833,
+      "markers_vs_markers": 0.9925249487577137
+    },
+    "A/OLMo": {
+      "R_vs_think": 0.7979288826701533,
+      "R_vs_markers": 0.6113873342822841,
+      "tokens_vs_think": 0.4173152564127213,
+      "tokens_vs_markers": 0.9115002655690634,
+      "markers_vs_think": 0.2568007847893819,
+      "markers_vs_markers": 0.9700937310724471
+    },
+    "B/Qwen": {
+      "R_vs_think": 0.9381104931484876,
+      "R_vs_markers": 0.9400058152205384,
+      "tokens_vs_think": 0.9098951619968717,
+      "tokens_vs_markers": 0.8785571491736271,
+      "markers_vs_think": 0.4134749763533411,
+      "markers_vs_markers": 0.48198135938865805
+    },
+    "B/Llama": {
+      "R_vs_think": 0.9463454405463521,
+      "R_vs_markers": 0.9524344747942277,
+      "tokens_vs_think": 0.9359141325748246,
+      "tokens_vs_markers": 0.8837988275730749,
+      "markers_vs_think": 0.12665376037534687,
+      "markers_vs_markers": 0.19998406244465441
+    },
+    "B/OLMo": {
+      "R_vs_think": 0.9424359906271886,
+      "R_vs_markers": 0.941356738311395,
+      "tokens_vs_think": 0.9949292197722643,
+      "tokens_vs_markers": 0.975766448855573,
+      "markers_vs_think": 0.4171324130522826,
+      "markers_vs_markers": 0.48763696420833774
+    },
+    "C/Qwen": {
+      "R_vs_think": 0.9111940961653844,
+      "R_vs_markers": 0.9257018295322468,
+      "tokens_vs_think": 0.750126207379566,
+      "tokens_vs_markers": 0.8772007360829294,
+      "markers_vs_think": 0.7307531220097081,
+      "markers_vs_markers": 0.8463599689521912
+    },
+    "C/Llama": {
+      "R_vs_think": 0.8286857023797599,
+      "R_vs_markers": 0.8848822688586802,
+      "tokens_vs_think": 0.907447566785273,
+      "tokens_vs_markers": 0.9801446452597712,
+      "markers_vs_think": 0.6344649327925143,
+      "markers_vs_markers": 0.7558147950605141
+    },
+    "C/OLMo": {
+      "R_vs_think": 0.80574867537738,
+      "R_vs_markers": 0.8718562972566477,
+      "tokens_vs_think": 0.8545016701788805,
+      "tokens_vs_markers": 0.938363884574046,
+      "markers_vs_think": 0.7862304963745577,
+      "markers_vs_markers": 0.8918722772998281
+    }
+  },
+  "pairs": {
+    "A": {
+      "R_vs_think": 0.7245165653150876,
+      "R_vs_markers": 0.657926322623745,
+      "tokens_vs_think": 0.23931052442446435,
+      "tokens_vs_markers": 0.9628260159393095,
+      "markers_vs_think": 0.03192916829134581,
+      "markers_vs_markers": 0.9858223389821591
+    },
+    "B": {
+      "R_vs_think": 0.9422973081073428,
+      "R_vs_markers": 0.9445990094420537,
+      "tokens_vs_think": 0.9469128381146535,
+      "tokens_vs_markers": 0.9127074752007583,
+      "markers_vs_think": 0.31908704992699016,
+      "markers_vs_markers": 0.3898674620138834
+    },
+    "C": {
+      "R_vs_think": 0.8485428246408414,
+      "R_vs_markers": 0.8941467985491915,
+      "tokens_vs_think": 0.8373584814479065,
+      "tokens_vs_markers": 0.9319030886389155,
+      "markers_vs_think": 0.7171495170589267,
+      "markers_vs_markers": 0.8313490137708445
+    }
+  }
+}
