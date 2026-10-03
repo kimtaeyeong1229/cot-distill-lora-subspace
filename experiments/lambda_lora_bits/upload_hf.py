@@ -29,8 +29,8 @@ ROOT = Path(__file__).resolve().parents[2]
 EXP = ROOT / "experiments" / "lambda_lora_bits"
 STAGE = ROOT / "experiments" / "hf_upload"
 ACCOUNT = "kimtaeyeong1229"
-MODEL_REPO = f"{ACCOUNT}/cot-distill-lora-adapters"
-DATA_REPO = f"{ACCOUNT}/cot-distill-teacher-cot"
+MODEL_REPO = f"{ACCOUNT}/cot-distill-lora-subspace"
+DATA_REPO = f"{ACCOUNT}/cot-distill-lora-subspace"
 
 # directory name -> (teacher pair, student) for the README mapping
 CELLS = {
