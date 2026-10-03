@@ -1,8 +1,6 @@
-<!-- Notion에서 동기화: 2026-10-02 -->
+<!-- Notion에서 동기화: 2026-10-03 -->
 # Related Work
-
 ## Chain-of-Thought Distillation to Small Students
-
 - **(관행)**
     - 증류는 강한 teacher의 출력으로 작은 student를 학습시키는 방법이며 ([Hinton et al., 2015](https://arxiv.org/abs/1503.02531)), 추론 모델이 나온 뒤로는 그들이 쓴 긴 풀이가 주된 감독이 되었고 R1이 증류해 공개한 작은 모델들이 후속 연구의 출발점이 됨 ([Guo et al., 2025](https://arxiv.org/abs/2501.12948))
 - **(흐름)**
@@ -12,17 +10,17 @@
     - 그래서 긴 풀이와 짧은 풀이 중 하나만 고르는 대신, 그 사이를 메우는 쪽으로 흐름이 옮겨감
         - 짧은 풀이와 긴 풀이를 섞거나 난이도 순서를 바꾸는 커리큘럼처럼, 만들어진 데이터의 구성과 순서를 조정함 ([Jiang et al., 2025](https://aclanthology.org/2025.emnlp-main.376/))
         - 한 teacher의 추론 모드만 켜고 꺼서 같은 프롬프트로 두 벌의 데이터를 만듦 ([Boizard et al., 2026](https://arxiv.org/abs/2509.22193))
-        - 한편 증류와 별개로, 추론 모델과 지시 모델을 가중치에서 섞는 보간 연구들은 섞인 모델의 풀이 스타일이 연속으로 변하며 어느 $\lambda$에서 생각하며 푸는 것을 통째로 그만둔다고 보고함 ([Wu et al., 2026a](https://arxiv.org/abs/2510.10977); [Lan et al., 2025](https://arxiv.org/abs/2509.22034)). 다만 그런 전환이 없다는 보고도 있음 ([Yang et al., 2026](https://arxiv.org/abs/2601.21414))
-        - 이 섞인 모델을 teacher로 써서 증류하면, 양 끝보다 중간 $\lambda$에서 student가 가장 잘함 ([Lan et al., 2026](https://arxiv.org/abs/2608.29623))
+        - 한편 증류와 별개로, 추론 모델과 지시 모델을 가중치에서 섞는 보간 연구들은 섞인 모델의 풀이 스타일이 연속으로 변하며 어느 $\lambda$에서 생각하며 푸는 것을 통째로 그만둔다고 보고함 ([Wu et al., 2026a](https://arxiv.org/abs/2510.10977); [Lan et al., 2025](https://arxiv.org/abs/2509.22034)). 섞는 비율에 따라 일부 행동이 급격히 나타나는 현상은 전문가 혼합 모델의 가중치를 조립할 때도 보고됨 ([Klagges et al., 2025](https://arxiv.org/abs/2506.14794)). 다만 그런 전환이 없다는 보고도 있음 ([Yang et al., 2026](https://arxiv.org/abs/2601.21414))
+        - 이 섞인 모델을 teacher로 써서 증류하면, 양 끝보다 중간 $\lambda$에서 student가 가장 잘하고, student의 풀이 길이도 $\lambda$를 따라 매끄럽게 변함 ([Lan et al., 2026](https://arxiv.org/abs/2608.29623))
+        - 생각 모드와 지시 모드 checkpoint를 LoRA 증류와 가중치 보간으로 함께 다듬기도 하지만, 정답률만 봄 ([Saini & Pandey, 2026](https://arxiv.org/abs/2606.01080))
     - 다만 이 흐름은 teacher를 student의 정답률로 고르거나 teacher 자신의 출력으로만 평가해, teacher가 student의 가중치에 무엇을 남기는지는 다루지 않음
-
 ## Reading and Editing Weight Updates
-
 - **(관행)**
-    - LoRA 업데이트를 부분공간으로 보고 그 겹침으로 서로 다른 학습을 비교하는 방법은 LoRA 원 논문부터 쓰였고 ([Hu et al., 2021](https://arxiv.org/abs/2106.09685)), 개별 방향은 학습마다 흔들려도 부분공간은 재현된다는 점이 SAE에서 보고됨 ([Gerasimov et al., 2026](https://arxiv.org/abs/2606.12138))
+    - LoRA 업데이트를 부분공간으로 보고 그 겹침으로 서로 다른 학습을 비교하는 방법은 LoRA 원 논문부터 쓰였고 ([Hu et al., 2022](https://arxiv.org/abs/2106.09685)), 개별 방향은 학습마다 흔들려도 부분공간은 재현된다는 점이 SAE에서 보고됨 ([Gerasimov et al., 2026](https://arxiv.org/abs/2606.12138))
 - **(흐름)**
     - 학습이 끝난 가중치를 열어 무엇이 담겼는지 보는 연구가 이어짐
-        - R1의 풀이로 rank 1 LoRA만 학습시켜도 전체 미세조정과의 성능 격차가 73–90% 회복되고, 그 adapter의 방향을 활성으로 읽어 해석함 ([Ward et al., 2025](https://arxiv.org/abs/2511.06739))
+        - R1의 풀이로 rank 1 LoRA만 학습시켜도 전체 미세조정과의 성능 격차가 73–90% 회복되고, 그 adapter의 방향을 활성으로 읽어 해석함 ([Ward et al., 2025](https://arxiv.org/abs/2511.06739)). teacher의 추론 궁적 자체가 저차원 부분공간에 가깝다는 보고도 있음 ([Solgi et al., 2026](https://arxiv.org/abs/2606.05315))
+        - 초기화를 공유한 teacher와 student 사이에서는, 증류로 넘어가는 성질이 내부 표현의 정렬을 따라 열리고 닫힘 ([Chauhan & Shah, 2026](https://arxiv.org/abs/2607.04432))
         - adapter가 담는 양을 비트로 직접 재면, 파라미터 수보다 그 파라미터가 attention에 있는지 MLP에 있는지가 더 크게 좌우함 ([Tan et al., 2026](https://arxiv.org/abs/2607.21351))
         - 서로 다른 과제로 학습한 adapter들의 부분공간이 상당히 겹쳐, 앞선 adapter가 뒤 과제를 대신하기도 함. 다만 그 겹침을 우연 수준과 비교하지는 않음 ([Dieudonné et al., 2026](https://arxiv.org/abs/2606.28117))
         - 찾은 부분공간을 투영 제거해 거부 행동만 없애거나 능력을 정밀 제거하는 절차까지 확립됨 ([Arditi et al., 2024](https://arxiv.org/abs/2406.11717); [Fu et al., 2026](https://arxiv.org/abs/2601.07411))

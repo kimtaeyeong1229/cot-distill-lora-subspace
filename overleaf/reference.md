@@ -80,6 +80,10 @@
 | sumit2026noise | Below the Noise Floor: Bimodal Seed Collapse and Output Truncation in Knowledge Distillation | Sumit, Haque, Sadeque (3) | arXiv (2026-08) | https://arxiv.org/abs/2608.27729 | 게재본 찾지 못함 | 증류에서 시드별 분산이 크다는 보고 | Sec 3.2.2 (시드 기준선을 시도한 이유) |
 
 | wu2026memorization | Reasoning or Memorization? Unreliable Results of Reinforcement Learning Due to Data Contamination | Wu, Zhang, Dong, … (14) | AAAI 2026 | https://arxiv.org/abs/2507.10532 | AAAI 2026 (arXiv 주석). 게재본 서지 확인 필요 | 본문에서 "test various model series" 권고 확인. **Wu et al. 2026이 둘이므로 본문 표기는 2026a(보간)·2026b(오염)** | Sec 3.1.1 (student 계열을 셋으로 나눈 이유) |
+| chauhan2026covert | Covert Trait Propagation Is Representation Alignment: Mechanistic Evidence from Hidden-Channel Distillation | Chauhan, Shah (2) | arXiv (v1, 2026-07) | https://arxiv.org/abs/2607.04432 | PDF 1쪽에 ICML 2026 (PMLR 306). 공개 proceedings 미확인 → OpenReview BibTeX 필요 | arXiv 저자 = PDF 1쪽 | Related Work 2.1 |
+| saini2026thinkswitch | ThinkSwitch: Context Distillation with LoRA and Weight Interpolation for Specific-Purpose Reasoning Tasks | Saini, Pandey (2) | arXiv (v1, 2026-05) | https://arxiv.org/abs/2606.01080 | 게재본 찾지 못함 | arXiv 저자 = PDF 1쪽 | Related Work 2.1 |
+| solgi2026lori | LoRi: Low-Rank Distillation for Implicit Reasoning | Solgi, Tian, Zhang (3) | arXiv (v1, 2026-06) | https://arxiv.org/abs/2606.05315 | 게재본 찾지 못함 | arXiv 저자 = PDF 1쪽 | Related Work 2.2 |
+| klagges2025assembly | Assembly of Experts: Linear-time construction of the Chimera LLM variants with emergent and adaptable behaviors | Klagges, Dahlke, Klemm, … (7) | arXiv (v1, 2025-05) | https://arxiv.org/abs/2506.14794 | 게재본 찾지 못함 | arXiv 저자 = PDF 1쪽 | Related Work 2.1 |
 
 ## 참고
 

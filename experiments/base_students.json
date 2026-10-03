@@ -15,6 +15,10 @@
     "reflective_per_1k_words": {
       "mean": 0.195545073998026,
       "sd": 0.06299023126677837
+    },
+    "markers_first_sample": {
+      "mean": 0.1506602973214362,
+      "sd": 0.024736621222649715
     }
   },
   "Llama-3.2-1B-Instruct": {
@@ -33,6 +37,10 @@
     "reflective_per_1k_words": {
       "mean": 0.04523479319606273,
       "sd": 0.02071756274871298
+    },
+    "markers_first_sample": {
+      "mean": 0.03477456447619949,
+      "sd": 0.019171392205462063
     }
   },
   "OLMo-2-1B-Instruct": {
@@ -51,6 +59,10 @@
     "reflective_per_1k_words": {
       "mean": 1.0408973501689605,
       "sd": 0.011216667171528463
+    },
+    "markers_first_sample": {
+      "mean": 0.9792245028222297,
+      "sd": 0.16783444874317435
     }
   }
 }
