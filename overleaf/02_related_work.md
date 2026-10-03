@@ -11,8 +11,8 @@
         - 짧은 풀이와 긴 풀이를 섞거나 난이도 순서를 바꾸는 커리큘럼처럼, 만들어진 데이터의 구성과 순서를 조정함 ([Jiang et al., 2025](https://aclanthology.org/2025.emnlp-main.376/))
         - 한 teacher의 추론 모드만 켜고 꺼서 같은 프롬프트로 두 벌의 데이터를 만듦 ([Boizard et al., 2026](https://arxiv.org/abs/2509.22193))
         - 추론 모델과 지시 모델을 가중치에서 섞은 teacher로 증류하면 양 끝보다 중간 $\lambda$에서 student가 가장 잘하며, student의 풀이 길이는 $\lambda$를 따라 매끄럽게 변하고, 긴 풀이가 짧은 풀이보다 더 집중된 방향으로 student를 학습시킴 ([Lan et al., 2026](https://arxiv.org/abs/2608.29623))
+            - 이렇게 섞은 teacher 자체는 $\lambda$에 따라 풀이 스타일이 연속으로 변하다가 어느 $\lambda$에서 생각하며 푸는 것을 통째로 그만둔다고 보고됨 ([Wu et al., 2026a](https://arxiv.org/abs/2510.10977); [Lan et al., 2025](https://arxiv.org/abs/2509.22034)). 섞는 비율에 따라 일부 행동이 급격히 나타나는 현상은 전문가 혼합 모델을 조립할 때도 보고되었으나 ([Klagges et al., 2025](https://arxiv.org/abs/2506.14794)), 그런 전환이 없다는 보고도 있음 ([Yang et al., 2026](https://arxiv.org/abs/2601.21414))
         - 생각 모드와 지시 모드 checkpoint를 LoRA 증류와 가중치 보간으로 함께 다듬기도 하지만, 정답률만 봄 ([Saini & Pandey, 2026](https://arxiv.org/abs/2606.01080))
-    - 증류와 별개로, 섞인 모델 자체를 본 보간 연구들은 섞인 모델의 풀이 스타일이 연속으로 변하다가 어느 $\lambda$에서 생각하며 푸는 것을 통째로 그만둔다고 보고함 ([Wu et al., 2026a](https://arxiv.org/abs/2510.10977); [Lan et al., 2025](https://arxiv.org/abs/2509.22034)). 섞는 비율에 따라 일부 행동이 급격히 나타나는 현상은 전문가 혼합 모델의 가중치를 조립할 때도 보고됨 ([Klagges et al., 2025](https://arxiv.org/abs/2506.14794)). 다만 그런 전환이 없다는 보고도 있음 ([Yang et al., 2026](https://arxiv.org/abs/2601.21414))
     - 다만 이 흐름은 teacher를 student의 정답률로 고르거나 teacher 자신의 출력으로만 평가해, teacher가 생각을 그만둘 때 student의 가중치에 무엇이 남는지는 다루지 않음
 ## Reading and Editing Weight Updates
 - **(관행)**
