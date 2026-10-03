@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage and upload the artifacts that cannot be regenerated, to two private Hub repos.
+"""Stage and upload the artifacts that cannot be regenerated, to two public Hub repos.
 
 Split by what a reader would do with them:
 
@@ -66,68 +66,96 @@ def link(src: Path, dst: Path):
         shutil.copy2(src, dst)
 
 
+# directories that hold no research adapter: hardware smoke tests, copies kept from the retired
+# servers, and pairD/olmo1b/runs_stale_server2 (six seed-0 runs that were retrained and replaced)
+SKIP_TOP = {"_server_records", "_server5_root", "smoke"}
+RUN_FILES = ("ablation.json", "train_summary.json", "train_args.json")
+BASES = {
+    "Qwen2.5-0.5B-Instruct": "Qwen/Qwen2.5-0.5B-Instruct", "Llama-3.2-1B-Instruct": "meta-llama/Llama-3.2-1B-Instruct",
+    "OLMo-2-1B-Instruct": "allenai/OLMo-2-0425-1B-Instruct", "Qwen2.5-1.5B-Instruct": "Qwen/Qwen2.5-1.5B-Instruct",
+    "Qwen2.5-3B-Instruct": "Qwen/Qwen2.5-3B-Instruct", "SmolLM2-1.7B-Instruct": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+}
+
+
 def stage_adapters():
+    """Every adapter on disk. Main runs keep the old `<cell>/<run>` path; the rest keep their
+    subdirectory, e.g. `<cell>/runs_edit_s0/lambda0.0_rm_pre`."""
     out = STAGE / "adapters"
     if out.exists():
         shutil.rmtree(out)
-    rows, total = [], 0
-    for tag in sorted(CELLS):
-        runs = EXP / tag / "runs"
-        if not runs.is_dir():
+    counts, total = {}, 0
+    for weights in sorted(EXP.rglob("adapter/adapter_model.safetensors")):
+        run = weights.parent.parent
+        parts = run.relative_to(EXP).parts
+        if parts[0] in SKIP_TOP or any(x.startswith("runs_stale") for x in parts):
             continue
-        found = 0
-        for run in sorted(runs.iterdir()):
-            weights = run / "adapter" / "adapter_model.safetensors"
-            if not weights.exists():
-                continue
-            dest = out / tag / run.name
-            link(weights, dest / "adapter_model.safetensors")
-            link(run / "adapter" / "adapter_config.json", dest / "adapter_config.json")
-            found += 1
-            total += weights.stat().st_size
-        if found:
-            pair, student = CELLS[tag]
-            rows.append((tag, pair, student, found))
+        rel = Path(*[x for x in parts if x != "runs"])
+        link(weights, out / rel / "adapter_model.safetensors")
+        link(weights.parent / "adapter_config.json", out / rel / "adapter_config.json")
+        for name in RUN_FILES:
+            if (run / name).exists():
+                link(run / name, out / rel / name)
+        group = str(rel.parent)
+        counts[group] = counts.get(group, 0) + 1
+        total += weights.stat().st_size
 
-    for name in ("reproducibility.lock.json", "think_rate.json", "phi_table.json", "phi_xseed.json",
-                 "phi_resample.json", "alignment.json", "control_pairc.json",
-                 "accuracy_eval_math500.json", "accuracy_eval_val.json"):
-        p = ROOT / "experiments" / name
-        if p.exists():
-            link(p, out / "analysis" / name)
+    for p in sorted((ROOT / "experiments").glob("*.json")):
+        link(p, out / "analysis" / p.name)
 
+    n = sum(counts.values())
     lines = [
+        "---", "license: other", "library_name: peft", "tags:", "- lora", "- chain-of-thought",
+        "- distillation", "- interpretability", "base_model:",
+    ] + [f"- {b}" for b in BASES.values()] + [
+        "---", "",
         "# CoT distillation: LoRA adapters across an interpolated teacher spectrum", "",
-        "Private research artifact. Each adapter is a rank-16 LoRA (alpha 32) trained for 3 epochs",
-        "at lr 2e-4 on chain-of-thought written by one interpolated teacher.", "",
+        "Every adapter behind the paper's results. Each is a rank-16 LoRA (alpha 32, all seven linear",
+        "modules) trained for 3 epochs at lr 2e-4 on chain-of-thought written by one interpolated teacher,",
+        "or an edit of such an adapter. The subspace analysis is linear algebra over these weights, so",
+        "this repo alone re-derives it without a GPU.", "",
         "## Teacher construction", "",
         "theta(lambda) = lambda * theta_instruct + (1 - lambda) * theta_reasoning, element-wise over",
         "every tensor, mixed in fp32 and cast to bf16. lambda weights the short-answer endpoint.", "",
-        "| pair | lambda=0 (reasoning) | lambda=1 (instruct) |", "|---|---|---|",
+        "| pair (directory) | lambda=0 (reasoning) | lambda=1 (instruct) |", "|---|---|---|",
     ]
-    lines += [f"| {p} | {a} | {b} |" for p, (a, b) in sorted(ENDPOINTS.items())]
+    lines += [f"| {p} (`{PAIR_DIR[p]}`) | {a} | {b} |" for p, (a, b) in sorted(ENDPOINTS.items())]
     lines += [
-        "", "Endpoint commits are pinned in `analysis/reproducibility.lock.json`; `interpolate.py`",
-        "in the source repo rebuilds any teacher byte-for-byte from them, which is why the",
-        "interpolated checkpoints are not uploaded.", "",
+        "", "The paper's pairs A, B and C are the directories `sweep*`, `pairB` and `pairD`; `pairC` is an",
+        "earlier pair kept for the record. Endpoint commits are pinned in",
+        "`analysis/reproducibility.lock.json`, and `interpolate.py` in the source repo rebuilds any",
+        "teacher byte-for-byte from them, so the interpolated checkpoints are not uploaded.", "",
         "## Layout", "",
-        "`<cell>/lambda<value>_seed<0|1|2>/` are the main runs (three seeds per lambda).",
-        "`<cell>/lambda<value>_half<A|B>/` are the data-resample baseline: same seed, each trained on",
-        "one disjoint half of that lambda's training set, so comparing the two isolates the effect of",
-        "changing the data while the initialisation is held fixed.", "",
-        "| cell | teacher pair | student | adapters |", "|---|---|---|---|",
+        "Cells: `sweep` / `sweep_llama` / `sweep_olmo2` are pair A with Qwen2.5-0.5B / Llama-3.2-1B /",
+        "OLMo-2-1B students; `pairB/<student>` and `pairD/<student>` likewise.", "",
+        "- `<cell>/lambda<l>_seed<s>` -- main runs, three seeds per lambda.",
+        "- `<cell>/lambda<l>_half<A|B>[_seed<s>]` -- data-resample baseline: the same seed trained on each",
+        "  disjoint half of that lambda's training set (seed 0 has no suffix).",
+        "- `<cell>/runs_edit_s<s>/` -- edits of the seed-s adapters: `*_rm_pre` removes the shared region,",
+        "  `*_rm_decisive` removes the same energy outside it, `*_rm_scale` shrinks the whole update,",
+        "  `*_gs_tau` / `*_gs_energy` remove top singular components, `*_rmseed` removes the region found",
+        "  from two other seeds (`*_rmseed_other` its control), `graft*` add the region to lambda=1,",
+        "  `amp*` amplify it at fixed norm, `merge0.5` / `merge0.7` merge lambda=0 with lambda=1.",
+        "- `<cell>/runs_ablation*`, `runs_steer*`, `runs_graft_beta` -- the same edits from the exploratory",
+        "  phase (`_loo`: region built leaving the edited adapter out).",
+        "- `analysis/` -- the analysis outputs the tables are read from.",
+        "- Each edit directory carries `ablation.json` describing the edit; each trained run carries",
+        "  `train_summary.json` and `train_args.json`.", "",
+        "Load with `peft`: `PeftModel.from_pretrained(base, repo, subfolder=\"sweep/lambda0.0_seed0\")`.", "",
+        "| directory | adapters |", "|---|---|",
     ]
-    lines += [f"| `{t}` | {p} | {s} | {n} |" for t, p, s, n in rows]
-    lines += ["", f"Total {sum(n for *_, n in rows)} adapters, {total / 2**30:.1f} GiB.", "",
+    lines += [f"| `{g}` | {c} |" for g, c in sorted(counts.items())]
+    lines += ["", f"Total {n} adapters, {total / 2**30:.1f} GiB.", "",
               "## Generation settings used to write the training CoT", "",
-              "temperature 0.6, top-p 0.95, max 8192 new tokens, stop tokens the union of both",
-              "endpoints' eos ids; 4000 MATH problems per teacher.", "",
+              "temperature 0.6, top-p 0.95, max 8192 new tokens; 4000 MATH problems per teacher.", "",
               "## Licensing", "",
-              "Derived from the endpoint checkpoints above and inherits their terms. Pair D's",
-              "reasoning endpoint is a Llama derivative, so anything downstream of pair D carries the",
-              "Llama community licence conditions. Keep this repo private until that is settled."]
+              "Each adapter inherits the licence of its base student and of the teacher whose outputs it",
+              "was trained on. Qwen2.5-0.5B/1.5B, OLMo-2 and SmolLM2 are Apache-2.0; Qwen2.5-3B uses the",
+              "Qwen research licence. Adapters on Llama-3.2-1B are subject to the Llama 3.2 Community",
+              "License, and adapters trained on pair D (`pairD`) outputs descend from",
+              "DeepSeek-R1-Distill-Llama-8B and Llama-3.1-8B-Instruct under the Llama 3.1 Community License.",
+              "Built with Llama."]
     (out / "README.md").write_text("\n".join(lines) + "\n")
-    return out, sum(n for *_, n in rows), total
+    return out, n, total
 
 
 def stage_data():
@@ -161,7 +189,7 @@ def stage_data():
 
     (out / "README.md").write_text("\n".join([
         "# CoT distillation: teacher generations, splits and student outputs", "",
-        "Private research artifact. Sampled at temperature 0.6 / top-p 0.95, so it cannot be",
+        "Sampled at temperature 0.6 / top-p 0.95, so it cannot be",
         "reproduced exactly even from the same checkpoints -- this is the irreplaceable half of the",
         "experiment.", "",
         "## Contents", "",
@@ -191,17 +219,19 @@ def main():
         path, n, size = stage_adapters()
         print(f"[stage] adapters {n}개 {size / 2**30:.1f} GiB -> {path}", flush=True)
         if not a.stage_only:
-            api.create_repo(MODEL_REPO, repo_type="model", private=True, exist_ok=True)
+            api.create_repo(MODEL_REPO, repo_type="model", private=False, exist_ok=True)
             api.upload_large_folder(repo_id=MODEL_REPO, repo_type="model", folder_path=str(path),
-                                    private=True)
+                                    private=False)
+            api.update_repo_settings(MODEL_REPO, repo_type="model", private=False)
             print(f"[done] https://huggingface.co/{MODEL_REPO}", flush=True)
     if a.what in ("data", "both"):
         path, counts, size = stage_data()
         print(f"[stage] data {sum(counts.values())}개 파일 {size / 2**30:.2f} GiB -> {path}", flush=True)
         if not a.stage_only:
-            api.create_repo(DATA_REPO, repo_type="dataset", private=True, exist_ok=True)
+            api.create_repo(DATA_REPO, repo_type="dataset", private=False, exist_ok=True)
             api.upload_large_folder(repo_id=DATA_REPO, repo_type="dataset", folder_path=str(path),
-                                    private=True)
+                                    private=False)
+            api.update_repo_settings(DATA_REPO, repo_type="dataset", private=False)
             print(f"[done] https://huggingface.co/datasets/{DATA_REPO}", flush=True)
 
 
