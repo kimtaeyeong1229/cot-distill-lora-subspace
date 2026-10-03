@@ -5,9 +5,8 @@ Figure 2 (where): for each teacher pair, three rows share one lambda axis and on
 largest drop in think rate: the teacher think rate, the students' direction overlap R(lambda), and the students'
 coverage of the shared region (experiments/coverage_by_lambda.json). The stacked think-rate row follows Wu et al.
 (2026, model interpolation, Figure 3).
-Figure 3 (what): each edit as a move between the two behaviours, the lambda = 0 adapter (thinks, rarely finishes)
-and the lambda = 1 adapter (short, finishes), on reflective markers x completed responses. Points are nine-cell
-means; per-cell values and spreads are in the appendix tables, not in the figures.
+Figure 3 (what): one panel per edit (remove, graft markers, graft completion, amplify); bars are nine-cell means
+with the value printed, as in Venhoff et al. (2026, Figure 4); per-cell values and spreads stay in the appendix tables.
 Colours and type follow Jack Morris's plots: cream plot area with white grid lines, no top or right spine, ordered
 navy-slate-yellow palette, bold sentence-case axis titles with the unit on a lighter second line.
 Run from the repo root; writes PDFs into the manuscript repo's figures/ folder.
@@ -22,6 +21,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
 
 EXP = Path("experiments")
 OUT = Path("/home/lab/workspace/NAACL_cot_distill_lora_subspace/figures")
@@ -126,55 +126,58 @@ def fig2():
 
 # ---------------------------------------------------------------- Figure 3: what the shared region does
 def fig3():
-    """Claims 2-3: edits move an adapter between the two behaviours; the region acts as a switch, not a dial."""
+    """Claims 2-3: one panel per edit, bars are nine-cell means with their values printed (as in Venhoff et al.
+    2026, Figure 4); the shared-region edit is yellow, controls grey, unedited adapters navy (lambda = 0) / red."""
     m0 = lambda k, f: st.mean(base[cell(p, s)][k][f]["mean"] for p, s in CELLS)
     me = lambda k, f: st.mean(spread[cell(p, s)]["edits"][k][f]["mean"] for p, s in CELLS)
-    pt = {"l0": (m0("base0", "markers"), 100 * (1 - m0("base0", "truncated"))),
-          "l1": (m0("base1", "markers"), 100 * (1 - m0("base1", "truncated")))}
-    for k in ("rm_pre", "rm_other", "gs_energy", "rm_scale"):
-        pt[k] = (m0(k, "markers"), 100 * (1 - m0(k, "truncated")))
-    for k in ("graft2", "graft_other2", "graft_whole2", "ampn1", "ampn4", "ampV"):
-        pt[k] = (me(k, "markers_per_1k"), 100 * me(k, "completed"))
-    fig, axes = plt.subplots(1, 2, figsize=(FULL, 2.5), sharey=True)
-    # (key, label, shared-region edit?, label offset in points, ha, source adapter)
+    sb = lambda k: st.mean(spread[cell(p, s)]["base"][k]["mean"] for p, s in CELLS)
+    t2 = lambda k: st.mean(spread[cell(p, s)]["table2"][k]["mean"] for p, s in CELLS)
+    amp = lambda k: st.mean(100 * spread[cell(p, s)]["edits"][k]["markers_per_1k"]["mean"]
+                            / spread[cell(p, s)]["table1"]["0.0"]["mean"] for p, s in CELLS)
+    l0, l1 = "", ""
     panels = [
-        ("Remove from the \u03bb = 0 adapter",
-         [("rm_pre", "Shared removed", True, (-8, 0), "right", "l0"),
-          ("gs_energy", "Top removed", False, (7, 0), "left", "l0"),
-          ("rm_scale", "Scaled down", False, (7, 0), "left", "l0"),
-          ("rm_other", "Other removed", False, (-7, 3), "right", "l0")],
-         [("l0", (0, -12)), ("l1", (0, 11))]),
-        ("Graft into \u03bb = 1 (\u03b2 = 2), amplify \u03bb = 0",
-         [("graft2", "Graft shared", True, (-8, 0), "right", "l1"),
-          ("graft_whole2", "Graft whole", False, (0, -11), "center", "l1"),
-          ("graft_other2", "Graft other", False, (7, 0), "left", "l1"),
-          ("ampn1", None, True, None, None, "l0"), ("ampn4", None, True, None, None, "l0"),
-          ("ampV", "Amplify (\u03b3 = 1, 4, all)", True, (-8, -2), "right", "l0")],
-         [("l0", (0, 11)), ("l1", (0, 11))]),
+        ("Remove: thinking off", None, "Reflective markers", "(per 1,000 words)", None, "{:.1f}",
+         [(l0, m0("base0", "markers"), LAM0), ("Shared", m0("rm_pre", "markers"), SHARED_C),
+          ("Other", m0("rm_other", "markers"), CTRL), ("Top", m0("gs_energy", "markers"), CTRL),
+          ("Scaled", m0("rm_scale", "markers"), CTRL)]),
+        ("Graft: thinking on", None, "Reflective markers", "(per 1,000 words, early window)",
+         sb("base0_head_markers_per_1k"), "{:.1f}",
+         [(l1, sb("base1_head_markers_per_1k"), LAM1), ("Shared", me("graft2", "head_markers_per_1k"), SHARED_C),
+          ("Other", me("graft_other2", "head_markers_per_1k"), CTRL),
+          ("Whole", me("graft_whole2", "head_markers_per_1k"), CTRL)]),
+        ("Graft: never finishes", None, "Completed responses", "(%)", 100 * (1 - t2("trunc0")), "{:.0f}",
+         [(l1, 100 * (1 - t2("trunc1")), LAM1), ("Shared", 100 * me("graft2", "completed"), SHARED_C),
+          ("Other", 100 * me("graft_other2", "completed"), CTRL),
+          ("Whole", 100 * me("graft_whole2", "completed"), CTRL)]),
+        ("Amplify: no more thinking", None, "Reflective markers", "(% of the \u03bb = 0 adapter)", None, "{:.0f}",
+         [(l0, 100.0, LAM0), ("\u03b3 = 1", amp("ampn1"), SHARED_C), ("\u03b3 = 4", amp("ampn4"), SHARED_C),
+          ("All", amp("ampV"), SHARED_C)]),
     ]
-    names = {"l0": ("\u03bb = 0 adapter", LAM0), "l1": ("\u03bb = 1 adapter", LAM1)}
-    for ax, (title, edits, anchors) in zip(axes, panels):
-        ax.set_xscale("log"); ax.set_xlim(0.12, 80); ax.set_ylim(-12, 108)
-        for k, name, shared, off, ha, src in edits:
-            (x0, y0), (x1, y1) = pt[src], pt[k]
-            ax.annotate("", xy=(x1, y1), xytext=(x0, y0),
-                        arrowprops=dict(arrowstyle="-|>", color="black" if shared else CTRL, lw=1.5 if shared else 1.0,
-                                        shrinkA=6, shrinkB=5, mutation_scale=9), zorder=2)
-            ax.plot(x1, y1, "o", ms=7 if shared else 5.5, color=SHARED_C if shared else "white",
-                    mec="black" if shared else CTRL, mew=1.0 if shared else 1.2, zorder=4)
-            if name:
-                ax.annotate(name, (x1, y1), xytext=off, textcoords="offset points", ha=ha, va="center",
-                            fontsize=7.5, fontweight="bold" if shared else "normal",
-                            color="black" if shared else "#555555")
-        for k, off in anchors:
-            name, c = names[k]
-            ax.plot(*pt[k], "s", ms=8, color=c, mec="black", mew=0.8, zorder=5)
-            ax.annotate(name, pt[k], xytext=off, textcoords="offset points", ha="center", va="center",
-                        fontsize=7.5, fontweight="bold", color=c)
-        ax.set_title(title)
-        labels(ax, x="Reflective markers", xunit="(per 1,000 words, log)")
-    labels(axes[0], y="Completed responses", yunit="(%)")
-    fig.tight_layout(w_pad=1.0)
+    fig, axes = plt.subplots(1, 4, figsize=(FULL, 2.2), gridspec_kw={"width_ratios": [5, 4, 4, 4]})
+    for ax, (title, xl, y, yunit, ref, fmt, bars_) in zip(axes, panels):
+        xs = range(len(bars_))
+        vals = [v for _, v, _ in bars_]
+        ax.bar(xs, vals, width=0.62, color=[c for _, _, c in bars_], edgecolor="#333333", lw=0.5, zorder=2)
+        top = max(vals + ([ref] if ref else [])) * 1.18
+        for x, v in zip(xs, vals):
+            ax.text(x, v + top * 0.015, fmt.format(v), ha="center", va="bottom", fontsize=7, fontweight="bold")
+        if ref is not None:
+            ax.axhline(ref, color=REF, ls="--", lw=1.0, zorder=1)
+        ax.set_ylim(0, top)
+        ax.set_xticks(list(xs)); ax.set_xticklabels([n for n, _, _ in bars_], fontsize=7)
+        ax.set_xlim(-0.6, len(bars_) - 0.4)
+        ax.tick_params(axis="x", length=0); ax.grid(axis="x", visible=False)
+        ax.set_title(title, fontsize=8)
+        ax.set_yticks([]); ax.spines["left"].set_visible(False); ax.grid(False)
+        labels(ax, x=y, xunit=yunit)
+    axes[3].axhline(100, color=REF, ls="--", lw=1.0, zorder=1)
+    fig.tight_layout(w_pad=1.2)
+    handles = [Patch(facecolor=LAM0, edgecolor="#333333", lw=0.5, label="\u03bb = 0 adapter"),
+               Patch(facecolor=LAM1, edgecolor="#333333", lw=0.5, label="\u03bb = 1 adapter"),
+               Patch(facecolor=SHARED_C, edgecolor="#333333", lw=0.5, label="Shared-region edit"),
+               Patch(facecolor=CTRL, edgecolor="#333333", lw=0.5, label="Control edit"),
+               Line2D([], [], color=REF, ls="--", lw=1.0, label="\u03bb = 0 level")]
+    bottom_legend(fig, handles, 5)
     fig.savefig(OUT / "fig3_states.pdf")
 
 if __name__ == "__main__":
