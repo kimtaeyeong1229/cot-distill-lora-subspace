@@ -18,7 +18,7 @@
 - **(요약)**
     - 결론적으로 공유 구역을 빼면 같은 길이로 끊은 것과 달리 생각이 꺼지고 짧은 풀이를 끝까지 쓰게 되지만, 빼는 것만으로는 이 구역이 생각을 켜는 데 충분한지는 알 수 없었음
 
-| Pair | Student | Base | Shared removed | Other removed | Top removed | Scaled down | Truncated | Tokens (base → shared removed) | λ = 1: markers (base → shared removed) | λ = 1: tokens (base → shared removed) |
+| Pair | Student | Base | Shared removed | Other removed | Top removed | Scaled down | Length-matched cut | Tokens (base → shared removed) | λ = 1: markers (base → shared removed) | λ = 1: tokens (base → shared removed) |
 |---|---|---|---|---|---|---|---|---|---|---|
 | A | Qwen2.5-0.5B | 21.8 ± 2.5 | 0.37 ± 0.13 | 19.1 ± 2.1 | 6.0 ± 1.2 | 13.0 ± 1.1 | 13.8 ± 0.6 | 5,916 ± 214 → 1,439 ± 80 | 0.48 ± 0.61 → 0.63 ± 0.81 | 811 ± 64 → 860 ± 52 |
 |  | Llama-3.2-1B | 30.7 ± 1.2 | 0.18 ± 0.05 | 17.9 ± 0.5 | 10.6 ± 2.4 | 27.6 ± 5.3 | 19.4 ± 1.2 | 6,969 ± 77 → 1,659 ± 211 | 0.12 ± 0.03 → 0.49 ± 0.42 | 944 ± 72 → 856 ± 32 |
@@ -30,9 +30,9 @@
 |  | Llama-3.2-1B | 19.1 ± 1.1 | 0.10 ± 0.12 | 22.2 ± 2.7 | 0.81 ± 0.29 | 13.8 ± 0.8 | 16.3 ± 0.4 | 6,149 ± 103 → 1,214 ± 118 | 0.14 ± 0.14 → 0.05 ± 0.01 | 939 ± 96 → 912 ± 45 |
 |  | OLMo-2-1B | 14.4 ± 1.5 | 1.4 ± 0.03 | 12.9 ± 1.5 | 1.5 ± 0.3 | 8.8 ± 1.6 | 11.9 ± 1.1 | 2,949 ± 50 → 744 ± 44 | 0.33 ± 0.22 → 0.37 ± 0.31 | 910 ± 37 → 567 ± 57 |
 
-**표 6.** $\lambda=0$ adapter에서 공유 구역을 뺐을 때의 반성 표현 빈도(1천 단어당)와 응답 길이임. Other removed는 같은 에너지를 공유 구역 밖의 다른 방향에서, Top removed는 업데이트의 가장 큰 성분에서 뺀 조건이고, Scaled down은 업데이트 전체를 같은 양만큼 줄인 조건이며, Truncated는 원래 adapter를 공유 구역을 뺀 adapter와 같은 평균 길이에서 끊은 조건임. 마지막 두 열은 같은 편집을 $\lambda=1$ adapter에 한 대조임. 공유 구역을 뺄 때 반성 표현이 가장 확실히 사라짐
+**표 6.** $\lambda=0$ adapter에서 공유 구역을 뺐을 때의 반성 표현 빈도(1천 단어당)와 응답 길이임. Other removed는 같은 에너지를 공유 구역 밖의 다른 방향에서, Top removed는 업데이트의 가장 큰 성분에서 뺀 조건이고, Scaled down은 업데이트 전체를 같은 양만큼 줄인 조건이며, Length-matched cut은 원래 adapter를 공유 구역을 뺀 adapter와 같은 평균 길이에서 끊은 조건임. 마지막 두 열은 같은 편집을 $\lambda=1$ adapter에 한 대조임. 공유 구역을 뺄 때 반성 표현이 가장 확실히 사라짐
 
-| Pair | Student | Base | Shared removed | Truncated | Other removed | Top removed | Scaled down |
+| Pair | Student | Base | Shared removed | Length-matched cut | Other removed | Top removed | Scaled down |
 |---|---|---|---|---|---|---|---|
 | A | Qwen2.5-0.5B | 15.2 ± 1.4 | 20.2 ± 2.3 | 18.8 ± 2.0 | 16.9 ± 2.8 | 18.8 ± 3.2 | 18.3 ± 1.7 |
 |  | Llama-3.2-1B | 11.8 ± 1.3 | 22.1 ± 1.5 | 21.0 ± 0.9 | 19.4 ± 2.2 | 17.2 ± 1.5 | 16.8 ± 0.9 |
@@ -45,7 +45,7 @@
 |  | OLMo-2-1B | 11.7 ± 1.6 | 20.9 ± 0.8 | 10.5 ± 0.3 | 13.7 ± 0.1 | 21.0 ± 0.5 | 20.2 ± 0.6 |
 | Mean |  | 13.9 | 24.7 | 16.0 | 16.8 | 21.0 | 19.8 |
 
-**표 7.** $\lambda=0$ adapter를 편집했을 때의 MATH-500 정답률(%)임. Truncated는 원래 adapter를 공유 구역을 뺀 adapter와 같은 평균 길이에서 끊고 답을 쓰게 한 조건이고, 나머지 열은 표 6과 같음. 공유 구역을 뺀 adapter가 가장 정확하며, 같은 길이로 끊은 adapter보다 아홉 칸 모두 높음
+**표 7.** $\lambda=0$ adapter를 편집했을 때의 MATH-500 정답률(%)임. Length-matched cut은 원래 adapter를 공유 구역을 뺀 adapter와 같은 평균 길이에서 끊고 답을 쓰게 한 조건이고, 나머지 열은 표 6과 같음. 공유 구역을 뺀 adapter가 가장 정확하며, 같은 길이로 끊은 adapter보다 아홉 칸 모두 높음
 ## Grafting
 - **(목적)**
     - 그래서 짧게만 답하던 adapter에 공유 구역을 넣어, 이 구역만으로 생각하며 풀게 되는지 봄
