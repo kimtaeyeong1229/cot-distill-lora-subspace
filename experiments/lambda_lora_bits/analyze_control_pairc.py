@@ -9,6 +9,10 @@ Only seed 0 exists for this pair, so both adapters in every comparison share one
 That lifts the whole curve and makes the absolute values incomparable with the three main pairs -- but
 it is constant along lambda, so it cannot manufacture a cliff. Read the position of the drop, not its
 height.
+
+Densities use the paper's instrument (analyze_main_density.REFLECTIVE, per 1,000 words). The students'
+density is read from their held-out generations (eval_val, first sample per problem), the only student
+text kept for this pair; it is not the MATH-500 protocol of the main pairs.
 """
 
 import json
@@ -23,10 +27,7 @@ from safetensors import safe_open
 EXP = Path(__file__).resolve().parent
 LAMBDAS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
 CELLS = [("Qwen2.5-0.5B", "pairC/qwen0.5b"), ("Llama-3.2-1B", "pairC/llama1b"), ("OLMo-2-1B", "pairC/olmo1b")]
-# hedging and self-correction markers; their density stands in for reasoning the tag cannot show
-REFLECTIVE = re.compile(
-    r"\b(wait|hmm|actually|but let me|let me check|recheck|verify|reconsider|alternatively|on second thought)\b",
-    re.I)
+from analyze_main_density import REFLECTIVE  # noqa: E402  the paper's marker pattern
 
 
 def load_basis(path):
@@ -64,7 +65,8 @@ def main():
         rows = [json.loads(line) for line in (EXP / "pairC" / "cot" / f"lambda{lam}.jsonl").open()]
         tokens = sum(r["generated_tokens"] for r in rows)
         rate = sum("</think>" in r["cot_response"] for r in rows) / len(rows)
-        density = sum(len(REFLECTIVE.findall(r["cot_response"])) for r in rows) / tokens * 1000
+        density = (sum(len(REFLECTIVE.findall(r["cot_response"])) for r in rows)
+                   / max(sum(len(r["cot_response"].split()) for r in rows), 1) * 1000)
         teacher[lam] = dict(think_rate=rate, reflective_per_1k=density, avg_tokens=tokens / len(rows))
         print(f"{lam:5s} {rate:9.0%} {density:12.2f} {tokens/len(rows):9.0f}")
 
@@ -87,7 +89,13 @@ def main():
         factor, at = max(drops)
         print(f"{student:14s} " + "".join(f"{phi[l]:8.3f}" for l in LAMBDAS)
               + f"   λ{LAMBDAS[LAMBDAS.index(at) - 1]}→λ{at} {factor:.1f}배")
-        results["cells"][student] = dict(phi=phi, cliff=at, factor=factor)
+        dens = {}
+        for lam in LAMBDAS:
+            rec = json.loads((EXP / tag / "eval_val" / f"lambda{lam}_seed0.json").read_text())["records"]
+            texts = [r["response_0"] for r in rec]
+            dens[lam] = 1000 * sum(len(REFLECTIVE.findall(t)) for t in texts) / max(sum(len(t.split()) for t in texts), 1)
+        print(f"{'':14s} " + "".join(f"{dens[l]:8.2f}" for l in LAMBDAS) + "   student 반성/1k단어 (held-out)")
+        results["cells"][student] = dict(phi=phi, cliff=at, factor=factor, student_markers=dens)
 
     path = EXP.parent / "control_pairc.json"
     path.write_text(json.dumps(results, indent=2))

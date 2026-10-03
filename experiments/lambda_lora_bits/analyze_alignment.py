@@ -14,6 +14,10 @@ teacher profile is permuted over all of them and p is the fraction reaching the 
 Cells are not independent -- three students share each teacher pair -- so the cell-level p values are
 combined only within a pair, and the three pair-level results are reported separately rather than pooled
 into one number that would pretend there are nine independent tests.
+
+--teacher markers swaps the teacher profile for the drop in the teacher's reflective-marker density
+(experiments/teacher_density.json) instead of the </think> rate, to test whether the adapter follows
+the reasoning itself rather than the tag; the permutation test is unchanged.
 """
 
 import argparse
@@ -47,9 +51,15 @@ def main():
     ap.add_argument("--think", default=str(EXP.parent / "think_rate.json"))
     ap.add_argument("--resample", default=str(EXP.parent / "phi_resample.json"))
     ap.add_argument("--output", default=str(EXP.parent / "alignment.json"))
+    ap.add_argument("--teacher", choices=["think", "markers"], default="think")
+    ap.add_argument("--density", default=str(EXP.parent / "teacher_density.json"))
     a = ap.parse_args()
 
     think = json.loads(Path(a.think).read_text())
+    if a.teacher == "markers":
+        # teacher_density.json names the paper's pair C "C"; the adapter results keep the directory's "D"
+        dens = json.loads(Path(a.density).read_text())
+        think = {p: {"rates": dens[q]["teacher"]} for p, q in (("A", "A"), ("B", "B"), ("D", "C"))}
     res = json.loads(Path(a.resample).read_text())
 
     print("구간: " + "  ".join(f"{s:>11s}" for s in INTERVALS))
