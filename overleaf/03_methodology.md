@@ -51,6 +51,7 @@
         - seed만 다른 adapter끼리의 겹침은 기준선으로 쓰지 않음. 같은 seed로 학습한 adapter끼리는 LoRA 초기화를 공유해 겹침이 부풀기 때문이며, 분자와 분모도 따로 보고함 (부록 A)
     - adapter가 teacher가 생각을 그만두는 $\lambda$에서 방향을 갈아타는지는, $\lambda$ 구간마다 $R$의 낙차와 teacher `</think>` 비율의 낙차가 이루는 상관을 순열 검정으로 봄
         - 전환 $\lambda$를 한 점으로 미리 고르면 기준에 따라 답이 갈리고 후행 선택이 되기 때문임
+        - 같은 쌍의 student 셋은 teacher를 공유하므로 쌍마다 세 student의 평균 상관을 통계량으로 쓰고, 세 쌍의 teacher 순서를 각각 섞는 모든 경우(120³가지)로 정확한 $p$를 냄
         - teacher 쪽은 `</think>` 비율 대신 풀이 속 반성 표현의 낙차로도 같은 검정을 함
 - **(추출)**
     $$
@@ -71,12 +72,14 @@
     \Delta W'(\lambda{=}1) = \Delta W(\lambda{=}1) + \beta\, VV^\top \Delta W(\lambda{=}0) \tag{6}
     $$
     - 공유 구역만 더해도 생각하며 풀게 되는지는, 짧게만 답하는 $\lambda=1$ adapter에 $\lambda=0$ adapter의 $V$ 성분만 더해 봄 ([Arditi et al., 2024](https://arxiv.org/abs/2406.11717))
+        - $\beta$는 1과 2로 보며, 4와 8에서는 모든 조건이 같은 문장을 되풀이해 비교에서 뺌. 대조로 $V$ 밖 성분과 업데이트 전체를 같은 에너지만큼 더함
 - **(증폭)**
     $$
     \Delta W' = \lVert \Delta W \rVert_F \cdot \dfrac{\Delta W + \gamma\, VV^\top \Delta W}{\lVert \Delta W + \gamma\, VV^\top \Delta W \rVert_F} \tag{7}
     $$
     - 공유 구역이 생각의 양까지 조절하는 다이얼인지는, 노름은 그대로 묶은 채 $V$ 쪽 비중만 키워 봄 ([Ma et al., 2025a](https://aclanthology.org/2025.acl-long.300/); [Galichin et al., 2026](https://arxiv.org/abs/2503.18878); [Sheng et al., 2025](https://arxiv.org/abs/2506.08390))
+        - $\gamma$는 1과 4로 보고, 업데이트를 전부 $V$로 옮긴 경우도 봄
 - **(대조)**
-    - 효과가 $V$라는 구역 때문인지는, 같은 에너지를 $V$ 밖에서 지우거나 ([Lion et al., 2025](https://arxiv.org/abs/2506.03133); [Fu et al., 2026](https://arxiv.org/abs/2601.07411)), 업데이트 전체를 줄이거나, 가장 큰 특잇값 성분부터 지운 조건([Lee et al., 2025](https://arxiv.org/abs/2510.06750))과 비교함
+    - 효과가 $V$라는 구역 때문인지는, 같은 에너지를 $V$와 직교하는 쪽에서 에너지가 큰 방향부터 지우거나 ([Lion et al., 2025](https://arxiv.org/abs/2506.03133); [Fu et al., 2026](https://arxiv.org/abs/2601.07411)), 업데이트 전체를 같은 양만큼 줄이거나, 가장 큰 특잇값 성분부터 같은 에너지만큼 지운 조건([Lee et al., 2025](https://arxiv.org/abs/2510.06750))과 비교함
     - 정답률이 오른 것이 짧아진 덕분일 뿐인지는 원래 adapter를 같은 길이에서 끊은 조건으로 ([Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)), 편집 자체의 부작용인지는 공유 구역을 거의 쓰지 않는 $\lambda=1$ adapter에 같은 편집을 한 조건으로 봄
     - teacher를 섞지 않고 seed 2개로 찾은 구역이 생각을 얼마나 깔끔하게 끄는지는, Gold-Switch의 기준으로 가장 큰 성분을 빼는 방법 ([Lee et al., 2025](https://arxiv.org/abs/2510.06750)), "생각을 끝냈다"는 문장을 답 앞에 넣는 방법(태그를 배우지 않은 student라 태그 없이 문장만 넣음) ([Ma et al., 2025b](https://arxiv.org/abs/2504.09858)), 같은 길이에서 끊고 답을 쓰게 하는 방법 ([Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)), 짧은 풀이 adapter와 반반 섞는 방법 ([Wu et al., 2025](https://arxiv.org/abs/2503.20641)), 학습 전 student와 비교함 (부록 B)
