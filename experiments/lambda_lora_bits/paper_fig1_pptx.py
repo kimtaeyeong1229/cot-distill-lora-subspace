@@ -180,7 +180,7 @@ def adapter(name, x0, y0, sq_w, sq_h, gap, lam, shared="fill", scale=1.0):
 
 
 # ------------------------------------------------------------------ stage 1: interpolated teachers
-text("header teachers", 20, 18, 680, 78, ["Interpolated teachers"], 20, bold=True, align=PP_ALIGN.CENTER)
+text("header teachers", 20, 18, 680, 78, ["(a) Interpolated teachers"], 20, bold=True, align=PP_ALIGN.CENTER)
 text("label reasoning", 20, 92, 300, 160, ["Reasoning model"], 16, bold=True, color=BLUE_TEXT,
      align=PP_ALIGN.CENTER)
 text("label instruct", 400, 92, 680, 160, ["Instruct model"], 16, bold=True, color=RED, align=PP_ALIGN.CENTER)
@@ -210,10 +210,10 @@ text("output label 0", 20, 726, 330, 760, ["λ = 0 teacher"], 13, color=GREY_TEX
 text("output label 1", 370, 726, 680, 760, ["λ = 1 teacher"], 13, color=GREY_TEXT, align=PP_ALIGN.CENTER)
 
 # ------------------------------------------------------------------ stage 2: LoRA adapters of the students
-text("header adapters", 715, 18, 1265, 78, ["Student LoRA adapters"], 20, bold=True, align=PP_ALIGN.CENTER)
+text("header adapters", 715, 18, 1265, 78, ["(b) Student LoRA adapters"], 20, bold=True, align=PP_ALIGN.CENTER)
 text("lambda column", 770, 72, 828, 106, ["λ"], 14, bold=True, align=PP_ALIGN.RIGHT)
 elbow("distil arrow", [(688, 472), (765, 472)])
-text("distil label", 688, 434, 765, 466, ["distil"], 14, bold=True, align=PP_ALIGN.CENTER)
+text("distil label", 688, 434, 765, 466, ["distill"], 14, bold=True, align=PP_ALIGN.CENTER)
 SQW, SQH, GAP, AX = 24, 38, 3, 840
 ROWY = [110 + i * 98 for i in range(6)]
 for lam, y in zip(["0", "0.2", "0.4", "0.6", "0.8", "1"], ROWY):
@@ -230,7 +230,7 @@ box("key other", 1030, ly + 4, 1052, ly + 30, color=GREY, w=1.5)
 text("key other label", 1062, ly, 1290, ly + 34, ["other directions"], 14)
 
 # ------------------------------------------------------------------ stage 3: editing the shared region
-text("header edits", 1290, 18, 1990, 78, ["Editing the shared region"], 20, bold=True, align=PP_ALIGN.CENTER)
+text("header edits", 1290, 18, 1990, 78, ["(c) Editing the shared region"], 20, bold=True, align=PP_ALIGN.CENTER)
 EX, ESW, ESH, EGAP = 1320, 19, 32, 2
 EROW = [205, 435, 665]
 TRUNK = 1290
