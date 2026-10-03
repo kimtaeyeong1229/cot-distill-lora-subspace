@@ -187,8 +187,6 @@ text("label instruct", 400, 92, 680, 160, ["Instruct model"], 16, bold=True, col
 trapezoid("reasoning model", 90, 165, 230, 315, True, NAVY, BLUE_LIGHT)
 trapezoid("instruct model", 470, 165, 610, 315, False, RED, RED_LIGHT)
 text("interpolate", 240, 205, 460, 275, ["interpolate", "weights"], 14, color=GREY_TEXT, align=PP_ALIGN.CENTER)
-line("interpolate left", 300, 290, 240, 290, w=1.5, head=True)
-line("interpolate right", 400, 290, 460, 290, w=1.5, head=True)
 SL0, SL1, SY = 160, 540, 385
 TX = [SL0 + i * (SL1 - SL0) / 5 for i in range(6)]
 elbow("reasoning to slider", [(160, 315), (160, SY - 12)])
@@ -203,13 +201,13 @@ text("lambda", SL0 - 70, SY - 16, SL0 - 18, SY + 16, ["λ"], 16, bold=True, alig
 SW = (TX[1] + TX[2]) / 2
 line("switch line", SW, SY - 40, SW, SY + 92, color=RED, w=2.0, dash=MSO_LINE_DASH_STYLE.DASH)
 text("switch label", SW + 10, SY + 62, SW + 330, SY + 92, ["teacher stops thinking"], 14, bold=True, color=RED)
-out0 = box("lambda0 output", 20, 520, 330, 740)
+out0 = box("lambda0 output", 20, 520, 330, 720)
 runs(out0, ["Okay, let me", [("think.", "")], "12 × 15 = 180.", [("Wait", "red"), (", let me", "")],
             "re-check..."], 14, font=MONO, bold=True, margin=14)
-out1 = box("lambda1 output", 370, 520, 680, 740)
+out1 = box("lambda1 output", 370, 520, 680, 720)
 runs(out1, ["12 × 15 = 180.", "The answer is", "180."], 14, font=MONO, bold=True, margin=14)
-text("output label 0", 20, 745, 330, 780, ["λ = 0 teacher"], 13, color=GREY_TEXT, align=PP_ALIGN.CENTER)
-text("output label 1", 370, 745, 680, 780, ["λ = 1 teacher"], 13, color=GREY_TEXT, align=PP_ALIGN.CENTER)
+text("output label 0", 20, 726, 330, 760, ["λ = 0 teacher"], 13, color=GREY_TEXT, align=PP_ALIGN.CENTER)
+text("output label 1", 370, 726, 680, 760, ["λ = 1 teacher"], 13, color=GREY_TEXT, align=PP_ALIGN.CENTER)
 
 # ------------------------------------------------------------------ stage 2: LoRA adapters of the students
 text("header adapters", 715, 18, 1265, 78, ["Student LoRA adapters"], 20, bold=True, align=PP_ALIGN.CENTER)
@@ -254,9 +252,9 @@ for (name, lam, mode, scale, out, tag), y in zip(EDITS, EROW):
     text(f"{name} label", EX, y - 62, EX + 360, y - 22, [name], 16, bold=True)
     adapter(f"{name} adapter", EX, y, ESW, ESH, EGAP, lam, shared=mode, scale=scale)
     elbow(f"{name} out", [(AEND + 8, cy), (1688, cy)])
-    ob = box(f"{name} output", 1695, cy - 82, 1990, cy + 82)
+    ob = box(f"{name} output", 1695, cy - 66, 1990, cy + 66)
     runs(ob, out, 14, font=MONO, bold=True, margin=14)
-    t = box(f"{name} tag", 1765, cy - 100, 1990, cy - 70, kind=MSO_SHAPE.ROUNDED_RECTANGLE, color=TAG, line=None)
+    t = box(f"{name} tag", 1765, cy - 84, 1990, cy - 54, kind=MSO_SHAPE.ROUNDED_RECTANGLE, color=TAG, line=None)
     t.adjustments[0] = 0.5
     runs(t, [tag], 12, color=INK, align=PP_ALIGN.CENTER, margin=4)
     t.text_frame.word_wrap = False
