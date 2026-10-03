@@ -670,10 +670,11 @@
 
 % Galichin et al. -- AAAI 2026 (AAAI OJS page: vol. 40 no. 36, pp. 30771-30779, checked 2026-10-02).
 % Author spelling from arXiv 2503.18878 (OJS lists "Andrey V. Galichin", "Oleg Rogov").
-@inproceedings{galichin2026covered,
+% AAAI 2026; the OJS record (ojs.aaai.org/index.php/AAAI/article/view/40334) is a journal-style entry with volume 40 and issue 36, so the article entry type keeps both without a BibTeX warning
+@article{galichin2026covered,
     title = {I Have Covered All the Bases Here: Interpreting Reasoning Features in Large Language Models via Sparse Autoencoders},
     author = {Andrey Galichin and Alexey Dontsov and Polina Druzhinina and Anton Razzhigaev and Oleg Y. Rogov and Elena Tutubalina and Ivan Oseledets},
-    booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+    journal = {Proceedings of the AAAI Conference on Artificial Intelligence},
     volume = {40},
     number = {36},
     pages = {30771--30779},
@@ -812,4 +813,64 @@
       archivePrefix={arXiv},
       primaryClass={cs.LG},
       url={https://arxiv.org/abs/2608.28859},
+}
+
+% NeurIPS 2019; NeurIPS proceedings BibTeX (empty pages field dropped, editor accent in LaTeX form), author spelling from arXiv:1912.01703 (K{\"o}pf, Zach DeVito)
+@inproceedings{paszke2019pytorch,
+ author = {Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer, Adam and Bradbury, James and Chanan, Gregory and Killeen, Trevor and Lin, Zeming and Gimelshein, Natalia and Antiga, Luca and Desmaison, Alban and K{\"o}pf, Andreas and Yang, Edward and DeVito, Zach and Raison, Martin and Tejani, Alykhan and Chilamkurthy, Sasank and Steiner, Benoit and Fang, Lu and Bai, Junjie and Chintala, Soumith},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {H. Wallach and H. Larochelle and A. Beygelzimer and F. d'Alch{\'e}-Buc and E. Fox and R. Garnett},
+ publisher = {Curran Associates, Inc.},
+ title = {{PyTorch}: An Imperative Style, High-Performance Deep Learning Library},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2019/file/bdbca288fee7f92f2bfa9f7012727740-Paper.pdf},
+ volume = {32},
+ year = {2019}
+}
+
+% EMNLP 2020 System Demonstrations; ACL Anthology BibTeX, key renamed
+@inproceedings{wolf2020transformers,
+    title = "Transformers: State-of-the-Art Natural Language Processing",
+    author = "Wolf, Thomas  and
+      Debut, Lysandre  and
+      Sanh, Victor  and
+      Chaumond, Julien  and
+      Delangue, Clement  and
+      Moi, Anthony  and
+      Cistac, Pierric  and
+      Rault, Tim  and
+      Louf, Remi  and
+      Funtowicz, Morgan  and
+      Davison, Joe  and
+      Shleifer, Sam  and
+      von Platen, Patrick  and
+      Ma, Clara  and
+      Jernite, Yacine  and
+      Plu, Julien  and
+      Xu, Canwen  and
+      Le Scao, Teven  and
+      Gugger, Sylvain  and
+      Drame, Mariama  and
+      Lhoest, Quentin  and
+      Rush, Alexander",
+    editor = "Liu, Qun  and
+      Schlangen, David",
+    booktitle = "Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing: System Demonstrations",
+    month = oct,
+    year = "2020",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2020.emnlp-demos.6/",
+    doi = "10.18653/v1/2020.emnlp-demos.6",
+    pages = "38--45"
+}
+
+% SOSP 2023 (arXiv:2309.06180, whose first page carries the SOSP '23 ACM notice); venue, pages, DOI from the DOI/Crossref BibTeX, author spelling from arXiv (Joseph E. Gonzalez)
+@inproceedings{kwon2023vllm,
+  title = {Efficient Memory Management for Large Language Model Serving with {PagedAttention}},
+  author = {Kwon, Woosuk and Li, Zhuohan and Zhuang, Siyuan and Sheng, Ying and Zheng, Lianmin and Yu, Cody Hao and Gonzalez, Joseph E. and Zhang, Hao and Stoica, Ion},
+  booktitle = {Proceedings of the 29th Symposium on Operating Systems Principles},
+  publisher = {ACM},
+  pages = {611--626},
+  year = {2023},
+  doi = {10.1145/3600006.3613165}
 }
