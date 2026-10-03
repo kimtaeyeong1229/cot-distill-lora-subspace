@@ -77,4 +77,4 @@
 - **(대조)**
     - 효과가 $V$라는 자리 때문인지는, 같은 에너지를 $V$ 밖에서 지우거나 ([Lion et al., 2025](https://arxiv.org/abs/2506.03133); [Fu et al., 2026](https://arxiv.org/abs/2601.07411)), 업데이트 전체를 줄이거나, 가장 큰 특잇값 성분부터 지운 조건([Lee et al., 2025](https://arxiv.org/abs/2510.06750))과 비교함
     - 정답률이 오른 것이 짧아진 덕분일 뿐인지는 원래 adapter를 같은 길이에서 끊은 조건으로 ([Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)), 편집 자체의 부작용인지는 공유 구역을 거의 쓰지 않는 $\lambda=1$ adapter에 같은 편집을 한 조건으로 봄
-    - teacher를 섞지 않고 seed 2개로 찾은 구역이 생각을 얼마나 깔끔하게 끄는지는, "생각을 끝냈다"는 문장을 답 앞에 넣는 방법(태그를 배우지 않은 student라 태그 없이 문장만 넣음) ([Ma et al., 2025b](https://arxiv.org/abs/2504.09858)), 같은 길이에서 끊고 답을 쓰게 하는 방법 ([Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)), 짧은 풀이 adapter와 반반 섞는 방법 ([Wu et al., 2025](https://arxiv.org/abs/2503.20641)), 학습 전 student와 비교함 (부록 D)
+    - teacher를 섞지 않고 seed 2개로 찾은 구역이 생각을 얼마나 깔끔하게 끄는지는, "생각을 끝냈다"는 문장을 답 앞에 넣는 방법(태그를 배우지 않은 student라 태그 없이 문장만 넣음) ([Ma et al., 2025b](https://arxiv.org/abs/2504.09858)), 같은 길이에서 끊고 답을 쓰게 하는 방법 ([Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)), 짧은 풀이 adapter와 반반 섞는 방법 ([Wu et al., 2025](https://arxiv.org/abs/2503.20641)), 학습 전 student와 비교함 (부록 B)
