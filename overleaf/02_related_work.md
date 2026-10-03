@@ -30,9 +30,9 @@
         - LoRA 방향 하나의 크기로 추론 길이를 조절하도록 학습하거나 ([Ma et al., 2025a](https://aclanthology.org/2025.acl-long.300/)), 몇몇 attention head에서 짧게 추론하는 방향을 빼 추론을 늘림 ([Sun et al., 2025](https://aclanthology.org/2025.emnlp-main.861/))
         - 반성 SAE feature나 활성 방향을 키우면 풀이가 길어지고 ([Galichin et al., 2026](https://arxiv.org/abs/2503.18878); [Sheng et al., 2025](https://arxiv.org/abs/2506.08390)), 방향 하나의 세기로 생각하는 길이를 정하기도 함 ([Jayabahu & Adeleke, 2026](https://arxiv.org/abs/2608.28859))
     - 모델 내부의 신호를 SAE로 읽어 생각하는 방식을 찾기도 함
-        - 증류 모델에만 있는 반성·검산 feature로 과하게 생각하거나 간결하게 생각하도록 조절함 ([Baek & Tegmark, 2025](https://arxiv.org/abs/2503.03730))
+        - 증류 모델에만 있는 반성과 검산 feature로 과하게 생각하거나 간결하게 생각하도록 조절함 ([Baek & Tegmark, 2025](https://arxiv.org/abs/2503.03730))
         - 증류된 추론 모델과 원래 모델의 차이를 해석 가능한 성분으로 근사하면, 망설임 표현을 내는 소수 feature가 그 표현에 필요충분하며 빼면 응답이 짧아짐 ([Hu et al., 2026b](https://arxiv.org/abs/2602.20904)). 같은 방식으로 보면 RL은 원래 있던 추론 기제를 언제 쓸지 가르치는 반면, 증류(SFT)는 새 기제를 심음 ([Venhoff et al., 2026](https://arxiv.org/abs/2510.07364))
         - 다만 긴 풀이와 짧은 풀이를 대조해 고른 reasoning feature의 상당수는 생각이 아니라 반성 단어 자체에 반응한다는 반박도 있음 ([Ma et al., 2026a](https://arxiv.org/abs/2601.05679))
     - 다만 이 연구들은 teacher가 하나로 고정되었거나 아예 없는 설정에서 쓰였고(증류 모델을 다룬 연구도 증류된 모델 하나를 원래 모델과 비교함), 방향도 업데이트의 크기나 긴/짧은 풀이의 대조로 찾음. 또 찾은 방향을 스위치나 다이얼 중 하나로만 다뤄, 같은 구역을 빼고 넣고 키울 때 서로 다르게 반응하는지는 보지 않음
 - **(본 연구)**
-    - 본 연구는 teacher를 $\lambda$로 움직여 증류한 student들의 LoRA를 나란히 비교해 teacher가 생각을 그만둘 때 student 가중치에 생기는 공유 구역을 찾고, 그 구역을 빼거나 넣거나 키워서 생각과의 관계를 확인함
+    - 본 연구는 teacher를 $\lambda$로 움직여 증류한 student들의 adapter를 나란히 비교해 teacher가 생각을 그만둘 때 student 가중치에 생기는 공유 구역을 찾고, 그 구역을 빼거나 넣거나 키워서 생각과의 관계를 확인함
