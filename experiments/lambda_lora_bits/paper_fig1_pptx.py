@@ -241,7 +241,7 @@ EDITS = [
      ["12 × 15 = 180.", "The answer is", "180."], "short and complete"),
     ("Graft into λ = 1", "1", "fill", 1.0,
      [[("Wait", "red"), ("...", "")], [("wait", "red"), ("...", "")], [("wait", "red"), ("...", "")]],
-     "never finishes"),
+     "rarely finishes"),
     ("Amplify", "0", "fill", 1.45,
      ["Okay, let me", "think.", [("Wait", "red"), (", let me", "")]], "no more thinking"),
 ]
