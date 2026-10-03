@@ -28,7 +28,7 @@
     - 정답률은 pass@1로 재고, 잘림이 오답으로 섞이지 않도록 완주 응답만 채점한 값을 함께 씀 ([Wang et al., 2026](https://arxiv.org/abs/2601.21684))
     - 생각하며 푸는지는 teacher에서는 `</think>` 비율로 ([Wu et al., 2026a](https://arxiv.org/abs/2510.10977)), student에서는 첫 응답의 반성 표현(wait, recheck, alternatively 등) 빈도로 셈 ([Yeo et al., 2025](https://arxiv.org/abs/2502.03373); [Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)). 반성 표현은 대리 지표이므로 토큰 수와 생성 한도 도달 비율을 함께 적고 ([Chen et al., 2026](https://arxiv.org/abs/2601.06002); [Goyal et al., 2026](https://arxiv.org/abs/2608.04160)), 같은 문장을 되풀이하는 조건은 앞 300단어에서 셈
         - teacher의 `</think>` 비율과 반성 표현은 teacher가 4,000문제에 쓴 풀이 전체에서 student와 같은 방식으로 셈
-    - 단어만의 착시인지는 공개 SAE(sparse autoencoder)가 있는 Llama student의 내부 feature로 다시 보며 ([EleutherAI SAE](https://huggingface.co/EleutherAI/sae-Llama-3.2-1B-131k)), 반성 단어를 끼우거나 지우는 것만으로 켜지고 꺼지는 feature는 버림 ([Ma et al., 2026a](https://arxiv.org/abs/2601.05679))
+    - 반성 단어의 빈도만으로 생긴 결과인지는 공개 SAE(sparse autoencoder)가 있는 Llama student의 내부 feature로 다시 보며 ([EleutherAI SAE](https://huggingface.co/EleutherAI/sae-Llama-3.2-1B-131k)), 반성 단어를 끼우거나 지우는 것만으로 켜지고 꺼지는 feature는 버림 ([Ma et al., 2026a](https://arxiv.org/abs/2601.05679))
         - feature는 학습 전 Llama student가 $\lambda=0$과 $\lambda=1$ teacher의 풀이를 읽을 때 $\lambda=0$ 쪽에서 훨씬 강하게 켜지는 것으로 고르고, 반성 단어를 끼우거나 지우는 두 반증 검사를 통과한 것만 남기며, 이하 이를 생각 feature라 부름. base 모델로 학습된 SAE를 학습 전 student와 adapter를 붙인 student에 쓰므로 재구성 오차도 확인함
         - 각 adapter가 자기 첫 응답을 읽을 때 고른 feature의 평균 활성을 재며, $\lambda=0$ teacher 풀이에서의 활성을 1로 맞춤
     - MATH 밖에서도 성립하는지는 MATH로 학습한 adapter를 그대로 GSM8K ([Cobbe et al., 2021](https://arxiv.org/abs/2110.14168))와 GPQA-Diamond ([Rein et al., 2024](https://openreview.net/forum?id=Ti67584b98))의 앞 200문제(GPQA-Diamond는 전체 198문제)에서 같은 설정으로 평가함
