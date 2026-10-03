@@ -23,7 +23,8 @@
     - 각 칸과 $\lambda$마다 학습 집합 전체로 seed를 셋 바꿔 학습하고, 데이터만 달라졌을 때의 차이를 재기 위해 같은 seed 셋 각각에서 학습 집합을 겹치지 않는 두 반쪽으로 나눠 따로 학습한 adapter도 만듦
 - **(평가)**
     - 생성은 teacher와 student 모두 $T=0.6$, top-p 0.95로 하며, 최대 길이는 teacher 8,192토큰, student 7,680토큰(OLMo 3,840)임
-    - student는 모든 실험에서 MATH-500의 앞 200문제(난이도와 과목 비율이 전체와 같음)를 seed 셋의 adapter가 각각 2회씩 풀며, 표의 값은 seed별 값의 평균 ± 표준편차임
+    - student는 모든 실험에서 MATH-500의 앞 200문제를 seed 셋의 adapter가 각각 2회씩 풀며, 표의 값은 seed별 값의 평균 ± 표준편차임
+        - 앞 200문제는 난이도와 과목 비율이 MATH-500 전체와 같음
     - 정답률은 pass@1로 재고, 잘림이 오답으로 섞이지 않도록 완주 응답만 채점한 값을 함께 씀 ([Wang et al., 2026](https://arxiv.org/abs/2601.21684))
     - 생각하며 푸는지는 teacher에서는 `</think>` 비율로 ([Wu et al., 2026a](https://arxiv.org/abs/2510.10977)), student에서는 첫 응답의 반성 표현(wait, recheck, alternatively 등) 빈도로 셈 ([Yeo et al., 2025](https://arxiv.org/abs/2502.03373); [Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)). 반성 표현은 대리 지표이므로 토큰 수와 생성 한도 도달 비율을 함께 적고 ([Chen et al., 2026](https://arxiv.org/abs/2601.06002); [Goyal et al., 2026](https://arxiv.org/abs/2608.04160)), 같은 문장을 되풀이하는 조건은 앞 300단어에서 셈
         - teacher의 `</think>` 비율과 반성 표현은 teacher가 4,000문제에 쓴 풀이 전체에서 student와 같은 방식으로 셈
@@ -31,7 +32,8 @@
         - feature는 학습 전 Llama student가 $\lambda=0$과 $\lambda=1$ teacher의 풀이를 읽을 때 $\lambda=0$ 쪽에서 훨씬 강하게 켜지는 것으로 고르고, 반성 단어를 끼우거나 지우는 두 반증 검사를 통과한 것만 남기며, 이하 이를 생각 feature라 부름. base 모델로 학습된 SAE를 학습 전 student와 adapter를 붙인 student에 쓰므로 재구성 오차도 확인함
         - 각 adapter가 자기 첫 응답을 읽을 때 고른 feature의 평균 활성을 재며, $\lambda=0$ teacher 풀이에서의 활성을 1로 맞춤
     - MATH 밖에서도 성립하는지는 MATH로 학습한 adapter를 그대로 GSM8K ([Cobbe et al., 2021](https://arxiv.org/abs/2110.14168))와 GPQA-Diamond ([Rein et al., 2024](https://openreview.net/forum?id=Ti67584b98))의 앞 200문제(GPQA-Diamond는 전체 198문제)에서 같은 설정으로 평가함
-    - 증류가 student를 얼마나 바꿨는지 가늠하기 위해, 학습하기 전의 student도 같은 설정으로 평가함 (adapter가 없으므로 생성 seed를 셋 바꿈)
+    - 증류가 student를 얼마나 바꿨는지 가늠하기 위해, 학습하기 전의 student도 같은 설정으로 평가함
+        - adapter가 없으므로 adapter seed 대신 생성 seed를 셋 바꿔 평균 ± 표준편차를 냄
 ## Subspace Analysis
 - **(분해)**
     $$
@@ -83,4 +85,5 @@
 - **(대조)**
     - 효과가 $V$라는 구역 때문인지는, 같은 에너지를 $V$와 직교하는 쪽에서 에너지가 큰 방향부터 지우거나 ([Lion et al., 2025](https://arxiv.org/abs/2506.03133); [Fu et al., 2026](https://arxiv.org/abs/2601.07411)), 업데이트 전체를 같은 양만큼 줄이거나, 가장 큰 특잇값 성분부터 같은 에너지만큼 지운 조건([Lee et al., 2025](https://arxiv.org/abs/2510.06750))과 비교함
     - 정답률이 오른 것이 짧아진 덕분일 뿐인지는 원래 adapter를 같은 길이에서 끊은 조건으로 ([Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)), 편집 자체의 부작용인지는 공유 구역을 거의 쓰지 않는 $\lambda=1$ adapter에 같은 편집을 한 조건으로 봄
-    - teacher를 섞지 않고 seed 2개로 찾은 구역이 생각을 얼마나 깔끔하게 끄는지는, Gold-Switch의 기준으로 가장 큰 성분을 빼는 방법 ([Lee et al., 2025](https://arxiv.org/abs/2510.06750)), "생각을 끝냈다"는 문장을 답 앞에 넣는 방법(태그를 배우지 않은 student라 태그 없이 문장만 넣음) ([Ma et al., 2025b](https://arxiv.org/abs/2504.09858)), 같은 길이에서 끊고 답을 쓰게 하는 방법 ([Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)), 짧은 풀이 adapter와 반반 섞는 방법 ([Wu et al., 2025](https://arxiv.org/abs/2503.20641)), 학습 전 student와 비교함
+    - teacher를 섞지 않고 seed 2개로 찾은 구역이 생각을 얼마나 깔끔하게 끄는지는, Gold-Switch의 기준으로 가장 큰 성분을 빼는 방법 ([Lee et al., 2025](https://arxiv.org/abs/2510.06750)), "생각을 끝냈다"는 문장을 답 앞에 넣는 방법 ([Ma et al., 2025b](https://arxiv.org/abs/2504.09858)), 같은 길이에서 끊고 답을 쓰게 하는 방법 ([Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)), 짧은 풀이 adapter와 반반 섞는 방법 ([Wu et al., 2025](https://arxiv.org/abs/2503.20641)), 학습 전 student와 비교함
+        - student는 `</think>` 태그를 배우지 않았으므로, 태그 없이 문장만 넣음
