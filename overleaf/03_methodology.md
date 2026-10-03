@@ -5,7 +5,7 @@
     - student가 달라진 원인을 풀이 스타일로 좁히기 위해, teacher만 바꾸고 나머지 학습 조건은 전부 고정함
     - 추론 모델($\lambda=0$)과 지시 모델($\lambda=1$)을 가중치에서 섞어(보간) $\lambda \in \{0, 0.2, \dots, 1.0\}$의 여섯 teacher를 만듦 ([Wortsman et al., 2022](https://arxiv.org/abs/2203.05482); [Ilharco et al., 2023](https://arxiv.org/abs/2212.04089))
     - 쌍 A는 R1-Distill-Qwen-1.5B와 Qwen2.5-Math-1.5B-Instruct, 쌍 B는 Qwen3-4B-Thinking-2507과 Qwen3-4B-Instruct-2507, 쌍 C는 R1-Distill-Llama-8B와 Llama-3.1-8B-Instruct이며, 원소별로 섞는 것이 뜻을 갖도록 같은 base에서 갈라져 나온 모델끼리 짝지음
-    - 쌍 B·C는 [Wu et al. (2026a)](https://arxiv.org/abs/2510.10977)와 같은 구성이라 teacher 쪽 현상을 재현으로 확인할 수 있음. 계열과 규모가 붙어 있어 규모 효과는 주장하지 않음
+    - 쌍 B와 C는 [Wu et al. (2026a)](https://arxiv.org/abs/2510.10977)와 같은 구성이라 teacher 쪽 현상을 재현으로 확인할 수 있음. 계열과 규모가 붙어 있어 규모 효과는 주장하지 않음
 - **(student)**
     - Qwen2.5-0.5B-Instruct, Llama-3.2-1B-Instruct, OLMo-2-1B-Instruct를 씀. 모두 긴 풀이가 오히려 해로워지는 규모 대역임 ([Li et al., 2025](https://arxiv.org/abs/2502.12143))
     - teacher 쌍 셋과 student 셋을 모두 짝지은 아홉 조합을 이하 칸이라 부름
@@ -26,8 +26,9 @@
     - student는 모든 실험에서 MATH-500의 앞 200문제(난이도와 과목 비율이 전체와 같음)를 seed 셋의 adapter가 각각 2회씩 풀며, 표의 값은 seed별 값의 평균 ± 표준편차임
     - 정답률은 pass@1로 재고, 잘림이 오답으로 섞이지 않도록 완주 응답만 채점한 값을 함께 씀 ([Wang et al., 2026](https://arxiv.org/abs/2601.21684))
     - 생각하며 푸는지는 teacher에서는 `</think>` 비율로 ([Wu et al., 2026a](https://arxiv.org/abs/2510.10977)), student에서는 첫 응답의 반성 표현(wait, recheck, alternatively 등) 빈도로 셈 ([Yeo et al., 2025](https://arxiv.org/abs/2502.03373); [Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)). 반성 표현은 대리 지표이므로 토큰 수와 생성 한도 도달 비율을 함께 적고 ([Chen et al., 2026](https://arxiv.org/abs/2601.06002); [Goyal et al., 2026](https://arxiv.org/abs/2608.04160)), 같은 문장을 되풀이하는 조건은 앞 300단어에서 셈
+        - teacher의 `</think>` 비율과 반성 표현은 teacher가 4,000문제에 쓴 풀이 전체에서 student와 같은 방식으로 셈
     - 단어만의 착시인지는 공개 SAE(sparse autoencoder)가 있는 Llama student의 내부 feature로 다시 보며 ([EleutherAI SAE](https://huggingface.co/EleutherAI/sae-Llama-3.2-1B-131k)), 반성 단어를 끼우거나 지우는 것만으로 켜지고 꺼지는 feature는 버림 ([Ma et al., 2026a](https://arxiv.org/abs/2601.05679))
-        - feature는 adapter 없는 지시 모델이 $\lambda=0$과 $\lambda=1$ teacher의 풀이를 읽을 때 $\lambda=0$ 쪽에서 훨씬 강하게 켜지는 것으로 고르고, 반성 단어를 끼우거나 지우는 두 반증 검사를 통과한 것만 남김. base 모델로 학습된 SAE를 지시 모델과 LoRA에 쓰므로 재구성 오차도 확인함
+        - feature는 학습 전 Llama student가 $\lambda=0$과 $\lambda=1$ teacher의 풀이를 읽을 때 $\lambda=0$ 쪽에서 훨씬 강하게 켜지는 것으로 고르고, 반성 단어를 끼우거나 지우는 두 반증 검사를 통과한 것만 남기며, 이하 이를 생각 feature라 부름. base 모델로 학습된 SAE를 학습 전 student와 adapter를 붙인 student에 쓰므로 재구성 오차도 확인함
         - 각 adapter가 자기 첫 응답을 읽을 때 고른 feature의 평균 활성을 재며, $\lambda=0$ teacher 풀이에서의 활성을 1로 맞춤
     - MATH 밖에서도 성립하는지는 MATH로 학습한 adapter를 그대로 GSM8K ([Cobbe et al., 2021](https://arxiv.org/abs/2110.14168))와 GPQA-Diamond ([Rein et al., 2024](https://openreview.net/forum?id=Ti67584b98))의 앞 200문제(GPQA-Diamond는 전체 198문제)에서 같은 설정으로 평가함
     - 증류가 student를 얼마나 바꿨는지 가늠하기 위해, 학습하기 전의 student도 같은 설정으로 평가함 (adapter가 없으므로 생성 seed를 셋 바꿈)
@@ -47,9 +48,9 @@
     R(\lambda) = \dfrac{\tfrac{1}{2}\left[\,\phi\!\left(\Delta W_a^{0},\, \Delta W_b^{\lambda}\right) + \phi\!\left(\Delta W_b^{0},\, \Delta W_a^{\lambda}\right)\right]}{\phi\!\left(\Delta W_a^{\lambda},\, \Delta W_b^{\lambda}\right)} \tag{3}
     $$
     - 방향이 달라진 것이 teacher 때문인지는, teacher가 다른 adapter끼리의 겹침을 데이터만 다른 adapter끼리의 겹침으로 나눈 $R$로 봄. 겹침을 우연 수준이나 데이터 차이와 비교하지 않은 선행과 달리, 판정은 이 비율로만 함 ([Dieudonné et al., 2026](https://arxiv.org/abs/2606.28117))
-        - 데이터 반쪽 $a$, $b$와 seed가 분자와 분모에 똑같이 들어가므로 teacher 효과만 남음. 1이면 teacher 효과가 데이터 차이 수준이고, 0에 가까우면 방향을 통째로 갈아탄 것임
+        - 데이터 반쪽 $a$, $b$와 seed가 분자와 분모에 똑같이 들어가므로 teacher 효과만 남음. 1이면 teacher 효과가 데이터 차이 수준이고, 0에 가까우면 방향을 크게 바꾼 것임
         - seed만 다른 adapter끼리의 겹침은 기준선으로 쓰지 않음. 같은 seed로 학습한 adapter끼리는 LoRA 초기화를 공유해 겹침이 부풀기 때문이며, 분자와 분모도 따로 봄
-    - adapter가 teacher가 생각을 그만두는 $\lambda$에서 방향을 갈아타는지는, $\lambda$ 구간마다 $R$의 낙차와 teacher `</think>` 비율의 낙차가 이루는 상관을 순열 검정으로 봄
+    - adapter가 teacher가 생각을 그만두는 $\lambda$에서 방향을 크게 바꾸는지는, $\lambda$ 구간마다 $R$의 낙차와 teacher `</think>` 비율의 낙차가 이루는 상관을 순열 검정으로 봄
         - 전환 $\lambda$를 한 점으로 미리 고르면 기준에 따라 답이 갈리고 후행 선택이 되기 때문임
         - 같은 쌍의 student 셋은 teacher를 공유하므로 쌍마다 세 student의 평균 상관을 통계량으로 쓰고, 세 쌍의 teacher 순서를 각각 섞는 모든 경우(120³가지)로 정확한 $p$를 냄
         - teacher 쪽은 `</think>` 비율 대신 풀이 속 반성 표현의 낙차로도 같은 검정을 함
@@ -59,7 +60,7 @@
     $$
     - 전환 전 adapter들이 다 같이 쓰는 방향은, teacher의 `</think>` 비율이 처음으로 절반 넘게 떨어지는 구간을 전환 구간으로 삼아 그 이전 adapter들의 $U$를 겹치고 절반 넘게 함께 쓰는 방향 $V$만 남겨 봄 ([Gerasimov et al., 2026](https://arxiv.org/abs/2606.12138)). 이하 $V$를 공유 구역이라 부름
         - 각 adapter가 $V$를 쓰는 정도는 $\lVert U_t^\top V \rVert_F^2 / k$($k$는 $V$의 차원)로 재어 무작위 수준 $r/d$와 비교하며, 채점과 편집 모두 그 adapter를 빼고 만든 $V$를 씀
-        - 공유 구역이 teacher를 섞는 실험 설계 때문에 생긴 것인지 보기 위해, 같은 데이터로 학습한 다른 seed의 $\lambda=0$ adapter 두 개만으로도 공유 구역을 만듦. adapter가 둘이면 짝지은 방향의 고윳값이 $(1+\cos\theta)/2$라 0.5 기준은 거의 모든 방향을 남기므로, 60° 안으로 겹치는 방향($\mu > 0.75$)만 남김
+        - 공유 구역이 teacher를 섞는 실험 설계 때문에 생긴 것인지 보기 위해, 같은 데이터로 학습한 다른 seed의 $\lambda=0$ adapter 두 개만으로도 구역을 만듦(이하 seed 2개로 찾은 구역). adapter가 둘이면 짝지은 방향의 고윳값이 $(1+\cos\theta)/2$라 0.5 기준은 거의 모든 방향을 남기므로, 60° 안으로 겹치는 방향($\mu > 0.75$)만 남김
 ## Subspace Interventions
 - **(제거)**
     $$

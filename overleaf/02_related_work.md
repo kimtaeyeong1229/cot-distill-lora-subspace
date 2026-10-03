@@ -25,7 +25,7 @@
         - 서로 다른 과제로 학습한 adapter들의 부분공간이 상당히 겹쳐, 앞선 adapter가 뒤 과제를 대신하기도 함. 다만 그 겹침을 우연 수준과 비교하지는 않음 ([Dieudonné et al., 2026](https://arxiv.org/abs/2606.28117))
     - 찾은 방향을 고쳐 행동을 바꾸는 연구는 그 방향을 켜고 끄는 스위치로 다루기도 함
         - 거부를 매개하는 방향 하나를 빼면 거부하지 못하고 더하면 무해한 요청도 거부하며 ([Arditi et al., 2024](https://arxiv.org/abs/2406.11717)), 같은 투영 제거로 특정 능력만 정밀하게 지우기도 함 ([Fu et al., 2026](https://arxiv.org/abs/2601.07411))
-        - 생각에서도, 추론 모델이 원래 모델에서 바뀐 부분을 저랭크로 근사해 그 가장 큰 성분을 빼면 과하게 생각하는 것이 줄고 ([Lee et al., 2025](https://arxiv.org/abs/2510.06750)), 생각 모드와 비생각 모드를 가르는 활성 방향 하나로 양쪽을 오가며 그 영향을 재기도 함 ([Liu & Honavar, 2026](https://arxiv.org/abs/2609.28682))
+        - 생각에서도, 추론 모델이 원래 모델에서 바뀐 부분을 저랭크로 근사해 그 가장 큰 성분을 빼면 과하게 생각하는 것이 줄고 (Gold-Switch; [Lee et al., 2025](https://arxiv.org/abs/2510.06750)), 생각 모드와 비생각 모드를 가르는 활성 방향 하나로 양쪽을 오가며 그 영향을 재기도 함 ([Liu & Honavar, 2026](https://arxiv.org/abs/2609.28682))
     - 생각의 양을 그 방향의 세기로 조절하는 다이얼로 다루기도 함
         - LoRA 방향 하나의 크기로 추론 길이를 조절하도록 학습하거나 ([Ma et al., 2025a](https://aclanthology.org/2025.acl-long.300/)), 몇몇 attention head에서 짧게 추론하는 방향을 빼 추론을 늘림 ([Sun et al., 2025](https://aclanthology.org/2025.emnlp-main.861/))
         - 반성 SAE feature나 활성 방향을 키우면 풀이가 길어지고 ([Galichin et al., 2026](https://arxiv.org/abs/2503.18878); [Sheng et al., 2025](https://arxiv.org/abs/2506.08390)), 방향 하나의 세기로 생각하는 길이를 정하기도 함 ([Jayabahu & Adeleke, 2026](https://arxiv.org/abs/2608.28859))
