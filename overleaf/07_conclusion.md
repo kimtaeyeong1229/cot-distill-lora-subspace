@@ -2,7 +2,7 @@
 # Conclusion
 - **(발견)**
     - 본 연구는 추론 모델과 지시 모델을 비율 $\lambda$로 섞은 teacher로 작은 student를 증류하고, teacher가 생각하며 푸는 것을 그만둘 때 student의 LoRA adapter에서 무엇이 달라지는지 살펴봄
-    - **adapter는 teacher가 생각을 그만두는 **$\lambda$**에서 방향을 크게 바꿈**
+    - **adapter는 teacher가 생각을 그만두는 $\lambda$에서 방향을 크게 바꿈**
         - student의 출력은 teacher를 따라 반성 표현과 길이가 함께 줄어 무엇이 바뀌었는지 가릴 수 없었지만, adapter는 세 쌍 모두 자기 teacher가 생각을 그만두는 $\lambda$에서 가중치를 고치는 방향을 크게 바꿈
         - 그 전까지의 adapter들은 늘 같은 작은 구역을 함께 씀
     - **공유 구역은 생각을 켜고 끄는 스위치처럼 작동함**
