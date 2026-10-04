@@ -262,8 +262,8 @@ trapezoid("reasoning model", A_MX0, ROWS[0] - A_MODEL_H / 2, A_MX1, ROWS[0] + A_
 trapezoid("instruct model", A_MX0, ROWS[5] - A_MODEL_H / 2, A_MX1, ROWS[5] + A_MODEL_H / 2, PINK)
 text("label instruct", A_MODEL_CX, ROWS[5] + A_MODEL_H / 2 + LABEL_GAP + text_h(T_LABEL) / 2, "Instruct model",
      T_LABEL, bold=True)
-line("reasoning to bus", A_MX1, ROWS[0], A_BUS, ROWS[0])
-line("instruct to bus", A_MX1, ROWS[5], A_BUS, ROWS[5])
+line("reasoning to bus", A_MX1 + TIP, ROWS[0], A_BUS, ROWS[0])     # clear of the model outline
+line("instruct to bus", A_MX1 + TIP, ROWS[5], A_BUS, ROWS[5])
 line("bus", A_BUS, ROWS[0], A_BUS, ROWS[5])
 text("lambda header", A_SX + T_SQ / 2, ROWS[0] - T_SQ / 2 - LABEL_GAP - text_h(T_LABEL) / 2, "λ", T_LABEL,
      color=LABEL_GRAY, bold=True)
