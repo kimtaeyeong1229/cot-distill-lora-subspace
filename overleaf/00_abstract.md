@@ -1,4 +1,6 @@
 <!-- Notion에서 동기화: 2026-10-03 -->
+**제목: Where Do Distilled Students Store Thinking?**
+
 # Abstract
 - **(배경)**
     - 작은 student는 추론 모델의 긴 풀이를 배우면 오히려 성능이 떨어져, 최근에는 추론 모델과 짧게 답하는 지시 모델을 비율 $\lambda$로 섞은 teacher로 풀이 길이를 조절하며 증류함. 이렇게 섞은 teacher는 어느 $\lambda$에서 생각하며 푸는 것을 통째로 그만두지만, 그때 student의 가중치에 무엇이 남는지는 알려져 있지 않음
