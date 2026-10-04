@@ -42,6 +42,9 @@ which neither length nor thinking changes loses some coverage (compare the after
 A third check, leave_lambda_out_coverage, keeps the Table 5 region (cut 0.5, all pre-switch lambdas) but
 builds it without every seed of the scored lambda, and scores post-switch lambdas against the same
 leave-one-lambda-out regions, so every scored adapter is outside a build set of the same size.
+A fourth, half_reference_retention, builds the region from the three full-data seeds at an interval's start
+and divides the coverage by the adapters at its end by the coverage by the six half-data adapters at its
+start, which share the teacher but not the data and never help build it: the share of the region kept.
 
 Run from the repo root; writes experiments/length_confound.json.
 """
@@ -195,6 +198,55 @@ def leave_lambda_out_coverage():
     return out
 
 
+def half_reference_retention():
+    """Interval retention against a same-lambda reference that never helped build the region.
+
+    For each interval a -> b the region is built from the three full-data seeds at a (cut 0.5). Its
+    coverage by the six half-data adapters at a (same teacher, different data, outside the build set) is
+    the reference, and its coverage by the three full-data adapters at b, divided by that reference, is
+    the share of the region kept across the interval.
+    """
+    import torch
+    from ablate_subspace import consensus, left_basis, read_adapter
+
+    def load(tag, run):
+        path = E / tag / "runs" / run / "adapter"
+        config = json.loads((path / "adapter_config.json").read_text())
+        scale = config["lora_alpha"] / config["r"]
+        raw, parts = read_adapter(path / "adapter_model.safetensors")
+        bases, norms = {}, {}
+        for key, names in parts.items():
+            if len(names) == 2:
+                B, A = raw[names["B"]].float(), raw[names["A"]].float()
+                bases[key] = left_basis(B, A, scale)
+                norms[key] = float(torch.linalg.matrix_norm(scale * B @ A))
+        return bases, norms
+
+    halves = ["halfA", "halfA_seed1", "halfA_seed2", "halfB", "halfB_seed1", "halfB_seed2"]
+    out = {}
+    for pair, cells in RUNS.items():
+        for short, tag in cells.items():
+            full = {(l, s): load(tag, f"lambda{l}_seed{s}") for l in LAM for s in SEEDS}
+            keys = set.intersection(*[set(b) for b, _ in full.values()])
+            weight = {k: st.mean(n[k] for _, n in full.values()) for k in keys}
+            den = sum(weight.values())
+            res = {}
+            for i in range(5):
+                a, b = LAM[i], LAM[i + 1]
+                half = [load(tag, f"lambda{a}_{h}")[0] for h in halves]
+                ref = nxt = 0.0
+                for k in keys:
+                    V, kv = consensus([full[(a, s)][0][k] for s in SEEDS], threshold=0.5)
+                    ref += weight[k] * st.mean(float((h[k].T @ V).pow(2).sum()) / kv for h in half) / den
+                    nxt += weight[k] * st.mean(float((full[(b, s)][0][k].T @ V).pow(2).sum()) / kv
+                                               for s in SEEDS) / den
+                res[f"{a}->{b}"] = {"reference": ref, "next": nxt, "kept": nxt / ref}
+            out[f"{pair}/{short}"] = res
+            print(f"half reference {pair}/{short:6s} " + " ".join(f"{iv}:{v['kept']:.2f}" for iv, v in res.items()),
+                  flush=True)
+    return out
+
+
 def summarize(values):
     return {"min": min(values), "max": max(values), "mean": st.mean(values), "n": len(values)}
 
@@ -206,14 +258,15 @@ def main():
     cov_all = json.loads((X / "coverage_by_lambda.json").read_text())
     seed_cov = two_seed_coverage()
     llo = leave_lambda_out_coverage()
+    half_ref = half_reference_retention()
 
     out = {"criteria": {"switch_drop_points": SWITCH_DROP, "held_change_points": HELD_CHANGE,
                         "held_min_think": ON_LEVEL, "after_max_think": OFF_LEVEL,
                         "held_marker_floor_x_lambda1": MARKER_FLOOR,
                         "switch_continuation": "directly after a switch, think rate falls from >= 15% by >= 15 points"},
-           "pairs": {}, "two_seed_region": seed_cov, "leave_lambda_out_region": llo, "summary": {}}
+           "pairs": {}, "two_seed_region": seed_cov, "leave_lambda_out_region": llo, "half_reference": half_ref, "summary": {}}
     pooled = {c: {"coverage": [], "coverage_per_log_len": [], "R": [], "R_per_log_len": [], "seed_cov": [],
-                  "local": [], "llo": [], "log_len": []} for c in ("held", "switch", "after")}
+                  "local": [], "llo": [], "kept": [], "log_len": []} for c in ("held", "switch", "after")}
     for p, (split, key) in PAIRS.items():
         stats = json.loads((E / split / "splits" / "split_stats.json").read_text())
         n = stats["n_train"]
@@ -237,6 +290,7 @@ def main():
                    "R_change": {s: R[s][b] - R[s][a] for s in STUDENTS},
                    "two_seed_coverage_change": {s: sc[s][b] - sc[s][a] for s in STUDENTS},
                    "leave_lambda_out_coverage_change": {s: lo[s][b] - lo[s][a] for s in STUDENTS},
+                   "kept_vs_half_reference": {s: half_ref[f"{p}/{s}"][f"{a}->{b}"]["kept"] for s in STUDENTS},
                    "local_coverage_change": {s: seed_cov[f"{p}/{s}"]["local_change"][f"{a}->{b}"]
                                              for s in STUDENTS}}
             row["coverage_change_per_log_len"] = {s: v / d_len for s, v in row["coverage_change"].items()}
@@ -251,6 +305,7 @@ def main():
                 pooled[c]["seed_cov"] += row["two_seed_coverage_change"].values()
                 pooled[c]["local"] += row["local_coverage_change"].values()
                 pooled[c]["llo"] += row["leave_lambda_out_coverage_change"].values()
+                pooled[c]["kept"] += row["kept_vs_half_reference"].values()
                 pooled[c]["log_len"].append(d_len)
             print(f"{p} {a}->{b} {c:7s} loglen {d_len:.2f} think {think[a]:5.1f}->{think[b]:5.1f} "
                   f"markers {markers[a]:5.2f}->{markers[b]:5.2f} | cov "
@@ -269,7 +324,8 @@ def main():
                              "R_change": summarize(v["R"]), "R_change_per_log_len": summarize(v["R_per_log_len"]),
                              "two_seed_coverage_change": summarize(v["seed_cov"]),
                              "local_coverage_change": summarize(v["local"]),
-                             "leave_lambda_out_coverage_change": summarize(v["llo"])}
+                             "leave_lambda_out_coverage_change": summarize(v["llo"]),
+                             "kept_vs_half_reference": summarize(v["kept"])}
         s = out["summary"][c]
         print(f"{c:7s} log-len drop {s['log_len_drop']['min']:.2f}..{s['log_len_drop']['max']:.2f} | "
               f"coverage {s['coverage_change']['min']:+.3f}..{s['coverage_change']['max']:+.3f} "
