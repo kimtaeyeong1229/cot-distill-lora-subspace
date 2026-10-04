@@ -6,7 +6,7 @@ key swatch: (30.0, 30.0)
 removed block: (30.0, 30.0)
 teacher square: (56.0, 56.0)
 gaps between blocks: [6.0]
-font sizes (pt): [15, 17, 20]
+font sizes (pt): [13, 15, 17, 20]
 objects: 325 separate shapes, none grouped
 text '(a) Interpolated teachers': 20 pt bold
 text '(b) Student LoRA adapters': 20 pt bold
@@ -14,12 +14,12 @@ text '(c) Editing the shared region': 20 pt bold
 text 'Reasoning model': 17 pt bold
 text 'Instruct model': 17 pt bold
 text 'λ': 17 pt bold
-text '0': 15 pt bold
-text '0.2': 15 pt bold
-text '0.4': 15 pt bold
-text '0.6': 15 pt bold
-text '0.8': 15 pt bold
-text '1': 15 pt bold
+text '0': 13 pt bold
+text '0.2': 13 pt bold
+text '0.4': 13 pt bold
+text '0.6': 13 pt bold
+text '0.8': 13 pt bold
+text '1': 13 pt bold
 text 'distill': 15 pt bold
 text 'teacher stops
 thinking': 15 pt bold

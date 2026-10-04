@@ -60,8 +60,9 @@ FONT = "Arial"
 # ---------------------------------------------------------------- the spec
 OUTLINE, CONNECT = 2.5, 2.0           # pt
 T_HEAD, T_LABEL, T_SMALL = 20, 17, 15  # pt
+T_NUM = 13                            # pt, the lambda values inside the teacher squares
 MARGIN = 30                           # canvas edge to content
-PANEL_GAP = 96                        # between the content of neighbouring panels
+PANEL_GAP = 92                        # between the content of neighbouring panels
 ARROW = 50                            # length of every gray connector arrow
 TIP = 6                               # gap between an arrow tip and its target
 B = 30                                # block side: adapter squares, response-bar height, key swatches
@@ -239,7 +240,7 @@ A_MODEL_CX = MARGIN + A_LABEL_W / 2                      # labels centred on the
 A_MX0, A_MX1 = A_MODEL_CX - A_MODEL_W / 2, A_MODEL_CX + A_MODEL_W / 2
 A_BUS = A_MX1 + ARROW
 A_SX = A_BUS + ARROW                                     # teacher squares
-A_BX = A_SX + T_SQ + ARROW                               # response bars
+A_BX = A_SX + T_SQ + TIP + ARROW                               # response bars
 A_END = A_BX + THINK["0"] + B                            # right edge of (a)
 B_X0 = A_END + PANEL_GAP                                 # (b): adapters
 B_X1 = B_X0 + ROW_W
@@ -270,10 +271,10 @@ for lam, cy in zip(LAMS, ROWS):
     arrow(f"branch {lam}", A_BUS, cy, A_SX)
     shape(f"teacher {lam}", A_SX, cy - T_SQ / 2, A_SX + T_SQ, cy + T_SQ / 2, fill=tint(lam))
     BOXES.pop()                                          # the label sits inside its square on purpose
-    text(f"teacher label {lam}", A_SX + T_SQ / 2, cy, lam, T_SMALL, bold=True)
+    text(f"teacher label {lam}", A_SX + T_SQ / 2, cy, lam, T_NUM, bold=True)
     BOXES.pop()
     BOXES.append(("shape", f"teacher {lam}", A_SX, cy - T_SQ / 2, A_SX + T_SQ, cy + T_SQ / 2))
-    arrow(f"to response {lam}", A_SX + T_SQ, cy, A_BX)
+    arrow(f"to response {lam}", A_SX + T_SQ + TIP, cy, A_BX)     # starts clear of the square, like every arrow
     x = A_BX
     if lam in THINK:
         hatched(f"thinking {lam}", x, cy - B / 2, x + THINK[lam], cy + B / 2)
