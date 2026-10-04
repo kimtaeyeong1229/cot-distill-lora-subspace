@@ -13,6 +13,12 @@
                       the share a random subspace of that size would hold; averaged over the three held-out
                       seeds. The shared region's own shares are in experiments/region_anatomy.json.
 
+4. per_unit_loss      from experiments/length_confound.json: the share of the region lost per unit of log
+                      training-length drop, -ln(kept) / log_len_drop, with kept the half-reference retention
+                      (pairs.*.intervals[].kept_vs_half_reference), and per unit of log teacher-marker drop,
+                      -ln(kept) / marker_log_ratio; plus, for pair A, the switch/held ratio of the length-
+                      normalised loss per student. The measure assumes no loss at zero length change.
+
 Run from the repo root inside the container; writes experiments/supplementary_stats.json.
 """
 
@@ -102,9 +108,27 @@ def two_seed_energy():
     return out
 
 
+def per_unit_loss():
+    import math
+    lc = json.loads((X / "length_confound.json").read_text())
+    out = {}
+    for pair, v in lc["pairs"].items():
+        out[pair] = {}
+        for r in v["intervals"]:
+            out[pair][r["interval"]] = {
+                "class": r["class"], "log_len_drop": r["log_len_drop"], "marker_log_drop": r["marker_log_ratio"],
+                "per_log_len": {s: -math.log(k) / r["log_len_drop"] for s, k in r["kept_vs_half_reference"].items()},
+                "per_log_marker": {s: -math.log(k) / r["marker_log_ratio"] for s, k in r["kept_vs_half_reference"].items()}}
+    a = out["A"]
+    out["A_switch_over_held"] = {s: a["0.2->0.4"]["per_log_len"][s] / a["0.0->0.2"]["per_log_len"][s]
+                                 for s in a["0.0->0.2"]["per_log_len"]}
+    print("per-unit loss A switch/held", {s: round(x, 2) for s, x in out["A_switch_over_held"].items()}, flush=True)
+    return out
+
+
 def main():
     result = {"train_think_rate": train_think_rate(), "olmo_over_4096": olmo_over_4096(),
-              "two_seed_energy": two_seed_energy()}
+              "two_seed_energy": two_seed_energy(), "per_unit_loss": per_unit_loss()}
     (X / "supplementary_stats.json").write_text(json.dumps(result, indent=2))
 
 
