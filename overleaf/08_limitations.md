@@ -1,4 +1,4 @@
-<!-- Notion에서 동기화: 2026-10-03 -->
+<!-- Notion에서 동기화: 2026-10-04 -->
 # Limitations
 - **(한계)**
     - LoRA로 측정한 off-policy 증류만 보았고, student는 1B 이하, 학습 과제는 MATH뿐이며, teacher 쌍은 계열과 규모가 함께 바뀜. 전체 미세조정, on-policy 증류, 더 큰 student에서도 같은 구역이 생기는지는 모르고, 수학 밖 근거도 GPQA-Diamond 하나뿐임
