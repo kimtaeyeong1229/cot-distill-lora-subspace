@@ -15,6 +15,7 @@ Run from the repo root; writes PDFs into the manuscript repo's figures/ folder.
 """
 
 import json
+import os
 import statistics as st
 from pathlib import Path
 
@@ -25,7 +26,7 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
 EXP = Path("experiments")
-OUT = Path("/home/lab/workspace/NAACL_cot_distill_lora_subspace/figures")
+OUT = Path(os.environ.get("FIG_OUT", "/home/lab/workspace/NAACL_cot_distill_lora_subspace/figures"))
 L = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
 X = [float(l) for l in L]
 PAIRS = [("A", "A"), ("B", "B"), ("C", "D")]          # paper name, key in the result files
@@ -33,6 +34,12 @@ STU = [("Qwen", "Qwen2.5-0.5B"), ("Llama", "Llama-3.2-1B"), ("OLMo", "OLMo-2-1B"
 NAVY, SLATE, YELLOW, RED = "#2f4a6d", "#3f7a5a", "#e7a33e", "#c8372d"   # denim, scarf green, mustard, Carp red
 COL = {"Qwen": NAVY, "Llama": SLATE, "OLMo": YELLOW}
 CREAM, GRID = "#f6efe4", "#d8cdbd"
+# Figure 1 colours (Contextual Document Embeddings palette), reused so the edits read the same in Figures 1 and 3
+F1_LAVENDER, F1_PINK, F1_SHARED, F1_SHARED_LIGHT = "#d9cef9", "#fba9cb", "#9c86f0", "#b7a6f4"
+F1_SWITCH = "#f25c93"                                  # the dashed "teacher stops thinking" line in Figure 1
+# Figure 3 roles, in the ordered navy-gray-yellow palette of Morris et al. (memorization paper), same in every panel
+F3_SHARED, F3_SHARED_SOFT = "#1d2b4f", "#3f5490"      # edit of the shared region (gamma = 4, gamma = 1)
+F3_BASE, F3_CONTROL = "#7d7d7d", "#f2e04e"            # unedited adapter, same edit outside the region
 WIDTH = 6.3
 
 plt.rcParams.update({
@@ -85,11 +92,8 @@ def legend(ax, handles, title, loc, ncol=1):
     lg.get_frame().set_linewidth(0.6)
 
 
-def switch_line(ax, x, label=False):
-    ax.axvline(x, color="black", ls="--", lw=1.4, zorder=4)
-    if label:
-        ax.text(x + 0.02, 0.97, "Teacher stops thinking", transform=ax.get_xaxis_transform(), fontsize=6.2,
-                fontweight="bold", ha="left", va="top")
+def switch_line(ax, x):
+    ax.axvline(x, color=F1_SWITCH, ls="--", lw=1.4, zorder=4)
 
 
 # ---------------------------------------------------------------- Figure 2: where the adapter switches
@@ -111,10 +115,12 @@ def fig2():
             bot.plot(X, [cv[l] for l in L], color=COL[s], lw=1.1, marker="o", ms=2.2)
         chance = st.mean(coverage[f"{d}/{full}"]["chance"] for _, full in STU)
         bot.axhline(chance, color="#555555", ls=":", lw=1.0)
+        if j == 0:
+            SW_A = sw
         if j == 1:
-            bot.text(1.0, chance + 0.015, "Chance", fontsize=6, color="#555555", ha="right", va="bottom")
+            CHANCE_B = chance
         for a in (top, mid, bot):
-            switch_line(a, sw, label=(a is top and j == 0))
+            switch_line(a, sw)
         mid.set_ylim(0, 1.05); bot.set_ylim(0, 0.65)
         bot.set_xticks(X); bot.set_xticklabels(["0", "0.2", "0.4", "0.6", "0.8", "1"]); bot.set_xlim(-0.03, 1.03)
         labels(bot, x=r"Interpolation ratio $\lambda$")
@@ -124,6 +130,12 @@ def fig2():
     fig.align_ylabels(axes[:, 0])
     handles = [Line2D([], [], color=COL[s], lw=1.1, marker="o", ms=2.2, label=full) for s, full in STU]
     legend(axes[2, 0], handles, "Student", "upper right")
+    # reference lines are labelled once, on the line itself (Morris style)
+    a_top = axes[0, 0]
+    a_top.text(SW_A + 0.03, 0.95, "Teacher stops thinking", transform=a_top.get_xaxis_transform(), fontsize=6.2,
+               fontweight="bold", color=F1_SWITCH, ha="left", va="top")
+    b_bot = axes[2, 1]
+    b_bot.text(1.0, CHANCE_B + 0.012, "Random adapter", fontsize=6.0, color="#555555", ha="right", va="bottom")
     fig.savefig(OUT / "fig2_switch.pdf")
 
 
@@ -156,23 +168,23 @@ def fig3():
     pct = lambda v: [100 * x for x in v]
     fig, axes = plt.subplots(2, 2, figsize=(WIDTH, 3.6), gridspec_kw={"hspace": 0.85, "wspace": 0.25})
     (a, b), (c, d) = axes
-    bars(a, [(r"$\lambda = 0$ adapter", NAVY, b0("base0", "markers")),
-             ("Other removed", SLATE, b0("rm_other", "markers")),
-             ("Shared removed", YELLOW, b0("rm_pre", "markers"))], "Reflective markers", "(per 1,000 words)")
+    bars(a, [(r"$\lambda = 0$ adapter", F3_BASE, b0("base0", "markers")),
+             ("Other removed", F3_CONTROL, b0("rm_other", "markers")),
+             ("Shared removed", F3_SHARED, b0("rm_pre", "markers"))], "Reflective markers", "(per 1,000 words)")
     panel_legend(a, "a", r"Remove from the $\lambda = 0$ adapter")
-    bars(b, [(r"$\lambda = 1$ adapter", RED, sb("base1_head_markers_per_1k")),
-             ("Graft other", SLATE, ed("graft_other2", "head_markers_per_1k")),
-             ("Graft shared", YELLOW, ed("graft2", "head_markers_per_1k"))],
+    bars(b, [(r"$\lambda = 1$ adapter", F3_BASE, sb("base1_head_markers_per_1k")),
+             ("Graft other", F3_CONTROL, ed("graft_other2", "head_markers_per_1k")),
+             ("Graft shared", F3_SHARED, ed("graft2", "head_markers_per_1k"))],
          "Reflective markers", "(per 1,000 words, early)")
     panel_legend(b, "b", r"Graft into the $\lambda = 1$ adapter ($\beta = 2$)")
-    bars(c, [(r"$\lambda = 1$ adapter", RED, pct([1 - t for t in t2("trunc1")])),
-             ("Graft other", SLATE, pct(ed("graft_other2", "completed"))),
-             ("Graft shared", YELLOW, pct(ed("graft2", "completed")))], "Completed responses", "(%)")
+    bars(c, [(r"$\lambda = 1$ adapter", F3_BASE, pct([1 - t for t in t2("trunc1")])),
+             ("Graft other", F3_CONTROL, pct(ed("graft_other2", "completed"))),
+             ("Graft shared", F3_SHARED, pct(ed("graft2", "completed")))], "Completed responses", "(%)")
     c.set_yticks([0, 25, 50, 75, 100])
     panel_legend(c, "c", r"Graft into the $\lambda = 1$ adapter ($\beta = 2$)")
-    bars(d, [(r"$\lambda = 0$ adapter", NAVY, [spread[cell(p, s)]["table1"]["0.0"]["mean"] for p, s in CELLS]),
-             (r"Amplified, $\gamma = 1$", "#f1cf8f", ed("ampn1", "markers_per_1k")),
-             (r"Amplified, $\gamma = 4$", YELLOW, ed("ampn4", "markers_per_1k"))],
+    bars(d, [(r"$\lambda = 0$ adapter", F3_BASE, [spread[cell(p, s)]["table1"]["0.0"]["mean"] for p, s in CELLS]),
+             (r"Amplified, $\gamma = 1$", F3_SHARED_SOFT, ed("ampn1", "markers_per_1k")),
+             (r"Amplified, $\gamma = 4$", F3_SHARED, ed("ampn4", "markers_per_1k"))],
          "Reflective markers", "(per 1,000 words)")
     panel_legend(d, "d", r"Amplify within the $\lambda = 0$ adapter (norm fixed)")
     fig.savefig(OUT / "fig3_states.pdf")
