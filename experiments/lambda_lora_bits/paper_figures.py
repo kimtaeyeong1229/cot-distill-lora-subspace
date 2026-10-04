@@ -30,9 +30,9 @@ L = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
 X = [float(l) for l in L]
 PAIRS = [("A", "A"), ("B", "B"), ("C", "D")]          # paper name, key in the result files
 STU = [("Qwen", "Qwen2.5-0.5B"), ("Llama", "Llama-3.2-1B"), ("OLMo", "OLMo-2-1B")]
-NAVY, SLATE, YELLOW, RED = "#1f2c56", "#7b8798", "#f2cf3a", "#a3242f"
+NAVY, SLATE, YELLOW, RED = "#2f4a6d", "#3f7a5a", "#e7a33e", "#c8372d"   # denim, scarf green, mustard, Carp red
 COL = {"Qwen": NAVY, "Llama": SLATE, "OLMo": YELLOW}
-CREAM, GRID = "#f8f2e7", "#c9c2b6"
+CREAM, GRID = "#f6efe4", "#d8cdbd"
 WIDTH = 6.3
 
 plt.rcParams.update({
@@ -171,7 +171,7 @@ def fig3():
     c.set_yticks([0, 25, 50, 75, 100])
     panel_legend(c, "c", r"Graft into the $\lambda = 1$ adapter ($\beta = 2$)")
     bars(d, [(r"$\lambda = 0$ adapter", NAVY, [spread[cell(p, s)]["table1"]["0.0"]["mean"] for p, s in CELLS]),
-             (r"Amplified, $\gamma = 1$", "#f7e08a", ed("ampn1", "markers_per_1k")),
+             (r"Amplified, $\gamma = 1$", "#f1cf8f", ed("ampn1", "markers_per_1k")),
              (r"Amplified, $\gamma = 4$", YELLOW, ed("ampn4", "markers_per_1k"))],
          "Reflective markers", "(per 1,000 words)")
     panel_legend(d, "d", r"Amplify within the $\lambda = 0$ adapter (norm fixed)")
