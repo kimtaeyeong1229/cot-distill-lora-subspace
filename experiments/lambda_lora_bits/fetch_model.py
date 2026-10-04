@@ -11,7 +11,7 @@ REPOS = {
     "Qwen2.5-0.5B-Instruct": "Qwen/Qwen2.5-0.5B-Instruct",
     "Llama-3.2-1B-Instruct": "meta-llama/Llama-3.2-1B-Instruct",
     "OLMo-2-1B-Instruct": "allenai/OLMo-2-0425-1B-Instruct",
-    # pair A endpoints (pairs B and C are downloaded by run_pair.sh)
+    # pair A endpoints (pairs B and C are downloaded by run_teachers_pair_bc.sh)
     "DeepSeek-R1-Distill-Qwen-1.5B": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
     "Qwen2.5-Math-1.5B-Instruct": "Qwen/Qwen2.5-Math-1.5B-Instruct",
 }

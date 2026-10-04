@@ -7,7 +7,7 @@
 # lambdas, so we sample LIMIT problems at lambda in {0.0, 0.4, 1.0} under each
 # template and compare accuracy, CoT length and truncation.
 #
-#   docker exec cot-distill-lora-bit bash experiments/lambda_lora_bits/pilot_template.sh
+#   docker exec cot-distill-lora-bit bash experiments/lambda_lora_bits/pilot_template_pair_a.sh
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 

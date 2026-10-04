@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # Pair A teachers: interpolate DeepSeek-R1-Distill-Qwen-1.5B (lambda = 0) and Qwen2.5-Math-1.5B-Instruct
 # (lambda = 1), generate one CoT per pool problem at every lambda, and build the shared train/held splits.
-# Pairs B and C use run_pair.sh, which follows the same procedure. Students are trained afterwards with
+# Pairs B and C use run_teachers_pair_bc.sh, which follows the same procedure. Students are trained afterwards with
 # run_student.sh (reproduce/02_train_students.sh).
 #
-# The template was chosen with pilot_template.sh: every pair A teacher uses the R1 (reasoning) tokenizer
+# The template was chosen with pilot_template_pair_a.sh: every pair A teacher uses the R1 (reasoning) tokenizer
 # and chat template. The shared split was built over eight lambdas (0.1 and 0.3 included), so the same
 # list must be passed to rebuild sweep/splits/split_ids.json exactly:
 #
 #   docker exec cot-distill-lora-bit bash -c "TEMPLATE=reasoning LAMBDAS='0.0 0.1 0.2 0.3 0.4 0.6 0.8 1.0' \
-#     bash experiments/lambda_lora_bits/run_sweep_v2.sh"
+#     bash experiments/lambda_lora_bits/run_teachers_pair_a.sh"
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 
@@ -18,7 +18,7 @@ REASONING=models/DeepSeek-R1-Distill-Qwen-1.5B
 INSTRUCT=models/Qwen2.5-Math-1.5B-Instruct
 STUDENT=models/Qwen2.5-0.5B-Instruct   # tokenizer for the length filter in build_splits.py
 
-TEMPLATE="${TEMPLATE:?set TEMPLATE=reasoning or TEMPLATE=instruct (chosen by pilot_template.sh; the paper uses reasoning)}"
+TEMPLATE="${TEMPLATE:?set TEMPLATE=reasoning or TEMPLATE=instruct (chosen by pilot_template_pair_a.sh; the paper uses reasoning)}"
 LAMBDAS="${LAMBDAS:-0.0 0.1 0.2 0.3 0.4 0.6 0.8 1.0}"
 N_HELD="${N_HELD:-300}"
 N_TRAIN="${N_TRAIN:-}"

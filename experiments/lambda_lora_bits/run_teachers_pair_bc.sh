@@ -2,12 +2,12 @@
 # Teacher side of pairs B and C: download -> template pilot -> full CoT pool -> shared splits.
 #
 # The paper's pair C is PAIR=D here (directory pairD/, key "D" in some result files).
-# Same procedure as pair A (run_sweep_v2.sh and pilot_template.sh); only the endpoints change.
+# Same procedure as pair A (run_teachers_pair_a.sh and pilot_template_pair_a.sh); only the endpoints change.
 # STAGE=pilot stops after the template comparison so the template can be agreed before the
 # 4,000-problem pool is generated with STAGE=full TEMPLATE=<reasoning|instruct>. Both pairs use
 # TEMPLATE=reasoning (pairB/template.txt, pairD/template.txt).
 #
-#   docker exec -d cot-distill-lora-bit bash -c "PAIR=B STAGE=pilot bash experiments/lambda_lora_bits/run_pair.sh > experiments/lambda_lora_bits/pairB/pilot.log 2>&1"
+#   docker exec -d cot-distill-lora-bit bash -c "PAIR=B STAGE=pilot bash experiments/lambda_lora_bits/run_teachers_pair_bc.sh > experiments/lambda_lora_bits/pairB/pilot.log 2>&1"
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 
