@@ -90,3 +90,4 @@ experiments/hf_upload/
 # --- partial files left by interrupted rsync, and training splits copied back from servers ---
 **/.*.safetensors.*
 experiments/archive_returned/
+materials/main_figure_pptx/cde/.fonts/
