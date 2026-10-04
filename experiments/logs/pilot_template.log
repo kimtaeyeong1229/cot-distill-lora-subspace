@@ -1,31 +1,0 @@
-lambda=0.0: 339 tensors -> experiments/lambda_lora_bits/teachers/lambda0.0 (tokenizer from instruct)
-lambda=0.4: 339 tensors -> experiments/lambda_lora_bits/teachers/lambda0.4 (tokenizer from instruct)
-lambda=1.0: 339 tensors -> experiments/lambda_lora_bits/teachers/lambda1.0 (tokenizer from instruct)
-experiments/lambda_lora_bits/teachers/lambda0.0: 0 done, 200 pending
-[200/200] 1800 tok/sample, 4888 tok/s, 1.2 min
-experiments/lambda_lora_bits/teachers/lambda0.4: 0 done, 200 pending
-[200/200] 712 tok/sample, 2530 tok/s, 0.9 min
-experiments/lambda_lora_bits/teachers/lambda1.0: 0 done, 200 pending
-[200/200] 435 tok/sample, 5235 tok/s, 0.3 min
-experiments/lambda_lora_bits/teachers_r1tok/lambda0.0: 0 done, 200 pending
-[200/200] 2503 tok/sample, 5596 tok/s, 1.5 min
-experiments/lambda_lora_bits/teachers_r1tok/lambda0.4: 0 done, 200 pending
-[200/200] 621 tok/sample, 2399 tok/s, 0.9 min
-experiments/lambda_lora_bits/teachers_r1tok/lambda1.0: 0 done, 200 pending
-[200/200] 436 tok/sample, 6390 tok/s, 0.2 min
-================ template: teachers
-lambda=0.0:   0%|          | 0/200 [00:00<?, ?it/s]lambda=0.0:   0%|          | 1/200 [00:00<00:51,  3.84it/s]lambda=0.0:  12%|█▎        | 25/200 [00:00<00:02, 68.87it/s]lambda=0.0:  36%|███▌      | 71/200 [00:00<00:00, 180.23it/s]lambda=0.0:  66%|██████▋   | 133/200 [00:00<00:00, 306.33it/s]lambda=0.0:  99%|█████████▉| 198/200 [00:00<00:00, 405.07it/s]lambda=0.0: 100%|██████████| 200/200 [00:00<00:00, 269.68it/s]
-{"0.0": {"generated": 200, "teacher_accuracy": 0.94, "truncated_rate": 0.03, "too_long_for_student": 0, "kept": 188, "avg_teacher_tokens_all": 1799.515, "avg_student_tokens_kept": 1596.9521276595744}}
-lambda=0.4:   0%|          | 0/200 [00:00<?, ?it/s]lambda=0.4:  72%|███████▏  | 143/200 [00:00<00:00, 1427.98it/s]lambda=0.4: 100%|██████████| 200/200 [00:00<00:00, 1185.95it/s]
-{"0.4": {"generated": 200, "teacher_accuracy": 0.935, "truncated_rate": 0.025, "too_long_for_student": 0, "kept": 187, "avg_teacher_tokens_all": 711.99, "avg_student_tokens_kept": 475.80748663101605}}
-lambda=1.0:   0%|          | 0/200 [00:00<?, ?it/s]lambda=1.0:  62%|██████▏   | 123/200 [00:00<00:00, 1222.75it/s]lambda=1.0: 100%|██████████| 200/200 [00:00<00:00, 1231.96it/s]
-{"1.0": {"generated": 200, "teacher_accuracy": 0.975, "truncated_rate": 0.0, "too_long_for_student": 0, "kept": 195, "avg_teacher_tokens_all": 435.17, "avg_student_tokens_kept": 431.5897435897436}}
-Shared problems across 3 lambdas: 179
-================ template: teachers_r1tok
-lambda=0.0:   0%|          | 0/200 [00:00<?, ?it/s]lambda=0.0:   0%|          | 1/200 [00:00<00:47,  4.22it/s]lambda=0.0:  12%|█▎        | 25/200 [00:00<00:02, 70.81it/s]lambda=0.0:  32%|███▏      | 64/200 [00:00<00:00, 162.84it/s]lambda=0.0:  55%|█████▌    | 110/200 [00:00<00:00, 249.29it/s]lambda=0.0:  80%|███████▉  | 159/200 [00:00<00:00, 306.61it/s]lambda=0.0: 100%|██████████| 200/200 [00:00<00:00, 247.11it/s]
-{"0.0": {"generated": 200, "teacher_accuracy": 0.955, "truncated_rate": 0.035, "too_long_for_student": 0, "kept": 191, "avg_teacher_tokens_all": 2503.095, "avg_student_tokens_kept": 2289.450261780105}}
-lambda=0.4:   0%|          | 0/200 [00:00<?, ?it/s]lambda=0.4:  72%|███████▎  | 145/200 [00:00<00:00, 1445.81it/s]lambda=0.4: 100%|██████████| 200/200 [00:00<00:00, 1200.75it/s]
-{"0.4": {"generated": 200, "teacher_accuracy": 0.945, "truncated_rate": 0.01, "too_long_for_student": 0, "kept": 189, "avg_teacher_tokens_all": 620.55, "avg_student_tokens_kept": 518.8518518518518}}
-lambda=1.0:   0%|          | 0/200 [00:00<?, ?it/s]lambda=1.0:  80%|███████▉  | 159/200 [00:00<00:00, 1447.56it/s]lambda=1.0: 100%|██████████| 200/200 [00:00<00:00, 1445.66it/s]
-{"1.0": {"generated": 200, "teacher_accuracy": 0.975, "truncated_rate": 0.0, "too_long_for_student": 0, "kept": 195, "avg_teacher_tokens_all": 436.1, "avg_student_tokens_kept": 433.6820512820513}}
-Shared problems across 3 lambdas: 185

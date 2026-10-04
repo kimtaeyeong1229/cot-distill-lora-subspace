@@ -1,7 +1,0 @@
-s1-01-wait-B-splits	bash experiments/lambda_lora_bits/queue/wait_for.sh experiments/lambda_lora_bits/pairB/splits/split_stats.json
-s1-02-sweep-qwen0.5b-B	 STUDENT=models/Qwen2.5-0.5B-Instruct TAG=pairB/qwen0.5b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
-s1-03-sweep-qwen1.5b-B	 STUDENT=models/Qwen2.5-1.5B-Instruct TAG=pairB/qwen1.5b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
-s1-04-sweep-llama1b-B	 STUDENT=models/Llama-3.2-1B-Instruct TAG=pairB/llama1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
-s1-05-sweep-olmo1b-B	MAX_MODEL_LEN=4096 MAX_NEW_TOKENS=3840 TRAIN_MAX_LEN=4096 STUDENT=models/OLMo-2-1B-Instruct TAG=pairB/olmo1b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
-s1-06-sweep-qwen3b-B	PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True STUDENT=models/Qwen2.5-3B-Instruct TAG=pairB/qwen3b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh
-s1-07-sweep-llama3b-B	PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True TRAIN_TOKEN_BUDGET=8192 STUDENT=models/Llama-3.2-3B-Instruct TAG=pairB/llama3b SPLITS=experiments/lambda_lora_bits/pairB/splits bash experiments/lambda_lora_bits/run_student.sh

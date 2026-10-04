@@ -1,7 +1,0 @@
-{"n_per_side": 100, "length": 64, "alphabet": 36, "entropy_bits_per_canary": 330.875200092308, "seed": 0, "source_splits": "experiments/lambda_lora_bits/sweep/splits/lambda1.0"}
-[2026-09-15 06:21:02] train lambda=1.0 + 100 canaries
-[2026-09-15 06:29:56] bits lambda=1.0
-{"n_per_side": 100, "length": 64, "alphabet": 36, "entropy_bits_per_canary": 330.875200092308, "seed": 0, "source_splits": "experiments/lambda_lora_bits/sweep/splits/lambda0.0"}
-[2026-09-15 06:31:45] train lambda=0.0 + 100 canaries
-[2026-09-15 07:12:44] bits lambda=0.0
-[2026-09-15 07:21:08] canary test done

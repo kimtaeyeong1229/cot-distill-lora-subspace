@@ -1,9 +1,0 @@
-File list transfer time: 0.000 seconds
-Total bytes sent: 43,142,205,294
-Total bytes received: 164,329
-
-sent 43,142,205,294 bytes  received 164,329 bytes  10,871,203.13 bytes/sec
-total size is 43,131,002,552  speedup is 1.00
-[2026-09-21 11:31:26] server5 동기화 완료
-41G	workspace/backup/cot-distill-lora-bit/2026-09-21
-/dev/nvme0n1p2  457G  377G   57G  87% /

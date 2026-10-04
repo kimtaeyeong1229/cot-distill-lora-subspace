@@ -1,7 +1,0 @@
-[2026-09-17 18:37:59] train pairB/llama1b lambda0.0_halfB
-[2026-09-17 19:14:03] train pairB/llama1b lambda0.2_halfB
-[2026-09-17 19:44:03] train pairB/llama1b lambda0.4_halfB
-[2026-09-17 20:09:39] train pairB/llama1b lambda0.6_halfB
-[2026-09-17 20:23:32] train pairB/llama1b lambda0.8_halfB
-[2026-09-17 20:32:25] train pairB/llama1b lambda1.0_halfB
-[2026-09-17 20:41:04] done pairB/llama1b

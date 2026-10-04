@@ -1,6 +1,0 @@
-Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 1618.35it/s]
-pos: 300 traces read
-neg: 300 traces read
-inj: 300 traces read
-mask: 300 traces read
-layer 11: 100 candidates, 83 kept (behaviour), 5 cue-driven

@@ -1,8 +1,0 @@
-[2026-09-17 15:51:01] tokenizer length check for models/Llama-3.2-1B-Instruct
-lambda=0.0: mean=2108 max=8118 over_8192=0 (0.0%) truncated_tokens=0.0%
-lambda=0.2: mean=1711 max=7729 over_8192=0 (0.0%) truncated_tokens=0.0%
-lambda=0.4: mean=1423 max=8052 over_8192=0 (0.0%) truncated_tokens=0.0%
-lambda=0.6: mean=830 max=6922 over_8192=0 (0.0%) truncated_tokens=0.0%
-lambda=0.8: mean=468 max=2972 over_8192=0 (0.0%) truncated_tokens=0.0%
-lambda=1.0: mean=492 max=1499 over_8192=0 (0.0%) truncated_tokens=0.0%
-[2026-09-17 15:51:09] eval math500 (18 adapters)
