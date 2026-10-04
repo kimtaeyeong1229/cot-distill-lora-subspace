@@ -13,7 +13,7 @@ from pathlib import Path
 import torch
 from safetensors import safe_open
 
-from config import CELL_DIR, EXP as E, LAMBDAS as LAM, PAIR_KEY, PAIRS, RESULTS, SEEDS, STUDENT_SHORT, STUDENTS, SWITCH
+from config import CELL_DIR, EXP as E, LAMBDAS as LAM, PAIR_KEY, PAIRS, RESULTS as RESULTS_DIR, SEEDS, STUDENT_SHORT, STUDENTS, SWITCH
 
 # the transition each cell shows: the first large drop in retention (analyze_resample.py). Pair C drops in
 # two steps of almost equal size, so all three of its cells use the first one, 0.6, where the teacher
@@ -88,5 +88,5 @@ for pair, stu, tag, br in CELLS:
                                     built_from=len(pre), side=ARGS.side,
                                     in_loo_by_seed={sd: pw_s[sd]/w for sd in SEEDS},
                                     out_by_seed={sd: qw_s[sd]/w for sd in SEEDS})
-out = RESULTS / f"consensus_{ARGS.side}.json"
+out = RESULTS_DIR / f"consensus_{ARGS.side}.json"
 out.write_text(json.dumps(RESULTS, indent=2)); print(out)
