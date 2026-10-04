@@ -160,7 +160,7 @@ def main():
         return {key: left_basis(raw[names["B"]], raw[names["A"]], scale)
                 for key, names in parts.items() if len(names) == 2}
 
-    print(f"[{a.tag}] 절벽 λ{a.cliff} | 문턱 전 {len(pre)}개, 후 {len(post)}개 adapter 로 합의 구역 계산", flush=True)
+    print(f"[{a.tag}] switch λ{a.cliff} | building regions from {len(pre)} pre-switch and {len(post)} post-switch adapters", flush=True)
     pre_bases, post_bases = defaultdict(list), defaultdict(list)
     for lam, seed in pre:
         b = basis_of(lam, seed)
@@ -180,12 +180,12 @@ def main():
         # dimension-matched to the treatment so the control differs only in which subspace it removes
         V_post[key], _ = consensus(post_bases[key], dims=k_pre[key])
     mean_k = sum(k_pre.values()) / len(k_pre)
-    print(f"  합의 차원 평균: 문턱 전 {mean_k:.1f}, 후 {sum(k_post.values())/len(k_post):.1f}", flush=True)
+    print(f"  mean region dims: pre-switch {mean_k:.1f}, post-switch {sum(k_post.values())/len(k_post):.1f}", flush=True)
 
     for lam in a.sources:
         src = runs / f"lambda{lam}_seed{a.seed}" / "adapter"
         if not (src / "adapter_model.safetensors").exists():
-            print(f"  λ{lam}: 원본 없음 — 건너뜀", flush=True)
+            print(f"  λ{lam}: source adapter missing, skipped", flush=True)
             continue
         config = json.loads((src / "adapter_config.json").read_text())
         scale = config["lora_alpha"] / config["r"]
@@ -293,7 +293,7 @@ def main():
                     path.chmod(0o755 if path.is_dir() else 0o644)
                 except OSError:
                     pass
-            print(f"  {name}: {len(removed)}개 모듈, 평균 {sum(removed)/max(len(removed),1):.1f}차원 제거", flush=True)
+            print(f"  {name}: {len(removed)} modules, {sum(removed)/max(len(removed),1):.1f} dims removed on average", flush=True)
 
 
 if __name__ == "__main__":

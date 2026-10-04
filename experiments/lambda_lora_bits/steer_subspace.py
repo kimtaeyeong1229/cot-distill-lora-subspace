@@ -114,7 +114,7 @@ def main():
             if len(names) == 2:
                 bases[key].append(left_basis(raw[names["B"]], raw[names["A"]], scale))
     V = {key: consensus(vs) for key, vs in bases.items()}
-    print(f"[{a.tag}] 절벽 λ{a.cliff} | loo={a.loo} adapter {len(pre)}개 | 합의 차원 평균 {sum(k for _, k in V.values())/len(V):.1f}", flush=True)
+    print(f"[{a.tag}] switch λ{a.cliff} | loo={a.loo} | {len(pre)} adapters | mean region dims {sum(k for _, k in V.values())/len(V):.1f}", flush=True)
 
     src0 = runs / f"lambda0.0_seed{a.seed}" / "adapter"
     src1 = runs / f"lambda1.0_seed{a.seed}" / "adapter"
@@ -159,7 +159,7 @@ def main():
                 if after > 1e-12:
                     new = new * (before / after)
                 tensors[names["B"]] = new.to(raw0[names["B"]].dtype)
-            note = "λ0 전부 V로 투영 후 원래 노름" if alpha is None else f"λ0 + {alpha:g}·V 성분, 노름 보존"
+            note = "λ0 projected onto V, original norm" if alpha is None else f"λ0 + {alpha:g}·V component, norm preserved"
             write(name, tensors, cfg0["r"], note)
 
     # amplify (norm grows): only lora_B moves, rank unchanged
@@ -171,7 +171,7 @@ def main():
             B = raw0[names["B"]].float()
             Vk = V[key][0]
             tensors[names["B"]] = (B + alpha * (Vk @ (Vk.T @ B))).to(raw0[names["B"]].dtype)
-        write(f"amp{alpha:g}", tensors, cfg0["r"], f"λ0 + {alpha:g}·V 성분")
+        write(f"amp{alpha:g}", tensors, cfg0["r"], f"λ0 + {alpha:g}·V component")
 
     # graft: lambda1 adapter plus a piece of the lambda0 adapter, stacked to rank 2r
     for beta in (a.betas if "graft" in a.variants else []):
@@ -202,7 +202,7 @@ def main():
                     add = B0 * (target / max(float(B0.pow(2).sum()), 1e-12)) ** 0.5
                 tensors[names["B"]] = torch.cat([B1, beta * add], dim=1).to(raw1[names["B"]].dtype)
                 tensors[names["A"]] = torch.cat([A1, A0], dim=0).to(raw1[names["A"]].dtype)
-            write(f"{variant}{beta:g}", tensors, cfg0["r"] * 2, f"λ1 + {beta:g}·λ0의 {variant} 성분")
+            write(f"{variant}{beta:g}", tensors, cfg0["r"] * 2, f"λ1 + {beta:g}·{variant} component of λ0")
 
 
 if __name__ == "__main__":

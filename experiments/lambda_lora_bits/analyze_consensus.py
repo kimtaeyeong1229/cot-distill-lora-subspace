@@ -40,8 +40,8 @@ ap = argparse.ArgumentParser(description=__doc__)
 ap.add_argument("--side", choices=["pre", "post"], default="pre",
                 help="which side builds the consensus region; the other side is scored against it")
 ARGS = ap.parse_args()
-IN, OUT = ("문턱前", "문턱後") if ARGS.side == "pre" else ("문턱後", "문턱前")
-print(f"{'칸':14s} {'절벽':>4s} | {'합의차원':>8s} {IN + '(LOO)':>11s} {OUT:>8s} {'무작위':>7s}", flush=True)
+IN, OUT = ("pre", "post") if ARGS.side == "pre" else ("post", "pre")
+print(f"{'cell':14s} {'switch':>6s} | {'dims':>8s} {IN + '(LOO)':>11s} {OUT:>8s} {'chance':>7s}", flush=True)
 RESULTS = {}
 for pair, stu, tag, br in CELLS:
     ads = {}
@@ -50,7 +50,7 @@ for pair, stu, tag, br in CELLS:
             p = E/tag/"runs"/f"lambda{lam}_seed{sd}"/"adapter"/"adapter_model.safetensors"
             if p.exists(): ads[(lam, sd)] = basis(p)
     if len(ads) < 18:
-        print(f"{pair+'/'+stu:14s} {len(ads)}/18 건너뜀", flush=True); continue
+        print(f"{pair+'/'+stu:14s} {len(ads)}/18 adapters, skipped", flush=True); continue
     i = LAM.index(br)
     below, above = [(l, s) for l in LAM[:i] for s in SEEDS], [(l, s) for l in LAM[i:] for s in SEEDS]
     pre, post = (below, above) if ARGS.side == "pre" else (above, below)

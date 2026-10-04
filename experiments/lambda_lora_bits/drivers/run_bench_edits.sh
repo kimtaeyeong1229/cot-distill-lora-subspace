@@ -25,4 +25,4 @@ for entry in ${CELLS}; do
   done
   chown -R "$(stat -c '%u:%g' .)" "${E}/${tag}" 2>/dev/null || true
 done
-echo "[$(date '+%F %T')] 완료"
+echo "[$(date '+%F %T')] done"

@@ -27,7 +27,7 @@ for entry in ${CELLS}; do
         [[ -f "${d}/adapter_model.safetensors" ]] && adapters+=("lambda${lam}_${v}=${d}")
     done
   done
-  echo "[$(date '+%F %T')] ${tag}: ${#adapters[@]}개 평가"
+  echo "[$(date '+%F %T')] ${tag}: evaluating ${#adapters[@]} adapters"
   gen_limits "${student}"; maxlen="${MAXLEN}"; newtok="${NEWTOK}"
   python3 "${E}/eval_ablation.py" --base "models/${student}" --adapters "${adapters[@]}" \
     --data "${E}/data/math500.parquet" --out_dir "${E}/${tag}/${EVAL}" \
@@ -36,4 +36,4 @@ for entry in ${CELLS}; do
     >> "${E}/${tag}/logs/${LOG}.log" 2>&1
   chown -R "$(stat -c '%u:%g' .)" "${E}/${tag}" 2>/dev/null || true
 done
-echo "[$(date '+%F %T')] 완료"
+echo "[$(date '+%F %T')] done"

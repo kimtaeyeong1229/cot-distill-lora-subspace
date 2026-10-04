@@ -54,7 +54,7 @@ def main():
             continue
         jobs.append((name, path))
     if not jobs:
-        print("모두 완료됨")
+        print("all conditions already done")
         return
 
     tokenizer = load_tokenizer(a.base)

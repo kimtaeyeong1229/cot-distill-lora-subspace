@@ -19,4 +19,4 @@ for student in Qwen2.5-0.5B-Instruct Llama-3.2-1B-Instruct OLMo-2-1B-Instruct; d
   done
 done
 chown -R "$(stat -c '%u:%g' .)" "${E}/base_eval" 2>/dev/null || true
-echo "[$(date '+%F %T')] 완료"
+echo "[$(date '+%F %T')] done"

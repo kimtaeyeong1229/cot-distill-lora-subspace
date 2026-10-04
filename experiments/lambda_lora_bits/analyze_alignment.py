@@ -65,8 +65,8 @@ def main():
         think = {p: {"rates": dens[q]["teacher"]} for p, q in (("A", "A"), ("B", "B"), ("D", "C"))}
     res = json.loads(Path(a.resample).read_text())
 
-    print("구간: " + "  ".join(f"{s:>11s}" for s in INTERVALS))
-    print(f"\n{'칸':16s} {'adapter 낙차 프로파일':>58s} {'r':>7s} {'p':>7s}")
+    print("intervals: " + "  ".join(f"{s:>11s}" for s in INTERVALS))
+    print(f"\n{'cell':16s} {'adapter drop profile':>58s} {'r':>7s} {'p':>7s}")
     by_pair, out = {}, {}
     for key, cell in sorted(res.items()):
         pair = key.split("/")[0]
@@ -80,7 +80,7 @@ def main():
         by_pair.setdefault(pair, []).append((key, r, p))
         out[key] = dict(teacher_profile=teacher, adapter_profile=adapter, r=r, p=p)
 
-    print(f"\n{'쌍':4s} {'teacher 낙차 프로파일':>58s} {'평균 r':>8s} {'칸':>4s}")
+    print(f"\n{'pair':4s} {'teacher drop profile':>58s} {'mean r':>8s} {'cells':>5s}")
     for pair, cells in sorted(by_pair.items()):
         rates = think[pair]["rates"]
         teacher = [rates[LAMBDAS[i - 1]] - rates[LAMBDAS[i]] for i in range(1, len(LAMBDAS))]
@@ -88,8 +88,8 @@ def main():
               f"{st.mean(r for _, r, _ in cells):8.3f} {len(cells):4d}")
     every = [r for cells in by_pair.values() for _, r, _ in cells]
     if every:
-        print(f"\n{len(every)}칸 r 평균 {st.mean(every):.3f} (최소 {min(every):.3f}, 최대 {max(every):.3f})"
-              f" | p ≤ 0.05 인 칸 {sum(1 for c in by_pair.values() for _, _, p in c if p <= 0.05)}/{len(every)}")
+        print(f"\n{len(every)} cells: mean r {st.mean(every):.3f} (min {min(every):.3f}, max {max(every):.3f})"
+              f" | cells with p <= 0.05: {sum(1 for c in by_pair.values() for _, _, p in c if p <= 0.05)}/{len(every)}")
     # Pair level: the three students share one teacher profile, so the statistic is their mean r and
     # the same teacher ordering is applied to all three. Pooled: the three pairs have separate teachers,
     # so their orderings are permuted independently -- 120^3 joint orderings, enumerated exactly.
@@ -104,14 +104,14 @@ def main():
         p_pair = sum(1 for x in dist if x >= obs - 1e-12) / len(dist)
         summary[pair] = dict(mean_r=obs, p=p_pair, cells=len(cells))
         null.append(dist); pooled_obs += obs
-        print(f"쌍 {pair}: 학생 평균 r {obs:.3f}, 정확 p {p_pair:.4f} (순열 {len(dist)}개)")
+        print(f"pair {pair}: mean r over students {obs:.3f}, exact p {p_pair:.4f} ({len(dist)} permutations)")
     if len(null) == 3:
         import numpy as np
         A, B, C = (np.array(d) for d in null)
         total = A[:, None, None] + B[None, :, None] + C[None, None, :]
         p_pool = float((total >= pooled_obs - 1e-9).mean())
         summary["pooled"] = dict(mean_r=pooled_obs / 3, p=p_pool, orderings=int(total.size))
-        print(f"세 쌍 합산: 평균 r {pooled_obs / 3:.3f}, 정확 p {p_pool:.2e} (결합 순열 {total.size:,}개)")
+        print(f"three pairs pooled: mean r {pooled_obs / 3:.3f}, exact p {p_pool:.2e} ({total.size:,} joint orderings)")
     out["_summary"] = summary
     Path(a.output).write_text(json.dumps(out, indent=2))
     print(a.output)

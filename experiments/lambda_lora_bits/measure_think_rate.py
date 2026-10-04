@@ -19,7 +19,7 @@ PAIRS = [(PAIR_KEY[p], PAIR_DIR[p]) for p in PAIR_DIR]   # (key in think_rate.js
 
 
 def main():
-    print(f"{'쌍':3s} " + "".join(f"{('λ' + l):>8s}" for l in LAMBDAS) + "   0% 도달")
+    print(f"{'pair':4s} " + "".join(f"{('λ' + l):>8s}" for l in LAMBDAS) + "   first 0%")
     out = {}
     for name, tag in PAIRS:
         rates, first_zero = {}, None
@@ -30,7 +30,7 @@ def main():
             rates[lam] = rate
             if rate < 0.005 and first_zero is None:
                 first_zero = lam
-        print(f"{name:3s} " + "".join(f"{rates[l]:7.0%} " for l in LAMBDAS) + f"   λ{first_zero}")
+        print(f"{name:4s} " + "".join(f"{rates[l]:7.0%} " for l in LAMBDAS) + f"   λ{first_zero}")
         out[name] = dict(rates=rates, first_zero=first_zero,
                          n=len([1 for _ in (EXP / tag / "cot" / "lambda0.0.jsonl").open()]))
     path = RESULTS / "think_rate.json"

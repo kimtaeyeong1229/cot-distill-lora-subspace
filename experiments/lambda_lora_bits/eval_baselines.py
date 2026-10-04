@@ -54,7 +54,7 @@ def main():
     out_dir = Path(a.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     if (out_dir / f"{a.name}.json").exists():
-        print("모두 완료됨")
+        print("all conditions already done")
         return
     rows = (pd.read_parquet(a.data).to_dict("records") if a.data.endswith(".parquet")
             else read_jsonl(a.data))

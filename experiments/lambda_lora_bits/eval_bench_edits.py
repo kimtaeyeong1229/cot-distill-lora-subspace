@@ -77,7 +77,7 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
     jobs = [(n, p) for n, _, p in (s.partition("=") for s in a.adapters) if not (out_dir / f"{n}.json").exists()]
     if not jobs:
-        print("모두 완료됨")
+        print("all conditions already done")
         return
     items = DATASET_LOADERS[a.bench](str(DATA / DEFAULT_PATHS[a.bench].replace("data/raw/", "")))[:a.limit]
     tokenizer = load_tokenizer(a.base)
