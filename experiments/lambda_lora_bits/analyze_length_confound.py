@@ -39,6 +39,9 @@ choices of the held-out seed. A second, local check repeats this per interval wi
 two seeds at the interval's start (cut 0.75) and the third seed scored at both ends. Both ends are then
 outside the build set, but the end adapter also differs in its training data, so even an interval in
 which neither length nor thinking changes loses some coverage (compare the after-switch intervals).
+A third check, leave_lambda_out_coverage, keeps the Table 5 region (cut 0.5, all pre-switch lambdas) but
+builds it without every seed of the scored lambda, and scores post-switch lambdas against the same
+leave-one-lambda-out regions, so every scored adapter is outside a build set of the same size.
 
 Run from the repo root; writes experiments/length_confound.json.
 """
@@ -141,6 +144,57 @@ def two_seed_coverage():
     return out
 
 
+PRE = {"A": ["0.0", "0.2"], "B": ["0.0", "0.2", "0.4"], "C": ["0.0", "0.2", "0.4"]}   # pre-switch lambdas
+
+
+def leave_lambda_out_coverage():
+    """Coverage of the pre-switch shared region with every scored lambda left out of the build set.
+
+    For a pre-switch lambda the region (eigenvalue cut 0.5, as in Table 5) is built from all seeds of the
+    other pre-switch lambdas, so neither the scored adapter nor its same-lambda seeds helped build it. A
+    post-switch lambda is scored against each of those leave-one-lambda-out regions and averaged, so pre-
+    and post-switch adapters face build sets of the same size and are all outside them.
+    """
+    import torch
+    from ablate_subspace import consensus, left_basis, read_adapter
+
+    def load(tag, lam, seed):
+        path = E / tag / "runs" / f"lambda{lam}_seed{seed}" / "adapter"
+        config = json.loads((path / "adapter_config.json").read_text())
+        scale = config["lora_alpha"] / config["r"]
+        raw, parts = read_adapter(path / "adapter_model.safetensors")
+        bases, norms = {}, {}
+        for key, names in parts.items():
+            if len(names) == 2:
+                B, A = raw[names["B"]].float(), raw[names["A"]].float()
+                bases[key] = left_basis(B, A, scale)
+                norms[key] = float(torch.linalg.matrix_norm(scale * B @ A))
+        return bases, norms
+
+    out = {}
+    for pair, cells in RUNS.items():
+        pre = PRE[pair]
+        for short, tag in cells.items():
+            ads = {(l, s): load(tag, l, s) for l in LAM for s in SEEDS}
+            keys = set.intersection(*[set(b) for b, _ in ads.values()])
+            weight = {k: st.mean(n[k] for _, n in ads.values()) for k in keys}
+            den = sum(weight.values())
+            # score[out_lambda][lambda] = mean over seeds of coverage of region built without out_lambda
+            score = {o: {l: 0.0 for l in LAM} for o in pre}
+            dims = {o: 0.0 for o in pre}
+            for k in keys:
+                for o in pre:
+                    V, kv = consensus([ads[(l, s)][0][k] for l in pre if l != o for s in SEEDS], threshold=0.5)
+                    dims[o] += weight[k] * kv / den
+                    for l in LAM:
+                        score[o][l] += weight[k] * st.mean(
+                            float((ads[(l, s)][0][k].T @ V).pow(2).sum()) / kv for s in SEEDS) / den
+            cov = {l: (score[l][l] if l in pre else st.mean(score[o][l] for o in pre)) for l in LAM}
+            out[f"{pair}/{short}"] = {"coverage": cov, "by_left_out_lambda": score, "region_dims": dims}
+            print(f"leave-lambda-out {pair}/{short:6s} " + " ".join(f"{cov[l]:.3f}" for l in LAM), flush=True)
+    return out
+
+
 def summarize(values):
     return {"min": min(values), "max": max(values), "mean": st.mean(values), "n": len(values)}
 
@@ -151,14 +205,15 @@ def main():
     res = json.loads((X / "phi_resample_s012.json").read_text())
     cov_all = json.loads((X / "coverage_by_lambda.json").read_text())
     seed_cov = two_seed_coverage()
+    llo = leave_lambda_out_coverage()
 
     out = {"criteria": {"switch_drop_points": SWITCH_DROP, "held_change_points": HELD_CHANGE,
                         "held_min_think": ON_LEVEL, "after_max_think": OFF_LEVEL,
                         "held_marker_floor_x_lambda1": MARKER_FLOOR,
                         "switch_continuation": "directly after a switch, think rate falls from >= 15% by >= 15 points"},
-           "pairs": {}, "two_seed_region": seed_cov, "summary": {}}
+           "pairs": {}, "two_seed_region": seed_cov, "leave_lambda_out_region": llo, "summary": {}}
     pooled = {c: {"coverage": [], "coverage_per_log_len": [], "R": [], "R_per_log_len": [], "seed_cov": [],
-                  "local": [], "log_len": []} for c in ("held", "switch", "after")}
+                  "local": [], "llo": [], "log_len": []} for c in ("held", "switch", "after")}
     for p, (split, key) in PAIRS.items():
         stats = json.loads((E / split / "splits" / "split_stats.json").read_text())
         n = stats["n_train"]
@@ -169,6 +224,7 @@ def main():
         cov = {s: cov_all[f"{key}/{full}"]["coverage"] for s, full in STUDENTS.items()}
         R = {s: {l: res[f"{key}/{full}"]["rows"][l]["retention"] for l in LAM} for s, full in STUDENTS.items()}
         sc = {s: seed_cov[f"{p}/{s}"]["coverage"] for s in STUDENTS}
+        lo = {s: llo[f"{p}/{s}"]["coverage"] for s in STUDENTS}
         intervals = []
         for i in range(5):
             a, b = LAM[i], LAM[i + 1]
@@ -180,6 +236,7 @@ def main():
                    "coverage_change": {s: cov[s][b] - cov[s][a] for s in STUDENTS},
                    "R_change": {s: R[s][b] - R[s][a] for s in STUDENTS},
                    "two_seed_coverage_change": {s: sc[s][b] - sc[s][a] for s in STUDENTS},
+                   "leave_lambda_out_coverage_change": {s: lo[s][b] - lo[s][a] for s in STUDENTS},
                    "local_coverage_change": {s: seed_cov[f"{p}/{s}"]["local_change"][f"{a}->{b}"]
                                              for s in STUDENTS}}
             row["coverage_change_per_log_len"] = {s: v / d_len for s, v in row["coverage_change"].items()}
@@ -193,6 +250,7 @@ def main():
                 pooled[c]["R_per_log_len"] += row["R_change_per_log_len"].values()
                 pooled[c]["seed_cov"] += row["two_seed_coverage_change"].values()
                 pooled[c]["local"] += row["local_coverage_change"].values()
+                pooled[c]["llo"] += row["leave_lambda_out_coverage_change"].values()
                 pooled[c]["log_len"].append(d_len)
             print(f"{p} {a}->{b} {c:7s} loglen {d_len:.2f} think {think[a]:5.1f}->{think[b]:5.1f} "
                   f"markers {markers[a]:5.2f}->{markers[b]:5.2f} | cov "
@@ -201,7 +259,7 @@ def main():
                   + " ".join(f"{v:+.3f}" for v in row["two_seed_coverage_change"].values()) + " | local "
                   + " ".join(f"{v:+.3f}" for v in row["local_coverage_change"].values()))
         out["pairs"][p] = {"n_train": n, "tokens": tokens, "think_rate": think, "teacher_markers": markers,
-                           "coverage": cov, "R": R, "two_seed_coverage": sc, "intervals": intervals}
+                           "coverage": cov, "R": R, "two_seed_coverage": sc, "leave_lambda_out_coverage": lo, "intervals": intervals}
     for c, v in pooled.items():
         out["summary"][c] = {"intervals": sum(1 for p in out["pairs"].values() for r in p["intervals"]
                                               if r["class"] == c),
@@ -210,7 +268,8 @@ def main():
                              "coverage_change_per_log_len": summarize(v["coverage_per_log_len"]),
                              "R_change": summarize(v["R"]), "R_change_per_log_len": summarize(v["R_per_log_len"]),
                              "two_seed_coverage_change": summarize(v["seed_cov"]),
-                             "local_coverage_change": summarize(v["local"])}
+                             "local_coverage_change": summarize(v["local"]),
+                             "leave_lambda_out_coverage_change": summarize(v["llo"])}
         s = out["summary"][c]
         print(f"{c:7s} log-len drop {s['log_len_drop']['min']:.2f}..{s['log_len_drop']['max']:.2f} | "
               f"coverage {s['coverage_change']['min']:+.3f}..{s['coverage_change']['max']:+.3f} "
