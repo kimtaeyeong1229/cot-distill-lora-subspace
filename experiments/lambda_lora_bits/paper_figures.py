@@ -167,7 +167,7 @@ def fig3():
     t2 = lambda k: [spread[cell(p, s)]["table2"][k]["mean"] for p, s in CELLS]
     pct = lambda v: [100 * x for x in v]
     fig, axes = plt.subplots(2, 2, figsize=(WIDTH, 3.6), gridspec_kw={"hspace": 0.85, "wspace": 0.25})
-    (a, b), (c, d) = axes
+    (a, d), (b, c) = axes                                # draw order a-d below; letters follow reading order
     bars(a, [(r"$\lambda = 0$ adapter", F3_BASE, b0("base0", "markers")),
              ("Other removed", F3_CONTROL, b0("rm_other", "markers")),
              ("Shared removed", F3_SHARED, b0("rm_pre", "markers"))], "Reflective markers", "(per 1,000 words)")
@@ -176,17 +176,17 @@ def fig3():
              ("Graft other", F3_CONTROL, ed("graft_other2", "head_markers_per_1k")),
              ("Graft shared", F3_SHARED, ed("graft2", "head_markers_per_1k"))],
          "Reflective markers", "(per 1,000 words, early)")
-    panel_legend(b, "b", r"Graft into the $\lambda = 1$ adapter ($\beta = 2$)")
+    panel_legend(b, "c", r"Graft into the $\lambda = 1$ adapter ($\beta = 2$)")
     bars(c, [(r"$\lambda = 1$ adapter", F3_BASE, pct([1 - t for t in t2("trunc1")])),
              ("Graft other", F3_CONTROL, pct(ed("graft_other2", "completed"))),
              ("Graft shared", F3_SHARED, pct(ed("graft2", "completed")))], "Completed responses", "(%)")
     c.set_yticks([0, 25, 50, 75, 100])
-    panel_legend(c, "c", r"Graft into the $\lambda = 1$ adapter ($\beta = 2$)")
+    panel_legend(c, "d", r"Graft into the $\lambda = 1$ adapter ($\beta = 2$)")
     bars(d, [(r"$\lambda = 0$ adapter", F3_BASE, [spread[cell(p, s)]["table1"]["0.0"]["mean"] for p, s in CELLS]),
              (r"Amplified, $\gamma = 1$", F3_SHARED_SOFT, ed("ampn1", "markers_per_1k")),
              (r"Amplified, $\gamma = 4$", F3_SHARED, ed("ampn4", "markers_per_1k"))],
          "Reflective markers", "(per 1,000 words)")
-    panel_legend(d, "d", r"Amplify within the $\lambda = 0$ adapter (norm fixed)")
+    panel_legend(d, "b", r"Amplify within the $\lambda = 0$ adapter (norm fixed)")
     fig.savefig(OUT / "fig3_states.pdf")
 
 
