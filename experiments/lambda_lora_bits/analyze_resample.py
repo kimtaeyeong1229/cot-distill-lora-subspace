@@ -79,8 +79,8 @@ def chance(x):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--output", default=str(EXP.parent / "phi_resample.json"))
-    ap.add_argument("--seeds", nargs="+", type=int, default=[0])
+    ap.add_argument("--output", default=str(EXP.parent / "phi_resample_s012.json"))
+    ap.add_argument("--seeds", nargs="+", type=int, default=[0, 1, 2])
     a = ap.parse_args()
 
     results = {}

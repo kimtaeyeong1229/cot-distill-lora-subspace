@@ -49,8 +49,8 @@ def permutation_p(teacher, adapter):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--think", default=str(EXP.parent / "think_rate.json"))
-    ap.add_argument("--resample", default=str(EXP.parent / "phi_resample.json"))
-    ap.add_argument("--output", default=str(EXP.parent / "alignment.json"))
+    ap.add_argument("--resample", default=str(EXP.parent / "phi_resample_s012.json"))
+    ap.add_argument("--output", default=str(EXP.parent / "alignment_s012.json"))
     ap.add_argument("--teacher", choices=["think", "markers"], default="think")
     ap.add_argument("--density", default=str(EXP.parent / "teacher_density.json"))
     a = ap.parse_args()

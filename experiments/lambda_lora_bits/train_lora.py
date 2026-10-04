@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """LoRA SFT of the student on one lambda's CoT data.
 
-Every arm uses the same seed, so the LoRA A matrices start identical and the
-adapter saved at step 0 (adapter_init/) is shared; measure_bits.py codes the
-update relative to it. The loss is the mean over all response tokens of each
+Runs with the same seed start from the same LoRA initialisation, which is saved at
+step 0 (adapter_init/). The loss is the mean over all response tokens of each
 32-sample optimizer batch, however the batch is split into micro-batches.
 """
 

@@ -11,9 +11,10 @@ set -uo pipefail
 cd "$(dirname "$0")/../../.."
 E=experiments/lambda_lora_bits
 LIMIT="${LIMIT:-200}"; SAMPLES="${SAMPLES:-2}"
-# RUNS/EVAL/LOG pick the directories, so a re-run (e.g. the leave-one-out regions) never collides
-# with finished results -- eval_ablation.py skips any condition whose output already exists
-RUNS="${RUNS:-runs_ablation}"; EVAL="${EVAL:-eval_ablation}"; LOG="${LOG:-eval_ablation}"
+# RUNS/EVAL/LOG pick the directories; eval_ablation.py skips any condition whose output already exists.
+# The paper uses only the unedited seed-0 adapters of this script (EVAL=eval_ablation_loo,
+# lambda0.0_base.json, read by analyze_graft_beta.py); edited variants are evaluated only if RUNS holds them.
+RUNS="${RUNS:-runs_ablation_loo}"; EVAL="${EVAL:-eval_ablation_loo}"; LOG="${LOG:-${EVAL}}"
 for entry in ${CELLS}; do
   tag="${entry%%:*}"; student="${entry#*:}"
   mkdir -p "${E}/${tag}/logs"

@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
-# Teacher side of pairs B, C and D: download -> template pilot -> full CoT pool -> shared splits.
+# Teacher side of pairs B and C: download -> template pilot -> full CoT pool -> shared splits.
 #
-# Same procedure as pair A (run_sweep_v2.sh stage 1-2 and pilot_template.sh); only the
-# endpoints change. STAGE=pilot stops after the template comparison so the template can be
-# agreed before the 4,000-problem pool is generated with STAGE=full TEMPLATE=<reasoning|instruct>.
+# The paper's pair C is PAIR=D here (directory pairD/, key "D" in some result files).
+# Same procedure as pair A (run_sweep_v2.sh and pilot_template.sh); only the endpoints change.
+# STAGE=pilot stops after the template comparison so the template can be agreed before the
+# 4,000-problem pool is generated with STAGE=full TEMPLATE=<reasoning|instruct>. Both pairs use
+# TEMPLATE=reasoning (pairB/template.txt, pairD/template.txt).
 #
-#   docker exec -d cot-distill-lora-bit bash -c "PAIR=C STAGE=pilot bash experiments/lambda_lora_bits/run_pair.sh > experiments/lambda_lora_bits/pairC/pilot.log 2>&1"
+#   docker exec -d cot-distill-lora-bit bash -c "PAIR=B STAGE=pilot bash experiments/lambda_lora_bits/run_pair.sh > experiments/lambda_lora_bits/pairB/pilot.log 2>&1"
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 
 EXP=experiments/lambda_lora_bits
-PAIR="${PAIR:?set PAIR=B, C or D}"
+PAIR="${PAIR:?set PAIR=B or D (D is pair C in the paper)}"
 STAGE="${STAGE:?set STAGE=pilot or STAGE=full}"
 case "${PAIR}" in
   B) REASONING_ID=Qwen/Qwen3-4B-Thinking-2507;              INSTRUCT_ID=Qwen/Qwen3-4B-Instruct-2507 ;;
-  C) REASONING_ID=deepseek-ai/DeepSeek-R1-Distill-Qwen-7B;  INSTRUCT_ID=Qwen/Qwen2.5-Math-7B-Instruct ;;
   D) REASONING_ID=deepseek-ai/DeepSeek-R1-Distill-Llama-8B; INSTRUCT_ID=meta-llama/Llama-3.1-8B-Instruct ;;
   *) echo "unknown PAIR=${PAIR}"; exit 1 ;;
 esac
@@ -33,7 +34,7 @@ mkdir -p "${OUT}/teachers" "${OUT}/logs" "${OUT}/pilot"
 stage() { echo "[$(date '+%F %T')] $*"; }
 
 # --- download ------------------------------------------------------------------
-export HF_TOKEN="$(cat hf.key)"
+[[ -f hf.key ]] && export HF_TOKEN="$(cat hf.key)"   # optional; otherwise HF_TOKEN or the cached login
 for repo in "${REASONING_ID}" "${INSTRUCT_ID}" Qwen/Qwen2.5-0.5B-Instruct; do
   dir="models/${repo##*/}"
   if [[ ! -f "${dir}/.download_done" ]]; then
@@ -47,7 +48,7 @@ PY
     touch "${dir}/.download_done"
   fi
 done
-unset HF_TOKEN
+[[ -f hf.key ]] && unset HF_TOKEN
 
 has_weights() { [[ -f "$1/model.safetensors" || -f "$1/model.safetensors.index.json" ]]; }
 

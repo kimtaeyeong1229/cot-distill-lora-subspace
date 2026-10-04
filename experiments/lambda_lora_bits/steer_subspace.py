@@ -90,7 +90,7 @@ def main():
                     help="norm-preserving amplification factors")
     ap.add_argument("--variants", nargs="+", default=["amp", "ampn", "ampV", "graft"])
     ap.add_argument("--betas", nargs="+", type=float, default=[1.0])
-    ap.add_argument("--out", default="runs_steer")
+    ap.add_argument("--out", required=True, help="output directory inside the cell, e.g. runs_edit_s0")
     a = ap.parse_args()
 
     runs = EXP / a.tag / "runs"

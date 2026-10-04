@@ -118,7 +118,7 @@ def main():
     ap.add_argument("--loo", action="store_true",
                     help="build the regions without the adapters being edited, so no adapter is edited "
                          "along a region it helped define")
-    ap.add_argument("--out", default="runs_ablation")
+    ap.add_argument("--out", required=True, help="output directory inside the cell, e.g. runs_edit_s0")
     ap.add_argument("--variants", nargs="+",
                     default=["rm_pre", "rm_rand", "rm_post", "rm_least", "rm_energy", "rm_scale",
                              "rm_decisive"])

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the problem pool for the lambda-sweep LoRA-bits experiment.
+"""Build the problem pool shared by every teacher pair and lambda.
 
 Downloads the MATH train split and MATH-500, extracts the final \\boxed{} answer
 from each reference solution, removes any train problem that also appears in

@@ -6,14 +6,14 @@ set -uo pipefail
 cd "$(dirname "$0")/../../.."
 E=experiments/lambda_lora_bits
 LIMIT="${LIMIT:-200}"; SAMPLES="${SAMPLES:-2}"
-# RUNS/EVAL/LOG pick the directories, so a re-run (e.g. the leave-one-out regions) never collides
-# with finished results -- eval_ablation.py skips any condition whose output already exists
-RUNS="${RUNS:-runs_steer}"; EVAL="${EVAL:-eval_steer}"; LOG="${LOG:-eval_steer}"
+# RUNS/EVAL/LOG pick the directories (e.g. RUNS=runs_edit_s0 EVAL=eval_main_s0 LOG=eval_main_s0);
+# eval_ablation.py skips any condition whose output already exists
+RUNS="${RUNS:?set RUNS (e.g. runs_edit_s0)}"; EVAL="${EVAL:?set EVAL (e.g. eval_main_s0)}"; LOG="${LOG:-${EVAL}}"
 for entry in ${CELLS}; do
   tag="${entry%%:*}"; student="${entry#*:}"
   mkdir -p "${E}/${tag}/logs"
   adapters=()
-  for v in ${VARIANTS:-amp1 amp2 graft1 graft_rand1 graft_full1}; do
+  for v in ${VARIANTS:?set VARIANTS (adapter names inside RUNS)}; do
     d="${E}/${tag}/${RUNS}/${v}/adapter"
     [[ -f "${d}/adapter_model.safetensors" ]] && adapters+=("${v}=${d}")
   done
