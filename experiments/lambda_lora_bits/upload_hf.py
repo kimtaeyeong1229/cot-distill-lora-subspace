@@ -221,58 +221,116 @@ PAPER_CELLS = ["sweep", "sweep_llama", "sweep_olmo2", "pairB/qwen0.5b", "pairB/l
                "pairD/qwen0.5b", "pairD/llama1b", "pairD/olmo1b"]
 
 
-def stage_extra():
-    """Student generations behind the paper's tables, added to the dataset repo after its first upload.
+# analysis/ JSONs the paper reads (model repo). Others in experiments/ are past-design or retracted.
+PAPER_ANALYSIS = (
+    "alignment_markers_s012", "alignment_s012", "base_students", "baselines", "consensus_post", "consensus_pre",
+    "graft_beta", "main_density", "main_edits", "ood", "phi_resample_s012", "phi_xseed", "reproducibility.lock",
+    "sae_llama", "seed_region_overlap", "seed_spread", "teacher_density", "think_rate",
+    # added 2026-10-04 (appendix tables 16-22 and the coverage figure)
+    "coverage_by_lambda", "degeneration", "edit_stats", "length_confound", "threshold_sensitivity", "top_overlap",
+)
+FRESH_SECONDS = 600  # a file written this recently may still be in progress; leave it for the next run
 
-    GPQA-Diamond's authors ask that its examples not be posted online in plain text, so its records keep
-    only item index, sample index, finish reason, token count and correctness; question and response text
-    are dropped. The other benchmarks (MATH-500, GSM8K) are public and are copied as written.
+
+def extra_sources():
+    """(source, path in the dataset repo) for the paper's student generations beyond the first upload.
+
+    eval_math500_7680 is the 7,680-token re-run the paper reads for A/Qwen and A/Llama.
+    eval_graft_beta holds the seed-0 grafts at beta = 2, 4, 8 behind analysis/graft_beta.json and
+    degeneration.json. merge0.7 was removed from the Hub in the 2026-10-03 cleanup and is not re-added.
     """
+    for tag in PAPER_CELLS:
+        for d in sorted((EXP / tag).glob("eval_*")):
+            if not (d.name[:-1] in ("eval_main_s", "eval_gsm8k_s", "eval_gpqa_diamond_s")
+                    or d.name in ("eval_graft_beta", "eval_math500_7680")):
+                continue
+            for f in sorted(d.iterdir()):
+                if f.name.startswith("merge0.7."):
+                    continue
+                yield f, f"student_generations/{tag}/{d.name}/{f.name}"
+    for f in sorted((EXP / "base_eval").rglob("*")):
+        if f.is_file() and f.name != "eval.log":
+            yield f, f"student_generations/untrained/{f.relative_to(EXP / 'base_eval').as_posix()}"
+
+
+def put(src: Path, dest: Path):
+    """Hard-link src to dest, except GPQA-Diamond samples: its authors ask that the examples not be posted
+    online in plain text, so those records keep only item index, sample index, finish reason, token count
+    and correctness; question and response text are dropped. MATH-500 and GSM8K are copied as written."""
     import gzip
+    if "eval_gpqa_diamond" in src.parent.name and src.name.endswith(".samples.jsonl.gz"):
+        rows = [json.loads(line) for line in gzip.open(src, "rt")]
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        with gzip.open(dest, "wt") as g:
+            for i, r in enumerate(rows):
+                g.write(json.dumps({"item": i // 2, "sample": i % 2, "finish_reason": r["finish_reason"],
+                                    "tokens": r["tokens"], "correct": r["correct"]}) + "\n")
+    else:
+        link(src, dest)
+
+
+def stage_extra():
+    """Student generations behind the paper's tables, added to the dataset repo after its first upload."""
     out = STAGE / "cot_extra"
     if out.exists():
         shutil.rmtree(out)
     n = 0
-    for tag in PAPER_CELLS:
-        for d in sorted((EXP / tag).glob("eval_*_s[012]")):
-            if not (d.name.startswith("eval_main_s") or d.name.startswith("eval_gsm8k_s")
-                    or d.name.startswith("eval_gpqa_diamond_s")):
-                continue
-            for f in sorted(d.iterdir()):
-                dest = out / "student_generations" / tag / d.name / f.name
-                if d.name.startswith("eval_gpqa_diamond") and f.name.endswith(".samples.jsonl.gz"):
-                    rows = [json.loads(line) for line in gzip.open(f, "rt")]
-                    dest.parent.mkdir(parents=True, exist_ok=True)
-                    with gzip.open(dest, "wt") as g:
-                        for i, r in enumerate(rows):
-                            g.write(json.dumps({"item": i // 2, "sample": i % 2, "finish_reason": r["finish_reason"],
-                                                "tokens": r["tokens"], "correct": r["correct"]}) + "\n")
-                else:
-                    link(f, dest)
-                n += 1
-    for f in sorted((EXP / "base_eval").rglob("*")):
-        if f.is_file() and f.name != "eval.log":
-            link(f, out / "student_generations" / "untrained" / f.relative_to(EXP / "base_eval"))
-            n += 1
+    for src, rel in extra_sources():
+        put(src, out / rel)
+        n += 1
     return out, n
+
+
+def upload_missing(api, stage_only):
+    """Upload only the paper files the Hub lacks, into a new staging folder (nothing existing is removed).
+    Files modified in the last FRESH_SECONDS are skipped and reported."""
+    import time
+    out = STAGE / f"missing_{time.strftime('%Y%m%d_%H%M%S')}"
+    now = time.time()
+    plan = {"dataset": [], "model": []}
+    hub = {"dataset": set(api.list_repo_files(DATA_REPO, repo_type="dataset")),
+           "model": set(api.list_repo_files(MODEL_REPO, repo_type="model"))}
+    candidates = [("dataset", src, rel) for src, rel in extra_sources()]
+    candidates += [("model", ROOT / "experiments" / f"{n}.json", f"analysis/{n}.json") for n in PAPER_ANALYSIS]
+    for kind, src, rel in candidates:
+        if rel in hub[kind]:
+            continue
+        if not src.exists():
+            print(f"[skip] {kind} {rel}: no local file", flush=True)
+        elif now - src.stat().st_mtime < FRESH_SECONDS:
+            print(f"[skip] {kind} {rel}: modified {now - src.stat().st_mtime:.0f} s ago", flush=True)
+        else:
+            put(src, out / kind / rel)
+            plan[kind].append(rel)
+    for kind, repo in (("dataset", DATA_REPO), ("model", MODEL_REPO)):
+        size = sum((out / kind / r).stat().st_size for r in plan[kind])
+        print(f"[stage] {kind} {len(plan[kind])} files {size / 1e6:.1f} MB -> {out / kind}", flush=True)
+        for r in plan[kind]:
+            print(f"  {r}", flush=True)
+        if plan[kind] and not stage_only:
+            api.upload_folder(repo_id=repo, repo_type=kind, folder_path=str(out / kind), allow_patterns=plan[kind],
+                              commit_message=f"Add {len(plan[kind])} paper files missing from the Hub")
+            print(f"[done] {kind}", flush=True)
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--what", choices=["adapters", "data", "both", "extra"], default="both")
+    ap.add_argument("--what", choices=["adapters", "data", "both", "extra", "missing"], default="both")
     ap.add_argument("--stage-only", action="store_true")
     a = ap.parse_args()
 
     api = HfApi(token=os.environ["HF_TOKEN"])
+    if a.what == "missing":
+        upload_missing(api, a.stage_only)
+        return
     if a.what == "extra":
         path, n = stage_extra()
         print(f"[stage] extra {n} files -> {path}", flush=True)
         if not a.stage_only:
             api.upload_large_folder(repo_id=DATA_REPO, repo_type="dataset", folder_path=str(path))
-            for name in ("alignment_markers_s012.json", "base_students.json", "larger_students.json",
-                         "control_pairc.json"):
-                api.upload_file(path_or_fileobj=str(ROOT / "experiments" / name), path_in_repo=f"analysis/{name}",
-                                repo_id=MODEL_REPO, repo_type="model")
+            for name in PAPER_ANALYSIS:
+                api.upload_file(path_or_fileobj=str(ROOT / "experiments" / f"{name}.json"),
+                                path_in_repo=f"analysis/{name}.json", repo_id=MODEL_REPO, repo_type="model")
             print("[done] extra", flush=True)
         return
     if a.what in ("adapters", "both"):

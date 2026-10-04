@@ -78,6 +78,7 @@ Students generate at temperature 0.6 and top-p 0.95, with at most 7,680 new toke
   - `<condition>.samples.jsonl.gz` holds the responses, two consecutive lines per problem, with fields `problem`, `text`, `finish_reason` and `tokens`.
 - **`eval_gsm8k_s{s}/`** and **`eval_gpqa_diamond_s{s}/`**: the MATH-trained adapters, unchanged, on GSM8K (first 200 problems) and GPQA-Diamond (all 198), each with 2 samples. The conditions are `lambda0.0`, `lambda0.0_rm_pre`, `lambda0.0_rm_decisive` and `lambda1.0`. GSM8K samples carry `question`, `text`, `finish_reason`, `tokens` and `correct`.
 - **GPQA-Diamond text is stripped.** The GPQA authors ask that its examples not be posted online. Its `.samples.jsonl.gz` files keep only `item`, `sample`, `finish_reason`, `tokens` and `correct`, and the `.json` summaries contain no question text.
+- **`eval_graft_beta/graft{,_orth,_full}{2,4,8}`**: the seed-0 grafts at β = 2, 4, 8 (same format as `eval_main_s*`), behind the model repo's `analysis/graft_beta.json` and `degeneration.json`; `pairB/llama1b` lacks `graft_full{4,8}`.
 - **`untrained/<student>/eval_main_s{s}/`**: the untrained students under the same MATH-500 setting. Here `s` is the sampling seed, because there is no adapter seed.
 
 ### Condition names and the paper's terms
