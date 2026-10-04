@@ -26,8 +26,8 @@ import statistics as st
 from itertools import permutations
 from pathlib import Path
 
-EXP = Path(__file__).resolve().parent
-LAMBDAS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+from config import LAMBDAS, RESULTS
+
 INTERVALS = [f"{LAMBDAS[i - 1]}→{LAMBDAS[i]}" for i in range(1, len(LAMBDAS))]
 
 
@@ -48,12 +48,15 @@ def permutation_p(teacher, adapter):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--think", default=str(EXP.parent / "think_rate.json"))
-    ap.add_argument("--resample", default=str(EXP.parent / "phi_resample_s012.json"))
-    ap.add_argument("--output", default=str(EXP.parent / "alignment_s012.json"))
+    ap.add_argument("--think", default=str(RESULTS / "think_rate.json"))
+    ap.add_argument("--resample", default=str(RESULTS / "phi_resample_s012.json"))
+    ap.add_argument("--output", default=None,
+                    help="default: alignment_s012.json (think) or alignment_markers_s012.json (markers)")
     ap.add_argument("--teacher", choices=["think", "markers"], default="think")
-    ap.add_argument("--density", default=str(EXP.parent / "teacher_density.json"))
+    ap.add_argument("--density", default=str(RESULTS / "teacher_density.json"))
     a = ap.parse_args()
+    if a.output is None:
+        a.output = str(RESULTS / ("alignment_markers_s012.json" if a.teacher == "markers" else "alignment_s012.json"))
 
     think = json.loads(Path(a.think).read_text())
     if a.teacher == "markers":

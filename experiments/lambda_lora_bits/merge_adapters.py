@@ -22,7 +22,7 @@ import torch
 from safetensors import safe_open
 from safetensors.torch import save_file
 
-EXP = Path(__file__).resolve().parent
+from config import EXP, REPO_ROOT
 
 
 def load(path):
@@ -44,7 +44,7 @@ def main():
     c1, t1 = load(runs / f"lambda1.0_seed{a.seed}" / "adapter")
     assert set(t0) == set(t1), "the two adapters target different modules"
     s0, s1 = c0["lora_alpha"] / c0["r"], c1["lora_alpha"] / c1["r"]
-    stat = EXP.parent.parent.stat()
+    stat = REPO_ROOT.stat()
 
     for alpha in a.alphas:
         merged = {}

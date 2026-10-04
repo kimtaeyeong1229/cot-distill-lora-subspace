@@ -6,9 +6,9 @@
 set -uo pipefail
 cd "$(dirname "$0")/../../.."
 E=experiments/lambda_lora_bits
+source "${E}/config.sh"   # gen_limits, PAPER_SWITCH, PAPER_SEEDS
 for student in Qwen2.5-0.5B-Instruct Llama-3.2-1B-Instruct OLMo-2-1B-Instruct; do
-  maxlen=8192; newtok=7680
-  [[ "${student}" == *OLMo* ]] && maxlen=4096 && newtok=3840
+  gen_limits "${student}"; maxlen="${MAXLEN}"; newtok="${NEWTOK}"
   mkdir -p "${E}/base_eval/${student}"
   for seed in 0 1 2; do
     echo "[$(date '+%F %T')] ${student} s${seed}"

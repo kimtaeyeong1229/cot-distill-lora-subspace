@@ -10,6 +10,7 @@
 set -uo pipefail
 cd "$(dirname "$0")/../../.."
 E=experiments/lambda_lora_bits
+source "${E}/config.sh"   # gen_limits, PAPER_SWITCH, PAPER_SEEDS
 LIMIT="${LIMIT:-200}"; SAMPLES="${SAMPLES:-2}"
 # RUNS/EVAL/LOG pick the directories; eval_ablation.py skips any condition whose output already exists.
 # The paper uses only the unedited seed-0 adapters of this script (EVAL=eval_ablation_loo,
@@ -27,8 +28,7 @@ for entry in ${CELLS}; do
     done
   done
   echo "[$(date '+%F %T')] ${tag}: ${#adapters[@]}개 평가"
-  maxlen=8192; newtok=7680
-  [[ "${student}" == *OLMo* ]] && maxlen=4096 && newtok=3840
+  gen_limits "${student}"; maxlen="${MAXLEN}"; newtok="${NEWTOK}"
   python3 "${E}/eval_ablation.py" --base "models/${student}" --adapters "${adapters[@]}" \
     --data "${E}/data/math500.parquet" --out_dir "${E}/${tag}/${EVAL}" \
     --limit "${LIMIT}" --n_samples "${SAMPLES}" \

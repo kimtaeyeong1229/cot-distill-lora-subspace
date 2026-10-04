@@ -28,11 +28,10 @@ import math
 import statistics as st
 from pathlib import Path
 
-X = Path("experiments")
-E = X / "lambda_lora_bits"
-LAM = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
-PAIRS = {"A": ("sweep", "A"), "B": ("pairB", "B"), "C": ("pairD", "D")}   # paper name -> (split dir, json key)
-STUDENTS = ["Qwen2.5-0.5B", "Llama-3.2-1B", "OLMo-2-1B"]
+from config import EXP as E, LAMBDAS as LAM, PAIR_DIR, PAIR_KEY, RESULTS as X, STUDENT_SHORT
+
+PAIRS = {p: (PAIR_DIR[p], PAIR_KEY[p]) for p in PAIR_DIR}   # paper name -> (split dir, json key)
+STUDENTS = list(STUDENT_SHORT.values())
 
 
 def corr(x, y):

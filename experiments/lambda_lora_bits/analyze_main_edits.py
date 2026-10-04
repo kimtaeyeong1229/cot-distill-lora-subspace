@@ -7,26 +7,18 @@ analyze_main_density.py, the reflective-marker density is counted on each proble
 tokens, truncation, completion and accuracy use both samples. The lambda0 / lambda1 bases come from
 experiments/main_density.json, so an unedited adapter has one value everywhere in the paper.
 
-Run from the repo root after analyze_main_density.py; writes experiments/main_edits.json.
+Run after analyze_main_density.py; writes experiments/main_edits.json.
 """
 
 import gzip
 import json
-import re
 from pathlib import Path
 
-E = Path("experiments/lambda_lora_bits")
-CELLS = {"A/Qwen": "sweep", "A/Llama": "sweep_llama", "A/OLMo": "sweep_olmo2",
-         "B/Qwen": "pairB/qwen0.5b", "B/Llama": "pairB/llama1b", "B/OLMo": "pairB/olmo1b",
-         "C/Qwen": "pairD/qwen0.5b", "C/Llama": "pairD/llama1b", "C/OLMo": "pairD/olmo1b"}
+from config import CELL_DIR as CELLS, EVAL_SAMPLES as SAMPLES, EXP as E, HEAD_WORDS as HEAD, REFLECTIVE, RESULTS, SEEDS
+
 VARIANTS = ["lambda0.0_rm_pre", "lambda0.0_rm_decisive", "lambda0.0_rm_scale", "lambda1.0_rm_pre",
             "graft1", "graft_orth1", "graft_full1", "graft2", "graft_orth2", "graft_full2",
             "ampn1", "ampn4", "ampV"]
-SEEDS, SAMPLES, HEAD = [0, 1, 2], 2, 300
-# same pattern as eval_ablation.REFLECTIVE (not imported: that module pulls in vllm)
-REFLECTIVE = re.compile(
-    r"\b(wait|hmm|actually|but let me|let me check|recheck|verify|reconsider|alternatively|"
-    r"on second thought|let me re|double-check|double check|is that right|hold on)\b", re.I)
 
 
 def density(texts, head=None):
@@ -39,8 +31,8 @@ def main():
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("--seeds", nargs="+", type=int, default=SEEDS)
-    ap.add_argument("--base", default="experiments/main_density.json")
-    ap.add_argument("--output", default="experiments/main_edits.json")
+    ap.add_argument("--base", default=str(RESULTS / "main_density.json"))
+    ap.add_argument("--output", default=str(RESULTS / "main_edits.json"))
     a = ap.parse_args()
     base = json.loads(Path(a.base).read_text())
     out = {}

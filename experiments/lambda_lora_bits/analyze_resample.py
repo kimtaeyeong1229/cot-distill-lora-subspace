@@ -29,14 +29,11 @@ from pathlib import Path
 import torch
 from safetensors import safe_open
 
-EXP = Path(__file__).resolve().parent
-LAMBDAS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+from config import CELL_DIR, EXP, LAMBDAS, PAIR_KEY, PAIRS, RESULTS, SEEDS, STUDENT_SHORT, STUDENTS
+
 HALVES = ["halfA", "halfB"]
-CELLS = [
-    ("A", "Qwen2.5-0.5B", "sweep"), ("A", "Llama-3.2-1B", "sweep_llama"), ("A", "OLMo-2-1B", "sweep_olmo2"),
-    ("B", "Qwen2.5-0.5B", "pairB/qwen0.5b"), ("B", "Llama-3.2-1B", "pairB/llama1b"), ("B", "OLMo-2-1B", "pairB/olmo1b"),
-    ("D", "Qwen2.5-0.5B", "pairD/qwen0.5b"), ("D", "Llama-3.2-1B", "pairD/llama1b"), ("D", "OLMo-2-1B", "pairD/olmo1b"),
-]
+# (pair key, student, cell directory); pair C keeps its directory key "D" in the output
+CELLS = [(PAIR_KEY[p], STUDENT_SHORT[s], CELL_DIR[f"{p}/{s}"]) for p in PAIRS for s in STUDENTS]
 # lambda interval in which each teacher pair stops emitting </think>, read off the teacher generations
 # lambda at which each pair's </think> rate reaches zero, measured by measure_think_rate.py
 TEACHER_ZERO = {"A": "0.4", "B": "0.8", "D": "0.8"}
@@ -79,8 +76,8 @@ def chance(x):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--output", default=str(EXP.parent / "phi_resample_s012.json"))
-    ap.add_argument("--seeds", nargs="+", type=int, default=[0, 1, 2])
+    ap.add_argument("--output", default=str(RESULTS / "phi_resample_s012.json"))
+    ap.add_argument("--seeds", nargs="+", type=int, default=SEEDS)
     a = ap.parse_args()
 
     results = {}

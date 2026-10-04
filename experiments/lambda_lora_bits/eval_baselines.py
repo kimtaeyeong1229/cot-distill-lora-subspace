@@ -27,7 +27,7 @@ from vllm import LLM, SamplingParams
 from vllm.lora.request import LoRARequest
 
 from common import build_prompt, is_correct, load_tokenizer, read_jsonl
-from eval_ablation import REFLECTIVE
+from config import REFLECTIVE
 
 NOTHINK = "Okay, I think I have finished thinking.\n\n"
 FORCE = "\n\n**Final Answer**\n\\[\n\\boxed{"

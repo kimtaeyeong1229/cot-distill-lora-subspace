@@ -32,8 +32,8 @@ import random
 import statistics as st
 from pathlib import Path
 
-X = Path("experiments")
-CELLS = ["A/Qwen", "A/Llama", "A/OLMo", "B/Qwen", "B/Llama", "B/OLMo", "C/Qwen", "C/Llama", "C/OLMo"]
+from config import CELL_NAMES as CELLS, RESULTS as X
+
 REPS = 10_000
 
 

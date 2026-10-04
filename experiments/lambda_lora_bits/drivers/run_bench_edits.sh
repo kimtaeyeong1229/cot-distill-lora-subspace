@@ -5,10 +5,10 @@
 set -uo pipefail
 cd "$(dirname "$0")/../../.."
 E=experiments/lambda_lora_bits
+source "${E}/config.sh"   # gen_limits, PAPER_SWITCH, PAPER_SEEDS
 for entry in ${CELLS}; do
   tag="${entry%%:*}"; student="${entry#*:}"
-  maxlen=8192; newtok=7680
-  [[ "${student}" == *OLMo* ]] && maxlen=4096 && newtok=3840
+  gen_limits "${student}"; maxlen="${MAXLEN}"; newtok="${NEWTOK}"
   mkdir -p "${E}/${tag}/logs"
   for bench in ${BENCHES:-gpqa_diamond gsm8k}; do
     for seed in 0 1 2; do

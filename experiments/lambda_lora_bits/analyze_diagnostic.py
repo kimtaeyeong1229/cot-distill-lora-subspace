@@ -25,7 +25,7 @@ is built from all pre-transition seed adapters. Prediction: within each cell, re
 their density (rho > 0), and does so at least as well as sim_lambda0 and norm. Their density is counted
 exactly as for the seed adapters (first sample of the first 200 MATH-500 problems, eval_halves/).
 
-Run from the repo root; writes experiments/diagnostic.json.
+Writes experiments/diagnostic.json.
 """
 
 import gzip
@@ -38,7 +38,7 @@ from pathlib import Path
 import torch
 from safetensors import safe_open
 
-E = Path("experiments/lambda_lora_bits")
+from config import EXP as E, REFLECTIVE, RESULTS
 LAM = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
 SEEDS = [0, 1, 2]
 CELLS = {"A/Qwen": ("sweep", "0.4"), "A/Llama": ("sweep_llama", "0.4"), "A/OLMo": ("sweep_olmo2", "0.4"),
@@ -50,9 +50,6 @@ EDITS = {"rm_pre": "lambda0.0_rm_pre", "rm_other": "lambda0.0_rm_decisive", "rm_
          "graft_whole2": "graft_full2", "ampn1": "ampn1", "ampn4": "ampn4", "ampV": "ampV"}
 LOOPING = {"graft2", "graft_other2", "graft_whole2"}
 SAE_CONDS = EDITS   # sae_llama.py scored every section-5 condition
-REFLECTIVE = re.compile(   # same pattern as analyze_main_density.REFLECTIVE
-    r"\b(wait|hmm|actually|but let me|let me check|recheck|verify|reconsider|alternatively|"
-    r"on second thought|let me re|double-check|double check|is that right|hold on)\b", re.I)
 PREDICTORS = ("region_dir", "region_energy", "sim_lambda0", "norm")
 DEV = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -118,8 +115,8 @@ def spearman(xs, ys):
 
 
 def main():
-    spread = json.loads(Path("experiments/seed_spread.json").read_text())
-    sae = json.loads(Path("experiments/sae_llama.json").read_text()) if Path("experiments/sae_llama.json").exists() else {}
+    spread = json.loads((RESULTS / "seed_spread.json").read_text())
+    sae = json.loads((RESULTS / "sae_llama.json").read_text()) if (RESULTS / "sae_llama.json").exists() else {}
     out = {}
     for cell, (tag, cliff) in CELLS.items():
         runs = E / tag / "runs"
@@ -173,7 +170,7 @@ def main():
         print(f"{cell:8s} all      {f(res['all'])}\n{'':8s} no_loop  {f(res['no_loop'])}\n{'':8s} unedited {f(res['unedited'])}"
               + (f"\n{'':8s} sae      {f(res['sae'])}" if "sae" in res else "")
               + (f"\n{'':8s} held-out {f(res['held_out'])}" if "held_out" in res else f"\n{'':8s} held-out {len(halves)}/12 halves"), flush=True)
-    Path("experiments/diagnostic.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / "diagnostic.json").write_text(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":

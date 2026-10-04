@@ -11,35 +11,23 @@ lambda0 / lambda1 base, so the same adapter never carries two different values. 
 density is the base for Table 8.
 
 Pair A Qwen and Llama are read from eval_math500_7680, their re-run at the shared generation limit.
-Run from the repo root; writes experiments/main_density.json.
+Writes experiments/main_density.json.
 """
 
 import json
-import re
 from pathlib import Path
 
-E = Path("experiments/lambda_lora_bits")
-LAMBDAS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
-SEEDS = [0, 1, 2]
-CELLS = {"A/Qwen": ("sweep", "eval_math500_7680"), "A/Llama": ("sweep_llama", "eval_math500_7680"),
-         "A/OLMo": ("sweep_olmo2", "eval_math500"),
-         "B/Qwen": ("pairB/qwen0.5b", "eval_math500"), "B/Llama": ("pairB/llama1b", "eval_math500"),
-         "B/OLMo": ("pairB/olmo1b", "eval_math500"),
-         "C/Qwen": ("pairD/qwen0.5b", "eval_math500"), "C/Llama": ("pairD/llama1b", "eval_math500"),
-         "C/OLMo": ("pairD/olmo1b", "eval_math500")}
-HEAD = 300
-PROBLEMS, SAMPLES = 200, 2
-# same pattern as eval_ablation.REFLECTIVE (not imported: that module pulls in vllm)
-REFLECTIVE = re.compile(
-    r"\b(wait|hmm|actually|but let me|let me check|recheck|verify|reconsider|alternatively|"
-    r"on second thought|let me re|double-check|double check|is that right|hold on)\b", re.I)
+from config import CELL_DIR, CELL_NAMES, EVAL_PROBLEMS as PROBLEMS, EVAL_SAMPLES as SAMPLES, EXP as E
+from config import HEAD_WORDS as HEAD, LAMBDAS, MATH500_EVAL, REFLECTIVE, RESULTS, SEEDS
+
+CELLS = {cell: (CELL_DIR[cell], MATH500_EVAL[cell]) for cell in CELL_NAMES}   # cell -> (directory, evaluation)
 
 
 def main():
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("--seeds", nargs="+", type=int, default=SEEDS)
-    ap.add_argument("--output", default="experiments/main_density.json")
+    ap.add_argument("--output", default=str(RESULTS / "main_density.json"))
     a = ap.parse_args()
     out = {}
     for cell, (tag, bench) in CELLS.items():

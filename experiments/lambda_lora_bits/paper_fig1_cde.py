@@ -15,7 +15,9 @@ wherever it appears:
     (x 0.47), so 20/17/15 pt print at about 9.5/8/7 pt.
 Text widths are measured with the Arial metrics (LibreOffice renders Liberation Sans, which has the same metrics),
 and the script fails if any label overlaps a shape or leaves the canvas.
-Run inside the experiment container; writes materials/main_figure_pptx/cde/fig1_cde.pptx.
+Writes fig1_cde.pptx, fig1_cde_layout.json and fig1_cde_audit.txt into FIG1_OUT (default
+materials/main_figure_pptx/cde/). Arial (or metric-compatible Liberation Sans) TTFs are read from FIG1_FONT_DIR
+(default materials/main_figure_pptx/cde/.fonts; the font files are not redistributed with the repository).
 """
 
 import json
@@ -32,9 +34,9 @@ from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.oxml.ns import qn
 from pptx.util import Emu, Pt
 
-HERE = Path("/home/lab/workspace/cot-distill-lora-bit/materials/main_figure_pptx/cde")
+HERE = Path(__file__).resolve().parents[2] / "materials" / "main_figure_pptx" / "cde"
 OUT = Path(os.environ.get("FIG1_OUT", HERE))
-FONT_DIR = HERE / ".fonts"
+FONT_DIR = Path(os.environ.get("FIG1_FONT_DIR", HERE / ".fonts"))
 
 # ---------------------------------------------------------------- canvas and units
 W, H = 2000, 920                     # canvas units; 150 units = 1 inch on the slide

@@ -8,14 +8,16 @@ Also reported: the correlation between the SAE index and the keyword density acr
 and a verification subset (features whose top contexts are self-checking; chosen by reading them, so it
 is exploratory).
 
-Run from the repo root; writes experiments/sae_llama.json.
+Writes experiments/sae_llama.json.
 """
 
 import json
 import statistics as st
 from pathlib import Path
 
-D = Path("experiments/lambda_lora_bits/sae_llama")
+from config import EXP, RESULTS, SEEDS
+
+D = EXP / "sae_llama"
 CONDS = ["base0.0", "base0.2", "base0.4", "base0.6", "base0.8", "base1.0",
          "lambda0.0_rm_pre", "lambda0.0_rm_decisive", "lambda0.0_rm_scale", "lambda1.0_rm_pre",
          "graft1", "graft_orth1", "graft_full1", "graft2", "graft_orth2", "graft_full2", "ampn1", "ampn4", "ampV"]
@@ -35,7 +37,7 @@ def main():
         row = {}
         for cond in CONDS:
             vals = {k: [] for k in ("keyword", "sae", "sae_masked", "cue", "verify", "verify_masked", "sae_head")}
-            for s in (0, 1, 2):
+            for s in SEEDS:
                 d = json.loads((D / cell / f"{cond}_s{s}.json").read_text()); rec, allf = d["records"], d["features"]
                 vals["keyword"].append(1000 * sum(r["markers"] for r in rec) / max(sum(r["words"] for r in rec), 1))
                 vals["sae"].append(per_seed(rec, "orig_selected")); vals["sae_masked"].append(per_seed(rec, "masked_selected"))
@@ -52,7 +54,7 @@ def main():
         for c in CONDS:
             r = row[c]; f = lambda k: f"{r[k]['mean']:.3f}±{r[k]['sd']:.3f}"
             print(f"  {c:18s} kw {r['keyword']['mean']:5.1f}±{r['keyword']['sd']:4.1f} | sae {f('sae')} masked {f('sae_masked')} | cue {f('cue')} | verify {f('verify')} vmask {f('verify_masked')}")
-    Path("experiments/sae_llama.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / "sae_llama.json").write_text(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":

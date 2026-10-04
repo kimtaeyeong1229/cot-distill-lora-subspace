@@ -19,7 +19,7 @@ and reports, averaged over modules with weight ||dW||_F of the edited adapter,
 Region and top-subspace sizes (dims_region, dims_top) are averaged with the same ||dW||_F weights, as the
 region sizes of Table 5 are.
 
-No training or generation. Run from the repo root (CPU is fine); writes experiments/top_overlap.json.
+No training or generation (CPU is fine); writes experiments/top_overlap.json.
 """
 
 import json
@@ -30,10 +30,9 @@ import torch
 
 from ablate_subspace import LAMBDAS, SEEDS, consensus, left_basis, read_adapter, spectrum
 
-E = Path("experiments/lambda_lora_bits")
-CELLS = {"A/Qwen": ("sweep", "0.4"), "A/Llama": ("sweep_llama", "0.4"), "A/OLMo": ("sweep_olmo2", "0.4"),
-         "B/Qwen": ("pairB/qwen0.5b", "0.6"), "B/Llama": ("pairB/llama1b", "0.6"), "B/OLMo": ("pairB/olmo1b", "0.6"),
-         "C/Qwen": ("pairD/qwen0.5b", "0.6"), "C/Llama": ("pairD/llama1b", "0.6"), "C/OLMo": ("pairD/olmo1b", "0.6")}
+from config import CELL_DIR, CELL_NAMES, EXP as E, RESULTS, SWITCH
+
+CELLS = {cell: (CELL_DIR[cell], SWITCH[cell[0]]) for cell in CELL_NAMES}   # cell -> (directory, switch lambda)
 
 
 def load(tag, lam, seed):
@@ -78,7 +77,7 @@ def main():
         print(f"{cell:8s} V covered by top {row['cover_region']:.3f} +- {row['cover_region_sd']:.3f} | "
               f"top inside V {row['cover_top']:.3f} | dims V {row['dims_region']:.1f} top {row['dims_top']:.1f} "
               f"| chance {row['chance']:.4f}", flush=True)
-    Path("experiments/top_overlap.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / "top_overlap.json").write_text(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":

@@ -11,7 +11,8 @@ Figure 3 (what): the edits as grouped bars per cell, the unedited adapter next t
 shared-region edit, as in Arditi et al. (2024, Figures 1 and 3), which put models on the x axis and conditions as
 bars. Bars are seed means; spreads stay in the appendix tables.
 Figures are drawn at the printed width (ACL text width, 6.3 in), so font sizes are the printed sizes.
-Run from the repo root; writes PDFs into the manuscript repo's figures/ folder.
+Writes fig2_switch.pdf and fig3_states.pdf into FIG_OUT (default: $MANUSCRIPT_DIR/figures if MANUSCRIPT_DIR is
+set, else <repo>/figures). Reads only the result JSONs in experiments/.
 """
 
 import json
@@ -25,12 +26,13 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
-EXP = Path("experiments")
-OUT = Path(os.environ.get("FIG_OUT", "/home/lab/workspace/NAACL_cot_distill_lora_subspace/figures"))
-L = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+from config import LAMBDAS as L, PAIR_KEY, REPO_ROOT, RESULTS as EXP, STUDENT_SHORT
+
+_MANUSCRIPT = os.environ.get("MANUSCRIPT_DIR")
+OUT = Path(os.environ.get("FIG_OUT") or (Path(_MANUSCRIPT) / "figures" if _MANUSCRIPT else REPO_ROOT / "figures"))
 X = [float(l) for l in L]
-PAIRS = [("A", "A"), ("B", "B"), ("C", "D")]          # paper name, key in the result files
-STU = [("Qwen", "Qwen2.5-0.5B"), ("Llama", "Llama-3.2-1B"), ("OLMo", "OLMo-2-1B")]
+PAIRS = list(PAIR_KEY.items())                         # paper name, key in the result files (pair C is "D")
+STU = list(STUDENT_SHORT.items())                      # short name, name in the result files
 NAVY, SLATE, YELLOW, RED = "#2f4a6d", "#3f7a5a", "#e7a33e", "#c8372d"   # denim, scarf green, mustard, Carp red
 COL = {"Qwen": NAVY, "Llama": SLATE, "OLMo": YELLOW}
 CREAM, GRID = "#f6efe4", "#d8cdbd"

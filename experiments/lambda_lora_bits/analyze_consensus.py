@@ -13,21 +13,13 @@ from pathlib import Path
 import torch
 from safetensors import safe_open
 
-E = Path("experiments/lambda_lora_bits"); LAM = ["0.0","0.2","0.4","0.6","0.8","1.0"]; SEEDS = [0,1,2]
-# the transition each cell shows: the first large drop in retention (analyze_resample.py). Pair D drops in
+from config import CELL_DIR, EXP as E, LAMBDAS as LAM, PAIR_KEY, PAIRS, RESULTS, SEEDS, STUDENT_SHORT, STUDENTS, SWITCH
+
+# the transition each cell shows: the first large drop in retention (analyze_resample.py). Pair C drops in
 # two steps of almost equal size, so all three of its cells use the first one, 0.6, where the teacher
-# already emits </think> only 27% of the time -- the 0.6 adapters are not "before" the transition
-CELLS = [
-    ("A", "Qwen2.5-0.5B", "sweep", "0.4"),
-    ("A", "Llama-3.2-1B", "sweep_llama", "0.4"),
-    ("A", "OLMo-2-1B", "sweep_olmo2", "0.4"),
-    ("B", "Qwen2.5-0.5B", "pairB/qwen0.5b", "0.6"),
-    ("B", "Llama-3.2-1B", "pairB/llama1b", "0.6"),
-    ("B", "OLMo-2-1B", "pairB/olmo1b", "0.6"),
-    ("D", "Qwen2.5-0.5B", "pairD/qwen0.5b", "0.6"),
-    ("D", "Llama-3.2-1B", "pairD/llama1b", "0.6"),
-    ("D", "OLMo-2-1B", "pairD/olmo1b", "0.6"),
-]
+# already emits </think> only 27% of the time -- the 0.6 adapters are not "before" the transition.
+# (pair key, student, cell directory, switch lambda); pair C keeps its directory key "D" in the output
+CELLS = [(PAIR_KEY[p], STUDENT_SHORT[s], CELL_DIR[f"{p}/{s}"], SWITCH[p]) for p in PAIRS for s in STUDENTS]
 def basis(p):
     c = json.loads((p.parent/"adapter_config.json").read_text()); s = c["lora_alpha"]/c["r"]
     parts = defaultdict(dict)
@@ -96,5 +88,5 @@ for pair, stu, tag, br in CELLS:
                                     built_from=len(pre), side=ARGS.side,
                                     in_loo_by_seed={sd: pw_s[sd]/w for sd in SEEDS},
                                     out_by_seed={sd: qw_s[sd]/w for sd in SEEDS})
-out = E.parent / f"consensus_{ARGS.side}.json"
+out = RESULTS / f"consensus_{ARGS.side}.json"
 out.write_text(json.dumps(RESULTS, indent=2)); print(out)

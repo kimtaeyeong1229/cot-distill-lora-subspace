@@ -47,9 +47,8 @@ import torch
 from safetensors import safe_open
 from safetensors.torch import save_file
 
-EXP = Path(__file__).resolve().parent
-LAMBDAS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
-SEEDS = [0, 1, 2]
+from config import EXP, LAMBDAS, REPO_ROOT, SEEDS
+
 KEY_RE = re.compile(r"layers\.(\d+)\.(?:self_attn|mlp)\.(\w+_proj)")
 
 
@@ -95,7 +94,7 @@ def main():
 
     runs = EXP / a.tag / "runs"
     out_root = EXP / a.tag / a.out
-    owner = (EXP.parent.parent).stat()
+    owner = REPO_ROOT.stat()
     generator = torch.Generator().manual_seed(4321)
 
     index = LAMBDAS.index(a.cliff)

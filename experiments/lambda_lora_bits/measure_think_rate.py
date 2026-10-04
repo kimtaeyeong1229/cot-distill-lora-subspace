@@ -13,9 +13,9 @@ is measured here rather than carried around as a constant.
 import json
 from pathlib import Path
 
-EXP = Path(__file__).resolve().parent
-LAMBDAS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
-PAIRS = [("A", "sweep"), ("B", "pairB"), ("D", "pairD")]
+from config import EXP, LAMBDAS, PAIR_DIR, PAIR_KEY, RESULTS
+
+PAIRS = [(PAIR_KEY[p], PAIR_DIR[p]) for p in PAIR_DIR]   # (key in think_rate.json, directory); pair C is "D"
 
 
 def main():
@@ -33,7 +33,7 @@ def main():
         print(f"{name:3s} " + "".join(f"{rates[l]:7.0%} " for l in LAMBDAS) + f"   λ{first_zero}")
         out[name] = dict(rates=rates, first_zero=first_zero,
                          n=len([1 for _ in (EXP / tag / "cot" / "lambda0.0.jsonl").open()]))
-    path = EXP.parent / "think_rate.json"
+    path = RESULTS / "think_rate.json"
     path.write_text(json.dumps(out, indent=2))
     print(f"\n{path}")
 

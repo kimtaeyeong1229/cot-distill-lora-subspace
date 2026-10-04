@@ -15,7 +15,7 @@ MATH-500 problems, seeds 0-2 (600 responses per cell and condition). Unedited la
 come from the stored first response (eval_math500[_7680], field response_0), edits from
 eval_main_s<seed>. The beta = 4 and 8 grafts exist only for seed 0 (eval_graft_beta, 200 responses).
 
-Run from the repo root; writes experiments/degeneration.json.
+Writes experiments/degeneration.json.
 """
 
 import gzip
@@ -23,10 +23,9 @@ import json
 import statistics as st
 from pathlib import Path
 
-from analyze_main_density import CELLS, PROBLEMS, SAMPLES
+from analyze_main_density import CELLS
+from config import EVAL_PROBLEMS as PROBLEMS, EVAL_SAMPLES as SAMPLES, EXP as E, RESULTS, SEEDS
 
-E = Path("experiments/lambda_lora_bits")
-SEEDS = [0, 1, 2]
 TAIL, N, MIN_WORDS, CUT = 300, 10, 100, 0.5
 EDITS = {"rm_pre": "lambda0.0_rm_pre", "graft1": "graft1", "graft2": "graft2", "graft_other2": "graft_orth2",
          "graft_whole2": "graft_full2", "ampn4": "ampn4"}
@@ -85,7 +84,7 @@ def main():
                 row[name.replace("orth", "other").replace("full", "whole") + "_seed0"] = summarise([rate(edit_texts(p))])
         out[cell] = row
         print(f"{cell:8s} " + " ".join(f"{k} {v['mean']:.2f}" for k, v in row.items()), flush=True)
-    Path("experiments/degeneration.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / "degeneration.json").write_text(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":

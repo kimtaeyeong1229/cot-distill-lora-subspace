@@ -29,9 +29,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from evaluate import (DATASET_LOADERS, DEFAULT_PATHS, extract_prediction, format_prompt,  # noqa: E402
                       normalize_prediction_for_answer, score_prediction)
 from common import load_tokenizer  # noqa: E402
-from eval_ablation import REFLECTIVE  # noqa: E402
+from config import EXP, REFLECTIVE  # noqa: E402
 
-DATA = Path(__file__).resolve().parent / "benchmarks"
+DATA = EXP / "benchmarks"
 
 
 def grade(bench, question, response, answer, timeout=10):

@@ -5,10 +5,11 @@
 set -uo pipefail
 cd "$(dirname "$0")/../../.."
 E=experiments/lambda_lora_bits
-SPECS="${SPECS:-sweep:0.4 sweep_llama:0.4 sweep_olmo2:0.4 pairB/qwen0.5b:0.6 pairB/llama1b:0.6 pairB/olmo1b:0.6 pairD/qwen0.5b:0.6 pairD/llama1b:0.6 pairD/olmo1b:0.6}"
+source "${E}/config.sh"   # gen_limits, PAPER_SWITCH, PAPER_SEEDS
+SPECS="${SPECS:-${PAPER_SWITCH}}"   # <cell dir>:<switch lambda>
 for spec in ${SPECS}; do
   tag="${spec%%:*}"; cliff="${spec#*:}"
-  for seed in 0 1 2; do
+  for seed in ${PAPER_SEEDS}; do
     python3 "${E}/ablate_subspace.py" --tag "${tag}" --cliff "${cliff}" --seed "${seed}" --loo \
       --out "runs_edit_s${seed}" --variants rm_pre rm_decisive rm_scale || exit 1
     python3 "${E}/steer_subspace.py" --tag "${tag}" --cliff "${cliff}" --seed "${seed}" --loo \
