@@ -1,25 +1,10 @@
 from common import *
 ss=J('seed_spread'); bl=J('baselines'); to=J('top_overlap'); dg=J('degeneration'); es=J('edit_stats'); th=J('threshold_sensitivity')
 ph=J('phi_resample_s012'); px=J('phi_xseed'); 
-# tab16
-c=Checker('tab16')
-for p,s,r in cellrows('tab16.tex'):
-    k=sname(s); v=[tok(x) for x in r[2:]]; t=to[f'{p}/{k}']; b=bl[f'{p}/{k}']
-    c.chk(f'{p}/{k} dims_top',v[0][0][0],1,t['dims_top'],'top_overlap.dims_top')
-    c.chk(f'{p}/{k} cover_region',v[1][0][0],3,t['cover_region'],'cover_region'); c.chk(f'{p}/{k} cover_region sd',v[1][1][0],3,t['cover_region_sd'],'cover_region_sd')
-    c.chk(f'{p}/{k} cover_top',v[2][0][0],3,t['cover_top'],'cover_top')
-    c.chk(f'{p}/{k} chance',v[3][0][0],4,t['chance'],'chance')
-    b0=b['base0']['markers']['mean']
-    kr=100*b['rm_pre']['markers']['mean']/b0; kt=100*b['gs_energy']['markers']['mean']/b0
-    krs=st.mean(100*a/z for a,z in zip(b['rm_pre']['markers']['seeds'],b['base0']['markers']['seeds']))
-    c.chk(f'{p}/{k} kept shared%',v[4][0][0],1,kr,f'rm_pre/base0 markers (per-seed mean {krs:.2f}; edit_stats {es["cells"][f"{p}/{k}"]["rm_retained"]["value"]:.2f})')
-    c.chk(f'{p}/{k} kept top%',v[5][0][0],1,kt,'gs_energy/base0 markers')
-    c.chk(f'{p}/{k} tok base0',v[6][0][0],0,b['base0']['tokens']['mean'],'baselines.base0.tokens')
-    c.chk(f'{p}/{k} tok rm_pre',v[7][0][0],0,b['rm_pre']['tokens']['mean'],'baselines.rm_pre.tokens')
-    c.chk(f'{p}/{k} tok gs_energy',v[8][0][0],0,b['gs_energy']['tokens']['mean'],'baselines.gs_energy.tokens')
-c.report()
+# old Table 19 (tab16): its top-direction columns moved into tab23 (Table 4, checked in t_new.py); the token range
+# in the Table 4 caption is checked in text_checks.py
 # tab17
-c=Checker('tab17')
+c=Checker('Table 12 top (tab17 block 0)')
 keys=['base0','base1','rm_pre','graft1','graft2','graft_other2','graft_whole2','ampn4']
 for p,s,r in cellrows('tab17.tex'):
     k=sname(s); v=[tok(x) for x in r[2:]]; d=dg[f'{p}/{k}']
@@ -30,25 +15,26 @@ for p,s,r in cellrows('tab17.tex'):
 c.report()
 # tab19 (Table 22) is checked in t_new.py
 # tab20
-c=Checker('tab20')
+c=Checker('Table 3 bottom (tab20)')
 ratios=[]
 for p,s,r in cellrows('tab20.tex'):
     k=sname(s); v=[tok(x)[0] for x in r[2:]]; t=th[f'{p}/{k}']
-    for i,cut in enumerate(('0.4','0.5','0.6')):
+    for i,cut in enumerate(('0.4','0.6')):   # cut 0.5 is printed once, in tab05 (checked in t01_05.py)
         sr=t['shared_region'][cut]
         c.chk(f'{p}/{k} cut{cut} dims',v[3*i][0],1,sr['dims'],'dims'); c.chk(f'{p}/{k} cut{cut} pre',v[3*i+1][0],3,sr['pre_loo'],'pre_loo'); c.chk(f'{p}/{k} cut{cut} post',v[3*i+2][0],3,sr['post'],'post')
-        ratios.append(sr['pre_loo']/sr['post'])
-    for i,cut in enumerate(('0.65','0.75','0.85')): c.chk(f'{p}/{k} two-seed {cut}',v[9+i][0],0,100*t['two_seed_region'][cut]['overlap'],'two_seed_region.overlap')
+    for cut in ('0.4','0.5','0.6'): ratios.append(t['shared_region'][cut]['pre_loo']/t['shared_region'][cut]['post'])
+    for i,cut in enumerate(('0.65','0.75','0.85')): c.chk(f'{p}/{k} two-seed {cut}',v[6+i][0],0,100*t['two_seed_region'][cut]['overlap'],'two_seed_region.overlap')
 c.report()
 print(f'  pre/post ratio range {min(ratios):.2f}-{max(ratios):.2f}')
-# tab21
-c=Checker('tab21')
-for p,s,r in cellrows('tab21.tex'):
-    k=sname(s); v=[tok(x) for x in r[2:]]; rr=ph[f'{P(p)}/{FULL[k]}']['rows']; t=th[f'{p}/{k}']; x=px[f'{P(p)}/{XS[k]}']
-    for i,l in enumerate(['0.0','0.2','0.4','0.6','0.8','1.0']): c.chk(f'{p}/{k} B({l})',v[i][0][0],3,rr[l]['baseline'],'phi_resample_s012 rows.baseline')
-    c.chk(f'{p}/{k} xseed phi',v[6][0][0],3,x['0.0']['xseed'],'phi_xseed 0.0.xseed'); c.chk(f'{p}/{k} r*phi',v[6][1][0],1,16*x['0.0']['xseed'],'16*xseed')
-    for j,f in enumerate(('within_pre','within_post','across')): c.chk(f'{p}/{k} {f}',v[7+j][0][0],3,t['cross_seed_phi'][f],'cross_seed_phi')
-    c.chk(f'{p}/{k} chance',v[10][0][0],4,t['chance'],'threshold_sensitivity.chance')
-    print(f'  {p}/{k} within_post/chance {t["cross_seed_phi"]["within_post"]/t["chance"]:.1f}  post>across {t["cross_seed_phi"]["within_post"]>t["cross_seed_phi"]["across"]}')
+# old Table 16 (tab21): B(lambda) is drawn in Figure 4 (bottom row) and the cross-seed overlaps are App. B text
+c=Checker('App B text from old Table 16 (B(lambda) for A/Qwen, cross-seed overlaps)')
+rq=ph['A/Qwen2.5-0.5B']['rows']
+for l,x in (('0.2',0.38),('0.4',0.07),('1.0',0.04)): c.chk(f'A/Qwen B({l})',x,2,rq[l]['baseline'],'phi_resample_s012 rows.baseline')
+xs=[px[f'{P(p)}/{XS[k]}']['0.0']['xseed'] for p in PAIRS for k in STUD]
+c.chk('lambda0 pair min',0.210,3,min(xs),'phi_xseed 0.0.xseed'); c.chk('lambda0 pair max',0.240,3,max(xs),'')
+for f,(lo,hi) in (('within_pre',(0.156,0.211)),('within_post',(0.059,0.166)),('across',(0.035,0.075))):
+    vs=[th[f'{p}/{k}']['cross_seed_phi'][f] for p in PAIRS for k in STUD]
+    c.chk(f'{f} min',lo,3,min(vs),'threshold_sensitivity.cross_seed_phi'); c.chk(f'{f} max',hi,3,max(vs),'')
+ch=[th[f'{p}/{k}']['chance'] for p in PAIRS for k in STUD]; c.chk('chance min',0.005,3,min(ch),'threshold_sensitivity.chance'); c.chk('chance max',0.018,3,max(ch),'')
 c.report()
 # tab22 (Table 18, tab:length) is checked in t22_length.py

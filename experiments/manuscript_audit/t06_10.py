@@ -7,7 +7,7 @@ def ms(c,label,toks,d,scale=1,src=''):
     c.chk(label+' mean',toks[0][0],toks[0][1],scale*d['mean'],src)
     c.chk(label+' sd',toks[1][0],toks[1][1],scale*d['sd'],src)
 # tab06
-c=Checker('tab06')
+c=Checker('Table 8 top (tab06 block 0)')
 for p,s,r in cellrows('tab06.tex',0):
     k=sname(s); v=[tok(x) for x in r[2:]]; cs=ss[f'{p}/{k}']; b=bl[f'{p}/{k}']
     ms(c,f'{p}/{k} l0',v[0],cs['table1']['0.0'],1,'table1 0.0')
@@ -19,17 +19,11 @@ for p,s,r in cellrows('tab06.tex',0):
     # cross-check seed_spread vs baselines
     for e in ('rm_pre','rm_other','rm_scale'):
         if abs(E(p,k,e,'markers_per_1k')['mean']-b[e]['markers']['mean'])>1e-3: print('  note ss vs baselines differ',p,k,e)
-for p,s,r in cellrows('tab06.tex',1):
-    k=sname(s); v=[tok(x) for x in r[2:]]; cs=ss[f'{p}/{k}']
-    ms(c,f'{p}/{k} tok0',v[0][:2],cs['table2']['tokens0'],1,'tokens0')
-    ms(c,f'{p}/{k} tok rm_pre',v[0][2:],E(p,k,'rm_pre','avg_tokens'),1,'rm_pre avg_tokens')
-    ms(c,f'{p}/{k} l1 markers',v[1][:2],cs['table1']['1.0'],1,'table1 1.0')
-    ms(c,f'{p}/{k} rm_pre_l1 markers',v[1][2:],E(p,k,'rm_pre_l1','markers_per_1k'),1,'rm_pre_l1')
-    ms(c,f'{p}/{k} tok1',v[2][:2],cs['table2']['tokens1'],1,'tokens1')
-    ms(c,f'{p}/{k} rm_pre_l1 tok',v[2][2:],E(p,k,'rm_pre_l1','avg_tokens'),1,'rm_pre_l1 tokens')
+# the old middle block (tokens, lambda=1 control) became App. D text (checked in text_checks.py); block 1 is now the
+# early-marker block, checked in t_new.py
 c.report()
 # tab07
-c=Checker('tab07')
+c=Checker('Table 8 bottom (tab07)')
 cols=[('base0',None),('rm_pre','ss'),('budget','bl'),('rm_other','ss'),('gs_energy','bl'),('rm_scale','ss')]
 acc={x[0]:[] for x in cols}
 meanrow=None
@@ -47,7 +41,7 @@ print('  rm_pre > budget per cell:',[round(a-b,2) for a,b in zip(acc['rm_pre'],a
 print('  rm_pre - gs_energy per cell:',[round(a-b,2) for a,b in zip(acc['rm_pre'],acc['gs_energy'])])
 c.report()
 # tab08
-c=Checker('tab08')
+c=Checker('Table 9 top (tab08)')
 for p,s,r in cellrows('tab08.tex'):
     k=sname(s); v=[tok(x) for x in r[2:]]; cs=ss[f'{p}/{k}']
     ms(c,f'{p}/{k} l1',v[0],cs['table1']['1.0'],1,'table1 1.0')
@@ -64,7 +58,7 @@ for p,s,r in cellrows('tab08.tex'):
     print(f'  {p}/{k} recovered {rec:.2f}% (per-seed {recs:.2f}); length ratio {E(p,k,"graft1","avg_tokens")["mean"]/cs["table2"]["tokens1"]["mean"]:.2f}; other>shared {E(p,k,"graft_other1","markers_per_1k")["mean"]>g}; whole>shared {E(p,k,"graft_whole1","markers_per_1k")["mean"]>g}')
 c.report()
 # tab09
-c=Checker('tab09')
+c=Checker('Table 9 middle (tab09 block 0)')
 for p,s,r in cellrows('tab09.tex',0):
     k=sname(s); v=[tok(x) for x in r[2:]]; cs=ss[f'{p}/{k}']
     ms(c,f'{p}/{k} l0 head',v[0],cs['base']['base0_head_markers_per_1k'],1,'base0_head')
@@ -76,7 +70,7 @@ for p,s,r in cellrows('tab09.tex',0):
 # tab09 block 1 (completion/accuracy incl. beta=1 and Whole) is checked in t_new.py
 c.report()
 # tab10
-c=Checker('tab10')
+c=Checker('Table 10 top (tab10 block 0)')
 for p,s,r in cellrows('tab10.tex'):
     k=sname(s); v=[tok(x) for x in r[2:]]; cs=ss[f'{p}/{k}']
     ms(c,f'{p}/{k} l0',v[0],cs['table1']['0.0'],1,'table1 0.0')

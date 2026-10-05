@@ -1,7 +1,7 @@
 from common import *
 import math
 lc=J('length_confound')
-c=Checker('tab22 (Table 18, tab:length)')
+c=Checker('Table 5 top (tab22, tab:length)')
 rs=rows('tab22.tex')
 cur=None; idx={}
 cls={'Held':'held','Switch':'switch','After':'after'}
