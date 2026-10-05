@@ -1,7 +1,7 @@
 from common import *
 import math
 lc=J('length_confound')
-c=Checker('Table 6 (tab22, tab:length)')
+c=Checker('Table 8 (tab22, tab:length)')
 def lamkey(x):
     x=x.strip().replace('$\\to$','->')
     a,b=x.split('->'); f=lambda v: {'0':'0.0','.2':'0.2','.4':'0.4','.6':'0.6','.8':'0.8','1':'1.0'}[v]

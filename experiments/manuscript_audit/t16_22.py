@@ -6,7 +6,7 @@ ph=J('phi_resample_s012'); px=J('phi_xseed');
 # tab17 (Table 13, transposed loops and beta 2/4/8) is checked in t06_10.py
 # tab19 (Table 22) is checked in t_new.py
 # tab20
-c=Checker('Table 5 bottom (tab20)')
+c=Checker('Table 7 bottom (tab20)')
 ratios=[]
 for r in rows('tab20.tex'):
     cell=r[0]; v=[tok(x)[0] for x in r[1:]]; t=th[cell]

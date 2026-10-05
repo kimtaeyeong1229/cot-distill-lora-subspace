@@ -6,12 +6,12 @@ LAM=['0.0','0.2','0.4','0.6','0.8','1.0']
 # pooled r in the Table 3 caption; teacher markers 15.5 -> 5.0 in Table 7 (tab27, t_new.py) and its caption; B/Llama seeds in the
 # Table 8 caption; R_sym and the A/Qwen B(lambda) collapse in App B text
 import re
-c=Checker('Former Figure 4 numbers (Table 3, 8 and 9 captions, App B text)')
-cap=caption('tab:2'); m=re.search(r'\(([\d.]+) over all 54 points\)',cap); c.chk('pooled r (Table 3 caption)',float(m.group(1)),2,td['pooled_corr'],'teacher_density.pooled_corr')
+c=Checker('Former Figure 4 numbers (Table 5, 10 and 11 captions, App B text)')
+cap=caption('tab:2'); m=re.search(r'\(([\d.]+) over all 54 points\)',cap); c.chk('pooled r (Table 5 caption)',float(m.group(1)),2,td['pooled_corr'],'teacher_density.pooled_corr')
 cap=caption('tab:6'); m=re.search(r'seeds of ([\d.]+), ([\d.]+) and (\d+\.\d)',cap)
-for i,x in enumerate(m.groups()): c.chk(f'B/Llama lambda0 seed {i} (Table 9 caption)',float(x),1,ss['B/Llama']['table1']['0.0']['seeds'][i],'seed_spread.table1 seeds')
+for i,x in enumerate(m.groups()): c.chk(f'B/Llama lambda0 seed {i} (Table 11 caption)',float(x),1,ss['B/Llama']['table1']['0.0']['seeds'][i],'seed_spread.table1 seeds')
 cap=caption('tab:structure'); m=re.search(r'fall from ([\d.]+) to ([\d.]+)',cap)
-c.chk('A teacher markers 0.0 (Table 8 caption)',float(m.group(1)),1,td['A']['teacher']['0.0'],'teacher_density'); c.chk('A teacher markers 0.2',float(m.group(2)),1,td['A']['teacher']['0.2'],'teacher_density')
+c.chk('A teacher markers 0.0 (Table 10 caption)',float(m.group(1)),1,td['A']['teacher']['0.0'],'teacher_density'); c.chk('A teacher markers 0.2',float(m.group(2)),1,td['A']['teacher']['0.2'],'teacher_density')
 APP=open(APP_TEX).read()
 m=re.search(r'pair A\'s first interval then drops by ([\d.]+)--([\d.]+) against ([\d.]+)--([\d.]+) at the switch',APP)
 rs=J('symmetric_R'); keyR=lambda p,k: f'{P(p)}/{FULL[k]}'
@@ -28,7 +28,7 @@ c.chk('A/Qwen R after switch min',float(m.group(1)),2,min(rv_),'retention'); c.c
 c.report()
 # ---- tab02 (Table 3, one block): Cell | tokens l0 -> l1 | truncated l0 -> l1 | dAcc all | dAcc completed | accuracy at six lambda | marker r
 md=J('main_density')
-c=Checker('Table 3 (tab02)')
+c=Checker('Table 5 (tab02)')
 for r in rows('tab02.tex',0):
     cell=r[0]; t2=ss[cell]['table2']; v=[tok(x) for x in r[1:]]; p,k=cell.split('/')
     c.chk(f'{cell} tok0',v[0][0][0],0,t2['tokens0']['mean'],'table2.tokens0'); c.chk(f'{cell} tok1',v[0][1][0],0,t2['tokens1']['mean'],'table2.tokens1')
@@ -39,7 +39,7 @@ for r in rows('tab02.tex',0):
 c.report()
 # ---- tab04
 a1=J('alignment_s012'); a2=J('alignment_markers_s012'); a3=J('alignment_length_s012'); tc=J('think_rate_completed')
-c=Checker('Table 4 (tab04)')
+c=Checker('Table 6 (tab04)')
 for blk,(a,nm) in enumerate([(a1,'think'),(a2,'markers')]):
     pass
 cur=None
@@ -68,7 +68,7 @@ c.report()
 print('alignment summary keys',list(a1['_summary'].keys()))
 # ---- tab05 (Table 5 top, one block): Cell | switch | dims pre | dims post | coverage LOO | post | chance | two-seed overlap 0.65/0.75/0.85
 cp=J('consensus_pre'); cq=J('consensus_post'); th=J('threshold_sensitivity')
-c=Checker('Table 5 top (tab05)')
+c=Checker('Table 7 top (tab05)')
 key=lambda cell: f"{P(cell[0])}/{FULL[cell.split('/')[1]]}"
 for r in rows('tab05.tex',0):
     cell=r[0]; e=cp[key(cell)]; q=cq[key(cell)]; v=[tok(x) for x in r[1:]]

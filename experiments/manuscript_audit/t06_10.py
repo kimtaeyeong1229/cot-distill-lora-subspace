@@ -22,7 +22,7 @@ def check(c,fname,spec):
     c.report()
 nine=lambda f: st.mean(f(x) for x in QLO)
 # ---- Table 8 removal (tab06)
-c=Checker('Table 9 (tab06)')
+c=Checker('Table 11 (tab06)')
 W='Whole'; Ea='Early'; A='MATH'
 spec={(W,'$\\lambda=0$'):(lambda x: ss[x]['table1']['0.0']['mean'],1,'seed_spread.table1.0.0',None),
       (W,'Removed'):(lambda x: E(x,'rm_pre','markers_per_1k'),1,'seed_spread.edits.rm_pre.markers_per_1k',None),
@@ -37,7 +37,7 @@ accf={'$\\lambda=0$':lambda x: ss[x]['base']['base0_accuracy']['mean'],'Removed'
 for lab,f in accf.items(): spec[(A,lab)]=(f,100,'seed_spread / baselines accuracy',(lambda f: lambda: 100*nine(f))(f))
 check(c,'tab06.tex',spec)
 # ---- Table 12 grafts (tab08)
-c=Checker('Table 12 (tab08)')
+c=Checker('Table 14 (tab08)')
 B1='$\\beta=1$'; B2='$\\beta=2$'; D='Completion'
 def rec(x):
     g=E(x,'graft1','markers_per_1k'); l1=ss[x]['table1']['1.0']['mean']; l0=ss[x]['table1']['0.0']['mean']; return 100*(g-l1)/(l0-l1)
@@ -58,7 +58,7 @@ spec={(B1,'$\\lambda=1$'):(lambda x: ss[x]['table1']['1.0']['mean'],1,'seed_spre
       (D,'Acc.\\ whole'):(lambda x: E(x,'graft_whole2','accuracy'),100,'edits.graft_whole2.accuracy',None)}
 check(c,'tab08.tex',spec)
 # ---- Table 14 amplification (tab10)
-c=Checker('Table 14 (tab10)')
+c=Checker('Table 16 (tab10)')
 Wm='Whole'; Em='Early'; Am='Accuracy'
 spec={(Wm,'$\\lambda=0$'):(lambda x: ss[x]['table1']['0.0']['mean'],1,'table1.0.0',None),
       (Wm,'Tok.\\ all'):(lambda x: E(x,'ampV','avg_tokens'),1,'edits.ampV.avg_tokens',None),
@@ -72,7 +72,7 @@ for lab,cn in (('$\\lambda=0$','base0'),('$\\gamma=1$','ampn1'),('$\\gamma=4$','
         spec[(Am,pre+lab)]=((lambda cn,f: lambda x: rv['amplification'][x][cn][f])(cn,f),100,f'review_stats.amplification.{cn}.{f}',(lambda cn,f: lambda: 100*rv['amplification']['nine_cell'][cn][f])(cn,f))
 check(c,'tab10.tex',spec)
 # ---- Table 13 loops and beta 2/4/8 (tab17)
-c=Checker('Table 13 (tab17)')
+c=Checker('Table 15 (tab17)')
 Lp='Responses'; Mk='Whole'; Bt='Region'
 spec={}
 for lab,e in (('$\\lambda=0$','base0'),('$\\lambda=1$','base1'),('Removed','rm_pre'),('G1 shared','graft1'),('G2 shared','graft2'),('G2 other','graft_other2'),('G2 whole','graft_whole2'),('$\\gamma=4$','ampn4'),
@@ -91,7 +91,7 @@ for b in (2,4,8):
     spec[(Bt,f'$\\beta={b}$ Loop')]=(lp,100,f'degeneration.{dk[b]} (seed 0)',None)
 check(c,'tab17.tex',spec)
 # ---- Table 11 removal vs untrained (tab26)
-c=Checker('Table 7 (tab26)')
+c=Checker('Table 9 (tab26)')
 kap=lambda d: d['vs_untrained']['response_level']['cohen_kappa']
 un=lambda x: ru['untrained'][x.split('/')[1]]
 Ac='Accuracy'; Ka='$\\kappa$'
