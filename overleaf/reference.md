@@ -117,3 +117,4 @@
 - 2026-10-04 references.bib는 원고 custom.bib와 같은 내용(앞부분 그대로)이고, 그 뒤에 Notion 초안에만 있는 18개 항목을 붙여 둠
 - 2026-10-04 사용자 제공 Google Scholar BibTeX 대조: lion2025polar·sheng2025planning 쪽수를 NeurIPS 공식 proceedings BibTeX 값(149313--149358, 62978--63012)으로 바꿈(Crossref 쪽수와 다름). galichin2026covered 1저자를 PDF대로 "Andrey V. Galichin"으로 고침. 나머지는 Scholar 쪽이 arXiv판·"others"·소문자 제목이라 기존 항목 유지. EMNLP 2025 쪽수는 Anthology 값 유지(Scholar는 +11).
 - 2026-10-04 사용자 결정: yeo2025demystifying 저자는 arXiv 표기(Yeo) 유지. ma2026sae·venhoff2026base는 PMLR v306 공식 BibTeX 형식으로 바꿈(306:84641--84688, 306:123688--123732). yang2026system의 note={Main Track} 삭제.
+- 2026-10-05 shuttleworth2025lora 추가(사용자 제공 arXiv BibTeX): arXiv 2410.21228 v3(2025-10-22) 페이지와 PDF 첫 페이지에서 제목·저자 4명 대조 일치. arXiv 페이지·PDF에 게재처 표기 없어 arXiv 유지, 연도는 최신판 2025. Limitations의 full fine-tuning 문장에서 인용(리뷰 R1 intruder dimensions 지적 대응).
