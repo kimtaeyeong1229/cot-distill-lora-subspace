@@ -3,7 +3,7 @@
 
 Same-seed adapters share their LoRA initialization, which inflates subspace overlap. Here, for each seed s,
 the region at an interval's start is built from the two full-data adapters of the other seeds (eigenvalue
-cut 0.5), and both the reference (the two half-data adapters of seed s at the start) and the scored
+cut 0.75, the paper's two-adapter cut; with two adapters a cut of 0.5 keeps nearly the whole update subspace), and both the reference (the two half-data adapters of seed s at the start) and the scored
 adapter (the full-data adapter of seed s at the end) carry seed s, so neither shares an initialization with
 the builders. Kept share = coverage(end, seed s) / mean coverage(half-data, seed s); loss per unit of
 log-length drop = -ln(kept) / log_len_drop. Reported per seed and as the switch/held ratio.
@@ -60,7 +60,7 @@ def main():
                 builders = [t for t in SEEDS if t != s]
                 ref = nxt = 0.0
                 for k in keys:
-                    V, kv = consensus([full[(a, t)][0][k] for t in builders], threshold=0.5)
+                    V, kv = consensus([full[(a, t)][0][k] for t in builders], threshold=0.75)
                     ref += weight[k] * st.mean(float((h[k].T @ V).pow(2).sum()) / kv for h in halves[s]) / den
                     nxt += weight[k] * float((full[(b, s)][0][k].T @ V).pow(2).sum()) / kv / den
                 kept = nxt / ref
