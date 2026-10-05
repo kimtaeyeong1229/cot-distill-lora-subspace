@@ -4,7 +4,7 @@
 #
 # Paper artifacts:
 #   runs_edit_s{0,1,2}/ + eval_main_s{0,1,2}/, all seeds:
-#     shared-region removal, controls, grafts (beta 1, 2), amplify   Figure 3; Tables 2-5, 10, 12-16
+#     shared-region removal, controls, grafts (beta 1, 2), amplify   Figure 3; Tables 2-5, 10, 12-15 and 17
 #     lambda0.0_rmseed / rmseed_other     two-seed region and its control       Table 3
 #     lambda0.0_gs_tau                    Gold-Switch top removal, tau = 0.6    Table 3
 #     lambda0.0_gs_energy                 top removal, energy-matched           Tables 2, 13 and 14; App. A

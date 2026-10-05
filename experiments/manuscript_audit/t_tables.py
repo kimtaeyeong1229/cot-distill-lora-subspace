@@ -257,7 +257,7 @@ m = re.search(r'seeds of ([\d.]+), ([\d.]+) and (\d+\.\d)', caption('tab:6'))
 for i, x in enumerate(m.groups()): c.chk(f'B/Llama seed {i}', float(x), 1, ss['B/Llama']['table1']['0.0']['seeds'][i], 'table1 seeds')
 done(c)
 
-c = Checker('Table 16 (tab08, grafts and loops)')
+c = Checker('Table 15 (tab08, grafts and loops)')
 def rec1(x):
     g = E(x, 'graft1', 'markers_per_1k'); l1 = ss[x]['table1']['1.0']['mean']; l0 = ss[x]['table1']['0.0']['mean']; return 100 * (g - l1) / (l0 - l1)
 spec = {('Early', '$\\lambda=1$'): (lambda x: ss[x]['base']['base1_head_markers_per_1k']['mean'], 1),
@@ -320,8 +320,8 @@ for r in rows('tab19b.tex'):
         else: c.err.append(f'unknown row {lab}')
 done(c)
 
-# ---------------- Table 15 (tab29, tab11) ----------------
-c = Checker('Table 15 (tab29, tab11)')
+# ---------------- Table 17 (tab29, tab11) ----------------
+c = Checker('Table 17 (tab29, tab11)')
 conds = ['lambda0', 'rm_pre', 'rm_decisive', 'graft2', 'lambda1', 'untrained']
 rowf = {'Hesitation': lambda h, w: h['c_markers_per_1k']['hesitation'], 'Verification': lambda h, w: h['c_markers_per_1k']['verification'],
         'Attempts': lambda h, w: h['c_attempts_per_solution'], 'Opener': lambda h, w: h['e_opens_monologue'],
@@ -358,9 +358,9 @@ c.chk('top chance max %', float(g[2]), 1, 100 * max(to[x]['chance'] for x in CEL
 rng(c, 'region spanned %', g[3:5], 0, [100 * to[x]['cover_region'] for x in CELLS], 'top_overlap.cover_region')
 done(c)
 
-# ---------------- Table 17 (tab25, examples; unchanged) ----------------
+# ---------------- Table 16 (tab25, examples) ----------------
 ex = J('examples')
-c = Checker('Table 17 (tab25)')
+c = Checker('Table 16 (tab25)')
 for r, e in zip(rows('tab25.tex'), ex['students'] + ex['teachers']):
     r[0] = r[0].replace(r'\addlinespace', '').strip()
     if r[0] != e['row']: c.err.append(f'row name {r[0]} vs {e["row"]}')

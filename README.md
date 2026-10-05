@@ -27,7 +27,7 @@ experiments/
     drivers/                  shell drivers for the edits and evaluations, called by reproduce/
     data/                     problem pool (4,000 MATH train problems) and MATH-500
     sweep*/, pairB/, pairD/   pair A, B and C (see "Names" below): teacher splits, per-cell runs and evaluations
-    sae_llama/                SAE scores of the Llama students (Table 15, bottom)
+    sae_llama/                SAE scores of the Llama students (Table 17, right)
     hf_cards/                 cards of the Hugging Face releases
   manuscript_audit/           checks every table cell and in-text number of the manuscript against *.json
 code/MI-Distillation/         git submodule; its answer extraction and grader score MATH, GSM8K and GPQA
@@ -158,10 +158,10 @@ in full (`D/OLMo-2-1B`), used by `think_rate`, `phi_resample_s012`, `alignment_*
 | Table 12 | region raised by γ, or the whole update moved into it, at a fixed norm; region weight gain | `analyze_seed_spread.py`, `analyze_energy_match.py`, `analyze_review_stats.py` | `python $E/analyze_seed_spread.py`; `python $E/analyze_energy_match.py`; `python $E/analyze_review_stats.py` | `seed_spread` (`edits.{ampn1,ampn4,ampV}`); `energy_match` (`<cell>.mean.gain_*`); `review_stats` (`amplification.nine_cell`, caption) | 04 |
 | Table 13 | removal, length-matched cut, other directions, top removal, scale-down: whole-response and early markers, accuracy | `analyze_seed_spread.py`, `analyze_baselines.py`, `analyze_main_edits.py` | `python $E/analyze_seed_spread.py`; `python $E/analyze_baselines.py` | `seed_spread` (`table1.0.0`, `edits.{rm_pre,rm_other,rm_scale}`, `base.base0_accuracy`); `baselines` (`{budget,gs_energy}`); `main_edits` (`<cell>.{base0,lambda0.0_*}.head_markers_per_1k`) | 04 |
 | Table 14 | region removal and the β = 2 graft per cell as value ± SD over seeds; nine-cell intervals | `analyze_edit_stats.py`, `analyze_paired_bootstrap.py`, `analyze_review_stats.py`, then `paper_tables.py` | `python $E/analyze_edit_stats.py`; `python $E/analyze_paired_bootstrap.py`; `python $E/analyze_review_stats.py`; `python $E/paper_tables.py` (writes the manuscript's `tables/`) | `edit_stats` (`cells.<cell>.*`, `nine_cell`); `paired_bootstrap` (`nine_cell.{top,cut}.ci95_pp`; per-problem grades cached in `paired_bootstrap_grades.json`); `review_stats` (`cell_interval`, `graft_recovery_early`, `graft_seed_recovery`) | 04 |
-| Table 15 | student response structure per edit (top); SAE thinking features of the Llama students (bottom) | `analyze_student_structure.py`; `sae_llama.py`, `analyze_sae_llama.py` | `python $E/analyze_student_structure.py`; `bash reproduce/05_sae.sh`, then `python $E/analyze_sae_llama.py` | `student_structure` (`summary.all.level`); `sae_llama` (`<A,B,C>.<adapter>.{sae,sae_masked}`, `<P>.corr_keyword_sae`); the FVU in App. A is in `$E/sae_llama/check.json` | 03, 04, 05 |
-| Table 16 | grafts of the region, other directions and the whole update at β = 1 and 2: markers, completion, accuracy, tokens, recovered gap, loops | `analyze_seed_spread.py`, `analyze_degeneration.py` | `python $E/analyze_seed_spread.py`; `python $E/analyze_degeneration.py` | `seed_spread` (`edits.{graft1,graft_other1,graft_whole1,graft2,graft_other2,graft_whole2}`, `table1`, `base.base1_head_markers_per_1k`); `degeneration` (`<cell>.{base0,base1,rm_pre,graft1,graft2,graft_other2,graft_whole2}`) | 03, 04 |
+| Table 15 | grafts of the region, other directions and the whole update at β = 1 and 2: markers, completion, accuracy, tokens, recovered gap, loops | `analyze_seed_spread.py`, `analyze_degeneration.py` | `python $E/analyze_seed_spread.py`; `python $E/analyze_degeneration.py` | `seed_spread` (`edits.{graft1,graft_other1,graft_whole1,graft2,graft_other2,graft_whole2}`, `table1`, `base.base1_head_markers_per_1k`); `degeneration` (`<cell>.{base0,base1,rm_pre,graft1,graft2,graft_other2,graft_whole2}`) | 03, 04 |
 | Figure 4 | GSM8K and GPQA-Diamond markers, GSM8K accuracy and truncation, per cell | `paper_appendix_figures.py` (`fig_ood`); input from `analyze_ood.py` | `FIG_OUT=figures python $E/paper_appendix_figures.py` | `appfig_ood.pdf` from `ood` (`<gsm8k,gpqa_diamond>.<cell>.{base0,rm_other,rm_pre,base1}`) | 07 |
-| Table 17 | example outputs chosen by a fixed rule (A/Qwen, seed 0) | `make_examples_table.py` | `python $E/make_examples_table.py` | `examples` (`rule`, `problem_index`, `students[]`, `teachers[]`) and `$E/examples_table.tex` (the manuscript's `tables/tab25.tex`) | 03, 04 |
+| Table 16 | example outputs chosen by a fixed rule (A/Qwen, seed 0) | `make_examples_table.py` | `python $E/make_examples_table.py` | `examples` (`rule`, `problem_index`, `students[]`, `teachers[]`) and `$E/examples_table.tex` (the manuscript's `tables/tab25.tex`) | 03, 04 |
+| Table 17 | student response structure per edit (left); SAE thinking features of the Llama students (right) | `analyze_student_structure.py`; `sae_llama.py`, `analyze_sae_llama.py` | `python $E/analyze_student_structure.py`; `bash reproduce/05_sae.sh`, then `python $E/analyze_sae_llama.py` | `student_structure` (`summary.all.level`); `sae_llama` (`<A,B,C>.<adapter>.{sae,sae_masked}`, `<P>.corr_keyword_sae`); the FVU in App. A is in `$E/sae_llama/check.json` | 03, 04, 05 |
 
 ### Numbers cited in the text only
 
@@ -181,7 +181,7 @@ in full (`D/OLMo-2-1B`), used by `think_rate`, `phi_resample_s012`, `alignment_*
 `coverage_by_lambda.json` (`analyze_coverage_by_lambda.py`) is an input of `length_confound.json`, and
 `seed_region_overlap.json` (`analyze_seed_region_overlap.py`) equals `threshold_sensitivity.json`
 `two_seed_region.0.75.overlap`; neither is printed directly. Tables 1, 2, 9 and 14 are written by
-`paper_tables.py` and Table 17 by `make_examples_table.py`; the other tables copy JSON fields and were typeset by
+`paper_tables.py` and Table 16 by `make_examples_table.py`; the other tables copy JSON fields and were typeset by
 hand. App. A also states the cut-0.4/0.6 rebuild (`threshold_sensitivity`) and the top directions of energy-matched
 top removal (`top_overlap`, `<cell>.{dims_top,cover_region,cover_top,chance}`) in its text.
 

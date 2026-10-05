@@ -213,8 +213,8 @@ R('App B pair A after switch, lambda1 floor',10.4,48.7,1,[fl('lambda1',f'A/{k}',
 R('Limitations training-solution tokens (k)',2.1,3.1,1,[lc['pairs'][p]['tokens']['0.0']/1000 for p in PAIRS],'length_confound pairs.tokens.0.0')
 R('Table 4 caption region directions per module type',4.2,10.5,1,[ra[c]['by_module'][m]['dims'] for c in CELLS for m in ra[c]['by_module']],'region_anatomy by_module dims')
 ex=J('examples')['students']
-V('Table 17 caption lambda0 row markers',2.4,1,ex[0]['markers_per_1k'],'examples.json students[0]'); V('Table 17 caption graft row markers',1.1,1,ex[3]['markers_per_1k'],'examples.json students[3]')
-V('Table 17 caption A/Qwen lambda0 mean markers',21.8,1,ss['A/Qwen']['base']['base0_markers_per_1k']['mean'],'seed_spread base0_markers_per_1k'); V('Table 17 caption A/Qwen graft mean markers',13.0,1,ss['A/Qwen']['edits']['graft2']['markers_per_1k']['mean'],'seed_spread graft2 markers_per_1k')
+V('Table 16 caption lambda0 row markers',2.4,1,ex[0]['markers_per_1k'],'examples.json students[0]'); V('Table 16 caption graft row markers',1.1,1,ex[3]['markers_per_1k'],'examples.json students[3]')
+V('Table 16 caption A/Qwen lambda0 mean markers',21.8,1,ss['A/Qwen']['base']['base0_markers_per_1k']['mean'],'seed_spread base0_markers_per_1k'); V('Table 16 caption A/Qwen graft mean markers',13.0,1,ss['A/Qwen']['edits']['graft2']['markers_per_1k']['mean'],'seed_spread graft2 markers_per_1k')
 V('Table 13 caption pair B graft at lambda1 level (gap recovered within +-5%)',1,0,int(abs((g('B','graft2')-g('B','base1.0'))/(g('B','base0.0')-g('B','base1.0')))<0.05),'sae_llama B')
 V('Fig 5 caption merge uses equal weight (merge0.5 nine-cell acc %)',25.4,1,100*sum(bl[c]['merge0.5']['accuracy']['mean'] for c in CELLS)/9,'baselines merge0.5')
 V('App D per-cell CI above zero, cut, seeds resampled',5,0,pbs['nine_cell']['cut']['cells_ci_above_zero_seeds_resampled'],'paired_bootstrap nine_cell')

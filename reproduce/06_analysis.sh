@@ -4,15 +4,15 @@
 #
 # Paper artifacts (printed numbering of the current manuscript; README.md has the full map with JSON keys):
 #   think_rate.json                       Figure 2 (top); input of Tables 1, 7 and 9
-#   main_density.json, main_edits.json    Tables 2, 6, 13 and 16; per-seed inputs of seed_spread.json
-#   seed_spread.json                      Tables 2, 6, 12, 13 and 16; Figures 1 (caption) and 3
+#   main_density.json, main_edits.json    Tables 2, 6, 13 and 15; per-seed inputs of seed_spread.json
+#   seed_spread.json                      Tables 2, 6, 12, 13 and 15; Figures 1 (caption) and 3
 #   teacher_density.json                  Table 6 (teacher-student r); input of Tables 7 and 11
 #   baselines.json                        Tables 2, 3 and 13; Figures 3 and 5
 #   base_students.json                    Table 3 (untrained students)
 #   graft_beta.json                       App. C (beta = 4, 8)
 #   ood.json                              Table 3; Figure 4
-#   sae_llama.json                        Table 15 (bottom)
-#   degeneration.json                     Table 16 (loops)
+#   sae_llama.json                        Table 17 (right)
+#   degeneration.json                     Table 15 (loops)
 #   edit_stats.json                       Tables 2 and 14
 #   phi_resample_s012.json                Figure 2 (middle); App. B
 #   alignment_s012.json                   Table 7 (think rate)
@@ -38,13 +38,13 @@
 #   supplementary_stats.json              App. A and E
 #   think_rate_completed.json             Table 7 (completed and training subsets)
 #   teacher_structure.json                Table 11
-#   student_structure.json                Table 15 (top)
+#   student_structure.json                Table 17 (left)
 #   removal_vs_untrained.json             Table 10
 #   region_logit_lens.json                App. D
-#   review_stats.json                     Tables 2, 12, 14 and 16; Sec. 5 and Limitations
+#   review_stats.json                     Tables 2, 12, 14 and 15; Sec. 5 and Limitations
 #   c13_additions.json                    App. B and C
 #   agreement_normalised.json             Sec. 4.3
-#   examples.json (+ examples_table.tex)  Table 17
+#   examples.json (+ examples_table.tex)  Table 16
 #   reproducibility.lock.json             model commits and library versions (appendix)
 #
 # Run from anywhere: bash reproduce/06_analysis.sh  (inside the container for the adapter analyses and the
@@ -102,7 +102,7 @@ py analyze_removal_vs_untrained.py
 py analyze_region_logit_lens.py                      # reads the student checkpoints in models/
 py analyze_review_stats.py                           # needs main_edits, sae_llama, paired_bootstrap, length_confound, energy_match, seed_spread, degeneration
 py analyze_c13_additions.py                          # needs lambda0_retention, length_confound, main_edits
-py make_examples_table.py                            # Table 17: examples.json and examples_table.tex
+py make_examples_table.py                            # Table 16: examples.json and examples_table.tex
 py paper_tables.py                                   # Tables 1, 2, 9 and 14 into $MANUSCRIPT_DIR/tables/
 # environment record
 py make_lockfile.py

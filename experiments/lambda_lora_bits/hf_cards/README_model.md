@@ -111,14 +111,14 @@ Two conditions in the paper are generation-time and have no adapter of their own
 | file | used for |
 |---|---|
 | `think_rate.json`, `teacher_density.json` | Teacher `</think>` rate and reflective-marker density per λ (Figure 2, top; Tables 1 and 6) |
-| `main_density.json`, `seed_spread.json` | Unedited students on MATH-500, and seed means and SDs for Tables 2, 6, 12, 13 and 16 and Figure 3 |
+| `main_density.json`, `seed_spread.json` | Unedited students on MATH-500, and seed means and SDs for Tables 2, 6, 12, 13 and 15 and Figure 3 |
 | `phi_resample_s012.json` | R(λ) with numerator and denominator, seeds 0–2 (Figure 2, middle; Appendix B) |
 | `alignment_s012.json`, `alignment_markers_s012.json` | Interval-wise correlation of R with the teacher's `</think>` rate and its marker density, with exact permutation p (Table 7) |
 | `phi_xseed.json` | Same-seed and cross-seed overlap (why seed-only pairs are not a baseline) |
 | `consensus_pre.json`, `consensus_post.json` | Shared-region dimensions and coverage, pre and post transition (Table 8) |
-| `main_edits.json` | Removal, graft and amplify edits on MATH-500 (Tables 2, 13 and 16; Appendix C) |
+| `main_edits.json` | Removal, graft and amplify edits on MATH-500 (Tables 2, 13 and 15; Appendix C) |
 | `graft_beta.json` | Grafts at β = 2, 4, 8, seed 0 (why β = 4, 8 are excluded; Appendix C) |
-| `sae_llama.json` | Thinking-feature activations from the public Llama-3.2-1B SAE (Table 15, bottom) |
+| `sae_llama.json` | Thinking-feature activations from the public Llama-3.2-1B SAE (Table 17, right) |
 | `ood.json` | GSM8K and GPQA-Diamond (Table 3, top; Figure 4) |
 | `baselines.json` | Ways to turn thinking off, compared (Tables 2, 3 and 13) |
 | `base_students.json` | Untrained students (Table 3, "Untrained") |
@@ -133,13 +133,13 @@ Two conditions in the paper are generation-time and have no adapter of their own
 | `paired_bootstrap.json`, `paired_bootstrap_grades.json` | Problem-level paired bootstrap of the removal against its controls, and the per-problem grades it reads (Table 14; Section 5.1; Appendix C) |
 | `review_stats.json` | Seed-level graft recovery, amplification, interval and SAE-subset statistics (Tables 2, 12 and 14; Section 5) |
 | `removal_vs_untrained.json` | Region removal against the untrained student, per problem (Table 10) |
-| `teacher_structure.json`, `student_structure.json` | Structure of the teacher's training solutions and of the student responses per edit (Tables 11 and 15) |
+| `teacher_structure.json`, `student_structure.json` | Structure of the teacher's training solutions and of the student responses per edit (Tables 11 and 17) |
 | `region_logit_lens.json` | Region directions read through the unembedding (Appendix C) |
 | `supplementary_stats.json` | Teacher think rate on the training subset, long OLMo training examples, two-seed region energy share (Appendices A and C) |
-| `examples.json` | Example outputs chosen by a fixed rule (Table 17) |
+| `examples.json` | Example outputs chosen by a fixed rule (Table 16) |
 | `coverage_by_lambda.json`, `length_confound.json` | Coverage of the λ = 0 region at every λ, and every interval classed by the teacher with length, region kept and coverage changes (Tables 1 and 9; Appendix B) |
 | `threshold_sensitivity.json`, `top_overlap.json` | The region rebuilt at other eigenvalue cuts and the two-seed overlap (Table 8; Appendix A), and the top singular directions taken by top removal (Appendix A) |
-| `edit_stats.json`, `degeneration.json` | Per-cell edit effects with seed spread (Table 14) and responses ending in a loop (Table 16) |
+| `edit_stats.json`, `degeneration.json` | Per-cell edit effects with seed spread (Table 14) and responses ending in a loop (Table 15) |
 | `reproducibility.lock.json` | Hub commits and file hashes of the downloaded checkpoints, plus the software environment |
 
 
