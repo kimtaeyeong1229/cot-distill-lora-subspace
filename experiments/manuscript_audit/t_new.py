@@ -167,8 +167,8 @@ spec={'Rem.\\ region, kept (\\%)':lambda x: 100*bl[x]['rm_pre']['markers']['mean
       'Graft $\\beta=2$, recovered (\\%)':lambda x: 100*rv['graft_recovery_early'][x]['beta2'],
       '$\\lambda=1$ host, done (\\%)':lambda x: 100*(1-ss2[x]['table2']['trunc1']['mean']),
       'Graft $\\beta=2$, done (\\%)':lambda x: 100*ss2[x]['edits']['graft2']['completed']['mean'],
-      'Amplified, gain ($\\times$)':lambda x: em[x]['mean']['gain_ampV'],
-      'Amplified, early ($\\times$)':lambda x: h(x,'ampV')}
+      'All in region, gain ($\\times$)':lambda x: em[x]['mean']['gain_ampV'],
+      'All in region, early ($\\times$)':lambda x: h(x,'ampV')}
 seen=set()
 for r in rows('tab32.tex'):
     lab=r[0].strip()
