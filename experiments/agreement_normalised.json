@@ -1,0 +1,667 @@
+{
+ "cells": {
+  "A/Qwen": [
+   {
+    "interval": "0.0->0.2",
+    "class": "held",
+    "log_len_drop": 0.6681452695953419,
+    "kept": 0.5027152134175227,
+    "overlap_ratio": 0.528271476650938,
+    "kept_over_overlap": 0.9516228599063622,
+    "selfagree_ratio": 0.9013211257543959,
+    "kept_over_selfagree": 0.5577537228995443,
+    "overlap_loss_per_unit": 0.9550991320701062
+   },
+   {
+    "interval": "0.2->0.4",
+    "class": "switch",
+    "log_len_drop": 0.8029944885562647,
+    "kept": 0.12208071825248662,
+    "overlap_ratio": 0.32288767449193573,
+    "kept_over_overlap": 0.3780903636057983,
+    "selfagree_ratio": 0.6721817933031707,
+    "kept_over_selfagree": 0.18161860298620908,
+    "overlap_loss_per_unit": 1.4077939379937192
+   },
+   {
+    "interval": "0.4->0.6",
+    "class": "after",
+    "log_len_drop": 0.09576528241170228,
+    "kept": 0.2902291027897162,
+    "overlap_ratio": 0.8700559811566357,
+    "kept_over_overlap": 0.3335752055906692,
+    "selfagree_ratio": 0.8763997645434857,
+    "kept_over_selfagree": 0.3311606352848529,
+    "overlap_loss_per_unit": 1.45353012846721
+   },
+   {
+    "interval": "0.6->0.8",
+    "class": "after",
+    "log_len_drop": 0.05752251972160097,
+    "kept": 0.3506781309911127,
+    "overlap_ratio": 0.952034471974797,
+    "kept_over_overlap": 0.36834604346174993,
+    "selfagree_ratio": 0.9551018906215181,
+    "kept_over_selfagree": 0.36716305813499567,
+    "overlap_loss_per_unit": 0.8545181091975321
+   },
+   {
+    "interval": "0.8->1.0",
+    "class": "after",
+    "log_len_drop": 0.036377395519819236,
+    "kept": 0.3626482386083072,
+    "overlap_ratio": 0.998439021322704,
+    "kept_over_overlap": 0.36321520980608407,
+    "selfagree_ratio": 0.9772113960899472,
+    "kept_over_selfagree": 0.37110520820709636,
+    "overlap_loss_per_unit": null
+   }
+  ],
+  "A/Llama": [
+   {
+    "interval": "0.0->0.2",
+    "class": "held",
+    "log_len_drop": 0.6681452695953419,
+    "kept": 0.5699383123292002,
+    "overlap_ratio": 0.5572694685873331,
+    "kept_over_overlap": 1.0227337840237012,
+    "selfagree_ratio": 0.9343026447464141,
+    "kept_over_selfagree": 0.6100146623087975,
+    "overlap_loss_per_unit": 0.8751186261947291
+   },
+   {
+    "interval": "0.2->0.4",
+    "class": "switch",
+    "log_len_drop": 0.8029944885562647,
+    "kept": 0.18991783919629313,
+    "overlap_ratio": 0.31164391292558524,
+    "kept_over_overlap": 0.6094065416308707,
+    "selfagree_ratio": 0.805835413933376,
+    "kept_over_selfagree": 0.2356781991862112,
+    "overlap_loss_per_unit": 1.4519328143568686
+   },
+   {
+    "interval": "0.4->0.6",
+    "class": "after",
+    "log_len_drop": 0.09576528241170228,
+    "kept": 0.6796813238976133,
+    "overlap_ratio": 0.8841949164990494,
+    "kept_over_overlap": 0.7687007821632778,
+    "selfagree_ratio": 1.0033590891931308,
+    "kept_over_selfagree": 0.6774058572033181,
+    "overlap_loss_per_unit": 1.285202150225465
+   },
+   {
+    "interval": "0.6->0.8",
+    "class": "after",
+    "log_len_drop": 0.05752251972160097,
+    "kept": 0.7878167986358059,
+    "overlap_ratio": 0.9485753394989217,
+    "kept_over_overlap": 0.8305263333663773,
+    "selfagree_ratio": 1.0065711680182128,
+    "kept_over_selfagree": 0.7826737181305309,
+    "overlap_loss_per_unit": 0.9177981574043285
+   },
+   {
+    "interval": "0.8->1.0",
+    "class": "after",
+    "log_len_drop": 0.036377395519819236,
+    "kept": 0.8143988511871495,
+    "overlap_ratio": 0.9725287096656784,
+    "kept_over_overlap": 0.8374034032035019,
+    "selfagree_ratio": 1.0074893785789123,
+    "kept_over_selfagree": 0.8083448505788502,
+    "overlap_loss_per_unit": null
+   }
+  ],
+  "A/OLMo": [
+   {
+    "interval": "0.0->0.2",
+    "class": "held",
+    "log_len_drop": 0.6681452695953419,
+    "kept": 0.5835660752282961,
+    "overlap_ratio": 0.5829815263065425,
+    "kept_over_overlap": 1.001002688585103,
+    "selfagree_ratio": 0.9371943265745019,
+    "kept_over_selfagree": 0.6226735039693028,
+    "overlap_loss_per_unit": 0.8076084722657894
+   },
+   {
+    "interval": "0.2->0.4",
+    "class": "switch",
+    "log_len_drop": 0.8029944885562647,
+    "kept": 0.18332489699059556,
+    "overlap_ratio": 0.28076549251481636,
+    "kept_over_overlap": 0.6529466828296974,
+    "selfagree_ratio": 0.7230149570887062,
+    "kept_over_selfagree": 0.2535561611737218,
+    "overlap_loss_per_unit": 1.5818732536637585
+   },
+   {
+    "interval": "0.4->0.6",
+    "class": "after",
+    "log_len_drop": 0.09576528241170228,
+    "kept": 0.6210195046602565,
+    "overlap_ratio": 0.8362762914832431,
+    "kept_over_overlap": 0.7426008736404554,
+    "selfagree_ratio": 0.9860800825342216,
+    "kept_over_selfagree": 0.62978607484317,
+    "overlap_loss_per_unit": 1.8670255419334487
+   },
+   {
+    "interval": "0.6->0.8",
+    "class": "after",
+    "log_len_drop": 0.05752251972160097,
+    "kept": 0.7486954255536497,
+    "overlap_ratio": 0.9372728180964004,
+    "kept_over_overlap": 0.7988020255129652,
+    "selfagree_ratio": 1.0177350112649788,
+    "kept_over_selfagree": 0.7356486877886511,
+    "overlap_loss_per_unit": 1.1261828963849085
+   },
+   {
+    "interval": "0.8->1.0",
+    "class": "after",
+    "log_len_drop": 0.036377395519819236,
+    "kept": 0.7674817728208931,
+    "overlap_ratio": 0.9534390843923757,
+    "kept_over_overlap": 0.8049615181341211,
+    "selfagree_ratio": 0.9841786571081544,
+    "kept_over_selfagree": 0.7798195655614103,
+    "overlap_loss_per_unit": null
+   }
+  ],
+  "B/Qwen": [
+   {
+    "interval": "0.0->0.2",
+    "class": "held",
+    "log_len_drop": 0.20685213499465704,
+    "kept": 0.8817686425508428,
+    "overlap_ratio": 0.7859364760365871,
+    "kept_over_overlap": 1.1219337305700956,
+    "selfagree_ratio": 0.9930281245457498,
+    "kept_over_selfagree": 0.8879593847900314,
+    "overlap_loss_per_unit": 1.1644999898941397
+   },
+   {
+    "interval": "0.2->0.4",
+    "class": "held",
+    "log_len_drop": 0.19185320200989778,
+    "kept": 0.8299654199997395,
+    "overlap_ratio": 0.8608208474185082,
+    "kept_over_overlap": 0.9641558083644232,
+    "selfagree_ratio": 0.992062508463623,
+    "kept_over_selfagree": 0.8366059728283469,
+    "overlap_loss_per_unit": 0.7811642945882241
+   },
+   {
+    "interval": "0.4->0.6",
+    "class": "switch",
+    "log_len_drop": 0.678602852871351,
+    "kept": 0.40080583226537236,
+    "overlap_ratio": 0.5057174214717436,
+    "kept_over_overlap": 0.7925489912903207,
+    "selfagree_ratio": 0.9391168913365737,
+    "kept_over_selfagree": 0.42679014291281236,
+    "overlap_loss_per_unit": 1.0046777999734764
+   },
+   {
+    "interval": "0.6->0.8",
+    "class": "after",
+    "log_len_drop": 0.5062019633270953,
+    "kept": 0.4286054580811565,
+    "overlap_ratio": 0.7158108580131659,
+    "kept_over_overlap": 0.59876914869776,
+    "selfagree_ratio": 0.9853087882937018,
+    "kept_over_selfagree": 0.4349960775478208,
+    "overlap_loss_per_unit": 0.6604860034673428
+   },
+   {
+    "interval": "0.8->1.0",
+    "class": "after",
+    "log_len_drop": 0.013722981428619052,
+    "kept": 0.8008736222265375,
+    "overlap_ratio": 0.9660142482249353,
+    "kept_over_overlap": 0.8290494924874596,
+    "selfagree_ratio": 1.0144105988273273,
+    "kept_over_selfagree": 0.7894965048199993,
+    "overlap_loss_per_unit": null
+   }
+  ],
+  "B/Llama": [
+   {
+    "interval": "0.0->0.2",
+    "class": "held",
+    "log_len_drop": 0.20685213499465704,
+    "kept": 0.9164558178313128,
+    "overlap_ratio": 0.789983726062368,
+    "kept_over_overlap": 1.1600945533388873,
+    "selfagree_ratio": 0.9936935260277945,
+    "kept_over_selfagree": 0.9222721028431846,
+    "overlap_loss_per_unit": 1.1396688444158118
+   },
+   {
+    "interval": "0.2->0.4",
+    "class": "held",
+    "log_len_drop": 0.19185320200989778,
+    "kept": 0.8692472163395855,
+    "overlap_ratio": 0.861300426166383,
+    "kept_over_overlap": 1.0092265020796207,
+    "selfagree_ratio": 0.9967628215377011,
+    "kept_over_selfagree": 0.8720702634139204,
+    "overlap_loss_per_unit": 0.7782612269617869
+   },
+   {
+    "interval": "0.4->0.6",
+    "class": "switch",
+    "log_len_drop": 0.678602852871351,
+    "kept": 0.4103425729384059,
+    "overlap_ratio": 0.4817460325408808,
+    "kept_over_overlap": 0.8517819457155248,
+    "selfagree_ratio": 0.9568421706090978,
+    "kept_over_selfagree": 0.42885084452035993,
+    "overlap_loss_per_unit": 1.076238044307999
+   },
+   {
+    "interval": "0.6->0.8",
+    "class": "after",
+    "log_len_drop": 0.5062019633270953,
+    "kept": 0.48346753139584947,
+    "overlap_ratio": 0.6654877528070744,
+    "kept_over_overlap": 0.7264859937039401,
+    "selfagree_ratio": 0.9990901245138193,
+    "kept_over_selfagree": 0.4839078272654493,
+    "overlap_loss_per_unit": 0.8044912383079629
+   },
+   {
+    "interval": "0.8->1.0",
+    "class": "after",
+    "log_len_drop": 0.013722981428619052,
+    "kept": 0.8873981050815282,
+    "overlap_ratio": 0.9657983627677504,
+    "kept_over_overlap": 0.9188233686154265,
+    "selfagree_ratio": 1.0154362023329386,
+    "kept_over_selfagree": 0.8739082800502422,
+    "overlap_loss_per_unit": null
+   }
+  ],
+  "B/OLMo": [
+   {
+    "interval": "0.0->0.2",
+    "class": "held",
+    "log_len_drop": 0.20685213499465704,
+    "kept": 0.9560489442553194,
+    "overlap_ratio": 0.8351165457977784,
+    "kept_over_overlap": 1.1448090078756799,
+    "selfagree_ratio": 1.0011294090886285,
+    "kept_over_selfagree": 0.9549703920152063,
+    "overlap_loss_per_unit": 0.8710762790531968
+   },
+   {
+    "interval": "0.2->0.4",
+    "class": "held",
+    "log_len_drop": 0.19185320200989778,
+    "kept": 0.9095152028053273,
+    "overlap_ratio": 0.8830010721976198,
+    "kept_over_overlap": 1.0300272915204043,
+    "selfagree_ratio": 1.0048973948650433,
+    "kept_over_selfagree": 0.9050826556550824,
+    "overlap_loss_per_unit": 0.6485628741586227
+   },
+   {
+    "interval": "0.4->0.6",
+    "class": "switch",
+    "log_len_drop": 0.678602852871351,
+    "kept": 0.44853000120298164,
+    "overlap_ratio": 0.48968991053674976,
+    "kept_over_overlap": 0.9159469932948942,
+    "selfagree_ratio": 0.9768149210525126,
+    "kept_over_selfagree": 0.45917603379736777,
+    "overlap_loss_per_unit": 1.0521366375350327
+   },
+   {
+    "interval": "0.6->0.8",
+    "class": "after",
+    "log_len_drop": 0.5062019633270953,
+    "kept": 0.5039303345057222,
+    "overlap_ratio": 0.617356522614991,
+    "kept_over_overlap": 0.816271175642853,
+    "selfagree_ratio": 0.9909047819368834,
+    "kept_over_selfagree": 0.508555760040545,
+    "overlap_loss_per_unit": 0.9527987334311595
+   },
+   {
+    "interval": "0.8->1.0",
+    "class": "after",
+    "log_len_drop": 0.013722981428619052,
+    "kept": 0.895552473389744,
+    "overlap_ratio": 0.9601399793958266,
+    "kept_over_overlap": 0.9327311565062371,
+    "selfagree_ratio": 1.0093094861142213,
+    "kept_over_selfagree": 0.8872922386151003,
+    "overlap_loss_per_unit": null
+   }
+  ],
+  "C/Qwen": [
+   {
+    "interval": "0.0->0.2",
+    "class": "held",
+    "log_len_drop": 0.22102095338143166,
+    "kept": 0.8261728569928055,
+    "overlap_ratio": 0.7820946474591136,
+    "kept_over_overlap": 1.056359175551059,
+    "selfagree_ratio": 0.9875021437140201,
+    "kept_over_selfagree": 0.836628925062936,
+    "overlap_loss_per_unit": 1.1120190617407406
+   },
+   {
+    "interval": "0.2->0.4",
+    "class": "held",
+    "log_len_drop": 0.19909611665360394,
+    "kept": 0.7833723234805294,
+    "overlap_ratio": 0.8803329021769726,
+    "kept_over_overlap": 0.8898591902487462,
+    "selfagree_ratio": 0.9879889731033114,
+    "kept_over_selfagree": 0.7928958164582818,
+    "overlap_loss_per_unit": 0.6401689156995433
+   },
+   {
+    "interval": "0.4->0.6",
+    "class": "switch",
+    "log_len_drop": 0.5999802795998517,
+    "kept": 0.4423751888844028,
+    "overlap_ratio": 0.5913739646056086,
+    "kept_over_overlap": 0.7480464399196638,
+    "selfagree_ratio": 0.9199873751188229,
+    "kept_over_selfagree": 0.48084919516125635,
+    "overlap_loss_per_unit": 0.8755399364261405
+   },
+   {
+    "interval": "0.6->0.8",
+    "class": "switch",
+    "log_len_drop": 0.6857441741878046,
+    "kept": 0.16481236328220605,
+    "overlap_ratio": 0.45291018034011726,
+    "kept_over_overlap": 0.3638963539270383,
+    "selfagree_ratio": 0.8743905051653009,
+    "kept_over_selfagree": 0.18848828104674897,
+    "overlap_loss_per_unit": 1.155039270281321
+   },
+   {
+    "interval": "0.8->1.0",
+    "class": "after",
+    "log_len_drop": -0.055558839598870945,
+    "kept": 0.4299434046308497,
+    "overlap_ratio": 0.9247694442468426,
+    "kept_over_overlap": 0.4649195616330158,
+    "selfagree_ratio": 1.086201505767223,
+    "kept_over_selfagree": 0.39582287664678323,
+    "overlap_loss_per_unit": -1.4077115822624922
+   }
+  ],
+  "C/Llama": [
+   {
+    "interval": "0.0->0.2",
+    "class": "held",
+    "log_len_drop": 0.22102095338143166,
+    "kept": 0.8912158892682477,
+    "overlap_ratio": 0.809894078548159,
+    "kept_over_overlap": 1.1004104275782194,
+    "selfagree_ratio": 0.9929525122611319,
+    "kept_over_selfagree": 0.8975413005792073,
+    "overlap_loss_per_unit": 0.9539901256648938
+   },
+   {
+    "interval": "0.2->0.4",
+    "class": "held",
+    "log_len_drop": 0.19909611665360394,
+    "kept": 0.8617902452677396,
+    "overlap_ratio": 0.8899097093554986,
+    "kept_over_overlap": 0.9684018908973091,
+    "selfagree_ratio": 0.995541939938743,
+    "kept_over_selfagree": 0.8656493621160418,
+    "overlap_loss_per_unit": 0.5858239403416167
+   },
+   {
+    "interval": "0.4->0.6",
+    "class": "switch",
+    "log_len_drop": 0.5999802795998517,
+    "kept": 0.5224412547665376,
+    "overlap_ratio": 0.596667009838326,
+    "kept_over_overlap": 0.8755993647245542,
+    "selfagree_ratio": 0.911809520651505,
+    "kept_over_selfagree": 0.5729719233390363,
+    "overlap_loss_per_unit": 0.860688444646851
+   },
+   {
+    "interval": "0.6->0.8",
+    "class": "switch",
+    "log_len_drop": 0.6857441741878046,
+    "kept": 0.12824916036538214,
+    "overlap_ratio": 0.3289460889628211,
+    "kept_over_overlap": 0.3898789639656649,
+    "selfagree_ratio": 0.7146640578721912,
+    "kept_over_selfagree": 0.17945377125474232,
+    "overlap_loss_per_unit": 1.6213938766532099
+   },
+   {
+    "interval": "0.8->1.0",
+    "class": "after",
+    "log_len_drop": -0.055558839598870945,
+    "kept": 0.30359418512437547,
+    "overlap_ratio": 0.8062136590438495,
+    "kept_over_overlap": 0.37656790072799196,
+    "selfagree_ratio": 1.0307149885632492,
+    "kept_over_selfagree": 0.2945471721019274,
+    "overlap_loss_per_unit": -3.8770875615360794
+   }
+  ],
+  "C/OLMo": [
+   {
+    "interval": "0.0->0.2",
+    "class": "held",
+    "log_len_drop": 0.22102095338143166,
+    "kept": 0.9197068810693961,
+    "overlap_ratio": 0.856650143144571,
+    "kept_over_overlap": 1.0736085068442969,
+    "selfagree_ratio": 0.994492711857376,
+    "kept_over_selfagree": 0.9248000212607841,
+    "overlap_loss_per_unit": 0.7000498176209897
+   },
+   {
+    "interval": "0.2->0.4",
+    "class": "held",
+    "log_len_drop": 0.19909611665360394,
+    "kept": 0.8934388201036623,
+    "overlap_ratio": 0.8946503068517295,
+    "kept_over_overlap": 0.99864585443185,
+    "selfagree_ratio": 0.9961008747455963,
+    "kept_over_selfagree": 0.8969360862491423,
+    "overlap_loss_per_unit": 0.559138759360062
+   },
+   {
+    "interval": "0.4->0.6",
+    "class": "switch",
+    "log_len_drop": 0.5999802795998517,
+    "kept": 0.5565529920856856,
+    "overlap_ratio": 0.6069745637232965,
+    "kept_over_overlap": 0.9169296793455142,
+    "selfagree_ratio": 0.9161147377349667,
+    "kept_over_selfagree": 0.607514505728536,
+    "overlap_loss_per_unit": 0.8321413397747229
+   },
+   {
+    "interval": "0.6->0.8",
+    "class": "switch",
+    "log_len_drop": 0.6857441741878046,
+    "kept": 0.27702350284745203,
+    "overlap_ratio": 0.43398857871039276,
+    "kept_over_overlap": 0.6383198001906729,
+    "selfagree_ratio": 0.9048798811545316,
+    "kept_over_selfagree": 0.30614395193978583,
+    "overlap_loss_per_unit": 1.2172718237849793
+   },
+   {
+    "interval": "0.8->1.0",
+    "class": "after",
+    "log_len_drop": -0.055558839598870945,
+    "kept": 0.6648695116439107,
+    "overlap_ratio": 0.9337380162742351,
+    "kept_over_overlap": 0.7120514534653382,
+    "selfagree_ratio": 1.0891205417828032,
+    "kept_over_selfagree": 0.6104645777367972,
+    "overlap_loss_per_unit": -1.2339958337715564
+   }
+  ]
+ },
+ "summary": {
+  "A_held": {
+   "kept": [
+    0.5027152134175227,
+    0.5835660752282961
+   ],
+   "overlap_ratio": [
+    0.528271476650938,
+    0.5829815263065425
+   ],
+   "kept_over_overlap": [
+    0.9516228599063622,
+    1.0227337840237012
+   ],
+   "selfagree_ratio": [
+    0.9013211257543959,
+    0.9371943265745019
+   ],
+   "kept_over_selfagree": [
+    0.5577537228995443,
+    0.6226735039693028
+   ]
+  },
+  "A_switch": {
+   "kept": [
+    0.12208071825248662,
+    0.18991783919629313
+   ],
+   "overlap_ratio": [
+    0.28076549251481636,
+    0.32288767449193573
+   ],
+   "kept_over_overlap": [
+    0.3780903636057983,
+    0.6529466828296974
+   ],
+   "selfagree_ratio": [
+    0.6721817933031707,
+    0.805835413933376
+   ],
+   "kept_over_selfagree": [
+    0.18161860298620908,
+    0.2535561611737218
+   ]
+  },
+  "A_switch_excess_loss_vs_overlap": [
+   0.34705331717030263,
+   0.6219096363942017
+  ],
+  "A_overlap_switch_over_held_per_unit": [
+   1.4739767744762062,
+   1.9587130496857312
+  ],
+  "B_switch": {
+   "kept": [
+    0.40080583226537236,
+    0.44853000120298164
+   ],
+   "overlap_ratio": [
+    0.4817460325408808,
+    0.5057174214717436
+   ],
+   "kept_over_overlap": [
+    0.7925489912903207,
+    0.9159469932948942
+   ],
+   "selfagree_ratio": [
+    0.9391168913365737,
+    0.9768149210525126
+   ],
+   "kept_over_selfagree": [
+    0.42679014291281236,
+    0.45917603379736777
+   ]
+  },
+  "B_after": {
+   "kept": [
+    0.4286054580811565,
+    0.5039303345057222
+   ],
+   "overlap_ratio": [
+    0.617356522614991,
+    0.7158108580131659
+   ],
+   "kept_over_overlap": [
+    0.59876914869776,
+    0.816271175642853
+   ],
+   "selfagree_ratio": [
+    0.9853087882937018,
+    0.9990901245138193
+   ],
+   "kept_over_selfagree": [
+    0.4349960775478208,
+    0.508555760040545
+   ]
+  },
+  "C_first_step": {
+   "kept": [
+    0.4423751888844028,
+    0.5565529920856856
+   ],
+   "overlap_ratio": [
+    0.5913739646056086,
+    0.6069745637232965
+   ],
+   "kept_over_overlap": [
+    0.7480464399196638,
+    0.9169296793455142
+   ],
+   "selfagree_ratio": [
+    0.911809520651505,
+    0.9199873751188229
+   ],
+   "kept_over_selfagree": [
+    0.48084919516125635,
+    0.607514505728536
+   ]
+  },
+  "C_second_step": {
+   "kept": [
+    0.12824916036538214,
+    0.27702350284745203
+   ],
+   "overlap_ratio": [
+    0.3289460889628211,
+    0.45291018034011726
+   ],
+   "kept_over_overlap": [
+    0.3638963539270383,
+    0.6383198001906729
+   ],
+   "selfagree_ratio": [
+    0.7146640578721912,
+    0.9048798811545316
+   ],
+   "kept_over_selfagree": [
+    0.17945377125474232,
+    0.30614395193978583
+   ]
+  },
+  "BC_first_step_kept_over_overlap": [
+   0.7480464399196638,
+   0.9169296793455142
+  ],
+  "BC_first_step_selfagree_ratio": [
+   0.911809520651505,
+   0.9768149210525126
+  ]
+ }
+}

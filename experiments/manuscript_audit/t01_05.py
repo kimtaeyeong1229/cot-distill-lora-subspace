@@ -13,7 +13,7 @@ for i,x in enumerate(m.groups()): c.chk(f'B/Llama lambda0 seed {i} (Table 11 cap
 cap=caption('tab:structure'); m=re.search(r'fall from ([\d.]+) to ([\d.]+)',cap)
 c.chk('A teacher markers 0.0 (Table 10 caption)',float(m.group(1)),1,td['A']['teacher']['0.0'],'teacher_density'); c.chk('A teacher markers 0.2',float(m.group(2)),1,td['A']['teacher']['0.2'],'teacher_density')
 APP=open(APP_TEX).read()
-m=re.search(r'pair A\'s first interval (?:then )?drops by ([\d.]+)--([\d.]+) against ([\d.]+)--([\d.]+) at the switch',APP)
+m=re.search(r'pair A\'s first interval (?:then )?drops (?:by )?([\d.]+)--([\d.]+) against ([\d.]+)--([\d.]+) at the switch',APP)
 rs=J('symmetric_R'); keyR=lambda p,k: f'{P(p)}/{FULL[k]}'
 d1=[rs[keyR('A',k)]['drops']['0.0->0.2'] for k in STUD]; d2=[rs[keyR('A',k)]['drops']['0.2->0.4'] for k in STUD]
 g=[float(x) for x in m.groups()]
@@ -21,9 +21,9 @@ c.chk('R_sym A first drop min',g[0],2,min(d1),'symmetric_R drops'); c.chk('R_sym
 c.chk('R_sym A switch drop min',g[2],2,min(d2),''); c.chk('R_sym A switch drop max',g[3],2,max(d2),'')
 c.chk('R_sym largest drop at switch (cells, App B "all nine")',9,0,sum(1 for k in rs if '/' in k and rs[k].get('largest_at_switch')),'symmetric_R.largest_at_switch')
 ph=J('phi_resample_s012'); rq=ph['A/Qwen2.5-0.5B']['rows']
-m=re.search(r'collapses from ([\d.]+) at \$\\lambda=0.2\$ to ([\d.]+) at 0.4 and ([\d.]+) at 1',APP)
+m=re.search(r'(?:collapses|falls) from ([\d.]+) at \$\\lambda=0.2\$ to ([\d.]+) at 0.4 and ([\d.]+) at 1',APP)
 for x,l in zip(m.groups(),('0.2','0.4','1.0')): c.chk(f'A/Qwen B({l}) (App B)',float(x),2,rq[l]['baseline'],'phi_resample_s012 rows.baseline')
-m=re.search(r'stays at ([\d.]+)--([\d.]+) after the switch',APP); rv_=[rq[l]['retention'] for l in ('0.4','0.6','0.8','1.0')]
+m=re.search(r'stays (?:at )?([\d.]+)--([\d.]+) after the switch',APP); rv_=[rq[l]['retention'] for l in ('0.4','0.6','0.8','1.0')]
 c.chk('A/Qwen R after switch min',float(m.group(1)),2,min(rv_),'retention'); c.chk('A/Qwen R after switch max',float(m.group(2)),2,max(rv_),'')
 c.report()
 # ---- tab02 (Table 3, one block): Cell | tokens l0 -> l1 | truncated l0 -> l1 | dAcc all | dAcc completed | accuracy at six lambda | marker r

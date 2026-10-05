@@ -154,9 +154,6 @@ R('Limitations lambda0 tokens (k)',2.8,7.0,1,[ss[c]['table2']['tokens0']['mean']
 me=J('main_edits'); st_=J('student_structure')['summary']['all']['level']; ca=J('c13_additions'); tdn=J('teacher_density')
 wrec=lambda c,e,f: 100*(me[c][e][f]-me[c]['base1'][f])/(me[c]['base0'][f]-me[c]['base1'][f])
 R('intro/T2 graft beta2 whole-response recovery pair A %',6,59,0,[wrec(c,'graft2','markers_per_1k') for c in CELLS if c[0]=='A'],'main_edits graft2 markers_per_1k')
-for c,x,y in zip(('A/Qwen','A/Llama','A/OLMo'),(136,37,32),(59,16,6)):
-    V(f'5.2 whole-update whole-response recovery {c} %',x,0,wrec(c,'graft_full2','markers_per_1k'),'main_edits graft_full2')
-    V(f'5.2 region whole-response recovery {c} %',y,0,wrec(c,'graft2','markers_per_1k'),'main_edits graft2')
 for k,part,key,sub,a,b in (('hesitation','head','c_markers_per_1k','hesitation',9.85,0.03),('sentence share','head','e_monologue_sentence_share',None,0.42,0.03),('recap','whole','b_boxed_recap_completed',None,0.79,0.03)):
     g=lambda c: st_[c][part][key] if sub is None else st_[c][part][key][sub]
     V(f'5.1 {k} lambda0',a,2,g('lambda0'),'student_structure summary'); V(f'5.1 {k} removed',b,2,g('rm_pre'),'student_structure summary')
@@ -169,5 +166,27 @@ pu0=lambda c,i: ca['lambda0_region_per_unit'][c][i]['loss_per_unit']
 R('App B pair B lambda0 region after switch',1.05,1.24,2,[pu0(f'B/{k}',3) for k in STUD],'c13_additions lambda0_region_per_unit')
 R('App B pair B lambda0 region switch',1.34,1.40,2,[pu0(f'B/{k}',2) for k in STUD],'c13_additions lambda0_region_per_unit')
 for l,x in (('0.6',5.0),('0.8',4.2),('1.0',3.7)): V(f'App B pair B teacher markers at {l}',x,1,tdn['B']['teacher'][l],'teacher_density.B.teacher')
+# ---- added with the c14 pass (manuscript after ed56df7)
+an=J('agreement_normalised')['summary']; pxs=J('phi_xseed'); pbs=J('paired_bootstrap')
+V('4.1 completed accuracy falls (cells of 9)',8,0,sum(ss[c]['table2']['d_acc_completed']['mean']<0 for c in CELLS),'seed_spread.table2.d_acc_completed')
+R('4.3 same-seed overlap at lambda 0.2',0.31,0.68,2,[v['0.2']['same'] for v in pxs.values()],'phi_xseed same')
+R('4.3 cross-seed overlap at lambda 0.2',0.11,0.21,2,[v['0.2']['xseed'] for v in pxs.values()],'phi_xseed xseed')
+R('4.3 A held kept / overlap',0.95,1.02,2,an['A_held']['kept_over_overlap'],'agreement_normalised A_held')
+R('4.3 A switch excess loss %',35,62,0,[100*x for x in an['A_switch_excess_loss_vs_overlap']],'agreement_normalised')
+R('4.3 B,C first step kept / overlap %',75,92,0,[100*x for x in an['BC_first_step_kept_over_overlap']],'agreement_normalised')
+V('5.1 A/OLMo top removal difference pp',-2.0,1,pbs['cells']['A/OLMo']['top']['diff_pp'],'paired_bootstrap cells.A/OLMo.top')
+cnt=lambda f: sum(f(c) for c in CELLS)
+V('5.2/intro whole update > region, whole-response (cells)',7,0,cnt(lambda c: wrec(c,'graft_full2','markers_per_1k')>wrec(c,'graft2','markers_per_1k')),'main_edits')
+V('5.2 whole update finishes more (cells)',7,0,cnt(lambda c: me[c]['graft_full2']['completed']>me[c]['graft2']['completed']),'main_edits completed')
+V('5.2 completion ties (cells)',1,0,cnt(lambda c: me[c]['graft_full2']['completed']==me[c]['graft2']['completed']),'main_edits completed')
+V('5.2 whole update higher accuracy (cells)',9,0,cnt(lambda c: me[c]['graft_full2']['accuracy']>me[c]['graft2']['accuracy']),'main_edits accuracy')
+V('5.2 region leads on early metric (cells)',5,0,cnt(lambda c: wrec(c,'graft2','head_markers_per_1k')>wrec(c,'graft_full2','head_markers_per_1k')),'main_edits head')
+V('5.2 region beats other graft, pre-specified (cells)',8,0,cnt(lambda c: wrec(c,'graft2','markers_per_1k')>wrec(c,'graft_orth2','markers_per_1k')),'main_edits graft_orth2')
+V('5.2 B/Llama other graft whole rec %',142,0,wrec('B/Llama','graft_orth2','markers_per_1k'),'main_edits')
+V('5.2 B/Llama region whole rec %',41,0,wrec('B/Llama','graft2','markers_per_1k'),'main_edits')
+sl=J('sae_llama'); g=lambda p,k: sl[p][k]['sae']['mean']
+for p,raw,gap in (('A',51,46),('C',69,65)):
+    V(f'5.4 SAE graft raw {p} %',raw,0,100*g(p,'graft2')/g(p,'base0.0'),'sae_llama graft2/base0.0')
+    V(f'5.4 SAE graft gap {p} %',gap,0,100*(g(p,'graft2')-g(p,'base1.0'))/(g(p,'base0.0')-g(p,'base1.0')),'sae_llama gap')
 print(f'{n} in-text values/ranges checked, {len(bad)} mismatches')
 for b in bad: print('  MISMATCH',b)

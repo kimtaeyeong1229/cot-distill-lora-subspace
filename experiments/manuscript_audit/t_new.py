@@ -169,6 +169,7 @@ spec={'Rem.\\ region, kept (\\%)':lambda x: 100*bl[x]['rm_pre']['markers']['mean
       'Graft $\\beta=2$, early rec.\\ (\\%)':lambda x: 100*rv['graft_recovery_early'][x]['beta2'],
       'Graft $\\beta=2$, whole rec.\\ (\\%)':lambda x: rec(x,'graft2','markers_per_1k'),
       'Whole $\\beta=2$, early rec.\\ (\\%)':lambda x: rec(x,'graft_full2','head_markers_per_1k'),
+      'Whole $\\beta=2$, whole rec.\\ (\\%)':lambda x: rec(x,'graft_full2','markers_per_1k'),
       '$\\lambda=1$ host, done (\\%)':lambda x: 100*(1-ss2[x]['table2']['trunc1']['mean']),
       'Graft $\\beta=2$, done (\\%)':lambda x: 100*ss2[x]['edits']['graft2']['completed']['mean'],
       'All in region, gain ($\\times$)':lambda x: em[x]['mean']['gain_ampV'],
