@@ -25,15 +25,18 @@ ph=J('phi_resample_s012'); rq=ph['A/Qwen2.5-0.5B']['rows']
 c.chk('A/Qwen R drop switch',0.193,3,rq['0.2']['retention']-rq['0.4']['retention'],'phi_resample_s012 retention')
 c.chk('A/Qwen R drop first',0.187,3,rq['0.0']['retention']-rq['0.2']['retention'],'')
 c.report()
-# ---- tab02 (Table 6, one block): Cell | tokens l0 -> l1 | truncated l0 -> l1 | dAcc all | dAcc completed | accuracy at six lambda
+# ---- tab02 (Table 6, one column): block 0 Cell | tokens l0 -> l1 | truncated l0 -> l1 | dAcc all | dAcc completed;
+# block 1 Cell | accuracy at the six lambda
 md=J('main_density')
-c=Checker('Table 6 (tab02)')
-for r in rows('tab02.tex'):
+c=Checker('Table 8 (tab02)')
+for r in rows('tab02.tex',0):
     cell=r[0]; t2=ss[cell]['table2']; v=[tok(x) for x in r[1:]]
     c.chk(f'{cell} tok0',v[0][0][0],0,t2['tokens0']['mean'],'table2.tokens0'); c.chk(f'{cell} tok1',v[0][1][0],0,t2['tokens1']['mean'],'table2.tokens1')
     c.chk(f'{cell} tr0',v[1][0][0],0,100*t2['trunc0']['mean'],'trunc0'); c.chk(f'{cell} tr1',v[1][1][0],0,100*t2['trunc1']['mean'],'trunc1')
     c.chk(f'{cell} dacc',v[2][0][0],1,t2['d_acc']['mean'],'d_acc'); c.chk(f'{cell} daccC',v[3][0][0],1,t2['d_acc_completed']['mean'],'d_acc_completed')
-    for i,l in enumerate(LAM): c.chk(f'{cell} acc {l}',v[4+i][0][0],1,100*md[cell][l]['accuracy'],f'main_density.{cell}.{l}.accuracy')
+for r in rows('tab02.tex',1):
+    cell=r[0]; v=[tok(x) for x in r[1:]]
+    for i,l in enumerate(LAM): c.chk(f'{cell} acc {l}',v[i][0][0],1,100*md[cell][l]['accuracy'],f'main_density.{cell}.{l}.accuracy')
 c.report()
 # ---- tab04
 a1=J('alignment_s012'); a2=J('alignment_markers_s012'); a3=J('alignment_length_s012'); tc=J('think_rate_completed')
@@ -64,18 +67,23 @@ for r in rs:
     c.chk(f'{sig} {pr} p',v[4][0][0],v[4][0][1],summ[P(pr)]['p'],'p')
 c.report()
 print('alignment summary keys',list(a1['_summary'].keys()))
-# ---- tab05
-cp=J('consensus_pre'); cq=J('consensus_post')
-c=Checker('Table 3 top (tab05)')
-for p,s,r in cellrows('tab05.tex'):
-    k=sname(s); key=f'{P(p)}/{FULL[k]}'; e=cp[key]; q=cq[key]; v=[tok(x) for x in r[2:]]
-    c.chk(f'{p}/{k} switch',v[0][0][0],1,float(e['transition']),'transition')
-    c.chk(f'{p}/{k} dims pre',v[1][0][0],1,e['dims'],'consensus_pre.dims')
-    c.chk(f'{p}/{k} in_loo',v[2][0][0],3,e['in_loo'],'in_loo')
-    sds=list(e['in_loo_by_seed'].values()); c.chk(f'{p}/{k} in_loo sd(ddof1)',v[2][1][0],3,st.stdev(sds),'stdev(in_loo_by_seed)')
-    c.chk(f'{p}/{k} in_loo mean-of-seeds',v[2][0][0],3,st.mean(sds),'mean(in_loo_by_seed)')
-    sds=list(e['out_by_seed'].values()); c.chk(f'{p}/{k} out',v[3][0][0],4,e['out'],'out'); c.chk(f'{p}/{k} out sd',v[3][1][0],4,st.stdev(sds),'stdev(out_by_seed)')
-    c.chk(f'{p}/{k} chance',v[4][0][0],3,e['chance'],'chance')
-    c.chk(f'{p}/{k} dims post',v[5][0][0],1,q['dims'],'consensus_post.dims')
-    if q['transition']!=e['transition']: print('  note post transition differs',key)
+# ---- tab05 (Table 3, one column): block 0 Cell | switch | dims pre | dims post | chance | two-seed overlap 0.65/0.75/0.85;
+# block 1 Cell | coverage pre (LOO, mean +- sd) | post (mean +- sd)
+cp=J('consensus_pre'); cq=J('consensus_post'); th=J('threshold_sensitivity')
+c=Checker('Table 3 blocks 0-1 (tab05)')
+key=lambda cell: f"{P(cell[0])}/{FULL[cell.split('/')[1]]}"
+for r in rows('tab05.tex',0):
+    cell=r[0]; e=cp[key(cell)]; q=cq[key(cell)]; v=[tok(x) for x in r[1:]]
+    c.chk(f'{cell} switch',v[0][0][0],1,float(e['transition']),'transition')
+    c.chk(f'{cell} dims pre',v[1][0][0],1,e['dims'],'consensus_pre.dims')
+    c.chk(f'{cell} dims post',v[2][0][0],1,q['dims'],'consensus_post.dims')
+    c.chk(f'{cell} chance',v[3][0][0],3,e['chance'],'chance')
+    for i,cut in enumerate(('0.65','0.75','0.85')): c.chk(f'{cell} two-seed {cut}',v[4+i][0][0],0,100*th[cell]['two_seed_region'][cut]['overlap'],'threshold_sensitivity.two_seed_region.overlap')
+    if q['transition']!=e['transition']: print('  note post transition differs',cell)
+for r in rows('tab05.tex',1):
+    cell=r[0]; e=cp[key(cell)]; v=[tok(x) for x in r[1:]]
+    c.chk(f'{cell} in_loo',v[0][0][0],3,e['in_loo'],'in_loo')
+    sds=list(e['in_loo_by_seed'].values()); c.chk(f'{cell} in_loo sd(ddof1)',v[0][1][0],3,st.stdev(sds),'stdev(in_loo_by_seed)')
+    c.chk(f'{cell} in_loo mean-of-seeds',v[0][0][0],3,st.mean(sds),'mean(in_loo_by_seed)')
+    sds=list(e['out_by_seed'].values()); c.chk(f'{cell} out',v[1][0][0],4,e['out'],'out'); c.chk(f'{cell} out sd',v[1][1][0],4,st.stdev(sds),'stdev(out_by_seed)')
 c.report()

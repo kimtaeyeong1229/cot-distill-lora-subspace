@@ -4,7 +4,7 @@ ph=J('phi_resample_s012'); px=J('phi_xseed');
 # old Table 19 (tab16): its top-direction columns moved into tab23 (Table 4, checked in t_new.py); the token range
 # in the Table 4 caption is checked in text_checks.py
 # tab17
-c=Checker('Table 12 top (tab17 block 0)')
+c=Checker('Table 15 top (tab17 block 0)')
 keys=['base0','base1','rm_pre','graft1','graft2','graft_other2','graft_whole2','ampn4']
 for p,s,r in cellrows('tab17.tex'):
     k=sname(s); v=[tok(x) for x in r[2:]]; d=dg[f'{p}/{k}']
@@ -15,15 +15,14 @@ for p,s,r in cellrows('tab17.tex'):
 c.report()
 # tab19 (Table 22) is checked in t_new.py
 # tab20
-c=Checker('Table 3 bottom (tab20)')
+c=Checker('Table 3 block 2 (tab20)')
 ratios=[]
-for p,s,r in cellrows('tab20.tex'):
-    k=sname(s); v=[tok(x)[0] for x in r[2:]]; t=th[f'{p}/{k}']
-    for i,cut in enumerate(('0.4','0.6')):   # cut 0.5 is printed once, in tab05 (checked in t01_05.py)
+for r in rows('tab20.tex'):
+    cell=r[0]; v=[tok(x)[0] for x in r[1:]]; t=th[cell]
+    for i,cut in enumerate(('0.4','0.6')):   # cut 0.5 is printed once, in tab05 (checked in t01_05.py); two-seed overlap is in tab05
         sr=t['shared_region'][cut]
-        c.chk(f'{p}/{k} cut{cut} dims',v[3*i][0],1,sr['dims'],'dims'); c.chk(f'{p}/{k} cut{cut} pre',v[3*i+1][0],3,sr['pre_loo'],'pre_loo'); c.chk(f'{p}/{k} cut{cut} post',v[3*i+2][0],3,sr['post'],'post')
+        c.chk(f'{cell} cut{cut} dims',v[3*i][0],1,sr['dims'],'dims'); c.chk(f'{cell} cut{cut} pre',v[3*i+1][0],3,sr['pre_loo'],'pre_loo'); c.chk(f'{cell} cut{cut} post',v[3*i+2][0],3,sr['post'],'post')
     for cut in ('0.4','0.5','0.6'): ratios.append(t['shared_region'][cut]['pre_loo']/t['shared_region'][cut]['post'])
-    for i,cut in enumerate(('0.65','0.75','0.85')): c.chk(f'{p}/{k} two-seed {cut}',v[6+i][0],0,100*t['two_seed_region'][cut]['overlap'],'two_seed_region.overlap')
 c.report()
 print(f'  pre/post ratio range {min(ratios):.2f}-{max(ratios):.2f}')
 # old Table 16 (tab21): B(lambda) is drawn in Figure 4 (bottom row) and the cross-seed overlaps are App. B text

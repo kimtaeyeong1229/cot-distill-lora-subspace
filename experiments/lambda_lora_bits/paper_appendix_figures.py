@@ -219,7 +219,7 @@ def fig_lambda():
 def fig_ood():
     g = lambda bench, cond, f: [ood[bench][cell(p, s)][cond][f]["mean"] for p, s in CELLS]
     pct = lambda v: [100 * x for x in v]
-    fig, axes = plt.subplots(2, 2, figsize=(WIDTH, 2.95), gridspec_kw={"hspace": 0.66, "wspace": 0.3})
+    fig, axes = plt.subplots(2, 2, figsize=(WIDTH, 2.75), gridspec_kw={"hspace": 0.7, "wspace": 0.3})
     fig.subplots_adjust(top=0.86)
     (a, b), (c, d) = axes
     title = lambda ax, t: ax.text(0, 1.04, t, transform=ax.transAxes, fontsize=7.2, fontweight="bold", va="bottom")
@@ -260,7 +260,7 @@ def fig_off():
     m = lambda k, f: [base[cell(p, s)][k][f]["mean"] for p, s in CELLS]
     unt = lambda f: [untrained[UNTR[s]][f]["mean"] for _, s in CELLS]
     pct = lambda v: [100 * x for x in v]
-    fig = plt.figure(figsize=(WIDTH, 4.4))
+    fig = plt.figure(figsize=(WIDTH, 4.0))
     gs = fig.add_gridspec(2, 2, width_ratios=[1.0, 1.15], height_ratios=[1.15, 1.0], hspace=0.75, wspace=0.3)
     a, c, b = fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1]), fig.add_subplot(gs[1, :])
     # (a) nine-cell means, one labelled point per method (comparison display; flagged for the user)
