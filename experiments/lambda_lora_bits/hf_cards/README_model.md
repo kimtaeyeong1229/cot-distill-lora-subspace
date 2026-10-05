@@ -123,6 +123,20 @@ Two conditions in the paper are generation-time and have no adapter of their own
 | `baselines.json` | Ways to turn thinking off, compared (Table 14) |
 | `base_students.json` | Untrained students (Table 14, "Untrained") |
 | `seed_region_overlap.json` | Share of the shared region spanned by the two-seed region, 54–60% (Section 6.2) |
+| `lambda0_retention.json` | Share of the λ = 0 region kept at each λ, against a same-teacher half-data reference (Figure 2, bottom) |
+| `pairA_crossseed.json`, `pairA_seed_ratio.json`, `two_seed_floor.json` | Pair A held vs switch contrast without a shared LoRA initialization, per seed pairing, and floor-corrected (Table 1 caption, Appendix B) |
+| `agreement_normalised.json` | Region kept relative to the whole update's cross-seed overlap and to same-λ self-agreement (Section 4.3) |
+| `alignment_length_s012.json`, `think_rate_completed.json` | Interval correlation of R with the drop in training length, and the think rate on completed and training solutions (Table 6) |
+| `symmetric_R.json`, `switch_regression.json`, `c13_additions.json` | Symmetric-normalisation R, switch-indicator regression of region loss, pair B loss per unit length and λ = 1 vs untrained (Appendices B and C) |
+| `region_anatomy.json` | Region dimension and share of update energy by module type and depth (Table 4, Appendix A) |
+| `energy_match.json` | Energy match of the removal controls and amplitude gain of the amplification edits, read from the edited adapters (Tables 2, 4 and 16) |
+| `paired_bootstrap.json`, `paired_bootstrap_grades.json` | Problem-level paired bootstrap of the removal against its controls, and the per-problem grades it reads (Tables 11 and 12) |
+| `review_stats.json` | Seed-level graft recovery, amplification, interval and SAE-subset statistics (Tables 2, 12, 14 and 16) |
+| `removal_vs_untrained.json` | Region removal against the untrained student, per problem (Table 9) |
+| `teacher_structure.json`, `student_structure.json` | Structure of the teacher's training solutions and of the student responses per edit (Tables 10 and 13) |
+| `region_logit_lens.json` | Region directions read through the unembedding (Appendix D) |
+| `supplementary_stats.json` | Teacher think rate on the training subset, long OLMo training examples, two-seed region energy share (Appendices A and E) |
+| `examples.json` | Example outputs chosen by a fixed rule (Table 17) |
 | `reproducibility.lock.json` | Hub commits and file hashes of the downloaded checkpoints, plus the software environment |
 
 
