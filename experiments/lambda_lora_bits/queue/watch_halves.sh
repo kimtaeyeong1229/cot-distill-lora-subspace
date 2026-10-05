@@ -12,7 +12,7 @@ while true; do
         "$target:$R/$E/$c/runs/" "$E/$c/runs/" 2>/dev/null
     done
   done
-  n=$(ls -d $E/*/runs/*_seed[12]/adapter/adapter_model.safetensors $E/*/*/runs/*_seed[12]/adapter/adapter_model.safetensors 2>/dev/null | wc -l)
+  n=$(ls -d $E/*/runs/*_half[AB]_seed[12]/adapter/adapter_model.safetensors $E/*/*/runs/*_half[AB]_seed[12]/adapter/adapter_model.safetensors 2>/dev/null | wc -l)
   echo "$(date '+%F %T') collected $n/216" >> $LOG
   (( n >= 216 )) && { echo "$(date '+%F %T') ALL-DONE halves" >> $LOG; exit 0; }
   sleep 600

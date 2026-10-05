@@ -37,6 +37,9 @@ MUSTARD = RGBColor(0xF2, 0xCF, 0x3A)
 GREY = RGBColor(0xD6, 0xD6, 0xD6)
 GREY_TEXT = RGBColor(0x55, 0x55, 0x55)
 TAG = RGBColor(0xE6, 0xE6, 0xE6)
+# softer tones for panel (a) so it sits with the grey/yellow panels (b) and (c)
+A_NAVY, A_NAVY_LIGHT = RGBColor(0x46, 0x5F, 0x86), RGBColor(0xE2, 0xE8, 0xF1)
+A_RED, A_RED_LIGHT = RGBColor(0xB0, 0x5A, 0x60), RGBColor(0xF4, 0xE1, 0xE2)
 WHITE = RGBColor(255, 255, 255)
 SANS, MONO = "Arial", "Courier New"
 OUTLINE = 2.25
@@ -181,19 +184,19 @@ def adapter(name, x0, y0, sq_w, sq_h, gap, lam, shared="fill", scale=1.0):
 
 # ------------------------------------------------------------------ stage 1: interpolated teachers
 text("header teachers", 20, 18, 680, 78, ["(a) Interpolated teachers"], 20, bold=True, align=PP_ALIGN.CENTER)
-text("label reasoning", 20, 92, 300, 160, ["Reasoning model"], 16, bold=True, color=BLUE_TEXT,
+text("label reasoning", 20, 100, 300, 150, ["Reasoning model"], 15, bold=True, color=A_NAVY,
      align=PP_ALIGN.CENTER)
-text("label instruct", 400, 92, 680, 160, ["Instruct model"], 16, bold=True, color=RED, align=PP_ALIGN.CENTER)
-trapezoid("reasoning model", 90, 165, 230, 315, True, NAVY, BLUE_LIGHT)
-trapezoid("instruct model", 470, 165, 610, 315, False, RED, RED_LIGHT)
-text("interpolate", 240, 205, 460, 275, ["interpolate", "weights"], 14, color=GREY_TEXT, align=PP_ALIGN.CENTER)
+text("label instruct", 400, 100, 680, 150, ["Instruct model"], 15, bold=True, color=A_RED, align=PP_ALIGN.CENTER)
+trapezoid("reasoning model", 110, 175, 210, 295, True, A_NAVY, A_NAVY_LIGHT)
+trapezoid("instruct model", 490, 175, 590, 295, False, A_RED, A_RED_LIGHT)
+text("interpolate", 240, 200, 460, 270, ["interpolate", "weights"], 13, color=GREY_TEXT, align=PP_ALIGN.CENTER)
 SL0, SL1, SY = 160, 540, 385
 TX = [SL0 + i * (SL1 - SL0) / 5 for i in range(6)]
-elbow("reasoning to slider", [(160, 315), (160, SY - 12)])
-elbow("instruct to slider", [(540, 315), (540, SY - 12)])
+elbow("reasoning to slider", [(160, 295), (160, SY - 12)])
+elbow("instruct to slider", [(540, 295), (540, SY - 12)])
 bar = box("lambda slider", SL0, SY - 8, SL1, SY + 8, kind=MSO_SHAPE.ROUNDED_RECTANGLE, line=BLACK, w=1.75)
 bar.adjustments[0] = 0.5
-gradient(bar, NAVY, RED)
+gradient(bar, A_NAVY, A_RED)
 for x, lab in zip(TX, ["0", "0.2", "0.4", "0.6", "0.8", "1"]):
     line(f"tick {lab}", x, SY + 8, x, SY + 22, w=1.5)
     text(f"tick label {lab}", x - 40, SY + 24, x + 40, SY + 54, [lab], 14, align=PP_ALIGN.CENTER)
@@ -201,27 +204,27 @@ text("lambda", SL0 - 70, SY - 16, SL0 - 18, SY + 16, ["λ"], 16, bold=True, alig
 SW = (TX[1] + TX[2]) / 2
 line("switch line", SW, SY - 40, SW, SY + 92, color=RED, w=2.0, dash=MSO_LINE_DASH_STYLE.DASH)
 text("switch label", SW + 10, SY + 62, SW + 330, SY + 92, ["teacher stops thinking"], 14, bold=True, color=RED)
-out0 = box("lambda0 output", 20, 520, 330, 720)
+out0 = box("lambda0 output", 45, 530, 315, 710)
 runs(out0, ["Okay, let me", [("think.", "")], "12 × 15 = 180.", [("Wait", "red"), (", let me", "")],
-            "re-check..."], 14, font=MONO, bold=True, margin=14)
-out1 = box("lambda1 output", 370, 520, 680, 720)
-runs(out1, ["12 × 15 = 180.", "The answer is", "180."], 14, font=MONO, bold=True, margin=14)
-text("output label 0", 20, 726, 330, 760, ["λ = 0 teacher"], 13, color=GREY_TEXT, align=PP_ALIGN.CENTER)
-text("output label 1", 370, 726, 680, 760, ["λ = 1 teacher"], 13, color=GREY_TEXT, align=PP_ALIGN.CENTER)
+            "re-check..."], 13, font=MONO, bold=True, margin=14)
+out1 = box("lambda1 output", 385, 530, 655, 710)
+runs(out1, ["12 × 15 = 180.", "The answer is", "180."], 13, font=MONO, bold=True, margin=14)
+text("output label 0", 45, 718, 315, 750, ["λ = 0 teacher"], 13, color=GREY_TEXT, align=PP_ALIGN.CENTER)
+text("output label 1", 385, 718, 655, 750, ["λ = 1 teacher"], 13, color=GREY_TEXT, align=PP_ALIGN.CENTER)
 
 # ------------------------------------------------------------------ stage 2: LoRA adapters of the students
 text("header adapters", 715, 18, 1265, 78, ["(b) Student LoRA adapters"], 20, bold=True, align=PP_ALIGN.CENTER)
 text("lambda column", 770, 72, 828, 106, ["λ"], 14, bold=True, align=PP_ALIGN.RIGHT)
 elbow("distil arrow", [(688, 472), (765, 472)])
 text("distil label", 688, 434, 765, 466, ["distill"], 14, bold=True, align=PP_ALIGN.CENTER)
-SQW, SQH, GAP, AX = 24, 38, 3, 840
+SQW, SQH, GAP, AX = 19, 32, 2, 860
 ROWY = [110 + i * 98 for i in range(6)]
 for lam, y in zip(["0", "0.2", "0.4", "0.6", "0.8", "1"], ROWY):
     text(f"row label {lam}", 770, y, 828, y + SQH, [lam], 14, align=PP_ALIGN.RIGHT)
     adapter(f"adapter lambda {lam}", AX, y, SQW, SQH, GAP, lam, shared="fill" if lam in ("0", "0.2") else "none")
 SWY = (ROWY[1] + SQH + ROWY[2]) / 2
-line("switch line adapters", 735, SWY, AX + 16 * (SQW + GAP), SWY, color=RED, w=2.0, dash=MSO_LINE_DASH_STYLE.DASH)
-text("switch label adapters", 900, SWY + 2, AX + 16 * (SQW + GAP), SWY + 30, ["adapters change direction"], 12,
+line("switch line adapters", 760, SWY, AX + 16 * (SQW + GAP) - GAP, SWY, color=RED, w=2.0, dash=MSO_LINE_DASH_STYLE.DASH)
+text("switch label adapters", 760, SWY + 4, AX + 16 * (SQW + GAP) - GAP, SWY + 32, ["adapters change direction"], 12,
      bold=True, color=RED, align=PP_ALIGN.RIGHT)
 ly = 718
 box("key shared", 790, ly + 4, 812, ly + 30, color=MUSTARD, w=2.0)
@@ -237,27 +240,21 @@ TRUNK = 1290
 line("trunk", AX + 16 * (SQW + GAP) + 8, 430, TRUNK, 430)
 line("trunk vertical", TRUNK, EROW[0] + ESH / 2, TRUNK, EROW[2] + ESH / 2)
 EDITS = [
-    ("Remove", "0", "removed", 1.0,
-     ["12 × 15 = 180.", "The answer is", "180."], "short and complete"),
-    ("Graft into λ = 1", "1", "fill", 1.0,
-     [[("Wait", "red"), ("...", "")], [("wait", "red"), ("...", "")], [("wait", "red"), ("...", "")]],
-     "rarely finishes"),
-    ("Amplify", "0", "fill", 1.45,
-     ["Okay, let me", "think.", [("Wait", "red"), (", let me", "")]], "no more thinking"),
+    ("Remove", "0", "removed", 1.0, ["12 × 15 = 180.", "The answer is", "180."]),
+    # thinking starts but runs on without reaching an answer
+    ("Graft", "1", "fill", 1.0, ["Okay, let me", [("think. ", ""), ("Wait", "red"), (",", "")],
+                                 [("wait", "red"), (", let me...", "")]]),
+    ("Amplify", "0", "fill", 1.45, ["Okay, let me", "think.", [("Wait", "red"), (", let me", "")]]),
 ]
 AEND = EX + 16 * (ESW + EGAP)
-for (name, lam, mode, scale, out, tag), y in zip(EDITS, EROW):
+for (name, lam, mode, scale, out), y in zip(EDITS, EROW):
     cy = y + ESH / 2
     elbow(f"to {name}", [(TRUNK, cy), (EX - 8, cy)])
     text(f"{name} label", EX, y - 62, EX + 360, y - 22, [name], 16, bold=True)
     adapter(f"{name} adapter", EX, y, ESW, ESH, EGAP, lam, shared=mode, scale=scale)
     elbow(f"{name} out", [(AEND + 8, cy), (1688, cy)])
-    ob = box(f"{name} output", 1695, cy - 66, 1990, cy + 66)
-    runs(ob, out, 14, font=MONO, bold=True, margin=14)
-    t = box(f"{name} tag", 1765, cy - 84, 1990, cy - 54, kind=MSO_SHAPE.ROUNDED_RECTANGLE, color=TAG, line=None)
-    t.adjustments[0] = 0.5
-    runs(t, [tag], 12, color=INK, align=PP_ALIGN.CENTER, margin=4)
-    t.text_frame.word_wrap = False
+    ob = box(f"{name} output", 1695, cy - 62, 1975, cy + 64)
+    runs(ob, out, 13, font=MONO, bold=True, margin=16)
 
 OUT.mkdir(parents=True, exist_ok=True)
 prs.save(OUT / "fig1_overview.pptx")
