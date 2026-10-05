@@ -90,6 +90,8 @@ Students generate at temperature 0.6 and top-p 0.95, with at most 7,680 new toke
 | `lambda0.0_rm_scale` | Scaled down |
 | `lambda0.0_gs_energy` | Top removed (matched) (Tables 2, 11 and 15, energy-matched) |
 | `lambda0.0_gs_tau` | Gold-Switch-style removal, τ = 0.6 (Table 3) |
+| `lambda0.0_rm_spanrand` | Random directions / Random removed (Tables 2 and 11): random directions of the update's own span at `rm_pre`'s ΔW energy |
+| `lambda0.0_rm_post` | Post-switch removed (Table 11): the post-switch region at `rm_pre`'s dimension |
 | `lambda1.0_rm_pre` | λ = 1 control: region removed (Appendix C) |
 | `lambda0.0_budget` | Length-matched cut: the unedited λ = 0 adapter, cut at the region-removed mean length and made to answer |
 | `lambda0.0_nothink` | Think-skip prompt: a "finished thinking" sentence placed before the answer |

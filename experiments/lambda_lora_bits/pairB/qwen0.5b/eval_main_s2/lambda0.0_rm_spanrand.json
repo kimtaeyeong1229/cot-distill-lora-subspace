@@ -1,0 +1,11 @@
+{
+  "name": "lambda0.0_rm_spanrand",
+  "adapter": "experiments/lambda_lora_bits/pairB/qwen0.5b/runs_edit_s2/lambda0.0_rm_spanrand/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.29,
+  "avg_tokens": 960.02,
+  "truncated_rate": 0.0375,
+  "reflective_per_1k_words": 0.4165823583322423,
+  "think_tag_rate": 0.0
+}

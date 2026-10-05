@@ -37,6 +37,9 @@ Variants written per source adapter:
             external training-free baseline: "the top of the update's own spectrum" instead of the region.
   gs_energy the same top singular components, taken until the dW energy removed matches rm_pre's --
             decides whether the consensus region is anything more than the top of the spectrum.
+  rm_spanrand a random subspace of this adapter's own span (a random rotation of its top-16 directions),
+            taken until the dW energy removed matches rm_pre's -- the same-energy null region. Unlike
+            rm_rand it lies where the update is, and unlike rm_decisive it may overlap the region by chance.
 
 Applying all of them to the lambda1 adapter as well gives the third control: lambda1 barely uses the
 pre-threshold region to begin with, so removing it there should do little.
@@ -202,6 +205,7 @@ def main():
         for variant in a.variants:
             tensors = {name: value.clone() for name, value in raw.items()}
             removed, energy_frac = [], []
+            span_generator = torch.Generator().manual_seed(4321 + a.seed)   # rm_spanrand only
             for key, names in parts.items():
                 if len(names) != 2 or key not in V_pre:
                     continue
@@ -259,6 +263,16 @@ def main():
                     r = max(1, min(r, U.shape[1]))
                     V = U[:, :r]
                     energy_frac.append(float(e2[:r].sum() / e2.sum()))
+                elif variant == "rm_spanrand":
+                    U, S = spectrum(B, raw[names["A"]], scale)
+                    dW_left = U * S                   # dW = U S Q^T, so ||X^T dW||^2 = ||X^T U S||^2
+                    target = float((V_pre[key].T @ dW_left).pow(2).sum())
+                    rotation, _ = torch.linalg.qr(torch.randn(U.shape[1], U.shape[1], generator=span_generator))
+                    W = U @ rotation                  # a random orthonormal basis of the update's own span
+                    taken = (W.T @ dW_left).pow(2).sum(dim=1).cumsum(0)
+                    r = min(int((taken < target).sum()) + 1, W.shape[1])
+                    V = W[:, :r]
+                    energy_frac.append(float(taken[r - 1]) / float(S.pow(2).sum()))
                 elif variant == "rm_scale":
                     factor = (1 - pre_removed[key] / max(float(B.pow(2).sum()), 1e-12)) ** 0.5
                     tensors[names["B"]] = (B * factor).to(raw[names["B"]].dtype)

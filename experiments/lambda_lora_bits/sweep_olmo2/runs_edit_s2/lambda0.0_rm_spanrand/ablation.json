@@ -1,0 +1,16 @@
+{
+  "tag": "sweep_olmo2",
+  "source_lambda": "0.0",
+  "seed": 2,
+  "variant": "rm_spanrand",
+  "cliff": "0.4",
+  "loo": true,
+  "pre_adapters": 5,
+  "modules": 112,
+  "dims_removed_mean": 8.964285714285714,
+  "rank": 16,
+  "region": "pre",
+  "threshold": 0.5,
+  "energy_removed_mean": 0.5686982602290847,
+  "tau": null
+}

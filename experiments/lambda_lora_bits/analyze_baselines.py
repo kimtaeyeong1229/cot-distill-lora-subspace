@@ -7,6 +7,8 @@ truncation, and the reflective-marker density of each problem's first sample, fo
   base0 / base1        the unedited lambda0 / lambda1 adapters (eval_math500[_7680], as Table 1)
   rm_pre               the consensus region removed from the lambda0 adapter (the edit)
   rm_other / rm_scale  the energy-matched removals of Table 6
+  rm_spanrand / rm_post  random directions of the lambda0 update's own span at rm_pre's dW energy, and the
+                       post-switch region at rm_pre's size (its energy is not matched)
   gs_tau / gs_energy   Gold-Switch: the top of the lambda0 update's own spectrum removed, at the paper's
                        tau = 0.6 and at rm_pre's energy
   nothink / budget     NoThinking prefill, and cutting at rm_pre's mean length with a forced answer
@@ -26,7 +28,9 @@ from config import EVAL_PROBLEMS as PROBLEMS, EVAL_SAMPLES as SAMPLES, EXP as E,
 CONDS = {"rm_pre": "lambda0.0_rm_pre", "rm_other": "lambda0.0_rm_decisive", "rm_scale": "lambda0.0_rm_scale",
          "gs_tau": "lambda0.0_gs_tau", "gs_energy": "lambda0.0_gs_energy", "nothink": "lambda0.0_nothink",
          "budget": "lambda0.0_budget", "merge0.5": "merge0.5", "merge0.7": "merge0.7",
-         "rmseed": "lambda0.0_rmseed", "rmseed_other": "lambda0.0_rmseed_other"}
+         "rmseed": "lambda0.0_rmseed", "rmseed_other": "lambda0.0_rmseed_other",
+         # added for the review: same-energy random directions of the update's span, same-size post-switch region
+         "rm_spanrand": "lambda0.0_rm_spanrand", "rm_post": "lambda0.0_rm_post"}
 
 
 def density(texts):

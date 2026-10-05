@@ -1,0 +1,11 @@
+{
+  "name": "lambda0.0_rm_spanrand",
+  "adapter": "experiments/lambda_lora_bits/sweep_olmo2/runs_edit_s2/lambda0.0_rm_spanrand/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.2275,
+  "avg_tokens": 1050.8,
+  "truncated_rate": 0.0775,
+  "reflective_per_1k_words": 3.1265119081307566,
+  "think_tag_rate": 0.0
+}

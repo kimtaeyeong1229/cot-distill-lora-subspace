@@ -20,7 +20,9 @@ VARIANTS = ["lambda0.0_rm_pre", "lambda0.0_rm_decisive", "lambda0.0_rm_scale", "
             "graft1", "graft_orth1", "graft_full1", "graft2", "graft_orth2", "graft_full2",
             "ampn1", "ampn4", "ampV",
             # added for the review: early markers of the energy-matched top removal and the length-matched cut
-            "lambda0.0_gs_energy", "lambda0.0_budget"]
+            "lambda0.0_gs_energy", "lambda0.0_budget",
+            # and of the same-energy random removal and the same-size post-switch region
+            "lambda0.0_rm_spanrand", "lambda0.0_rm_post"]
 
 
 def density(texts, head=None):

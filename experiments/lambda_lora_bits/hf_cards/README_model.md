@@ -90,6 +90,8 @@ V is the **shared region**. It is built per layer and module from the pre-transi
 | `lambda0.0_rm_scale` | Scaled down | The whole update shrunk uniformly to `rm_pre`'s norm |
 | `lambda0.0_gs_energy` | Top removed (matched) (Tables 2, 11 and 15) | The top singular components of ΔW removed until the energy matches `rm_pre` |
 | `lambda0.0_gs_tau` | Gold-Switch-style removal, τ = 0.6 (Table 3) | The Gold-Switch criterion at τ = 0.6 (Lee et al., 2025) |
+| `lambda0.0_rm_spanrand` | Random directions / Random removed (Tables 2 and 11) | Randomly rotated directions of the adapter's own span, taken until the ΔW energy matches `rm_pre` |
+| `lambda0.0_rm_post` | Post-switch removed (Table 11) | The post-switch region at `rm_pre`'s dimension (energy not matched) |
 | `lambda1.0_rm_pre` | λ = 1: region removed | The same removal applied to the λ = 1 adapter (side-effect control) |
 | `lambda0.0_rmseed` | Two-seed region removed | The region found from the other two seeds' λ = 0 adapters only (no interpolated teacher), with eigenvalue > 0.75 |
 | `lambda0.0_rmseed_other` | Other removed (two-seed region) (Table 3) | The same energy removed outside that seed region |

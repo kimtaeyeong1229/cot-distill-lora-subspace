@@ -55,6 +55,7 @@ mk = lambda x, k: bl[x][k]['markers']['mean']
 spec = {('Markers kept', 'Region'): lambda x: 100 * mk(x, 'rm_pre') / mk(x, 'base0'),
         ('Markers kept', 'Other directions'): lambda x: 100 * mk(x, 'rm_other') / mk(x, 'base0'),
         ('Markers kept', 'Top components'): lambda x: 100 * mk(x, 'gs_energy') / mk(x, 'base0'),
+        ('Markers kept', 'Random directions'): lambda x: 100 * mk(x, 'rm_spanrand') / mk(x, 'base0'),
         ('Accuracy gain', 'Region removed'): lambda x: es['cells'][x]['rm_minus_cut']['value'],
         ('Early-marker gap', 'Region, $\\beta=1$'): lambda x: 100 * rv['graft_recovery_early'][x]['beta1'],
         ('Early-marker gap', 'Region, $\\beta=2$'): lambda x: 100 * rv['graft_recovery_early'][x]['beta2'],
@@ -239,17 +240,21 @@ spec = {('Whole', '$\\lambda=0$'): (lambda x: ss[x]['table1']['0.0']['mean'], 1)
         ('Whole', 'Length-matched cut'): (lambda x: bl[x]['budget']['markers']['mean'], 1),
         ('Whole', 'Other removed'): (lambda x: E(x, 'rm_other', 'markers_per_1k'), 1),
         ('Whole', 'Top removed'): (lambda x: bl[x]['gs_energy']['markers']['mean'], 1),
-        ('Whole', 'Scaled down'): (lambda x: E(x, 'rm_scale', 'markers_per_1k'), 1)}
+        ('Whole', 'Scaled down'): (lambda x: E(x, 'rm_scale', 'markers_per_1k'), 1),
+        ('Whole', 'Random removed'): (lambda x: bl[x]['rm_spanrand']['markers']['mean'], 1),
+        ('Whole', 'Post-switch removed'): (lambda x: bl[x]['rm_post']['markers']['mean'], 1)}
 for lab, cn in (('$\\lambda=0$', 'base0'), ('Region removed', 'lambda0.0_rm_pre'), ('Length-matched cut', 'lambda0.0_budget'), ('Other removed', 'lambda0.0_rm_decisive'),
-                ('Top removed', 'lambda0.0_gs_energy'), ('Scaled down', 'lambda0.0_rm_scale')):
+                ('Top removed', 'lambda0.0_gs_energy'), ('Scaled down', 'lambda0.0_rm_scale'),
+                ('Random removed', 'lambda0.0_rm_spanrand'), ('Post-switch removed', 'lambda0.0_rm_post')):
     spec[('Early', lab)] = ((lambda cn: lambda x: me[x][cn]['head_markers_per_1k'])(cn), 1)
 accf = {'$\\lambda=0$': lambda x: ss[x]['base']['base0_accuracy']['mean'], 'Region removed': lambda x: E(x, 'rm_pre', 'accuracy'),
         'Length-matched cut': lambda x: bl[x]['budget']['accuracy']['mean'], 'Other removed': lambda x: E(x, 'rm_other', 'accuracy'),
-        'Top removed': lambda x: bl[x]['gs_energy']['accuracy']['mean'], 'Scaled down': lambda x: E(x, 'rm_scale', 'accuracy')}
+        'Top removed': lambda x: bl[x]['gs_energy']['accuracy']['mean'], 'Scaled down': lambda x: E(x, 'rm_scale', 'accuracy'),
+        'Random removed': lambda x: bl[x]['rm_spanrand']['accuracy']['mean'], 'Post-switch removed': lambda x: bl[x]['rm_post']['accuracy']['mean']}
 for lab, f in accf.items(): spec[('MATH', lab)] = (f, 100)
 grid(c, 'tab06.tex', spec)
 c = Checker('Table 11 caption')
-m = re.search(r'ine-cell mean accuracy (?:is )?([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+) and ([\d.]+)\\%', caption('tab:6'))
+m = re.search(r'ine-cell mean accuracy (?:is )?([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+) and ([\d.]+)\\%', caption('tab:6'))
 for x, (lab, f) in zip(m.groups(), accf.items()): c.chk(f'mean acc {lab}', float(x), 1, 100 * st.mean(f(y) for y in CELLS), 'nine-cell mean')
 m = re.search(r'seeds of ([\d.]+), ([\d.]+) and (\d+\.\d)', caption('tab:6'))
 for i, x in enumerate(m.groups()): c.chk(f'B/Llama seed {i}', float(x), 1, ss['B/Llama']['table1']['0.0']['seeds'][i], 'table1 seeds')

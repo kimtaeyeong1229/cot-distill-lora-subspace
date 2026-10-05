@@ -1,0 +1,11 @@
+{
+  "name": "lambda0.0_rm_post",
+  "adapter": "experiments/lambda_lora_bits/pairD/olmo1b/runs_edit_s0/lambda0.0_rm_post/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.21,
+  "avg_tokens": 2271.4675,
+  "truncated_rate": 0.2875,
+  "reflective_per_1k_words": 19.970035543612493,
+  "think_tag_rate": 0.0
+}

@@ -11,6 +11,8 @@
 #     merge0.5 / merge0.7                 merged with the lambda1 adapter       Table 3
 #     lambda0.0_nothink                   think-skip prompt                     Table 3
 #     lambda0.0_budget                    length-matched cut                    Tables 2, 3, 11 and 15
+#     lambda0.0_rm_spanrand / rm_post     random directions of the update's span at the region's dW energy;
+#                                         post-switch region at the region's size   Tables 2 and 11
 #   runs_graft_beta/ + eval_graft_beta/   grafts at beta = 2, 4, 8, seed 0      App. C
 #   eval_gsm8k_s{0,1,2}/, eval_gpqa_diamond_s{0,1,2}/                           Table 3; Figure 4
 #
@@ -22,11 +24,11 @@ E=experiments/lambda_lora_bits
 source "${E}/config.sh"
 
 MAIN="lambda0.0_rm_pre lambda0.0_rm_decisive lambda0.0_rm_scale lambda1.0_rm_pre graft1 graft_orth1 graft_full1 graft2 graft_orth2 graft_full2 ampn1 ampn4 ampV"
-EXTRA="lambda0.0_rmseed lambda0.0_rmseed_other lambda0.0_gs_tau lambda0.0_gs_energy merge0.5 merge0.7"
+EXTRA="lambda0.0_rmseed lambda0.0_rmseed_other lambda0.0_gs_tau lambda0.0_gs_energy merge0.5 merge0.7 lambda0.0_rm_spanrand lambda0.0_rm_post"
 BETA="graft2 graft4 graft8 graft_orth2 graft_orth4 graft_orth8 graft_full2 graft_full4 graft_full8"
 
 # --- 4a. edited adapters (CPU/GPU linear algebra, minutes per cell) ---------------------------------
-SPECS="${PAPER_SWITCH}" bash "${E}/drivers/make_main_edits.sh"     # rm_pre, rm_decisive, rm_scale, ampn, ampV, graft beta 1 and 2
+SPECS="${PAPER_SWITCH}" bash "${E}/drivers/make_main_edits.sh"     # rm_pre, rm_decisive, rm_scale, rm_spanrand, rm_post, ampn, ampV, graft beta 1 and 2
 bash "${E}/drivers/make_seed_edits.sh"                               # rmseed, rmseed_other
 bash "${E}/drivers/make_baseline_edits.sh"                           # gs_tau, gs_energy, merge0.5, merge0.7
 for spec in ${PAPER_SWITCH}; do                                      # grafts at beta 2, 4, 8 for seed 0

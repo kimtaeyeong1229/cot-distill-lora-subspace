@@ -1,0 +1,11 @@
+{
+  "name": "lambda0.0_rm_spanrand",
+  "adapter": "experiments/lambda_lora_bits/pairD/llama1b/runs_edit_s1/lambda0.0_rm_spanrand/adapter",
+  "problems": 200,
+  "samples": 400,
+  "accuracy": 0.24,
+  "avg_tokens": 1499.53,
+  "truncated_rate": 0.1125,
+  "reflective_per_1k_words": 1.1464850371374857,
+  "think_tag_rate": 0.0
+}

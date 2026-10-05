@@ -17,6 +17,9 @@ region, i.e. all pre-switch adapters except the edited lambda0 seed, eigenvalue 
   ratio_dW             the same ratio measured in ||dW||^2 = ||B A||^2
   unreachable          share of modules where rm_decisive removes less than 99.9% of the region's ||B||^2
   dims_region / dims_other   mean directions removed per module (ablation.json, dims_removed_mean)
+  ratio_dW_rand / ratio_B_rand / dims_rand   the same for rm_spanrand, random directions of the adapter's
+                       own span taken until they remove rm_pre's ||dW||^2
+  ratio_dW_post / dims_post  the same for rm_post, the post-switch region at rm_pre's dimension (not matched)
   gain_ampn1 / gain_ampn4 / gain_ampV   effective gain of the region's amplitude in dW,
                        sqrt(sum ||V^T B' A||^2 / sum ||V^T B A||^2) over modules, with V rebuilt exactly as
                        steer_subspace.py --loo builds it
@@ -55,8 +58,10 @@ def main():
             base, _ = load(E / tag / "runs" / f"lambda0.0_seed{seed}" / "adapter")
             rm, _ = load(edits / "lambda0.0_rm_pre" / "adapter")
             dec, _ = load(edits / "lambda0.0_rm_decisive" / "adapter")
+            rnd, _ = load(edits / "lambda0.0_rm_spanrand" / "adapter")
+            pst, _ = load(edits / "lambda0.0_rm_post" / "adapter")
             amp = {name: load(edits / name / "adapter")[0] for name in ("ampn1", "ampn4", "ampV")}
-            tot = reg = oth = reg_dw = oth_dw = 0.0
+            tot = reg = oth = reg_dw = oth_dw = rnd_b = rnd_dw = pst_dw = 0.0
             short = n = 0
             num = {name: 0.0 for name in amp}
             den = 0.0
@@ -70,6 +75,9 @@ def main():
                 e_dw = float((B @ A).pow(2).sum())
                 r_dw = e_dw - float((rm[key][0] @ A).pow(2).sum())
                 o_dw = e_dw - float((dec[key][0] @ A).pow(2).sum())
+                rnd_b += e_b - float(rnd[key][0].pow(2).sum())
+                rnd_dw += e_dw - float((rnd[key][0] @ A).pow(2).sum())
+                pst_dw += e_dw - float((pst[key][0] @ A).pow(2).sum())
                 tot += e_b
                 reg += r_b
                 oth += o_b
@@ -82,10 +90,12 @@ def main():
                 for name, ad in amp.items():
                     num[name] += float((V.T @ ad[key][0] @ ad[key][1]).pow(2).sum())
             meta = {v: json.loads((edits / f"lambda0.0_{v}" / "ablation.json").read_text())["dims_removed_mean"]
-                    for v in ("rm_pre", "rm_decisive")}
+                    for v in ("rm_pre", "rm_decisive", "rm_spanrand", "rm_post")}
             per_seed[seed] = {"region_B": reg / tot, "other_B": oth / tot, "ratio_B": oth / reg,
                               "ratio_dW": oth_dw / reg_dw, "unreachable": short / n, "modules": n,
                               "dims_region": meta["rm_pre"], "dims_other": meta["rm_decisive"],
+                              "ratio_dW_rand": rnd_dw / reg_dw, "ratio_B_rand": rnd_b / reg, "dims_rand": meta["rm_spanrand"],
+                              "ratio_dW_post": pst_dw / reg_dw, "dims_post": meta["rm_post"],
                               **{f"gain_{name}": (num[name] / den) ** 0.5 for name in amp}}
         keys = per_seed[0].keys()
         result[cell] = {"seeds": per_seed,

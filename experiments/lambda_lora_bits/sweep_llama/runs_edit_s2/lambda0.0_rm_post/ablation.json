@@ -1,0 +1,16 @@
+{
+  "tag": "sweep_llama",
+  "source_lambda": "0.0",
+  "seed": 2,
+  "variant": "rm_post",
+  "cliff": "0.4",
+  "loo": true,
+  "pre_adapters": 5,
+  "modules": 112,
+  "dims_removed_mean": 7.383928571428571,
+  "rank": 16,
+  "region": "pre",
+  "threshold": 0.5,
+  "energy_removed_mean": null,
+  "tau": null
+}
