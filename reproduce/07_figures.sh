@@ -7,7 +7,7 @@
 #   Figure 2  paper_figures.py           -> fig2_switch.pdf  (think_rate, phi_resample_s012, lambda0_retention)
 #   Figure 3  paper_figures.py           -> fig3_states.pdf  (seed_spread, baselines)
 #   Figure 4  paper_appendix_figures.py  -> appfig_ood.pdf   (ood)
-#   Figure 5  paper_appendix_figures.py  -> appfig_off.pdf   (baselines, base_students)
+#   (appfig_off.pdf, the former Figure 5, is still drawn but no longer in the manuscript)
 #
 # Only the result JSONs in experiments/ are needed, so this runs on the host (the figures use Arial):
 #   FIG_OUT=/tmp/figs bash reproduce/07_figures.sh

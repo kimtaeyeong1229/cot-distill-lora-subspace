@@ -27,12 +27,4 @@ tr=lambda cond:[100*ood['gsm8k'][x][cond]['truncated']['mean'] for x in CELLS]
 c.chk('GSM8K trunc lambda0 min',g[4],0,min(tr('base0')),'ood.gsm8k.base0.truncated'); c.chk('GSM8K trunc lambda0 max',g[5],0,max(tr('base0')),'')
 c.chk('GSM8K trunc removed min',g[6],1,min(tr('rm_pre')),'ood.gsm8k.rm_pre.truncated'); c.chk('GSM8K trunc removed max',g[7],1,max(tr('rm_pre')),'')
 c.report()
-c=Checker('Figure 5 caption (fig:off)')
-cap=caption('fig:off')
-U={'Qwen':bs['Qwen2.5-0.5B-Instruct'],'Llama':bs['Llama-3.2-1B-Instruct'],'OLMo':bs['OLMo-2-1B-Instruct']}
-above=[x for x in CELLS if bl[x]['rmseed']['accuracy']['mean']>U[x.split('/')[1]]['accuracy']['mean']]
-c.chk('two-seed removal above untrained (cells)',2,0,len(above),'baselines.rmseed vs base_students')
-if set(above)!={'A/OLMo','B/Llama'}: c.err.append(f'cells above untrained {above} (caption names A/OLMo and B/Llama)')
-m=re.search(r'gives ([\d.]+)--([\d.]+)\\%',cap); mg=[100*bl[x]['merge0.5']['accuracy']['mean'] for x in CELLS]
-c.chk('merged min',float(m.group(1)),1,min(mg),'baselines.merge0.5.accuracy'); c.chk('merged max',float(m.group(2)),1,max(mg),'')
-c.report()
+# Figure 5 (per-cell ways to turn thinking off) was removed from the manuscript on 2026-10-06; Table 3 keeps the nine-cell means

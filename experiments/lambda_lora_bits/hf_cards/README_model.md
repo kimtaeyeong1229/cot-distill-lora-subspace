@@ -120,8 +120,8 @@ Two conditions in the paper are generation-time and have no adapter of their own
 | `graft_beta.json` | Grafts at β = 2, 4, 8, seed 0 (why β = 4, 8 are excluded; Appendix C) |
 | `sae_llama.json` | Thinking-feature activations from the public Llama-3.2-1B SAE (Table 15, bottom) |
 | `ood.json` | GSM8K and GPQA-Diamond (Table 3, top; Figure 4) |
-| `baselines.json` | Ways to turn thinking off, compared (Tables 2, 3 and 13; Figure 5) |
-| `base_students.json` | Untrained students (Table 3, "Untrained"; Figure 5) |
+| `baselines.json` | Ways to turn thinking off, compared (Tables 2, 3 and 13) |
+| `base_students.json` | Untrained students (Table 3, "Untrained") |
 | `seed_region_overlap.json` | Share of the shared region spanned by the two-seed region, 54–60% (Section 6.2) |
 | `lambda0_retention.json` | Share of the λ = 0 region kept at each λ, against a same-teacher half-data reference (Figure 2, bottom) |
 | `pairA_crossseed.json`, `pairA_seed_ratio.json`, `two_seed_floor.json` | Pair A held vs switch contrast without a shared LoRA initialization, per seed pairing, and floor-corrected (Table 1 caption, Appendix B) |

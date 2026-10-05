@@ -6,7 +6,7 @@
 #   <cell>/eval_math500/ and, for A/Qwen and A/Llama, <cell>/eval_math500_7680/
 #       student markers, length, truncation and accuracy across lambda: Table 6; the lambda0 / lambda1
 #       rows of Tables 2, 3, 10 and 12-16, Figures 3 and 5 (gray bars); Table 17
-#   base_eval/<student>/eval_main_s{0,1,2}/base.json       untrained students: Tables 3, 10 and 15, Figure 5
+#   base_eval/<student>/eval_main_s{0,1,2}/base.json       untrained students: Tables 3, 10 and 15
 #   <cell>/eval_ablation_loo/lambda0.0_base.json          seed-0 lambda0 reference of the beta = 2, 4, 8 grafts (App. C)
 #
 # Run inside the container: docker exec cot-distill-lora-bit bash reproduce/03_eval_students.sh

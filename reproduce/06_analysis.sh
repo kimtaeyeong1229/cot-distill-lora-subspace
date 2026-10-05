@@ -8,7 +8,7 @@
 #   seed_spread.json                      Tables 2, 6, 12, 13 and 16; Figures 1 (caption) and 3
 #   teacher_density.json                  Table 6 (teacher-student r); input of Tables 7 and 11
 #   baselines.json                        Tables 2, 3 and 13; Figures 3 and 5
-#   base_students.json                    Table 3; Figure 5 (untrained students)
+#   base_students.json                    Table 3 (untrained students)
 #   graft_beta.json                       App. C (beta = 4, 8)
 #   ood.json                              Table 3; Figure 4
 #   sae_llama.json                        Table 15 (bottom)

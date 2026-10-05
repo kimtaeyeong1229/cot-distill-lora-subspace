@@ -124,7 +124,7 @@ elsewhere without touching the committed ones.
 ## Paper artifacts
 
 Figure and table numbers are as printed in the current manuscript. LaTeX numbers floats continuously, body
-(Figures 1-3, Tables 1-3) then appendix (Tables 4-17, Figures 4-5). "Stage" is the reproduce script that
+(Figures 1-3, Tables 1-3) then appendix (Tables 4-17, Figure 4). "Stage" is the reproduce script that
 produces the inputs; every analysis command below is also run, in dependency order, by
 `reproduce/06_analysis.sh`, and every figure command by `reproduce/07_figures.sh`. Commands run from the
 repository root (any directory works); `E=experiments/lambda_lora_bits`. JSON files are in `experiments/`;
@@ -160,6 +160,7 @@ in full (`D/OLMo-2-1B`), used by `think_rate`, `phi_resample_s012`, `alignment_*
 | Table 14 | region removal and the β = 2 graft per cell as value ± SD over seeds; nine-cell intervals | `analyze_edit_stats.py`, `analyze_paired_bootstrap.py`, `analyze_review_stats.py`, then `paper_tables.py` | `python $E/analyze_edit_stats.py`; `python $E/analyze_paired_bootstrap.py`; `python $E/analyze_review_stats.py`; `python $E/paper_tables.py` (writes the manuscript's `tables/`) | `edit_stats` (`cells.<cell>.*`, `nine_cell`); `paired_bootstrap` (`nine_cell.{top,cut}.ci95_pp`; per-problem grades cached in `paired_bootstrap_grades.json`); `review_stats` (`cell_interval`, `graft_recovery_early`, `graft_seed_recovery`) | 04 |
 | Table 15 | student response structure per edit (top); SAE thinking features of the Llama students (bottom) | `analyze_student_structure.py`; `sae_llama.py`, `analyze_sae_llama.py` | `python $E/analyze_student_structure.py`; `bash reproduce/05_sae.sh`, then `python $E/analyze_sae_llama.py` | `student_structure` (`summary.all.level`); `sae_llama` (`<A,B,C>.<adapter>.{sae,sae_masked}`, `<P>.corr_keyword_sae`); the FVU in App. A is in `$E/sae_llama/check.json` | 03, 04, 05 |
 | Table 16 | grafts of the region, other directions and the whole update at β = 1 and 2: markers, completion, accuracy, tokens, recovered gap, loops | `analyze_seed_spread.py`, `analyze_degeneration.py` | `python $E/analyze_seed_spread.py`; `python $E/analyze_degeneration.py` | `seed_spread` (`edits.{graft1,graft_other1,graft_whole1,graft2,graft_other2,graft_whole2}`, `table1`, `base.base1_head_markers_per_1k`); `degeneration` (`<cell>.{base0,base1,rm_pre,graft1,graft2,graft_other2,graft_whole2}`) | 03, 04 |
+| Figure 4 | GSM8K and GPQA-Diamond markers, GSM8K accuracy and truncation, per cell | `paper_appendix_figures.py` (`fig_ood`); input from `analyze_ood.py` | `FIG_OUT=figures python $E/paper_appendix_figures.py` | `appfig_ood.pdf` from `ood` (`<gsm8k,gpqa_diamond>.<cell>.{base0,rm_other,rm_pre,base1}`) | 07 |
 | Table 17 | example outputs chosen by a fixed rule (A/Qwen, seed 0) | `make_examples_table.py` | `python $E/make_examples_table.py` | `examples` (`rule`, `problem_index`, `students[]`, `teachers[]`) and `$E/examples_table.tex` (the manuscript's `tables/tab25.tex`) | 03, 04 |
 
 ### Numbers cited in the text only
@@ -196,7 +197,7 @@ MANUSCRIPT_DIR=<manuscript checkout> bash experiments/manuscript_audit/run_all.s
 ```
 
 `MANUSCRIPT_DIR` defaults to `NAACL_cot_distill_lora_subspace/` next to this repository and `RESULTS_DIR` to
-`experiments/`. The last line gives the totals; on the current manuscript it reports 1,594 table and caption
+`experiments/`. The last line gives the totals; on the current manuscript it reports 1,589 table and caption
 values and 191 in-text values or ranges, 0 mismatches.
 
 ### What each stage runs
@@ -210,7 +211,7 @@ values and 191 in-text values or ranges, 0 mismatches.
 | 04 | `reproduce/04_edits.sh` | `drivers/make_main_edits.sh`, `make_seed_edits.sh`, `make_baseline_edits.sh` (`ablate_subspace.py`, `steer_subspace.py`, `merge_adapters.py`); `drivers/run_steer.sh` (`eval_ablation.py`), `drivers/run_baselines.sh` (`eval_baselines.py`), `drivers/run_bench_edits.sh` (`eval_bench_edits.py`) |
 | 05 | `reproduce/05_sae.sh` | `sae_llama.py` (`check`, `select --layer 11`, `score --cell A/B/C`) |
 | 06 | `reproduce/06_analysis.sh` | `measure_think_rate.py`, `analyze_*.py`, `make_examples_table.py`, `make_lockfile.py` |
-| 07 | `reproduce/07_figures.sh` | `paper_figures.py` (Figures 2, 3), `paper_appendix_figures.py` (Figures 4, 5), `paper_fig1_cde.py` (Figure 1) |
+| 07 | `reproduce/07_figures.sh` | `paper_figures.py` (Figures 2, 3), `paper_appendix_figures.py` (Figure 4; it also draws the former Figure 5, no longer in the manuscript), `paper_fig1_cde.py` (Figure 1) |
 
 ### Edit names
 
