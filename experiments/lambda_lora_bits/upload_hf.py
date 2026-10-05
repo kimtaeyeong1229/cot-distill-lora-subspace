@@ -228,8 +228,8 @@ PAPER_ANALYSIS = (
     "sae_llama", "seed_region_overlap", "seed_spread", "teacher_density", "think_rate",
     # added 2026-10-04 (appendix tables 16-22 and the coverage figure)
     "coverage_by_lambda", "degeneration", "edit_stats", "length_confound", "threshold_sensitivity", "top_overlap",
-    # added 2026-10-06: the analyses behind the current manuscript's Tables 1-2, 4, 6, 9-13 and 17, Figure 2
-    # (bottom), and the numbers cited in Sections 4-5 and Appendices A-E (README.md, "Paper artifacts")
+    # added 2026-10-06: the analyses behind the current manuscript's Tables 1-17 and Figure 2
+    # (bottom), and the numbers cited in Sections 4-5 and Appendices A-C (README.md, "Paper artifacts")
     "agreement_normalised", "alignment_length_s012", "c13_additions", "energy_match", "examples",
     "lambda0_retention", "pairA_crossseed", "pairA_seed_ratio", "paired_bootstrap", "paired_bootstrap_grades",
     "region_anatomy", "region_logit_lens", "removal_vs_untrained", "review_stats", "student_structure",

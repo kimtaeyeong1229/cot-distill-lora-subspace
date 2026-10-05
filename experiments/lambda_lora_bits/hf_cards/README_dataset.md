@@ -85,16 +85,16 @@ Students generate at temperature 0.6 and top-p 0.95, with at most 7,680 new toke
 
 | condition | paper term |
 |---|---|
-| `lambda0.0_rm_pre` | Shared removed (the shared region V projected out of the λ = 0 adapter, V built leave-one-out) |
+| `lambda0.0_rm_pre` | Region removed (the shared region V projected out of the λ = 0 adapter, V built leave-one-out) |
 | `lambda0.0_rm_decisive` | Other removed (the same energy removed outside V) |
 | `lambda0.0_rm_scale` | Scaled down |
-| `lambda0.0_gs_energy` | Top removed (matched) (Tables 6–7, energy-matched) |
-| `lambda0.0_gs_tau` | Top removed (τ = 0.6) (Table 14, Gold-Switch) |
-| `lambda1.0_rm_pre` | λ = 1 control: shared removed (Table 6) |
-| `lambda0.0_budget` | Length-matched cut: the unedited λ = 0 adapter, cut at the shared-removed mean length and made to answer |
+| `lambda0.0_gs_energy` | Top removed (matched) (Tables 2, 13 and 14, energy-matched) |
+| `lambda0.0_gs_tau` | Gold-Switch-style removal, τ = 0.6 (Table 3) |
+| `lambda1.0_rm_pre` | λ = 1 control: region removed (Appendix C) |
+| `lambda0.0_budget` | Length-matched cut: the unedited λ = 0 adapter, cut at the region-removed mean length and made to answer |
 | `lambda0.0_nothink` | Think-skip prompt: a "finished thinking" sentence placed before the answer |
-| `lambda0.0_rmseed` / `lambda0.0_rmseed_other` | Seed region removed / Other removed (seed region) (Table 14) |
-| `graft{1,2}`, `graft_orth{1,2}`, `graft_full{1,2}` | Graft into λ = 1 at β = 1, 2: shared / other / whole |
+| `lambda0.0_rmseed` / `lambda0.0_rmseed_other` | Two-seed region removed / Other removed (two-seed region) (Table 3) |
+| `graft{1,2}`, `graft_orth{1,2}`, `graft_full{1,2}` | Graft into λ = 1 at β = 1, 2: region / other / whole |
 | `ampn1`, `ampn4`, `ampV` | Amplify γ = 1, γ = 4, All in region (norm held fixed) |
 | `merge0.5` | Merged with λ = 1 (half-half) |
 | `lambda0.0`, `lambda1.0` (GSM8K / GPQA) | The unedited λ = 0 and λ = 1 adapters |

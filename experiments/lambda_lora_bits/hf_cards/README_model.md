@@ -85,58 +85,61 @@ V is the **shared region**. It is built per layer and module from the pre-transi
 
 | directory (`runs_edit_s<seed>/…`) | paper term | what it is |
 |---|---|---|
-| `lambda0.0_rm_pre` | Shared removed | ΔW′ = (I − VVᵀ)ΔW on the λ = 0 adapter |
+| `lambda0.0_rm_pre` | Region removed | ΔW′ = (I − VVᵀ)ΔW on the λ = 0 adapter |
 | `lambda0.0_rm_decisive` | Other removed | The same energy removed from the highest-energy directions orthogonal to V |
 | `lambda0.0_rm_scale` | Scaled down | The whole update shrunk uniformly to `rm_pre`'s norm |
-| `lambda0.0_gs_energy` | Top removed (matched) (Tables 6–7) | The top singular components of ΔW removed until the energy matches `rm_pre` |
-| `lambda0.0_gs_tau` | Top removed (τ = 0.6) (Table 14) | The Gold-Switch criterion at τ = 0.6 (Lee et al., 2025) |
-| `lambda1.0_rm_pre` | λ = 1: shared removed | The same removal applied to the λ = 1 adapter (side-effect control) |
-| `lambda0.0_rmseed` | Seed region removed | The region found from the other two seeds' λ = 0 adapters only (no interpolated teacher), with eigenvalue > 0.75 |
-| `lambda0.0_rmseed_other` | Other removed (seed region) (Table 14) | The same energy removed outside that seed region |
-| `graft1`, `graft2` | Graft, shared, β = 1, 2 | ΔW(λ=1) + β·VVᵀΔW(λ=0) |
-| `graft_orth1`, `graft_orth2` | Graft, other | The part of ΔW(λ=0) orthogonal to V, scaled to add the same energy |
-| `graft_full1`, `graft_full2` | Graft, whole | All of ΔW(λ=0), scaled to add the same energy |
+| `lambda0.0_gs_energy` | Top removed (matched) (Tables 2, 13 and 14) | The top singular components of ΔW removed until the energy matches `rm_pre` |
+| `lambda0.0_gs_tau` | Gold-Switch-style removal, τ = 0.6 (Table 3) | The Gold-Switch criterion at τ = 0.6 (Lee et al., 2025) |
+| `lambda1.0_rm_pre` | λ = 1: region removed | The same removal applied to the λ = 1 adapter (side-effect control) |
+| `lambda0.0_rmseed` | Two-seed region removed | The region found from the other two seeds' λ = 0 adapters only (no interpolated teacher), with eigenvalue > 0.75 |
+| `lambda0.0_rmseed_other` | Other removed (two-seed region) (Table 3) | The same energy removed outside that seed region |
+| `graft1`, `graft2` | Region graft, β = 1, 2 | ΔW(λ=1) + β·VVᵀΔW(λ=0) |
+| `graft_orth1`, `graft_orth2` | Other graft | The part of ΔW(λ=0) orthogonal to V, scaled to add the same energy |
+| `graft_full1`, `graft_full2` | Whole graft | All of ΔW(λ=0), scaled to add the same energy |
 | `ampn1`, `ampn4` | Amplify, γ = 1, 4 | ΔW + γ·VVᵀΔW, renormalised to the original ‖ΔW‖_F |
 | `ampV` | All in region | ΔW projected entirely onto V, renormalised to the original norm |
 | `merge0.5` | Merged with λ = 1 | 0.5·ΔW(λ=0) + 0.5·ΔW(λ=1) |
 
-`runs_graft_beta/graft{,_orth,_full}{4,8}` are the shared, other and whole grafts at β = 4 and 8, for seed 0 only. The paper leaves them out of its comparison because at these β every condition repeats the same sentence. They are kept as the record behind that statement, summarised in `analysis/graft_beta.json`. The β = 1 and 2 grafts used in the tables are in `runs_edit_s*`.
+`runs_graft_beta/graft{,_orth,_full}{4,8}` are the region, other and whole grafts at β = 4 and 8, for seed 0 only. The paper leaves them out of its comparison because at these β every condition repeats the same sentence. They are kept as the record behind that statement, summarised in `analysis/graft_beta.json`. The β = 1 and 2 grafts used in the tables are in `runs_edit_s*`.
 
 Two conditions in the paper are generation-time and have no adapter of their own. They are evaluated with the unedited λ = 0 adapter, and their outputs are in the dataset repository:
-- `lambda0.0_budget`, the length-matched cut: the response is cut at the cell's mean length after shared-region removal, and the model is then made to answer.
+- `lambda0.0_budget`, the length-matched cut: the response is cut at the cell's mean length after region removal, and the model is then made to answer.
 - `lambda0.0_nothink`, the think-skip prompt: a "finished thinking" sentence is put before the answer (Ma et al., 2025b).
 
 ### `analysis/`
 
 | file | used for |
 |---|---|
-| `think_rate.json`, `teacher_density.json` | Teacher `</think>` rate and reflective-marker density per λ (Table 1) |
-| `main_density.json`, `seed_spread.json` | Unedited students on MATH-500, and mean ± SD over seeds for Tables 1, 2 and 6–9 |
-| `phi_resample_s012.json` | R(λ) with numerator and denominator, seeds 0–2 (Table 3) |
-| `alignment_s012.json`, `alignment_markers_s012.json` | Interval-wise correlation of R with the teacher's `</think>` rate and its marker density, with exact permutation p (Table 4) |
+| `think_rate.json`, `teacher_density.json` | Teacher `</think>` rate and reflective-marker density per λ (Figure 2, top; Tables 1 and 6) |
+| `main_density.json`, `seed_spread.json` | Unedited students on MATH-500, and seed means and SDs for Tables 2, 6, 12, 13 and 16 and Figure 3 |
+| `phi_resample_s012.json` | R(λ) with numerator and denominator, seeds 0–2 (Figure 2, middle; Appendix B) |
+| `alignment_s012.json`, `alignment_markers_s012.json` | Interval-wise correlation of R with the teacher's `</think>` rate and its marker density, with exact permutation p (Table 7) |
 | `phi_xseed.json` | Same-seed and cross-seed overlap (why seed-only pairs are not a baseline) |
-| `consensus_pre.json`, `consensus_post.json` | Shared-region dimensions and coverage, pre and post transition (Table 5) |
-| `main_edits.json` | Removal, graft and amplify edits on MATH-500 (Tables 6–10) |
-| `graft_beta.json` | Grafts at β = 2, 4, 8, seed 0 (why β = 4, 8 are excluded) |
-| `sae_llama.json` | Thinking-feature activations from the public Llama-3.2-1B SAE (Table 11) |
-| `ood.json` | GSM8K and GPQA-Diamond (Tables 12–13) |
-| `baselines.json` | Ways to turn thinking off, compared (Table 14) |
-| `base_students.json` | Untrained students (Table 14, "Untrained") |
+| `consensus_pre.json`, `consensus_post.json` | Shared-region dimensions and coverage, pre and post transition (Table 8) |
+| `main_edits.json` | Removal, graft and amplify edits on MATH-500 (Tables 2, 13 and 16; Appendix C) |
+| `graft_beta.json` | Grafts at β = 2, 4, 8, seed 0 (why β = 4, 8 are excluded; Appendix C) |
+| `sae_llama.json` | Thinking-feature activations from the public Llama-3.2-1B SAE (Table 15, bottom) |
+| `ood.json` | GSM8K and GPQA-Diamond (Table 3, top; Figure 4) |
+| `baselines.json` | Ways to turn thinking off, compared (Tables 2, 3 and 13; Figure 5) |
+| `base_students.json` | Untrained students (Table 3, "Untrained"; Figure 5) |
 | `seed_region_overlap.json` | Share of the shared region spanned by the two-seed region, 54–60% (Section 6.2) |
 | `lambda0_retention.json` | Share of the λ = 0 region kept at each λ, against a same-teacher half-data reference (Figure 2, bottom) |
 | `pairA_crossseed.json`, `pairA_seed_ratio.json`, `two_seed_floor.json` | Pair A held vs switch contrast without a shared LoRA initialization, per seed pairing, and floor-corrected (Table 1 caption, Appendix B) |
 | `agreement_normalised.json` | Region kept relative to the whole update's cross-seed overlap and to same-λ self-agreement (Section 4.3) |
-| `alignment_length_s012.json`, `think_rate_completed.json` | Interval correlation of R with the drop in training length, and the think rate on completed and training solutions (Table 6) |
+| `alignment_length_s012.json`, `think_rate_completed.json` | Interval correlation of R with the drop in training length, and the think rate on completed and training solutions (Table 7) |
 | `symmetric_R.json`, `switch_regression.json`, `c13_additions.json` | Symmetric-normalisation R, switch-indicator regression of region loss, pair B loss per unit length and λ = 1 vs untrained (Appendices B and C) |
 | `region_anatomy.json` | Region dimension and share of update energy by module type and depth (Table 4, Appendix A) |
-| `energy_match.json` | Energy match of the removal controls and amplitude gain of the amplification edits, read from the edited adapters (Tables 2, 4 and 16) |
-| `paired_bootstrap.json`, `paired_bootstrap_grades.json` | Problem-level paired bootstrap of the removal against its controls, and the per-problem grades it reads (Tables 11 and 12) |
-| `review_stats.json` | Seed-level graft recovery, amplification, interval and SAE-subset statistics (Tables 2, 12, 14 and 16) |
-| `removal_vs_untrained.json` | Region removal against the untrained student, per problem (Table 9) |
-| `teacher_structure.json`, `student_structure.json` | Structure of the teacher's training solutions and of the student responses per edit (Tables 10 and 13) |
-| `region_logit_lens.json` | Region directions read through the unembedding (Appendix D) |
-| `supplementary_stats.json` | Teacher think rate on the training subset, long OLMo training examples, two-seed region energy share (Appendices A and E) |
+| `energy_match.json` | Energy match of the removal controls and amplitude gain of the amplification edits, read from the edited adapters (Tables 2, 5 and 12) |
+| `paired_bootstrap.json`, `paired_bootstrap_grades.json` | Problem-level paired bootstrap of the removal against its controls, and the per-problem grades it reads (Table 14; Section 5.1; Appendix C) |
+| `review_stats.json` | Seed-level graft recovery, amplification, interval and SAE-subset statistics (Tables 2, 12 and 14; Section 5) |
+| `removal_vs_untrained.json` | Region removal against the untrained student, per problem (Table 10) |
+| `teacher_structure.json`, `student_structure.json` | Structure of the teacher's training solutions and of the student responses per edit (Tables 11 and 15) |
+| `region_logit_lens.json` | Region directions read through the unembedding (Appendix C) |
+| `supplementary_stats.json` | Teacher think rate on the training subset, long OLMo training examples, two-seed region energy share (Appendices A and C) |
 | `examples.json` | Example outputs chosen by a fixed rule (Table 17) |
+| `coverage_by_lambda.json`, `length_confound.json` | Coverage of the λ = 0 region at every λ, and every interval classed by the teacher with length, region kept and coverage changes (Tables 1 and 9; Appendix B) |
+| `threshold_sensitivity.json`, `top_overlap.json` | The region rebuilt at other eigenvalue cuts and the two-seed overlap (Table 8; Appendix A), and the top singular directions taken by top removal (Appendix A) |
+| `edit_stats.json`, `degeneration.json` | Per-cell edit effects with seed spread (Table 14) and responses ending in a loop (Table 16) |
 | `reproducibility.lock.json` | Hub commits and file hashes of the downloaded checkpoints, plus the software environment |
 
 
