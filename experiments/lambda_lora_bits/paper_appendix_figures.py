@@ -5,7 +5,7 @@ Style, palette and helpers are copied from paper_figures.py (Morris et al. style
 left and bottom spines, bold axis title with a lighter unit line, white boxed legends, denim / green / mustard for the
 three students, pink dashed line for the teacher switch). Bars and lines are seed means; no seed or cell scatter.
 
-  appfig_lambda   replaces Tables 2, 3 and the B(lambda) block of Table 16:
+  appfig_lambda   (dropped from the paper; its numbers moved to Tables 3 and 7, their captions and App B) replaced Tables 2, 3 and 16:
                   (a) reflective markers of students and teacher, (b) R and R_sym over teacher think-rate bars,
                   (c) data-only baseline B(lambda), per pair, over lambda.
   appfig_ood      replaces Tables 13 and 14: GSM8K and GPQA-Diamond markers, GSM8K accuracy and truncation, per cell.
@@ -329,5 +329,5 @@ def fig_off():
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
-    fig_lambda(); fig_ood(); fig_off()
+    fig_ood(); fig_off()   # fig_lambda (the old Figure 4) was dropped from the paper on 2026-10-05
     print("written to", OUT)

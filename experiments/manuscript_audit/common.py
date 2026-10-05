@@ -63,3 +63,20 @@ def sname(s):
     for k,v in FULL.items():
         if s.startswith(v): return k
     return s
+QLO=[f'{p}/{k}' for p in PAIRS for k in STUD]   # column order of the transposed appendix tables
+def trows(fname):
+    """Rows of a transposed table (one header; sections titled by a \\multicolumn row): yields (section, label, cells)."""
+    txt=open(TAB+fname).read()
+    tab=re.split(r'\\begin\{tabular\}\{',txt)[1]
+    body=re.split(r'(?<!c)\\midrule',tab,1)[1].split('\\bottomrule')[0]
+    sec=''
+    for line in body.split('\\\\'):
+        line=re.sub(r'(?<!c)\\midrule','',line).strip()
+        if not line: continue
+        if line.startswith('\\multicolumn'):
+            sec=re.search(r'\\emph\{(.*)\}\}',line).group(1); continue
+        cells=[x.strip() for x in line.split('&')]
+        yield sec, cells[0], cells[1:]
+APP_TEX='/home/lab/workspace/NAACL_cot_distill_lora_subspace/sections/09_appendix.tex'
+def caption(label):
+    s=open(APP_TEX).read(); i=s.index('\\label{'+label+'}'); j=s.rindex('\\caption{',0,i); return s[j:i]

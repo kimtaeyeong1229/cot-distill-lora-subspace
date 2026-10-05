@@ -29,9 +29,6 @@ R('5.1 top inside B,C %',64,74,0,[100*to[c]['cover_top'] for c in CELLS if c[0] 
 R('5.1 top kept B,C %',1,18,0,[pct(bl[c]['gs_energy']['markers']['mean'],bl[c]['base0']['markers']['mean']) for c in CELLS if c[0] in 'BC'],'baselines gs_energy/base0')
 R('5.1 pair A top-removal markers',3.3,10.6,1,[bl[c]['gs_energy']['markers']['mean'] for c in CELLS if c[0]=='A'],'baselines.gs_energy.markers')
 R('5.1 pair A region-removal markers',0.18,1.16,2,[bl[c]['rm_pre']['markers']['mean'] for c in CELLS if c[0]=='A'],'baselines.rm_pre.markers')
-R('App D top dims all',1.6,2.5,1,[to[c]['dims_top'] for c in CELLS],'top_overlap.dims_top')
-R('App D top inside %',57,74,0,[100*to[c]['cover_top'] for c in CELLS],'top_overlap.cover_top')
-R('App D region spanned %',14,23,0,[100*to[c]['cover_region'] for c in CELLS],'top_overlap.cover_region')
 # 5.2
 rg=rv['graft_recovery_early']; AC=[c for c in CELLS if c[0] in 'AC']
 R('5.2/intro early recovery beta1 %',2,8,0,[100*rg[c]['beta1'] for c in AC],'review_stats.graft_recovery_early.beta1')
@@ -57,13 +54,9 @@ R('5.3 C/Qwen whole ratio',1.3,1.5,1,[w('C/Qwen',e) for e in ('ampn1','ampn4')],
 R('5.3 tokens gamma4 %',-6,31,0,[tk(c,'ampn4') for c in CELLS],'ampn4 avg_tokens')
 R('5.3 tokens all-in %',-11,34,0,[tk(c,'ampV') for c in CELLS],'ampV avg_tokens')
 V('5.3 acc gamma4',10.1,1,100*rv['amplification']['nine_cell']['ampn4']['accuracy'],'review_stats.amplification.nine_cell')
-R('App A gain gamma1 (per seed)',1.15,1.35,2,[em[c]['seeds'][s]['gain_ampn1'] for c in CELLS for s in em[c]['seeds']],'energy_match seeds')
-R('App A gain gamma4 (per seed)',1.20,1.57,2,[em[c]['seeds'][s]['gain_ampn4'] for c in CELLS for s in em[c]['seeds']],'energy_match seeds')
-R('App A gain all (per seed)',1.22,1.63,2,[em[c]['seeds'][s]['gain_ampV'] for c in CELLS for s in em[c]['seeds']],'energy_match seeds')
 R('App A unreachable % (per seed)',12,81,0,[100*em[c]['seeds'][s]['unreachable'] for c in CELLS for s in em[c]['seeds']],'')
 R('App A ratio B (per seed)',0.67,1.07,2,[em[c]['seeds'][s]['ratio_B'] for c in CELLS for s in em[c]['seeds']],'')
 R('App A ratio dW (per seed)',0.46,0.98,2,[em[c]['seeds'][s]['ratio_dW'] for c in CELLS for s in em[c]['seeds']],'')
-R('App A dims other (per seed)',7.7,15.1,1,[em[c]['seeds'][s]['dims_other'] for c in CELLS for s in em[c]['seeds']],'')
 R('App A dims region (per seed)',7.2,8.4,1,[em[c]['seeds'][s]['dims_region'] for c in CELLS for s in em[c]['seeds']],'')
 # 5.4
 R('5.4 removal SAE kept %',13,24,0,[100*sae[p]['lambda0.0_rm_pre']['sae']['mean']/sae[p]['base0.0']['sae']['mean'] for p in PAIRS],'sae_llama')
@@ -102,61 +95,49 @@ R('App B first switch steps',0.98,1.36,2,[pu(p,2,k) for p in 'BC' for k in STUD]
 R('4.3 B 0.6-0.8 kept',0.43,0.50,2,list(iv('B',3)['kept_vs_half_reference'].values()),''); R('4.3 B 0.6-0.8 per unit',1.35,1.67,2,[pu('B',3,k) for k in STUD],''); R('4.3 B switch per unit',1.18,1.35,2,[pu('B',2,k) for k in STUD],'')
 held=[v for p in PAIRS for i in range(5) if iv(p,i)['class']=='held' for v in iv(p,i)['kept_vs_half_reference'].values()]
 sw=[v for p in PAIRS for i in range(5) if iv(p,i)['class']=='switch' for v in iv(p,i)['kept_vs_half_reference'].values()]
-R('4.3 held kept all',0.50,0.96,2,held,''); R('4.3 switch kept all',0.12,0.56,2,sw,''); V('App B held mean',0.81,2,st.mean(held),''); V('App B switch mean',0.32,2,st.mean(sw),'')
+R('4.3 held kept all',0.50,0.96,2,held,''); R('4.3 switch kept all',0.12,0.56,2,sw,'')
 R('4.3 held kept B,C',0.78,0.96,2,[v for p in 'BC' for i in range(5) if iv(p,i)['class']=='held' for v in iv(p,i)['kept_vs_half_reference'].values()],'')
 R('App B per-marker switch A',1.05,1.33,2,[-math.log(iv('A',1)['kept_vs_half_reference'][k])/iv('A',1)['marker_log_ratio'] for k in STUD],'')
 R('App B per-marker held A',0.47,0.61,2,[-math.log(iv('A',0)['kept_vs_half_reference'][k])/iv('A',0)['marker_log_ratio'] for k in STUD],'')
-V('App B marker log drop switch',1.59,2,iv('A',1)['marker_log_ratio'],''); V('App B marker log drop held',1.14,2,iv('A',0)['marker_log_ratio'],'')
-R('App B pair A seed held kept',0.50,0.59,2,[v for c in pa for v in pa[c]['held']['kept'].values()],'pairA_seed_ratio'); R('App B seed switch kept',0.12,0.19,2,[v for c in pa for v in pa[c]['switch']['kept'].values()],'')
 R('App B seed ratio',2.43,2.70,2,[v for c in pa for v in pa[c]['switch_over_held']['all']],'')
-V('App B regression switch',0.46,2,sr['switch'],'switch_regression'); R('App B regression lower ends',-1.53,-0.11,2,[v[0] for v in sr['switch_ci95_by_bootstrap_seed'].values()],''); R('App B upper ends',0.73,0.74,2,[v[1] for v in sr['switch_ci95_by_bootstrap_seed'].values()],'')
+V('App B regression switch',0.46,2,sr['switch'],'switch_regression'); R('App B regression lower ends',-1.53,-0.11,2,[v[0] for v in sr['switch_ci95_by_bootstrap_seed'].values()],'')
 th=rv['thresholds']; V('App B held max',10.0,1,th['held_max_change'],'review_stats.thresholds'); R('App B first step drops',62.0,90.5,1,th['switch_first_step_drops'],''); V('App B 2nd step',26.8,1,th['switch_second_step_drops'][0],'')
 S=lc['summary']
-R('App B two-seed held change',-0.23,-0.05,2,[S['held']['two_seed_coverage_change'][x] for x in ('min','max')],'length_confound.summary')
 V('App B R per log held',-0.36,2,S['held']['R_change_per_log_len']['mean'],''); V('App B R per log switch',-0.52,2,S['switch']['R_change_per_log_len']['mean'],'')
-R('App B LLO held',-0.09,0.06,2,[S['held']['leave_lambda_out_coverage_change'][x] for x in ('min','max')],''); R('App B LLO switch',-0.29,-0.20,2,[S['switch']['leave_lambda_out_coverage_change'][x] for x in ('min','max')],'')
 L=lc['leave_lambda_out_region']
-R('App B LLO dims A',9.7,10.2,1,[v for c in L if c[0]=='A' for v in L[c]['region_dims'].values()],''); R('App B LLO dims B,C',7.1,8.6,1,[v for c in L if c[0] in 'BC' for v in L[c]['region_dims'].values()],'')
 R('App B split 0.4',0.48,0.55,2,[L[c]['by_left_out_lambda']['0.4']['0.4'] for c in L if c[0] in 'BC'],''); R('App B split 0.6',0.19,0.30,2,[L[c]['by_left_out_lambda']['0.4']['0.6'] for c in L if c[0] in 'BC'],'')
-R('App B numerator 0.2',0.31,0.64,2,[v['rows']['0.2']['treatment'] for v in ph.values()],'phi_resample_s012'); R('App B numerator 1',0.03,0.09,2,[v['rows']['1.0']['treatment'] for v in ph.values()],'')
 R('App B same-seed 0.2',0.31,0.68,2,[v['0.2']['same'] for v in px.values()],'phi_xseed'); R('App B xseed 0.2',0.11,0.21,2,[v['0.2']['xseed'] for v in px.values()],'')
 for p,a,b,(l1,h1),(l2,h2) in (('A','0.2','0.4',(0.11,0.13),(0.04,0.04)),('B','0.4','0.6',(0.15,0.17),(0.07,0.08)),('D','0.4','0.8',(0.16,0.18),(0.03,0.05))):
     R(f'App B xseed {p} {a}',l1,h1,2,[v[a]['xseed'] for k,v in px.items() if k[0]==p],'phi_xseed'); R(f'App B xseed {p} {b}',l2,h2,2,[v[b]['xseed'] for k,v in px.items() if k[0]==p],'')
-R('App B other B(1)',0.14,0.48,2,[v['rows']['1.0']['baseline'] for k,v in ph.items() if not k.startswith('A/Qwen')],'')
 # App A
 tt=sup['train_think_rate']
-R('App A train think pre-switch %',96,100,0,[100*tt[p][l]['rate'] for p,ls in (('A',('0.0','0.2')),('B',('0.0','0.2','0.4')),('C',('0.0','0.2','0.4'))) for l in ls],'supplementary_stats.train_think_rate')
-for p,l,x in (('A','0.4',0.5),('B','0.6',1.5),('C','0.6',38)): V(f'App A train think {p}',x,1 if x<10 else 0,100*tt[p][l]['rate'],'')
 for p,x in zip(PAIRS,(9,29,6)): V(f'App A OLMo truncated {p}',x,0,100*sup['olmo_over_4096'][p]['0.0']['share'],'supplementary_stats.olmo_over_4096')
 for p,x in zip(PAIRS,(2113,2261,1015)): V(f'3.1 n_train {p}',x,0,lc['pairs'][p]['n_train'],'length_confound.pairs.n_train')
 # Tables-in-text
 R('4.3 pre dims',5.4,7.7,1,[cp[k]['dims'] for k in cp],'consensus_pre.dims'); R('4.3 coverage pre %',41,57,0,[100*cp[k]['in_loo'] for k in cp],'consensus_pre.in_loo')
 R('4.3 coverage post %',5,19,0,[100*cp[k]['out'] for k in cp],''); R('4.3 chance %',0.5,1.8,1,[100*cp[k]['chance'] for k in cp],'')
-R('Table 3 post dims (App B, body)',1.3,5.5,1,[cq[k]['dims'] for k in cq],'consensus_post.dims')
 R('intro energy share %',47,72,0,[100*ra[c]['overall']['share_0.0'] for c in CELLS],'region_anatomy'); R('4.3 lambda1 share %',1,15,0,[100*ra[c]['overall']['share_1.0'] for c in CELLS],'')
 R('App A anatomy dims',6.4,8.0,1,[ra[c]['overall']['dims'] for c in CELLS],'')
-R('Table 15 caption other loops',9,68,0,[100*dg[c]['rm_other']['mean'] for c in CELLS],'degeneration.rm_other'); R('Table 20 scale loops',4,54,0,[100*dg[c]['rm_scale']['mean'] for c in CELLS],''); R('Table 20 top loops',1,27,0,[100*dg[c]['rm_top']['mean'] for c in CELLS],''); R('Table 20 cut loops',0,16,0,[100*dg[c]['cut']['mean'] for c in CELLS],'')
-R('Table 15 removal loops max',1,8,0,[100*dg[c]['rm_pre']['mean'] for c in CELLS],''); R('Table 15 graft other loops',6,34,0,[100*dg[c]['graft_other2']['mean'] for c in CELLS],'')
+R('Table 13 caption removal loops max',1,8,0,[100*dg[c]['rm_pre']['mean'] for c in CELLS],''); R('Table 13 caption graft other loops',6,34,0,[100*dg[c]['graft_other2']['mean'] for c in CELLS],'')
 R('App D lambda1 control length x',0.62,1.17,2,[ss[c]['edits']['rm_pre_l1']['avg_tokens']['mean']/ss[c]['table2']['tokens1']['mean'] for c in CELLS],'seed_spread rm_pre_l1/tokens1')
-R('Table 11 caption OLMo other-removed completion %',48,65,0,[100*me[c]['lambda0.0_rm_decisive']['completed'] for c in CELLS if c.endswith('OLMo')],'main_edits'); R('Table 11 caption OLMo unedited %',39,49,0,[100*(1-me[c]['base0']['truncated']) for c in CELLS if c.endswith('OLMo')],'')
+R('Table 12 caption OLMo other-removed completion %',48,65,0,[100*me[c]['lambda0.0_rm_decisive']['completed'] for c in CELLS if c.endswith('OLMo')],'main_edits'); R('Table 12 caption OLMo unedited %',39,49,0,[100*(1-me[c]['base0']['truncated']) for c in CELLS if c.endswith('OLMo')],'')
 R('4.1 student r',0.82,1.00,2,[td[p]['corr'][k] for p in PAIRS for k in STUD],'teacher_density.corr'); V('4.1 pooled r',0.86,2,td['pooled_corr'],'')
 R('4.1 shorter x',2,7,0,[ss[c]['table2']['tokens0']['mean']/ss[c]['table2']['tokens1']['mean'] for c in CELLS],'seed_spread.table2')
 R('4.1 acc gain pp',1.7,19.2,1,[ss[c]['table2']['d_acc']['mean'] for c in CELLS],'seed_spread.table2.d_acc')
 # ---- added with the appendix compaction (2026-10-05)
 lr=J('lambda0_retention')
-for p,l,lo,hi in (('A','0.4',0.093,0.119),('B','0.6',0.286,0.328),('C','0.8',0.088,0.149),('A','1.0',0.067,0.086),('B','1.0',0.155,0.166),('C','1.0',0.065,0.136)):
+for p,l,lo,hi in (('A','1.0',0.067,0.086),('B','1.0',0.155,0.166),('C','1.0',0.065,0.136)):
     R(f'App B lambda0 region kept {p} at {l}',lo,hi,3,[lr[f'{p}/{k}']['kept'][l] for k in STUD],'lambda0_retention.<cell>.kept')
-R('Table 10 caption markers kept %',0.15,9.93,2,[pct(bl[c]['rm_pre']['markers']['mean'],bl[c]['base0']['markers']['mean']) for c in CELLS],'baselines rm_pre/base0 markers')
+R('Table 8 caption markers kept %',0.15,9.93,2,[pct(bl[c]['rm_pre']['markers']['mean'],bl[c]['base0']['markers']['mean']) for c in CELLS],'baselines rm_pre/base0 markers')
 R('App D lambda1 control markers before',0.07,5.14,2,[ss[c]['table1']['1.0']['mean'] for c in CELLS],'seed_spread.table1.1.0')
 R('App D lambda1 control markers after',0.03,4.03,2,[ss[c]['edits']['rm_pre_l1']['markers_per_1k']['mean'] for c in CELLS],'seed_spread.edits.rm_pre_l1')
-R('Table 4 caption top-removal tokens',733,3914,0,[bl[c]['gs_energy']['tokens']['mean'] for c in CELLS],'baselines.gs_energy.tokens')
-R('Table 4 caption region-removal tokens',732,1659,0,[bl[c]['rm_pre']['tokens']['mean'] for c in CELLS],'baselines.rm_pre.tokens')
+R('Table 2 caption top-removal tokens',733,3914,0,[bl[c]['gs_energy']['tokens']['mean'] for c in CELLS],'baselines.gs_energy.tokens')
+R('Table 2 caption region-removal tokens',732,1659,0,[bl[c]['rm_pre']['tokens']['mean'] for c in CELLS],'baselines.rm_pre.tokens')
 gb=J('graft_beta')
 V('App D beta4/8 region done max %',1,0,max(100*gb[c][f'graft{b}']['completed'] for c in CELLS for b in (4,8)),'graft_beta graft4/8 completed')
 V('App D beta4/8 other/whole done max %',49,0,max(100*gb[c][f'{e}{b}']['completed'] for c in CELLS for e in ('graft_orth','graft_full') for b in (4,8) if f'{e}{b}' in gb[c]),'graft_beta')
 V('App D beta4/8 accuracy max %',8.0,1,max(100*gb[c][k]['accuracy'] for c in CELLS for k in gb[c] if k[-1] in '48' and isinstance(gb[c][k],dict) and 'accuracy' in gb[c][k]),'graft_beta')
 sr2=rv['graft_seed_recovery']
-V('App D per-seed beta1 max A,C % (at most 9)',9,0,max(100*sr2[c]['beta1']['max'] for c in AC),'review_stats.graft_seed_recovery'); R('App D per-seed beta2 A,C %',46,248,0,[100*sr2[c]['beta2'][x] for c in AC for x in ('min','max')],'')
 # the early-marker ratio is read from the manuscript itself: every printed "0.87--x" must equal the JSON maximum
 import re, glob
 txt=' '.join(open(f).read() for f in glob.glob('/home/lab/workspace/NAACL_cot_distill_lora_subspace/sections/*.tex'))

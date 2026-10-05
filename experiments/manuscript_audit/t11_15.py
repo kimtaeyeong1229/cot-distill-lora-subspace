@@ -4,7 +4,7 @@ def ms(c,label,toks,d,scale=1,src=''):
     c.chk(label+' mean',toks[0][0],toks[0][1],scale*d['mean'],src)
     c.chk(label+' sd',toks[1][0],toks[1][1],scale*d['sd'],src)
 # tab11 (Table 13 right block, transposed: rows are conditions, columns pairs A, B, C; seed means, last row r with markers)
-c=Checker('Table 14 bottom (tab11)')
+c=Checker('Table 10 bottom (tab11)')
 rowkey={'$\\lambda=0$':('base0.0','sae'),'$\\lambda=1$':('base1.0','sae'),'Shared removed':('lambda0.0_rm_pre','sae'),
         'Other removed':('lambda0.0_rm_decisive','sae'),'Graft shared ($\\beta=2$)':('graft2','sae'),'Graft other ($\\beta=2$)':('graft_orth2','sae'),
         'All in region':('ampV','sae'),'$\\lambda=0$, markers deleted':('base0.0','sae_masked')}
@@ -28,7 +28,7 @@ APP=open('/home/lab/workspace/NAACL_cot_distill_lora_subspace/sections/09_append
 def caption(label):
     i=APP.index('\\label{'+label+'}'); j=APP.rindex('\\caption{',0,i); return APP[j:i]
 CELLS=[f'{p}/{k}' for p in PAIRS for k in STUD]
-c=Checker('Figure 5 caption (fig:ood)')
+c=Checker('Figure 4 caption (fig:ood)')
 cap=caption('fig:ood')
 m=re.search(r'leaves ([\d.]+)--([\d.]+)\\% of the markers on GSM8K and ([\d.]+)--([\d.]+)\\% on GPQA-Diamond and cuts GSM8K truncation from ([\d.]+)--([\d.]+)\\% to ([\d.]+)--([\d.]+)\\%',cap)
 g=[float(x) for x in m.groups()]
@@ -39,7 +39,7 @@ tr=lambda cond:[100*ood['gsm8k'][x][cond]['truncated']['mean'] for x in CELLS]
 c.chk('GSM8K trunc lambda0 min',g[4],0,min(tr('base0')),'ood.gsm8k.base0.truncated'); c.chk('GSM8K trunc lambda0 max',g[5],0,max(tr('base0')),'')
 c.chk('GSM8K trunc removed min',g[6],1,min(tr('rm_pre')),'ood.gsm8k.rm_pre.truncated'); c.chk('GSM8K trunc removed max',g[7],1,max(tr('rm_pre')),'')
 c.report()
-c=Checker('Figure 6 caption (fig:off)')
+c=Checker('Figure 5 caption (fig:off)')
 cap=caption('fig:off')
 U={'Qwen':bs['Qwen2.5-0.5B-Instruct'],'Llama':bs['Llama-3.2-1B-Instruct'],'OLMo':bs['OLMo-2-1B-Instruct']}
 above=[x for x in CELLS if bl[x]['rmseed']['accuracy']['mean']>U[x.split('/')[1]]['accuracy']['mean']]
