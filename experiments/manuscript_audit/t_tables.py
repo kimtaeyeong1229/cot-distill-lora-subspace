@@ -251,7 +251,7 @@ accf = {'$\\lambda=0$': lambda x: ss[x]['base']['base0_accuracy']['mean'], 'Regi
 for lab, f in accf.items(): spec[('MATH', lab)] = (f, 100)
 grid(c, 'tab06.tex', spec)
 c = Checker('Table 13 caption')
-m = re.search(r'nine-cell mean accuracy ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+) and ([\d.]+)\\%', caption('tab:6'))
+m = re.search(r'ine-cell mean accuracy (?:is )?([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+) and ([\d.]+)\\%', caption('tab:6'))
 for x, (lab, f) in zip(m.groups(), accf.items()): c.chk(f'mean acc {lab}', float(x), 1, 100 * st.mean(f(y) for y in CELLS), 'nine-cell mean')
 m = re.search(r'seeds of ([\d.]+), ([\d.]+) and (\d+\.\d)', caption('tab:6'))
 for i, x in enumerate(m.groups()): c.chk(f'B/Llama seed {i}', float(x), 1, ss['B/Llama']['table1']['0.0']['seeds'][i], 'table1 seeds')
@@ -346,12 +346,12 @@ done(c)
 
 # ---------------- App A sentences that replaced the cut-sensitivity and top-direction tables ----------------
 c = Checker('App A (former cut-sensitivity and top-direction tables)')
-m = re.search(r'Rebuilt at cuts 0.4 and 0.6, the region has ([\d.]+)--([\d.]+) and ([\d.]+)--([\d.]+) directions, pre-switch coverage stays ([\d.]+)--([\d.]+) times', APP)
+m = re.search(r'Rebuilt at cuts 0.4 and 0.6, the region has ([\d.]+)--([\d.]+) and ([\d.]+)--([\d.]+) directions\. Pre-switch coverage stays ([\d.]+)--([\d.]+) times', APP)
 g = m.groups()
 for i, cut in enumerate(('0.4', '0.6')): rng(c, f'cut {cut} dims', g[2 * i:2 * i + 2], 1, [th[x]['shared_region'][cut]['dims'] for x in CELLS], 'threshold_sensitivity dims')
 ratios = [th[x]['shared_region'][cut]['pre_loo'] / th[x]['shared_region'][cut]['post'] for x in CELLS for cut in ('0.4', '0.5', '0.6')]
 rng(c, 'pre/post ratio', g[4:6], 1, ratios, 'pre_loo/post')
-m = re.search(r'top removal takes ([\d.]+)--([\d.]+) directions per module, (\d+)--(\d+)\\% of them inside the region \(chance at most ([\d.]+)\\%\) and spanning (\d+)--(\d+)\\% of it', APP)
+m = re.search(r'top removal takes ([\d.]+)--([\d.]+) directions per module\. Of these, (\d+)--(\d+)\\% lie inside the region \(chance at most ([\d.]+)\\%\), and they span (\d+)--(\d+)\\% of it', APP)
 g = m.groups()
 rng(c, 'top dims', g[0:2], 1, [to[x]['dims_top'] for x in CELLS], 'top_overlap.dims_top')
 rng(c, 'top inside %', g[2:4], 0, [100 * to[x]['cover_top'] for x in CELLS], 'top_overlap.cover_top')
