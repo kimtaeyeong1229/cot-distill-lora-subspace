@@ -18,6 +18,10 @@
                          seed-matched lambda0 / lambda1 adapters (seed_spread.json), and its range over seeds
   graft1_lengthening     beta = 1 region graft against the lambda1 adapter: tokens, completion, early-marker
                          recovery and loop rate (main_edits.json, degeneration.json)
+  graft_seed_recovery    per-seed recovery of the early-marker gap (first 300 words) by the region graft at
+                         beta = 1 and 2, (graft - lambda1) / (lambda0 - lambda1) with the same seed's lambda0 /
+                         lambda1 adapters (seed_spread.json head_markers_per_1k), per cell, with the range over the
+                         seeds of pairs A and C and of pair B
   split_difficulty       MATH level of the shared training and held-out problems against all 4,000 problems
                          (split_ids.json, cot/lambda0.0.jsonl level field); a problem is kept only if every
                          teacher in the split run solved it completely, correctly and within 8,192 tokens
@@ -105,6 +109,20 @@ def main():
                                      "completed_lambda1": 1 - m[c]["base1"]["truncated"],
                                      "early_recovery": rec[c]["beta1"], "loop_graft1": deg[c]["graft1"]["mean"]}
                                  for c in CELLS}
+    gs = {}
+    for c in CELLS:
+        b0 = spread[c]["base"]["base0_head_markers_per_1k"]["seeds"]
+        b1 = spread[c]["base"]["base1_head_markers_per_1k"]["seeds"]
+        gs[c] = {}
+        for beta, name in (("beta1", "graft1"), ("beta2", "graft2")):
+            g = spread[c]["edits"][name]["head_markers_per_1k"]["seeds"]
+            per = [(gi - b1i) / (b0i - b1i) for gi, b0i, b1i in zip(g, b0, b1)]
+            gs[c][beta] = {"seeds": per, "min": min(per), "max": max(per)}
+    for label, pairs in (("range_A_C", ("A", "C")), ("range_B", ("B",))):
+        gs[label] = {beta: [min(v for c in CELLS if c[0] in pairs for v in gs[c][beta]["seeds"]),
+                            max(v for c in CELLS if c[0] in pairs for v in gs[c][beta]["seeds"])]
+                     for beta in ("beta1", "beta2")}
+    out["graft_seed_recovery"] = gs
     diff = {}
     E = X / "lambda_lora_bits"
     for pair, d in (("A", "sweep"), ("B", "pairB"), ("C", "pairD")):
