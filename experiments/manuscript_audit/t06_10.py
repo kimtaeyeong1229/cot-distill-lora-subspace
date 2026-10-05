@@ -1,6 +1,6 @@
 """Transposed one-column appendix tables (rows conditions, columns the nine cells A/Q ... C/O; seed means):
-Table 8 removal (tab06), Table 12 grafts (tab08), Table 14 amplification (tab10), Table 13 loops and beta 2/4/8 (tab17),
-Table 11 removal vs untrained (tab26). Seed SDs moved to the JSON; the seed spread of the main edits is Table 9 (tab19, t_new.py)."""
+Table 9 removal (tab06), Table 12 grafts (tab08), Table 14 amplification (tab10), Table 13 loops and beta 2/4/8 (tab17),
+Table 7 removal vs untrained (tab26). Rows that only repeated another table (lambda=1 and lambda=0 tokens, the beta=2 lambda=0 early markers) were cut. Seed SDs moved to the JSON; the seed spread of the main edits is Table 9 (tab19, t_new.py)."""
 from common import *
 ss=J('seed_spread'); bl=J('baselines'); me=J('main_edits'); rv=J('review_stats'); em=J('energy_match'); dg=J('degeneration'); gb=J('graft_beta')
 ru=J('removal_vs_untrained')
@@ -44,9 +44,11 @@ def rec(x):
 spec={(B1,'$\\lambda=1$'):(lambda x: ss[x]['table1']['1.0']['mean'],1,'seed_spread.table1.1.0',None),
       (B1,'Shared'):(lambda x: E(x,'graft1','markers_per_1k'),1,'edits.graft1',None),(B1,'Other'):(lambda x: E(x,'graft_other1','markers_per_1k'),1,'edits.graft_other1',None),
       (B1,'Whole'):(lambda x: E(x,'graft_whole1','markers_per_1k'),1,'edits.graft_whole1',None),
-      (B1,'Tok.\\ $\\lambda=1$'):(lambda x: ss[x]['table2']['tokens1']['mean'],1,'table2.tokens1',None),(B1,'Tok.\\ shared'):(lambda x: E(x,'graft1','avg_tokens'),1,'edits.graft1.avg_tokens',None),
+      (B1,'Tok.\\ shared'):(lambda x: E(x,'graft1','avg_tokens'),1,'edits.graft1.avg_tokens',None),
       (B1,'Rec.\\ (\\%)'):(rec,1,'recovered whole-response gap from seed means',None),
-      (B2,'$\\lambda=0$'):(lambda x: ss[x]['base']['base0_head_markers_per_1k']['mean'],1,'base0_head',None),(B2,'$\\lambda=1$'):(lambda x: ss[x]['base']['base1_head_markers_per_1k']['mean'],1,'base1_head',None),
+      (B1,'Rec.\\ low'):(lambda x: rv['graft1_whole_recovery'][x]['min'],100,'review_stats.graft1_whole_recovery.min',None),
+      (B1,'Rec.\\ high'):(lambda x: rv['graft1_whole_recovery'][x]['max'],100,'review_stats.graft1_whole_recovery.max',None),
+      (B2,'$\\lambda=1$'):(lambda x: ss[x]['base']['base1_head_markers_per_1k']['mean'],1,'base1_head',None),
       (B2,'Shared'):(lambda x: E(x,'graft2','head_markers_per_1k'),1,'graft2 head',None),(B2,'Other'):(lambda x: E(x,'graft_other2','head_markers_per_1k'),1,'graft_other2 head',None),
       (B2,'Whole'):(lambda x: E(x,'graft_whole2','head_markers_per_1k'),1,'graft_whole2 head',None),
       (D,'Done sh.\\ $\\beta=1$'):(lambda x: E(x,'graft1','completed'),100,'edits.graft1.completed',None),
@@ -59,7 +61,7 @@ check(c,'tab08.tex',spec)
 c=Checker('Table 14 (tab10)')
 Wm='Whole'; Em='Early'; Am='Accuracy'
 spec={(Wm,'$\\lambda=0$'):(lambda x: ss[x]['table1']['0.0']['mean'],1,'table1.0.0',None),
-      (Wm,'Tok.\\ $\\lambda=0$'):(lambda x: ss[x]['table2']['tokens0']['mean'],1,'table2.tokens0',None),(Wm,'Tok.\\ all'):(lambda x: E(x,'ampV','avg_tokens'),1,'edits.ampV.avg_tokens',None),
+      (Wm,'Tok.\\ all'):(lambda x: E(x,'ampV','avg_tokens'),1,'edits.ampV.avg_tokens',None),
       (Em,'$\\lambda=0$'):(lambda x: ss[x]['base']['base0_head_markers_per_1k']['mean'],1,'base0_head',None),
       (Em,'Gain $\\gamma=4$'):(lambda x: em[x]['mean']['gain_ampn4'],1,'energy_match.mean.gain_ampn4',None)}
 for lab,e in (('$\\gamma=1$','ampn1'),('$\\gamma=4$','ampn4'),('All','ampV')):
