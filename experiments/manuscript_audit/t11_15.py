@@ -4,7 +4,7 @@ def ms(c,label,toks,d,scale=1,src=''):
     c.chk(label+' mean',toks[0][0],toks[0][1],scale*d['mean'],src)
     c.chk(label+' sd',toks[1][0],toks[1][1],scale*d['sd'],src)
 # tab11 (Table 13 right block, transposed: rows are conditions, columns pairs A, B, C; seed means, last row r with markers)
-c=Checker('Table 10 bottom (tab11)')
+c=Checker('Table 11 bottom (tab11)')
 rowkey={'$\\lambda=0$':('base0.0','sae'),'$\\lambda=1$':('base1.0','sae'),'Shared removed':('lambda0.0_rm_pre','sae'),
         'Other removed':('lambda0.0_rm_decisive','sae'),'Graft shared ($\\beta=2$)':('graft2','sae'),'Graft other ($\\beta=2$)':('graft_orth2','sae'),
         'All in region':('ampV','sae'),'$\\lambda=0$, markers deleted':('base0.0','sae_masked')}

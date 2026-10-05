@@ -32,9 +32,10 @@ for row in rows('tab15.tex',1):
     c.chk(f'bottom {name} markers',v[0][0],1,mk,f'baselines.{key}.markers'); c.chk(f'bottom {name} tokens',v[1][0],0,tk,f'baselines.{key}.tokens'); c.chk(f'bottom {name} acc',v[2][0],1,ac,f'baselines.{key}.accuracy')
 c.report()
 # --- Table 9 (tab19): block 0 removal, block 1 graft and gamma=4, block 2 recovered early-marker gap; Cell labels, summary rows by label
-c=Checker('Table 9 (tab19)')
+c=Checker('Table 10 (tab19)')
 f0=['rm_retained','rm_acc','rm_minus_top','rm_minus_cut']; f1=['graft2_head','graft2_done','amp4_retained']
 pbk={'rm_minus_top':'top','rm_minus_cut':'cut'}
+f1=f1+['rec1','rec2']   # block 1 now also carries the recovered early-marker gap at beta = 1 and 2 (cell value, seed min, seed max)
 for blk,fs in ((0,f0),(1,f1)):
     for r in rows('tab19.tex',blk):
         lab=r[0].strip(); v=[tok(x) for x in r[1:]]
@@ -55,13 +56,12 @@ for blk,fs in ((0,f0),(1,f1)):
         e=es['cells'][lab]
         for j,f in enumerate(fs):
             d=v[j][0][1]
+            if f in ('rec1','rec2'):
+                bk='beta1' if f=='rec1' else 'beta2'; cv=rv['graft_recovery_early'][lab][bk]; sr_=rv['graft_seed_recovery'][lab][bk]
+                c.chk(f'{lab} {bk} recovery',v[j][0][0],d,100*cv,'review_stats.graft_recovery_early')
+                c.chk(f'{lab} {bk} seed min',v[j][1][0],d,100*sr_['min'],'graft_seed_recovery.min'); c.chk(f'{lab} {bk} seed max',v[j][2][0],d,100*sr_['max'],'graft_seed_recovery.max')
+                continue
             c.chk(f'{lab} {f}',v[j][0][0],d,e[f]['value'],f'edit_stats.cells.{f}.value'); c.chk(f'{lab} {f} min',v[j][1][0],d,e[f]['min'],'min'); c.chk(f'{lab} {f} max',v[j][2][0],d,e[f]['max'],'max')
-for r in rows('tab19.tex',2):
-    lab=r[0].strip(); v=[tok(x) for x in r[1:]]
-    for j,bk in ((0,'beta1'),(1,'beta2')):
-        d=v[j][0][1]; cv=rv['graft_recovery_early'][lab][bk]; sr_=rv['graft_seed_recovery'][lab][bk]
-        c.chk(f'{lab} {bk} recovery',v[j][0][0],d,100*cv,'review_stats.graft_recovery_early')
-        c.chk(f'{lab} {bk} seed min',v[j][1][0],d,100*sr_['min'],'graft_seed_recovery.min'); c.chk(f'{lab} {bk} seed max',v[j][2][0],d,100*sr_['max'],'graft_seed_recovery.max')
 c.report()
 print('  paired_bootstrap nine_cell', {k:(round(v['diff_pp'],2) if 'diff_pp' in v else None, [round(x,2) for x in v['ci95_pp']]) for k,v in pb['nine_cell'].items()})
 print('  review cell_interval', {k:(round(v['mean'],2),[round(x,2) for x in v['ci95']]) for k,v in rv['cell_interval'].items()})
@@ -97,7 +97,7 @@ c.report()
 
 # --- Table 5 bottom block (tab27): teacher structure at the ends of the held intervals
 ts=J('teacher_structure')
-c=Checker('Table 7 (tab27)')
+c=Checker('Table 8 (tab27)')
 colmap=[('A','0.0'),('A','0.2'),('A','0.4'),('B','0.0'),('B','0.4'),('C','0.0'),('C','0.4')]
 fld={'Markers':(lambda d:d['a_markers_per_1k_all_generations'],1),'Words':(lambda d:d['a_mean_words'],0),'Tag (\\%)':(lambda d:100*d['b_think_tag'],0),'Recap (\\%)':(lambda d:100*d['b_tagged_recap'],0),
      'Opener (\\%)':(lambda d:100*d['e_opens_monologue'],0),'Sent. (\\%)':(lambda d:100*d['e_monologue_sentence_share'],0),
@@ -113,7 +113,7 @@ for r in rows('tab27.tex'):
 c.report()
 # --- Table 13 left block (tab29): nine-cell student structure on the first 300 words (recap on completed responses)
 sst=J('student_structure')['summary']['all']['level']
-c=Checker('Table 10 top (tab29)')
+c=Checker('Table 11 top (tab29)')
 conds=['lambda0','rm_pre','rm_decisive','graft2','lambda1','untrained']
 rowf={'Hesitation':lambda h,w:h['c_markers_per_1k']['hesitation'],'Verification':lambda h,w:h['c_markers_per_1k']['verification'],
       'Attempts':lambda h,w:h['c_attempts_per_solution'],'Opener':lambda h,w:h['e_opens_monologue'],

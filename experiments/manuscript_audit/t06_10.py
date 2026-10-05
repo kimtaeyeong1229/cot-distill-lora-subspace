@@ -22,7 +22,7 @@ def check(c,fname,spec):
     c.report()
 nine=lambda f: st.mean(f(x) for x in QLO)
 # ---- Table 8 removal (tab06)
-c=Checker('Table 8 (tab06)')
+c=Checker('Table 9 (tab06)')
 W='Whole'; Ea='Early'; A='MATH'
 spec={(W,'$\\lambda=0$'):(lambda x: ss[x]['table1']['0.0']['mean'],1,'seed_spread.table1.0.0',None),
       (W,'Removed'):(lambda x: E(x,'rm_pre','markers_per_1k'),1,'seed_spread.edits.rm_pre.markers_per_1k',None),
@@ -89,7 +89,7 @@ for b in (2,4,8):
     spec[(Bt,f'$\\beta={b}$ Loop')]=(lp,100,f'degeneration.{dk[b]} (seed 0)',None)
 check(c,'tab17.tex',spec)
 # ---- Table 11 removal vs untrained (tab26)
-c=Checker('Table 11 (tab26)')
+c=Checker('Table 7 (tab26)')
 kap=lambda d: d['vs_untrained']['response_level']['cohen_kappa']
 un=lambda x: ru['untrained'][x.split('/')[1]]
 Ac='Accuracy'; Ka='$\\kappa$'

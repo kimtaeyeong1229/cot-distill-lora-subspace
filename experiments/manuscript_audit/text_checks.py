@@ -118,7 +118,6 @@ R('4.3 pre dims',5.4,7.7,1,[cp[k]['dims'] for k in cp],'consensus_pre.dims'); R(
 R('4.3 coverage post %',5,19,0,[100*cp[k]['out'] for k in cp],''); R('4.3 chance %',0.5,1.8,1,[100*cp[k]['chance'] for k in cp],'')
 R('intro energy share %',47,72,0,[100*ra[c]['overall']['share_0.0'] for c in CELLS],'region_anatomy'); R('4.3 lambda1 share %',1,15,0,[100*ra[c]['overall']['share_1.0'] for c in CELLS],'')
 R('App A anatomy dims',6.4,8.0,1,[ra[c]['overall']['dims'] for c in CELLS],'')
-R('Table 13 caption removal loops max',1,8,0,[100*dg[c]['rm_pre']['mean'] for c in CELLS],''); R('Table 13 caption graft other loops',6,34,0,[100*dg[c]['graft_other2']['mean'] for c in CELLS],'')
 R('App D lambda1 control length x',0.62,1.17,2,[ss[c]['edits']['rm_pre_l1']['avg_tokens']['mean']/ss[c]['table2']['tokens1']['mean'] for c in CELLS],'seed_spread rm_pre_l1/tokens1')
 R('Table 12 caption OLMo other-removed completion %',48,65,0,[100*me[c]['lambda0.0_rm_decisive']['completed'] for c in CELLS if c.endswith('OLMo')],'main_edits'); R('Table 12 caption OLMo unedited %',39,49,0,[100*(1-me[c]['base0']['truncated']) for c in CELLS if c.endswith('OLMo')],'')
 R('4.1 student r',0.82,1.00,2,[td[p]['corr'][k] for p in PAIRS for k in STUD],'teacher_density.corr'); V('4.1 pooled r',0.86,2,td['pooled_corr'],'')
@@ -128,7 +127,7 @@ R('4.1 acc gain pp',1.7,19.2,1,[ss[c]['table2']['d_acc']['mean'] for c in CELLS]
 lr=J('lambda0_retention')
 for p,l,lo,hi in (('A','1.0',0.067,0.086),('B','1.0',0.155,0.166),('C','1.0',0.065,0.136)):
     R(f'App B lambda0 region kept {p} at {l}',lo,hi,3,[lr[f'{p}/{k}']['kept'][l] for k in STUD],'lambda0_retention.<cell>.kept')
-R('Table 8 caption markers kept %',0.15,9.93,2,[pct(bl[c]['rm_pre']['markers']['mean'],bl[c]['base0']['markers']['mean']) for c in CELLS],'baselines rm_pre/base0 markers')
+R('Table 9 caption markers kept %',0.15,9.93,2,[pct(bl[c]['rm_pre']['markers']['mean'],bl[c]['base0']['markers']['mean']) for c in CELLS],'baselines rm_pre/base0 markers')
 R('App D lambda1 control markers before',0.07,5.14,2,[ss[c]['table1']['1.0']['mean'] for c in CELLS],'seed_spread.table1.1.0')
 R('App D lambda1 control markers after',0.03,4.03,2,[ss[c]['edits']['rm_pre_l1']['markers_per_1k']['mean'] for c in CELLS],'seed_spread.edits.rm_pre_l1')
 R('Table 2 caption top-removal tokens',733,3914,0,[bl[c]['gs_energy']['tokens']['mean'] for c in CELLS],'baselines.gs_energy.tokens')

@@ -6,12 +6,12 @@ LAM=['0.0','0.2','0.4','0.6','0.8','1.0']
 # pooled r in the Table 3 caption; teacher markers 15.5 -> 5.0 in Table 7 (tab27, t_new.py) and its caption; B/Llama seeds in the
 # Table 8 caption; R_sym and the A/Qwen B(lambda) collapse in App B text
 import re
-c=Checker('Former Figure 4 numbers (Table 3 and 8 captions, Table 7 caption, App B text)')
+c=Checker('Former Figure 4 numbers (Table 3, 8 and 9 captions, App B text)')
 cap=caption('tab:2'); m=re.search(r'\(([\d.]+) over all 54 points\)',cap); c.chk('pooled r (Table 3 caption)',float(m.group(1)),2,td['pooled_corr'],'teacher_density.pooled_corr')
 cap=caption('tab:6'); m=re.search(r'seeds of ([\d.]+), ([\d.]+) and (\d+\.\d)',cap)
-for i,x in enumerate(m.groups()): c.chk(f'B/Llama lambda0 seed {i} (Table 8 caption)',float(x),1,ss['B/Llama']['table1']['0.0']['seeds'][i],'seed_spread.table1 seeds')
+for i,x in enumerate(m.groups()): c.chk(f'B/Llama lambda0 seed {i} (Table 9 caption)',float(x),1,ss['B/Llama']['table1']['0.0']['seeds'][i],'seed_spread.table1 seeds')
 cap=caption('tab:structure'); m=re.search(r'fall from ([\d.]+) to ([\d.]+)',cap)
-c.chk('A teacher markers 0.0 (Table 7 caption)',float(m.group(1)),1,td['A']['teacher']['0.0'],'teacher_density'); c.chk('A teacher markers 0.2',float(m.group(2)),1,td['A']['teacher']['0.2'],'teacher_density')
+c.chk('A teacher markers 0.0 (Table 8 caption)',float(m.group(1)),1,td['A']['teacher']['0.0'],'teacher_density'); c.chk('A teacher markers 0.2',float(m.group(2)),1,td['A']['teacher']['0.2'],'teacher_density')
 APP=open(APP_TEX).read()
 m=re.search(r'pair A\'s first interval then drops by ([\d.]+)--([\d.]+) against ([\d.]+)--([\d.]+) at the switch',APP)
 rs=J('symmetric_R'); keyR=lambda p,k: f'{P(p)}/{FULL[k]}'
