@@ -188,5 +188,35 @@ sl=J('sae_llama'); g=lambda p,k: sl[p][k]['sae']['mean']
 for p,raw,gap in (('A',51,46),('C',69,65)):
     V(f'5.4 SAE graft raw {p} %',raw,0,100*g(p,'graft2')/g(p,'base0.0'),'sae_llama graft2/base0.0')
     V(f'5.4 SAE graft gap {p} %',gap,0,100*(g(p,'graft2')-g(p,'base1.0'))/(g(p,'base0.0')-g(p,'base1.0')),'sae_llama gap')
+# ---- added with the final pre-submission sweep (manuscript after f41ad86)
+ar=rv['amplification_ratios']; el=lambda c,e: ar[c][e]['elasticity']
+R('5.3 elasticity C/Qwen, C/Llama (all conditions)',1.11,1.55,2,[el(c,e) for c in ('C/Qwen','C/Llama') for e in ('ampn1','ampn4','ampV')],'review_stats.amplification_ratios elasticity')
+R('5.3 elasticity A/Qwen, C/OLMo at gamma<=4',0.75,0.85,2,[el(c,e) for c in ('A/Qwen','C/OLMo') for e in ('ampn1','ampn4')],'review_stats.amplification_ratios elasticity')
+V('5.3 elasticity elsewhere, max (cell means)',0.45,2,max(el(c,e) for c in CELLS if c not in ('C/Qwen','C/Llama','A/Qwen','C/OLMo') for e in ('ampn1','ampn4','ampV')),'review_stats.amplification_ratios elasticity')
+gl=rv['graft1_lengthening']
+R('5.2 beta1 lengthening A,C x',1.3,3.1,1,[gl[c]['token_ratio'] for c in AC],'review_stats.graft1_lengthening.token_ratio')
+es_=J('edit_stats')['cells']
+V('5.1 A/OLMo region minus top pp',-2.0,1,es_['A/OLMo']['rm_minus_top']['value'],'edit_stats rm_minus_top'); V('5.1 C/OLMo region minus top pp',-0.1,1,es_['C/OLMo']['rm_minus_top']['value'],'edit_stats rm_minus_top')
+V('5.1 negative region-minus-top cells',2,0,sum(es_[c]['rm_minus_top']['value']<0 for c in CELLS),'edit_stats rm_minus_top')
+sc=J('student_structure')['cells']
+for c,x in (('A/Qwen',96),('A/Llama',26)): V(f'5.1 monologue opener after removal {c} %',x,0,100*sc[c]['rm_pre']['mean']['head']['e_opens_monologue'],'student_structure cells rm_pre head e_opens_monologue')
+prs=J('phi_resample_s012')
+R('App B B(lambda) at lambda=1 outside A/Qwen',0.14,0.48,2,[prs[k]['rows']['1.0']['baseline'] for k in prs if '/' in k and not k.startswith('A/Qwen')],'phi_resample_s012 rows.1.0.baseline')
+for i,x in ((1,1.59),(0,1.14)): V(f'App B pair A log teacher-marker drop interval {i}',x,2,iv('A',i)['marker_log_ratio'],'length_confound marker_log_ratio')
+V('App B pair A switch is largest log marker drop',1,0,int(iv('A',1)['marker_log_ratio']==max(iv('A',i)['marker_log_ratio'] for i in range(5))),'length_confound')
+V('App B held B,C keep at least',0.78,2,min(v for p in 'BC' for i in range(5) if iv(p,i)['class']=='held' for v in iv(p,i)['kept_vs_half_reference'].values()),'length_confound kept_vs_half_reference')
+tsf=J('two_seed_floor')['floors']; fl=lambda f,c,i: tsf[f]['cells'][c][i]['loss_per_log_len']
+CC=[f'C/{k}' for k in STUD]
+V('App B pair C first step fails with chance floor too',1,0,int(max(fl('chance',c,'0.4->0.6') for c in CC)<max(fl('chance',c,i) for c in CC for i in ('0.0->0.2','0.2->0.4'))),'two_seed_floor chance')
+R('App B pair C first step, lambda1 floor',1.10,1.30,2,[fl('lambda1',c,'0.4->0.6') for c in CC],'two_seed_floor lambda1'); R('App B pair C held, lambda1 floor',0.70,1.31,2,[fl('lambda1',c,i) for c in CC for i in ('0.0->0.2','0.2->0.4')],'')
+R('App B pair A after switch, lambda1 floor',10.4,48.7,1,[fl('lambda1',f'A/{k}',i) for k in STUD for i in ('0.4->0.6','0.6->0.8')],'two_seed_floor lambda1')
+R('Limitations training-solution tokens (k)',2.1,3.1,1,[lc['pairs'][p]['tokens']['0.0']/1000 for p in PAIRS],'length_confound pairs.tokens.0.0')
+R('Table 4 caption region directions per module type',4.2,10.5,1,[ra[c]['by_module'][m]['dims'] for c in CELLS for m in ra[c]['by_module']],'region_anatomy by_module dims')
+ex=J('examples')['students']
+V('Table 17 caption lambda0 row markers',2.4,1,ex[0]['markers_per_1k'],'examples.json students[0]'); V('Table 17 caption graft row markers',1.1,1,ex[3]['markers_per_1k'],'examples.json students[3]')
+V('Table 17 caption A/Qwen lambda0 mean markers',21.8,1,ss['A/Qwen']['base']['base0_markers_per_1k']['mean'],'seed_spread base0_markers_per_1k'); V('Table 17 caption A/Qwen graft mean markers',13.0,1,ss['A/Qwen']['edits']['graft2']['markers_per_1k']['mean'],'seed_spread graft2 markers_per_1k')
+V('Table 13 caption pair B graft at lambda1 level (gap recovered within +-5%)',1,0,int(abs((g('B','graft2')-g('B','base1.0'))/(g('B','base0.0')-g('B','base1.0')))<0.05),'sae_llama B')
+V('Fig 5 caption merge uses equal weight (merge0.5 nine-cell acc %)',25.4,1,100*sum(bl[c]['merge0.5']['accuracy']['mean'] for c in CELLS)/9,'baselines merge0.5')
+V('App D per-cell CI above zero, cut, seeds resampled',5,0,pbs['nine_cell']['cut']['cells_ci_above_zero_seeds_resampled'],'paired_bootstrap nine_cell')
 print(f'{n} in-text values/ranges checked, {len(bad)} mismatches')
 for b in bad: print('  MISMATCH',b)
