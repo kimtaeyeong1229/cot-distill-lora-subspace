@@ -21,7 +21,9 @@ CELLS = {"A/Qwen": "sweep", "A/Llama": "sweep_llama", "A/OLMo": "sweep_olmo2",
          "C/Qwen": "pairD/qwen0.5b", "C/Llama": "pairD/llama1b", "C/OLMo": "pairD/olmo1b"}
 VARIANTS = ["lambda0.0_rm_pre", "lambda0.0_rm_decisive", "lambda0.0_rm_scale", "lambda1.0_rm_pre",
             "graft1", "graft_orth1", "graft_full1", "graft2", "graft_orth2", "graft_full2",
-            "ampn1", "ampn4", "ampV"]
+            "ampn1", "ampn4", "ampV",
+            # added for the review: early markers of the energy-matched top removal and the length-matched cut
+            "lambda0.0_gs_energy", "lambda0.0_budget"]
 SEEDS, SAMPLES, HEAD = [0, 1, 2], 2, 300
 # same pattern as eval_ablation.REFLECTIVE (not imported: that module pulls in vllm)
 REFLECTIVE = re.compile(

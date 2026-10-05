@@ -134,6 +134,24 @@
       "avg_tokens": 6089.090833333334,
       "completed": 0.2916666666666667,
       "accuracy": 0.11083333333333334
+    },
+    "lambda0.0_gs_energy": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 5.943266292275516,
+      "head_markers_per_1k": 3.7172382635350365,
+      "avg_tokens": 3191.329166666667,
+      "completed": 0.6591666666666667,
+      "accuracy": 0.1875
+    },
+    "lambda0.0_budget": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 13.7437418723948,
+      "head_markers_per_1k": 10.405555555555555,
+      "avg_tokens": 1406.4,
+      "completed": 0.13833333333333334,
+      "accuracy": 0.1875
     }
   },
   "A/Llama": {
@@ -271,6 +289,24 @@
       "avg_tokens": 6172.768333333333,
       "completed": 0.2916666666666667,
       "accuracy": 0.1325
+    },
+    "lambda0.0_gs_energy": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 10.700195119132598,
+      "head_markers_per_1k": 3.8175460723757184,
+      "avg_tokens": 3913.6158333333333,
+      "completed": 0.5766666666666667,
+      "accuracy": 0.17166666666666666
+    },
+    "lambda0.0_budget": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 19.438364172773376,
+      "head_markers_per_1k": 12.794444444444444,
+      "avg_tokens": 1644.165,
+      "completed": 0.06666666666666667,
+      "accuracy": 0.21
     }
   },
   "A/OLMo": {
@@ -408,6 +444,24 @@
       "avg_tokens": 2992.9383333333335,
       "completed": 0.36583333333333334,
       "accuracy": 0.08833333333333333
+    },
+    "lambda0.0_gs_energy": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 3.2653186840242516,
+      "head_markers_per_1k": 1.9230302589114556,
+      "avg_tokens": 1018.9541666666667,
+      "completed": 0.9341666666666667,
+      "accuracy": 0.21833333333333335
+    },
+    "lambda0.0_budget": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 11.22509875245105,
+      "head_markers_per_1k": 9.935154778376035,
+      "avg_tokens": 748.3016666666666,
+      "completed": 0.006666666666666667,
+      "accuracy": 0.11166666666666668
     }
   },
   "B/Qwen": {
@@ -544,6 +598,24 @@
       "head_markers_per_1k": 16.32777777777778,
       "avg_tokens": 5386.325833333333,
       "completed": 0.49833333333333335,
+      "accuracy": 0.14666666666666667
+    },
+    "lambda0.0_gs_energy": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 1.3361036031894877,
+      "head_markers_per_1k": 1.2428722214935701,
+      "avg_tokens": 1641.3325,
+      "completed": 0.865,
+      "accuracy": 0.25333333333333335
+    },
+    "lambda0.0_budget": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 13.964308834701486,
+      "head_markers_per_1k": 13.995824634655532,
+      "avg_tokens": 969.9233333333333,
+      "completed": 0.06416666666666666,
       "accuracy": 0.14666666666666667
     }
   },
@@ -682,6 +754,24 @@
       "avg_tokens": 5808.48,
       "completed": 0.36916666666666664,
       "accuracy": 0.13749999999999998
+    },
+    "lambda0.0_gs_energy": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 0.5759221712908149,
+      "head_markers_per_1k": 0.25358266794975165,
+      "avg_tokens": 1498.4625,
+      "completed": 0.8791666666666667,
+      "accuracy": 0.21916666666666665
+    },
+    "lambda0.0_budget": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 22.38554813165058,
+      "head_markers_per_1k": 16.450221263537102,
+      "avg_tokens": 1129.6583333333333,
+      "completed": 0.1125,
+      "accuracy": 0.20083333333333334
     }
   },
   "B/OLMo": {
@@ -819,6 +909,24 @@
       "avg_tokens": 2990.383333333333,
       "completed": 0.465,
       "accuracy": 0.10416666666666667
+    },
+    "lambda0.0_gs_energy": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 1.72493651275335,
+      "head_markers_per_1k": 1.4719995849869012,
+      "avg_tokens": 785.2683333333333,
+      "completed": 0.9808333333333333,
+      "accuracy": 0.2041666666666667
+    },
+    "lambda0.0_budget": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 14.341676717890252,
+      "head_markers_per_1k": 14.144444444444444,
+      "avg_tokens": 775.2366666666667,
+      "completed": 0.021666666666666667,
+      "accuracy": 0.11166666666666668
     }
   },
   "C/Qwen": {
@@ -956,6 +1064,24 @@
       "avg_tokens": 7003.198333333334,
       "completed": 0.11416666666666667,
       "accuracy": 0.085
+    },
+    "lambda0.0_gs_energy": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 2.959291881510326,
+      "head_markers_per_1k": 1.668513653173289,
+      "avg_tokens": 1882.4916666666666,
+      "completed": 0.8241666666666667,
+      "accuracy": 0.20916666666666664
+    },
+    "lambda0.0_budget": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 11.688425768339684,
+      "head_markers_per_1k": 9.794488167079173,
+      "avg_tokens": 1032.37,
+      "completed": 0.05,
+      "accuracy": 0.17416666666666666
     }
   },
   "C/Llama": {
@@ -1093,6 +1219,24 @@
       "avg_tokens": 7428.4825,
       "completed": 0.0475,
       "accuracy": 0.09416666666666666
+    },
+    "lambda0.0_gs_energy": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 0.8091481336046359,
+      "head_markers_per_1k": 0.412577913752174,
+      "avg_tokens": 1629.6891666666668,
+      "completed": 0.865,
+      "accuracy": 0.2125
+    },
+    "lambda0.0_budget": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 16.293283619144777,
+      "head_markers_per_1k": 12.555555555555555,
+      "avg_tokens": 1217.3466666666666,
+      "completed": 0.055,
+      "accuracy": 0.19499999999999998
     }
   },
   "C/OLMo": {
@@ -1230,6 +1374,24 @@
       "avg_tokens": 3132.195,
       "completed": 0.30333333333333334,
       "accuracy": 0.10416666666666667
+    },
+    "lambda0.0_gs_energy": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 1.47490153356239,
+      "head_markers_per_1k": 1.2202153478954638,
+      "avg_tokens": 733.4525,
+      "completed": 0.9766666666666667,
+      "accuracy": 0.21
+    },
+    "lambda0.0_budget": {
+      "seeds": 3,
+      "responses": 600,
+      "markers_per_1k": 11.969509323379093,
+      "head_markers_per_1k": 10.465471724329582,
+      "avg_tokens": 760.0725,
+      "completed": 0.0075,
+      "accuracy": 0.105
     }
   }
 }
