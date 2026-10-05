@@ -121,6 +121,14 @@ def main():
         p_pool = float((total >= pooled_obs - 1e-9).mean())
         summary["pooled"] = dict(mean_r=pooled_obs / 3, p=p_pool, orderings=int(total.size))
         print(f"세 쌍 합산: 평균 r {pooled_obs / 3:.3f}, 정확 p {p_pool:.2e} (결합 순열 {total.size:,}개)")
+    if a.teacher == "length":
+        # how collinear the two teacher signals are: per pair, r between the five length drops and the five
+        # think-rate drops (think_rate.json)
+        tr = json.loads((EXP.parent / "think_rate.json").read_text())
+        for pair in by_pair:
+            ln = [think[pair]["rates"][LAMBDAS[i - 1]] - think[pair]["rates"][LAMBDAS[i]] for i in range(1, len(LAMBDAS))]
+            th = [tr[pair]["rates"][LAMBDAS[i - 1]] - tr[pair]["rates"][LAMBDAS[i]] for i in range(1, len(LAMBDAS))]
+            summary[pair]["r_length_vs_think_drop"] = pearson(ln, th)
     out["_summary"] = summary
     Path(a.output).write_text(json.dumps(out, indent=2))
     print(a.output)
