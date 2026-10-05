@@ -1,7 +1,0 @@
-Edit input image 1 (a three-panel research figure). Keep panels 1 and 2, the arrows between panels, the panel sizes, the light blue / light grey panel backgrounds, the thin grey borders and the blue number circles EXACTLY as they are, with identical text. Add nothing outside the panels.
-Redesign only the content of panel 3. Keep its number circle "3" and its title "Count the bits". Remove everything else inside panel 3 (the bars, axis, magnifier, balance icon and the formula line).
-Fill panel 3 with three stacked white rounded cards with a thin light grey border and soft shadow, in the style of the middle panel of input image 2 (How Many Bits): each card has a square light-tinted icon tile on the left, a bold dark title with a symbol on the right side of the title, and two short grey lines of text under it. Use the blue #5B9BD5 / coral #F28C6B palette of image 1, not the navy / mustard of image 2. Do not copy any text from image 2. Spell text exactly:
-Card 1: icon tile light blue with a row of small token squares and a downward arrow. Title "Written bits  W". Lines: "bits the student saves" / "after LoRA vs. before".
-Card 2: icon tile light coral with two horizontal bars, the longer one ending in a coral hatched piece. Title "Memorized bits  ΔW". Lines: "train minus unseen" / "helps only seen problems".
-Card 3: icon tile light blue with a small gauge / speedometer. Title "Predictability  ρ". Lines: "how expected a rationale is" / "measured before training".
-No extra text below the cards; distribute the three cards evenly to fill panel 3.

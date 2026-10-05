@@ -10,28 +10,22 @@ with one draw of problem indices shared by all cells, since every cell answers t
 per-cell intervals condition on the three trained adapters; a second per-cell interval also resamples
 the three seeds (seed indices drawn with replacement, then problems), counting both sources of noise.
 
-Run from the repo root; writes experiments/paired_bootstrap.json.
+Writes experiments/paired_bootstrap.json.
 """
 
 import gzip
 import json
 import random
 import statistics as st
-import sys
-from pathlib import Path
 
 import pandas as pd
 
-E = Path("experiments/lambda_lora_bits")
-sys.path.insert(0, str(E))
-from common import is_correct  # noqa: E402
+from common import is_correct
+from config import CELL_DIR as CELLS, EVAL_PROBLEMS as PROBLEMS, EVAL_SAMPLES as SAMPLES, EXP as E, RESULTS, SEEDS
 
-CELLS = {"A/Qwen": "sweep", "A/Llama": "sweep_llama", "A/OLMo": "sweep_olmo2",
-         "B/Qwen": "pairB/qwen0.5b", "B/Llama": "pairB/llama1b", "B/OLMo": "pairB/olmo1b",
-         "C/Qwen": "pairD/qwen0.5b", "C/Llama": "pairD/llama1b", "C/OLMo": "pairD/olmo1b"}
 CONDS = {"rm_pre": "lambda0.0_rm_pre", "cut": "lambda0.0_budget", "top": "lambda0.0_gs_energy",
          "other": "lambda0.0_rm_decisive"}
-SEEDS, SAMPLES, PROBLEMS, DRAWS = [0, 1, 2], 2, 200, 10000
+DRAWS = 10000
 
 
 def per_problem(tag, name, answers):
@@ -60,7 +54,7 @@ def main():
     rows = pd.read_parquet(E / "data" / "math500.parquet").to_dict("records")[:PROBLEMS]
     answers = [str(r["answer"]) for r in rows]
     rng = random.Random(0)
-    cache = Path("experiments/paired_bootstrap_grades.json")
+    cache = RESULTS / "paired_bootstrap_grades.json"
     if cache.exists():
         raw = {cell: {c: {int(s): v for s, v in d.items()} for c, d in cd.items()}
                for cell, cd in json.loads(cache.read_text()).items()}
@@ -100,7 +94,7 @@ def main():
                                "cells_ci_above_zero_seeds_resampled":
                                    sum(out["cells"][k][c]["ci95_pp_seeds_resampled"][0] > 0 for k in CELLS)}
         print(c, out["nine_cell"][c], flush=True)
-    Path("experiments/paired_bootstrap.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / "paired_bootstrap.json").write_text(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":

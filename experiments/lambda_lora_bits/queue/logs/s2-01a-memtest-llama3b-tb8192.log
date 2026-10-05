@@ -1,7 +1,0 @@
-stress set: 64 longest CoTs, student-label tokens 5982..8053
-PHASE train: exit=0 peak_gpu=14458MiB oom_lines=0
-  torch peak allocated 12.27 GB, 2 steps in 3.3 min
-PHASE bits: exit=0 peak_gpu=11456MiB oom_lines=0
-PHASE eval: exit=0 peak_gpu=14578MiB oom_lines=0
-  eval ok: 8 problems, avg 284 tokens
-MEMTEST_DONE llama3b_tb8192

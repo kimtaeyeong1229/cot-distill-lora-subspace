@@ -1,7 +1,6 @@
-"""Shared helpers for the lambda-sweep LoRA-bits experiment."""
+"""Shared helpers: prompt format, answer grading, data I/O and the training loss."""
 
 import json
-import math
 import os
 import select
 import signal
@@ -185,38 +184,6 @@ def backbone_and_head(model):
 
 def label_count(labels: Sequence[int]) -> int:
     return sum(1 for y in labels[1:] if y != -100)
-
-
-def sample_bits(
-    model, encoded, pad_id: int, token_budget: int = 8192, chunk: int = 1024, quad_budget: int = 2 ** 24
-) -> List[float]:
-    """Codelength in bits of each sample's labelled tokens: -sum log2 p(y_t | y_<t).
-
-    Budgets are tighter than training's: batches here are length-sorted and dense, and the
-    first sweep run hit repeated allocator OOM retries at 16k tokens / 2048-token logit chunks.
-    """
-    import torch
-    import torch.nn.functional as F
-
-    backbone, head = backbone_and_head(model)
-    device = head.weight.device
-    weight = head.weight.float()
-    bits = [0.0] * len(encoded)
-    with torch.inference_mode():
-        for indices in token_batches([len(e[0]) for e in encoded], token_budget, quad_budget):
-            ids, labels, mask = collate(encoded, indices, pad_id, device)
-            with torch.autocast("cuda", dtype=torch.bfloat16):
-                hidden = backbone(input_ids=ids, attention_mask=mask).last_hidden_state
-            for row, i in enumerate(indices):
-                targets = labels[row, 1:]
-                keep = targets != -100
-                states, targets = hidden[row, :-1][keep], targets[keep]
-                nats = 0.0
-                for start in range(0, targets.numel(), chunk):
-                    logits = states[start:start + chunk].float() @ weight.t()
-                    nats += F.cross_entropy(logits, targets[start:start + chunk], reduction="sum").item()
-                bits[i] = nats / math.log(2)
-    return bits
 
 
 def _chunk_nll(states, targets, weight):

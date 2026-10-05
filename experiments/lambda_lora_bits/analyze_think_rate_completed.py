@@ -15,23 +15,19 @@ Table 4 permutation test (analyze_alignment.py, adapter profiles from phi_resamp
 alignment_s012.json) is rerun with the teacher profile taken from each subset. Pair C is stored as pairD and
 keyed "D", as in think_rate.json.
 
-Run from the repo root; writes experiments/think_rate_completed.json.
+Writes experiments/think_rate_completed.json.
 """
 
 import json
 import statistics as st
-import sys
 from itertools import permutations
-from pathlib import Path
 
 import numpy as np
 
-X = Path("experiments")
-E = X / "lambda_lora_bits"
-sys.path.insert(0, str(E))
-from analyze_alignment import LAMBDAS, pearson, permutation_p  # noqa: E402
+from analyze_alignment import LAMBDAS, pearson, permutation_p
+from config import EXP as E, PAIR_DIR, PAIR_KEY, RESULTS as X
 
-PAIRS = {"A": "sweep", "B": "pairB", "D": "pairD"}
+PAIRS = {PAIR_KEY[p]: PAIR_DIR[p] for p in PAIR_DIR}   # keyed like think_rate.json (pair C is "D")
 
 
 def rates_for(tag):

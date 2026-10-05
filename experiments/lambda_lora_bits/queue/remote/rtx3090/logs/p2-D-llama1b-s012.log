@@ -1,29 +1,0 @@
-[2026-09-16 13:38:47] download models/Llama-3.2-1B-Instruct
-Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files:  11%|█         | 1/9 [00:00<00:03,  2.36it/s]Fetching 9 files:  44%|████▍     | 4/9 [00:00<00:00,  8.62it/s]Fetching 9 files:  67%|██████▋   | 6/9 [00:00<00:00,  7.86it/s]Fetching 9 files:  89%|████████▉ | 8/9 [00:02<00:00,  2.67it/s]Fetching 9 files: 100%|██████████| 9/9 [03:14<00:00, 41.57s/it]Fetching 9 files: 100%|██████████| 9/9 [03:14<00:00, 21.59s/it]
-downloaded meta-llama/Llama-3.2-1B-Instruct -> models/Llama-3.2-1B-Instruct
-[2026-09-16 13:42:02] tokenizer length check for models/Llama-3.2-1B-Instruct
-lambda=0.0: mean=2108 max=8118 over_8192=0 (0.0%) truncated_tokens=0.0%
-lambda=0.2: mean=1711 max=7729 over_8192=0 (0.0%) truncated_tokens=0.0%
-lambda=0.4: mean=1423 max=8052 over_8192=0 (0.0%) truncated_tokens=0.0%
-lambda=0.6: mean=830 max=6922 over_8192=0 (0.0%) truncated_tokens=0.0%
-lambda=0.8: mean=468 max=2972 over_8192=0 (0.0%) truncated_tokens=0.0%
-lambda=1.0: mean=492 max=1499 over_8192=0 (0.0%) truncated_tokens=0.0%
-[2026-09-16 13:42:15] train lambda0.0_seed0
-[2026-09-16 14:47:48] train lambda0.2_seed0
-[2026-09-16 15:28:56] train lambda0.4_seed0
-[2026-09-16 15:49:21] train lambda0.6_seed0
-[2026-09-16 16:02:11] train lambda0.8_seed0
-[2026-09-16 16:09:18] train lambda1.0_seed0
-[2026-09-16 16:16:31] train lambda0.0_seed1
-[2026-09-16 16:47:25] train lambda0.2_seed1
-[2026-09-16 17:12:20] train lambda0.4_seed1
-[2026-09-16 17:32:57] train lambda0.6_seed1
-[2026-09-16 17:45:51] train lambda0.8_seed1
-[2026-09-16 17:53:01] train lambda1.0_seed1
-[2026-09-16 18:00:15] train lambda0.0_seed2
-[2026-09-16 18:31:09] train lambda0.2_seed2
-[2026-09-16 18:55:48] train lambda0.4_seed2
-[2026-09-16 19:16:14] train lambda0.6_seed2
-[2026-09-16 19:29:03] train lambda0.8_seed2
-[2026-09-16 19:36:08] train lambda1.0_seed2
-[2026-09-16 19:43:19] done

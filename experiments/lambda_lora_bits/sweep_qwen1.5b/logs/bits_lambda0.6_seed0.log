@@ -1,23 +1,0 @@
-Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights: 100%|██████████| 338/338 [00:00<00:00, 15681.38it/s]
-[W912 19:18:44.756678338 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 222298112 bytes (free: 56688640, total: 16609247232).
-[W912 19:18:58.056773788 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 283115520 bytes (free: 218169344, total: 16609247232).
-[W912 19:19:08.943629571 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 339738624 bytes (free: 247529472, total: 16609247232).
-[W912 19:19:20.475743414 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 400556032 bytes (free: 163643392, total: 16609247232).
-[W912 19:19:26.730639409 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 438304768 bytes (free: 369164288, total: 16609247232).
-[W912 19:19:34.393425475 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 501219328 bytes (free: 216072192, total: 16609247232).
-[W912 19:19:39.292903522 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 566231040 bytes (free: 190906368, total: 16609247232).
-[W912 19:19:42.277312438 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 614465536 bytes (free: 12648448, total: 16609247232).
-train {"n": 2113, "tokens": 1058062, "H_base_bits": 178931.8525555346, "H_tuned_bits": 92057.59966662593, "W_bits": 86874.25288890865, "W_clipped_bits": 86874.25288890865, "H_base_bits_per_token": 0.16911282378115328, "W_bits_per_token": 0.08210695865545559, "W_bits_per_sample": 41.114175527169266, "W_over_H": 0.4855158634315582}
-held {"n": 300, "tokens": 155091, "H_base_bits": 25345.058085760083, "H_tuned_bits": 24708.51170128375, "W_bits": 636.546384476332, "W_clipped_bits": 1629.4622231521707, "H_base_bits_per_token": 0.16342056009542838, "W_bits_per_token": 0.004104341222097556, "W_bits_per_sample": 2.1218212815877733, "W_over_H": 0.025115207166716676}
-c=0.25: CL=74795865 bits (4.051/param), zeros=0.099, retained W=0.9994
-c=0.5: CL=56544310 bits (3.062/param), zeros=0.197, retained W=0.9995
-c=0.75: CL=46076591 bits (2.495/param), zeros=0.292, retained W=0.9985
-c=1: CL=38871350 bits (2.105/param), zeros=0.382, retained W=0.9991
-c=1.25: CL=33494041 bits (1.814/param), zeros=0.467, retained W=0.9986
-c=1.5: CL=29296434 bits (1.587/param), zeros=0.546, retained W=0.9981
-c=2: CL=22944468 bits (1.243/param), zeros=0.682, retained W=0.9869
-c=2.5: CL=17713735 bits (0.959/param), zeros=0.788, retained W=0.9308
-c=3: CL=12964044 bits (0.702/param), zeros=0.866, retained W=0.8068
-c=4: CL=5755614 bits (0.312/param), zeros=0.955, retained W=0.4468
-{"delta_W_bits": 82390.84452091368, "delta_W_token_scaled_bits": 82531.60540677367, "trainable_params": 18464768}
-{"c_star": 1.5, "fidelity_met": true, "CL_update_bits": 29296434.001643952, "CL_update_bits_per_param": 1.586612623654083}

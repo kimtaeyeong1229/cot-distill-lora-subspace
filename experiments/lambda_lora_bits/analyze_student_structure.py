@@ -36,24 +36,20 @@ Readings, per cell and measure (on seed means):
                       restores
 Both are left out (None) when the denominator is below a small floor.
 
-Run from the repo root; writes experiments/student_structure.json.
+Writes experiments/student_structure.json.
 """
 
 import gzip
 import json
 import re
 import statistics as st
-import sys
-from pathlib import Path
 
-E = Path("experiments/lambda_lora_bits")
-sys.path.insert(0, str(E))
-from analyze_main_density import CELLS, REFLECTIVE  # noqa: E402
-from analyze_teacher_structure import (ALT_APPROACH, BIN, BOXED, MIN_RECAP_WORDS, MONO, OPEN_MONO,  # noqa: E402
+from analyze_main_density import CELLS, REFLECTIVE
+from analyze_teacher_structure import (ALT_APPROACH, BIN, BOXED, MIN_RECAP_WORDS, MONO, OPEN_MONO,
                                        VERIFY, first_boxed_end, sentences)
+from config import EVAL_PROBLEMS as PROBLEMS, EVAL_SAMPLES as SAMPLES, EXP as E, HEAD_WORDS as HEAD, RESULTS, SEEDS
+from config import STUDENT_MODEL as MODELS
 
-MODELS = {"Qwen": "Qwen2.5-0.5B-Instruct", "Llama": "Llama-3.2-1B-Instruct", "OLMo": "OLMo-2-1B-Instruct"}
-SEEDS, SAMPLES, PROBLEMS, HEAD = [0, 1, 2], 2, 200, 300
 EDITS = {"rm_pre": "lambda0.0_rm_pre", "rm_decisive": "lambda0.0_rm_decisive", "graft2": "graft2", "ampV": "ampV"}
 CONDS = ["lambda0", "rm_pre", "rm_decisive", "graft2", "ampV", "lambda1", "untrained"]
 FIRST_WORDS = ["Okay", "Alright", "Hmm", "So", "Let me"]
@@ -230,7 +226,7 @@ def main():
                           "opens_monologue_words": sorted(OPEN_MONO), "denominator_floor": FLOOR,
                           "conditions": {"lambda0": "unedited lambda0 adapter", "lambda1": "unedited lambda1 adapter",
                                          "untrained": "untrained instruct student", **EDITS}}
-    Path("experiments/student_structure.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / "student_structure.json").write_text(json.dumps(out, indent=2))
     s = summary["all"]
     for k in ("head.c_markers_per_1k.hesitation", "head.c_markers_per_1k.verification", "head.c_markers_per_1k.alternative",
               "head.c_attempts_per_solution", "head.d_any_verification", "whole.d_any_verification",

@@ -24,7 +24,7 @@ for p in PAIRS:
 # old Tables 13-15 (tab12-14) became Figures 5 and 6, which read ood.json and baselines.json directly; the audit checks the
 # numbers their captions print and that the nine-cell means drawn in Figure 6(a) are those of Table 1 (t_new.py checks Table 1)
 import re
-APP=open('/home/lab/workspace/NAACL_cot_distill_lora_subspace/sections/09_appendix.tex').read()
+APP=open(SECTIONS+'09_appendix.tex').read()
 def caption(label):
     i=APP.index('\\label{'+label+'}'); j=APP.rindex('\\caption{',0,i); return APP[j:i]
 CELLS=[f'{p}/{k}' for p in PAIRS for k in STUD]

@@ -8,7 +8,7 @@ seed-0 lambda-0 adapter that the edits are applied to. The overlap is ||V_seed^T
 share of V's dimensions that the seed region spans, averaged over modules with weight ||dW||_F of the
 edited adapter (as for phi in analyze_resample.py).
 
-Run from the repo root; writes experiments/seed_region_overlap.json.
+Writes experiments/seed_region_overlap.json.
 """
 
 import json
@@ -18,10 +18,9 @@ import torch
 
 from ablate_subspace import LAMBDAS, SEEDS, consensus, left_basis, read_adapter
 
-E = Path("experiments/lambda_lora_bits")
-CELLS = {"A/Qwen": ("sweep", "0.4"), "A/Llama": ("sweep_llama", "0.4"), "A/OLMo": ("sweep_olmo2", "0.4"),
-         "B/Qwen": ("pairB/qwen0.5b", "0.6"), "B/Llama": ("pairB/llama1b", "0.6"), "B/OLMo": ("pairB/olmo1b", "0.6"),
-         "C/Qwen": ("pairD/qwen0.5b", "0.6"), "C/Llama": ("pairD/llama1b", "0.6"), "C/OLMo": ("pairD/olmo1b", "0.6")}
+from config import CELL_DIR, CELL_NAMES, EXP as E, RESULTS, SWITCH
+
+CELLS = {cell: (CELL_DIR[cell], SWITCH[cell[0]]) for cell in CELL_NAMES}   # cell -> (directory, switch lambda)
 
 
 def bases(tag, lam, seed):
@@ -58,7 +57,7 @@ def main():
         print(f"{cell:8s} overlap {num / den:.2f}  dims shared {dims_v / n:.1f}  seed {dims_s / n:.1f}", flush=True)
     vals = [r["overlap"] for r in result.values()]
     print(f"range {min(vals):.2f}-{max(vals):.2f}  mean {sum(vals) / len(vals):.2f}")
-    Path("experiments/seed_region_overlap.json").write_text(json.dumps(result, indent=2))
+    (RESULTS / "seed_region_overlap.json").write_text(json.dumps(result, indent=2))
 
 
 if __name__ == "__main__":

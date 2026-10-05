@@ -29,26 +29,22 @@ Distances to the untrained student (|accuracy difference| in pp, |log2 token rat
 kappa) are compared between rm_pre and lambda1, the question being whether removal lands nearer the untrained
 student than the short-answer adapter does.
 
-Run from the repo root; writes experiments/removal_vs_untrained.json.
+Writes experiments/removal_vs_untrained.json.
 """
 
 import gzip
 import json
 import math
 import statistics as st
-import sys
-from pathlib import Path
 
 import pandas as pd
 
-E = Path("experiments/lambda_lora_bits")
-sys.path.insert(0, str(E))
-from common import is_correct  # noqa: E402
-from analyze_main_density import CELLS as BASE_CELLS, REFLECTIVE  # noqa: E402
+from common import is_correct
+from analyze_main_density import CELLS as BASE_CELLS, REFLECTIVE
+from config import EVAL_PROBLEMS as PROBLEMS, EVAL_SAMPLES as SAMPLES, EXP as E, RESULTS, SEEDS
+from config import STUDENT_MODEL as MODELS
 
 CELLS = {c: tag for c, (tag, _) in BASE_CELLS.items()}
-MODELS = {"Qwen": "Qwen2.5-0.5B-Instruct", "Llama": "Llama-3.2-1B-Instruct", "OLMo": "OLMo-2-1B-Instruct"}
-SEEDS, SAMPLES, PROBLEMS = [0, 1, 2], 2, 200
 
 
 def density(texts):
@@ -175,7 +171,7 @@ def main():
         k: sum(out["cells"][c]["rm_pre_closer_than_lambda1"][k] for c in cells)
         for k in ("accuracy", "tokens", "markers", "response_kappa")}
     print(json.dumps(out["summary"], indent=1))
-    Path("experiments/removal_vs_untrained.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / "removal_vs_untrained.json").write_text(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":

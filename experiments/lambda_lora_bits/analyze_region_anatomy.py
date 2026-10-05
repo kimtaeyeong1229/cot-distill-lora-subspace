@@ -7,28 +7,20 @@ lambda = 1 adapters the share of the update's energy (squared Frobenius norm of 
 in the region, ||V^T dW||^2 / ||dW||^2, next to the share k / d a random k-dimensional subspace would hold.
 Results are averaged over the three seeds and grouped by module type and by thirds of depth.
 
-Run from the repo root; writes experiments/region_anatomy.json.
+Writes experiments/region_anatomy.json.
 """
 
 import json
 import statistics as st
-import sys
 from collections import defaultdict
-from pathlib import Path
 
 import torch
 
-X = Path("experiments")
-E = X / "lambda_lora_bits"
-sys.path.insert(0, str(E))
-from ablate_subspace import consensus, left_basis, read_adapter  # noqa: E402
+from ablate_subspace import consensus, left_basis, read_adapter
+from config import CELL_DIR, EXP as E, LAMBDAS as LAM, PAIR_DIR, RESULTS as X, SEEDS, STUDENT_SHORT
 
-LAM = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
-SEEDS = [0, 1, 2]
 PRE = {"A": ["0.0", "0.2"], "B": ["0.0", "0.2", "0.4"], "C": ["0.0", "0.2", "0.4"]}
-RUNS = {"A": {"Qwen": "sweep", "Llama": "sweep_llama", "OLMo": "sweep_olmo2"},
-        "B": {"Qwen": "pairB/qwen0.5b", "Llama": "pairB/llama1b", "OLMo": "pairB/olmo1b"},
-        "C": {"Qwen": "pairD/qwen0.5b", "Llama": "pairD/llama1b", "OLMo": "pairD/olmo1b"}}
+RUNS = {p: {s: CELL_DIR[f"{p}/{s}"] for s in STUDENT_SHORT} for p in PAIR_DIR}   # pair -> student -> cell dir
 
 
 def load(tag, lam, seed):

@@ -1,6 +1,12 @@
-import re, json, statistics as st
-TAB='/home/lab/workspace/NAACL_cot_distill_lora_subspace/tables/'
-EXP='/home/lab/workspace/cot-distill-lora-bit/experiments/'
+import os, re, json, statistics as st
+from pathlib import Path
+# Paths: the result JSONs from RESULTS_DIR (default <repo>/experiments) and the manuscript from MANUSCRIPT_DIR
+# (default: the NAACL_cot_distill_lora_subspace checkout next to this repository).
+REPO_ROOT=Path(os.environ.get('REPO_ROOT',Path(__file__).resolve().parents[2]))
+MANUSCRIPT=os.environ.get('MANUSCRIPT_DIR',str(REPO_ROOT.parent/'NAACL_cot_distill_lora_subspace')).rstrip('/')+'/'
+TAB=MANUSCRIPT+'tables/'
+SECTIONS=MANUSCRIPT+'sections/'
+EXP=os.environ.get('RESULTS_DIR',str(REPO_ROOT/'experiments')).rstrip('/')+'/'
 def J(name): return json.load(open(EXP+name+'.json'))
 PAIRS=['A','B','C']; STUD=['Qwen','Llama','OLMo']
 FULL={'Qwen':'Qwen2.5-0.5B','Llama':'Llama-3.2-1B','OLMo':'OLMo-2-1B'}
@@ -77,6 +83,6 @@ def trows(fname):
             sec=re.search(r'\\emph\{(.*)\}\}',line).group(1); continue
         cells=[x.strip() for x in line.split('&')]
         yield sec, cells[0], cells[1:]
-APP_TEX='/home/lab/workspace/NAACL_cot_distill_lora_subspace/sections/09_appendix.tex'
+APP_TEX=SECTIONS+'09_appendix.tex'
 def caption(label):
     s=open(APP_TEX).read(); i=s.index('\\label{'+label+'}'); j=s.rindex('\\caption{',0,i); return s[j:i]

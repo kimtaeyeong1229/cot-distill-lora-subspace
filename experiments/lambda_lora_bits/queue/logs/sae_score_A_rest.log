@@ -1,31 +1,0 @@
-Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights:  66%|██████▋   | 97/146 [00:00<00:00, 944.26it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 1004.65it/s]
-A lambda0.0_rm_decisive s0  index 0.942  masked 0.842  cue 0.696  markers/1k 18.1
-A lambda0.0_rm_decisive s1  index 0.932  masked 0.853  cue 0.593  markers/1k 18.3
-A lambda0.0_rm_decisive s2  index 0.945  masked 0.868  cue 0.771  markers/1k 17.4
-A lambda0.0_rm_scale s0  index 0.871  masked 0.778  cue 0.551  markers/1k 32.9
-A lambda0.0_rm_scale s1  index 0.864  masked 0.775  cue 0.598  markers/1k 27.6
-A lambda0.0_rm_scale s2  index 0.884  masked 0.800  cue 0.614  markers/1k 22.4
-A lambda1.0_rm_pre   s0  index 0.097  masked 0.098  cue 0.114  markers/1k 0.2
-A lambda1.0_rm_pre   s1  index 0.095  masked 0.095  cue 0.106  markers/1k 0.3
-A lambda1.0_rm_pre   s2  index 0.099  masked 0.100  cue 0.125  markers/1k 1.0
-A graft1             s0  index 0.152  masked 0.147  cue 0.140  markers/1k 1.2
-A graft1             s1  index 0.151  masked 0.148  cue 0.133  markers/1k 1.1
-A graft1             s2  index 0.161  masked 0.160  cue 0.146  markers/1k 0.9
-A graft_orth1        s0  index 0.108  masked 0.109  cue 0.107  markers/1k 0.6
-A graft_orth1        s1  index 0.106  masked 0.108  cue 0.119  markers/1k 0.2
-A graft_orth1        s2  index 0.100  masked 0.101  cue 0.136  markers/1k 0.8
-A graft_full1        s0  index 0.152  masked 0.148  cue 0.128  markers/1k 2.1
-A graft_full1        s1  index 0.136  masked 0.135  cue 0.133  markers/1k 0.7
-A graft_full1        s2  index 0.150  masked 0.147  cue 0.131  markers/1k 1.4
-A graft_full2        s0  index 0.458  masked 0.420  cue 0.469  markers/1k 15.3
-A graft_full2        s1  index 0.453  masked 0.422  cue 0.464  markers/1k 9.3
-A graft_full2        s2  index 0.506  masked 0.473  cue 0.509  markers/1k 9.1
-A ampn1              s0  index 0.941  masked 0.854  cue 0.582  markers/1k 21.3
-A ampn1              s1  index 0.921  masked 0.842  cue 0.525  markers/1k 21.2
-A ampn1              s2  index 1.002  masked 0.925  cue 0.647  markers/1k 20.1
-A ampn4              s0  index 0.908  masked 0.841  cue 0.637  markers/1k 17.2
-A ampn4              s1  index 0.964  masked 0.899  cue 0.596  markers/1k 17.7
-A ampn4              s2  index 1.074  masked 1.014  cue 0.718  markers/1k 13.6
-A ampV               s0  index 0.914  masked 0.851  cue 0.660  markers/1k 13.3
-A ampV               s1  index 1.086  masked 1.027  cue 0.616  markers/1k 15.9
-A ampV               s2  index 1.055  masked 1.002  cue 0.777  markers/1k 12.0

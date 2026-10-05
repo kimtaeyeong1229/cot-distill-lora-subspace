@@ -21,25 +21,18 @@ region, i.e. all pre-switch adapters except the edited lambda0 seed, eigenvalue 
                        sqrt(sum ||V^T B' A||^2 / sum ||V^T B A||^2) over modules, with V rebuilt exactly as
                        steer_subspace.py --loo builds it
 
-Run from the repo root inside the container; writes experiments/energy_match.json.
+Run inside the container; writes experiments/energy_match.json.
 """
 
 import json
 import statistics as st
-import sys
-from pathlib import Path
 
 import torch
 
-E = Path("experiments/lambda_lora_bits")
-sys.path.insert(0, str(E))
-from ablate_subspace import consensus, left_basis, read_adapter  # noqa: E402
+from ablate_subspace import consensus, left_basis, read_adapter
+from config import CELL_DIR, CELL_NAMES, EXP as E, LAMBDAS, RESULTS, SEEDS, SWITCH
 
-LAMBDAS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
-SEEDS = [0, 1, 2]
-CELLS = {"A/Qwen": ("sweep", "0.4"), "A/Llama": ("sweep_llama", "0.4"), "A/OLMo": ("sweep_olmo2", "0.4"),
-         "B/Qwen": ("pairB/qwen0.5b", "0.6"), "B/Llama": ("pairB/llama1b", "0.6"), "B/OLMo": ("pairB/olmo1b", "0.6"),
-         "C/Qwen": ("pairD/qwen0.5b", "0.6"), "C/Llama": ("pairD/llama1b", "0.6"), "C/OLMo": ("pairD/olmo1b", "0.6")}
+CELLS = {cell: (CELL_DIR[cell], SWITCH[cell[0]]) for cell in CELL_NAMES}   # cell -> (directory, switch lambda)
 
 
 def load(path):
@@ -109,7 +102,7 @@ def main():
     result["all_cell_means"] = {k: {"min": min(result[c]["mean"][k] for c in CELLS),
                                     "max": max(result[c]["mean"][k] for c in CELLS)} for k in every[0]}
     print(json.dumps(result["all"], indent=1))
-    Path("experiments/energy_match.json").write_text(json.dumps(result, indent=2))
+    (RESULTS / "energy_match.json").write_text(json.dumps(result, indent=2))
 
 
 if __name__ == "__main__":

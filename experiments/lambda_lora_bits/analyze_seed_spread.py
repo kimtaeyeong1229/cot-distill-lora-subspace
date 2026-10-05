@@ -6,7 +6,7 @@ under the shared student setting -- by running analyze_main_density.py and analy
 --seeds <s>. The tables then report the mean of the three per-seed values with their sample standard
 deviation, so the spread shown is the seed-to-seed variation of the quantity itself.
 
-Run from the repo root; writes experiments/seed_spread.json.
+Writes experiments/seed_spread.json.
 """
 
 import json
@@ -16,9 +16,9 @@ import sys
 import tempfile
 from pathlib import Path
 
-E = Path("experiments/lambda_lora_bits")
-SEEDS = [0, 1, 2]
-LAMBDAS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+from config import LAMBDAS, RESULTS, SEEDS
+
+HERE = Path(__file__).resolve().parent   # the two per-seed scripts live next to this one
 EDITS = {"rm_pre": "lambda0.0_rm_pre", "rm_other": "lambda0.0_rm_decisive", "rm_scale": "lambda0.0_rm_scale",
          "rm_pre_l1": "lambda1.0_rm_pre", "graft1": "graft1", "graft_other1": "graft_orth1",
          "graft_whole1": "graft_full1", "graft2": "graft2", "graft_other2": "graft_orth2",
@@ -31,7 +31,7 @@ def per_seed(tmp):
         md, me = tmp / f"md{s}.json", tmp / f"me{s}.json"
         for script, extra in (("analyze_main_density.py", ["--output", md]),
                               ("analyze_main_edits.py", ["--base", md, "--output", me])):
-            subprocess.run([sys.executable, E / script, "--seeds", str(s), *map(str, extra)],
+            subprocess.run([sys.executable, HERE / script, "--seeds", str(s), *map(str, extra)],
                            check=True, stdout=subprocess.DEVNULL)
         runs[s] = (json.loads(md.read_text()), json.loads(me.read_text()))
     return runs
@@ -68,7 +68,7 @@ def main():
         print(f"{cell:8} lambda0 {row['table1']['0.0']['mean']:6.2f} +- {row['table1']['0.0']['sd']:5.2f}"
               f" | shared removed {row['edits']['rm_pre']['markers_per_1k']['mean']:5.2f}"
               f" +- {row['edits']['rm_pre']['markers_per_1k']['sd']:4.2f}")
-    Path("experiments/seed_spread.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / "seed_spread.json").write_text(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":

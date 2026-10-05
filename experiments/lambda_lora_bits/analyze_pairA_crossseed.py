@@ -12,22 +12,18 @@ The same loss is also divided by the drop in log teacher reflective markers over
 switch/held ratio, and the region size (directions kept per module, unweighted and update-norm weighted) is
 recorded for each held-out seed.
 
-Run from the repo root; writes experiments/pairA_crossseed.json.
+Writes experiments/pairA_crossseed.json.
 """
 
 import json
 import math
 import statistics as st
-import sys
-from pathlib import Path
 
 import torch
 
-X = Path("experiments")
-E = X / "lambda_lora_bits"
-sys.path.insert(0, str(E))
-from analyze_length_confound import RUNS, SEEDS  # noqa: E402
-from ablate_subspace import consensus, left_basis, read_adapter  # noqa: E402
+from analyze_length_confound import RUNS, SEEDS
+from ablate_subspace import consensus, left_basis, read_adapter
+from config import EXP as E, RESULTS as X
 
 HALF = {0: ["halfA", "halfB"], 1: ["halfA_seed1", "halfB_seed1"], 2: ["halfA_seed2", "halfB_seed2"]}
 INTERVALS = {"held": ("0.0", "0.2"), "switch": ("0.2", "0.4")}

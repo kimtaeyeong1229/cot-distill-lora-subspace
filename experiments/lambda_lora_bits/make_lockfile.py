@@ -21,8 +21,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
-MODELS = ROOT / "models"
+from config import MODELS, REPO_ROOT as ROOT, RESULTS
 WEIGHT_SUFFIXES = (".safetensors", ".bin")
 
 
@@ -74,7 +73,7 @@ def main():
                 weights[f.name] = dict(bytes=f.stat().st_size, sha256_at_download=recorded.get(f.name))
         lock["models"][model_dir.name] = dict(hf_commit=commit, files=weights)
         print(f"{model_dir.name:34s} commit {commit if isinstance(commit, str) else commit}")
-    path = ROOT / "experiments" / "reproducibility.lock.json"
+    path = RESULTS / "reproducibility.lock.json"
     path.write_text(json.dumps(lock, indent=2))
     env = lock["environment"]
     print(f"\ntorch {env['torch']} / transformers {env['transformers']} / peft {env['peft']} / vllm {env['vllm']}")

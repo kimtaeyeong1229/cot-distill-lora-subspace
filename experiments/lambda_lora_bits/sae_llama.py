@@ -40,21 +40,14 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from common import build_prompt
 
-E = Path("experiments/lambda_lora_bits")
-MODEL = "models/Llama-3.2-1B-Instruct"
-SAE_DIR = Path("models/saes/llama-3.2-1b-131k")
+from config import CELL_DIR, EXP as E, LAMBDAS, MATH500_EVAL, MODELS, PAIR_DIR as COT, PAIRS, REFLECTIVE, SEEDS
+
+MODEL = str(MODELS / "Llama-3.2-1B-Instruct")
+SAE_DIR = MODELS / "saes" / "llama-3.2-1b-131k"
 OUT = E / "sae_llama"
-CELLS = {"A": ("sweep_llama", "eval_math500_7680"), "B": ("pairB/llama1b", "eval_math500"),
-         "C": ("pairD/llama1b", "eval_math500")}
-COT = {"A": "sweep", "B": "pairB", "C": "pairD"}
-LAMBDAS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+CELLS = {p: (CELL_DIR[f"{p}/Llama"], MATH500_EVAL[f"{p}/Llama"]) for p in PAIRS}   # the three Llama cells
 EDITS = ["lambda0.0_rm_pre", "graft2", "graft_orth2"]
-SEEDS = [0, 1, 2]
 PROBLEMS, HEAD_TOKENS, CHUNK = 200, 400, 1024
-# same pattern as eval_ablation.REFLECTIVE (not imported: that module pulls in vllm)
-REFLECTIVE = re.compile(
-    r"\b(wait|hmm|actually|but let me|let me check|recheck|verify|reconsider|alternatively|"
-    r"on second thought|let me re|double-check|double check|is that right|hold on)\b", re.I)
 INJECT = ["Wait, ", "Hmm, ", "Let me double-check. ", "Alternatively, ", "Actually, ", "Hold on, "]
 
 

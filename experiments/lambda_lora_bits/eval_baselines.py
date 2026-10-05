@@ -27,7 +27,7 @@ from vllm import LLM, SamplingParams
 from vllm.lora.request import LoRARequest
 
 from common import build_prompt, is_correct, load_tokenizer, read_jsonl
-from eval_ablation import REFLECTIVE
+from config import REFLECTIVE
 
 NOTHINK = "Okay, I think I have finished thinking.\n\n"
 FORCE = "\n\n**Final Answer**\n\\[\n\\boxed{"
@@ -54,7 +54,7 @@ def main():
     out_dir = Path(a.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     if (out_dir / f"{a.name}.json").exists():
-        print("모두 완료됨")
+        print("all conditions already done")
         return
     rows = (pd.read_parquet(a.data).to_dict("records") if a.data.endswith(".parquet")
             else read_jsonl(a.data))

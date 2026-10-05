@@ -13,8 +13,7 @@
    check whether short-answer adapters agree with each other or are merely scattered.
 
 All overlaps are averaged over modules with weight ||dW||_F averaged over the adapters involved, as in
-analyze_consensus.py. No training or generation. Run from the repo root (CPU is fine); writes
-experiments/threshold_sensitivity.json.
+analyze_consensus.py. No training or generation (CPU is fine); writes experiments/threshold_sensitivity.json.
 """
 
 import itertools
@@ -26,10 +25,9 @@ import torch
 
 from ablate_subspace import LAMBDAS, SEEDS, left_basis, read_adapter
 
-E = Path("experiments/lambda_lora_bits")
-CELLS = {"A/Qwen": ("sweep", "0.4"), "A/Llama": ("sweep_llama", "0.4"), "A/OLMo": ("sweep_olmo2", "0.4"),
-         "B/Qwen": ("pairB/qwen0.5b", "0.6"), "B/Llama": ("pairB/llama1b", "0.6"), "B/OLMo": ("pairB/olmo1b", "0.6"),
-         "C/Qwen": ("pairD/qwen0.5b", "0.6"), "C/Llama": ("pairD/llama1b", "0.6"), "C/OLMo": ("pairD/olmo1b", "0.6")}
+from config import CELL_DIR, CELL_NAMES, EXP as E, RESULTS, SWITCH
+
+CELLS = {cell: (CELL_DIR[cell], SWITCH[cell[0]]) for cell in CELL_NAMES}   # cell -> (directory, switch lambda)
 CUTS = [0.4, 0.5, 0.6]
 SEED_CUTS = [0.65, 0.75, 0.85]
 
@@ -113,7 +111,7 @@ def main():
                                          f"post {s[str(c)]['post']:.3f}" for c in CUTS)
               + " || seed " + " ".join(f"{c}:{row['two_seed_region'][str(c)]['overlap']:.2f}" for c in SEED_CUTS)
               + " || phi " + " ".join(f"{g} {v:.3f}" for g, v in row["cross_seed_phi"].items()), flush=True)
-    Path("experiments/threshold_sensitivity.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / "threshold_sensitivity.json").write_text(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":

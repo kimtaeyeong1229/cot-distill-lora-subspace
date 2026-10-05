@@ -39,18 +39,15 @@ Interval reading: for each consecutive lambda step the ratio new / old of each m
 "held" when the ratio lies in [0.8, 1.25] and "falls" when it is below 0.8. Interval classes (held / switch)
 are those of length_confound.json.
 
-Run from the repo root; writes experiments/teacher_structure.json.
+Writes experiments/teacher_structure.json.
 """
 
 import json
 import re
 import statistics as st
-import sys
-from pathlib import Path
 
-E = Path("experiments/lambda_lora_bits")
-sys.path.insert(0, str(E))
-from analyze_main_density import REFLECTIVE  # noqa: E402
+from analyze_main_density import REFLECTIVE
+from config import EXP as E, RESULTS
 
 PAIRS = {"A": ("sweep", ["0.0", "0.2", "0.4"]), "B": ("pairB", ["0.0", "0.2", "0.4", "0.6"]),
          "C": ("pairD", ["0.0", "0.2", "0.4", "0.6"])}
@@ -173,8 +170,8 @@ def flat(d, prefix=""):
 
 
 def main():
-    td = json.loads(Path("experiments/teacher_density.json").read_text())
-    lc = json.loads(Path("experiments/length_confound.json").read_text())
+    td = json.loads((RESULTS / "teacher_density.json").read_text())
+    lc = json.loads((RESULTS / "length_confound.json").read_text())
     out = {}
     for pair, (tag, lams) in PAIRS.items():
         per = {}
@@ -210,7 +207,7 @@ def main():
             print(f"  {pair} {s} ({v['class']}): held {v['held']}\n     falls {v['falls']}\n     rises {v['rises']}")
     out["definitions"] = {"min_recap_words": MIN_RECAP_WORDS, "held_band": [0.8, 1.25],
                           "pairs": {p: {"dir": t, "lambdas": l} for p, (t, l) in PAIRS.items()}}
-    Path("experiments/teacher_structure.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / "teacher_structure.json").write_text(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":

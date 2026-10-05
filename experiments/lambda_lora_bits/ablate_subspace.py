@@ -54,9 +54,8 @@ import torch
 from safetensors import safe_open
 from safetensors.torch import save_file
 
-EXP = Path(__file__).resolve().parent
-LAMBDAS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
-SEEDS = [0, 1, 2]
+from config import EXP, LAMBDAS, REPO_ROOT, SEEDS
+
 KEY_RE = re.compile(r"layers\.(\d+)\.(?:self_attn|mlp)\.(\w+_proj)")
 
 
@@ -118,7 +117,7 @@ def main():
     ap.add_argument("--loo", action="store_true",
                     help="build the regions without the adapters being edited, so no adapter is edited "
                          "along a region it helped define")
-    ap.add_argument("--out", default="runs_ablation")
+    ap.add_argument("--out", required=True, help="output directory inside the cell, e.g. runs_edit_s0")
     ap.add_argument("--variants", nargs="+",
                     default=["rm_pre", "rm_rand", "rm_post", "rm_least", "rm_energy", "rm_scale",
                              "rm_decisive"])
@@ -135,7 +134,7 @@ def main():
 
     runs = EXP / a.tag / "runs"
     out_root = EXP / a.tag / a.out
-    stat = EXP.parent.parent.stat()
+    stat = REPO_ROOT.stat()
     owner_uid, owner_gid = stat.st_uid, stat.st_gid
     generator = torch.Generator().manual_seed(1234)
 
@@ -161,7 +160,7 @@ def main():
         return {key: left_basis(raw[names["B"]], raw[names["A"]], scale)
                 for key, names in parts.items() if len(names) == 2}
 
-    print(f"[{a.tag}] 절벽 λ{a.cliff} | 문턱 전 {len(pre)}개, 후 {len(post)}개 adapter 로 합의 구역 계산", flush=True)
+    print(f"[{a.tag}] switch λ{a.cliff} | building regions from {len(pre)} pre-switch and {len(post)} post-switch adapters", flush=True)
     pre_bases, post_bases = defaultdict(list), defaultdict(list)
     for lam, seed in pre:
         b = basis_of(lam, seed)
@@ -181,12 +180,12 @@ def main():
         # dimension-matched to the treatment so the control differs only in which subspace it removes
         V_post[key], _ = consensus(post_bases[key], dims=k_pre[key])
     mean_k = sum(k_pre.values()) / len(k_pre)
-    print(f"  합의 차원 평균: 문턱 전 {mean_k:.1f}, 후 {sum(k_post.values())/len(k_post):.1f}", flush=True)
+    print(f"  mean region dims: pre-switch {mean_k:.1f}, post-switch {sum(k_post.values())/len(k_post):.1f}", flush=True)
 
     for lam in a.sources:
         src = runs / f"lambda{lam}_seed{a.seed}" / "adapter"
         if not (src / "adapter_model.safetensors").exists():
-            print(f"  λ{lam}: 원본 없음 — 건너뜀", flush=True)
+            print(f"  λ{lam}: source adapter missing, skipped", flush=True)
             continue
         config = json.loads((src / "adapter_config.json").read_text())
         scale = config["lora_alpha"] / config["r"]
@@ -294,7 +293,7 @@ def main():
                     path.chmod(0o755 if path.is_dir() else 0o644)
                 except OSError:
                     pass
-            print(f"  {name}: {len(removed)}개 모듈, 평균 {sum(removed)/max(len(removed),1):.1f}차원 제거", flush=True)
+            print(f"  {name}: {len(removed)} modules, {sum(removed)/max(len(removed),1):.1f} dims removed on average", flush=True)
 
 
 if __name__ == "__main__":

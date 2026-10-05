@@ -24,17 +24,15 @@ Definitions, per cell and interval a->b
   kept_over_selfagree = kept / selfagree_ratio
   per-unit loss of the overlap = -ln(overlap_ratio) / log_len_drop (for the pair-A switch/held comparison).
 
-Run from the repo root; writes experiments/agreement_normalised.json and prints the summary ranges.
+Writes experiments/agreement_normalised.json and prints the summary ranges.
 """
 
 import json
 import math
-from pathlib import Path
 
-X = Path("experiments")
-LAMS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+from config import LAMBDAS as LAMS, PAIR_KEY as PKEY, RESULTS as X
+
 STUD = {"Qwen": "Qwen-0.5B", "Llama": "Llama-1B", "OLMo": "OLMo-1B"}
-PKEY = {"A": "A", "B": "B", "C": "D"}
 
 
 def main():

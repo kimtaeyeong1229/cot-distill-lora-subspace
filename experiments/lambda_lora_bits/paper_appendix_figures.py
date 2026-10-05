@@ -13,9 +13,11 @@ three students, pink dashed line for the teacher switch). Bars and lines are see
                   method (a comparison display; flagged for the user's decision), (b) per-cell accuracy of the options
                   without further training, (c) per-cell accuracy of the options that need a short-solution adapter.
 
-Run from the repo root on the host (Arial is installed there):
+Run on the host (Arial is installed there), from any directory:
   FIG_OUT=<dir> python3 experiments/lambda_lora_bits/paper_appendix_figures.py
-Writes PDFs plus a JPG preview (longest side 1600 px) into FIG_OUT; the manuscript uses the PDFs.
+Writes PDFs plus a JPG preview (longest side 1600 px) into FIG_OUT (default: $MANUSCRIPT_DIR/figures if
+MANUSCRIPT_DIR is set, else <repo>/figures); the manuscript uses the PDFs. Reads only the result JSONs in
+experiments/ (RESULTS_DIR).
 """
 
 import json
@@ -30,13 +32,13 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 
-EXP = Path("experiments")
-OUT = Path(os.environ.get("FIG_OUT", "appfig_out"))
-L = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+from config import LAMBDAS as L, PAIR_KEY, REPO_ROOT, RESULTS as EXP, STUDENT_MODEL as UNTR, STUDENT_SHORT
+
+_MANUSCRIPT = os.environ.get("MANUSCRIPT_DIR")
+OUT = Path(os.environ.get("FIG_OUT") or (Path(_MANUSCRIPT) / "figures" if _MANUSCRIPT else REPO_ROOT / "figures"))
 X = [float(l) for l in L]
-PAIRS = [("A", "A"), ("B", "B"), ("C", "D")]          # paper name, key in the result files
-STU = [("Qwen", "Qwen2.5-0.5B"), ("Llama", "Llama-3.2-1B"), ("OLMo", "OLMo-2-1B")]
-UNTR = {"Qwen": "Qwen2.5-0.5B-Instruct", "Llama": "Llama-3.2-1B-Instruct", "OLMo": "OLMo-2-1B-Instruct"}
+PAIRS = list(PAIR_KEY.items())                         # paper name, key in the result files (pair C is "D")
+STU = list(STUDENT_SHORT.items())                      # short name, name in the result files
 NAVY, SLATE, YELLOW = "#2f4a6d", "#3f7a5a", "#e7a33e"   # denim, scarf green, mustard
 COL = {"Qwen": NAVY, "Llama": SLATE, "OLMo": YELLOW}
 CREAM, GRID = "#f6efe4", "#d8cdbd"

@@ -1,6 +1,0 @@
-shared problems: 30 levels: {'Level 2': 7, 'Level 5': 3, 'Level 3': 12, 'Level 4': 6, 'Level 1': 2}
-Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights:   0%|          | 1/290 [00:00<00:37,  7.76it/s]Loading weights:  51%|█████     | 147/290 [00:00<00:00, 740.83it/s]Loading weights:  80%|████████  | 232/290 [00:00<00:00, 774.07it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 762.19it/s]
-{"0.0": {"n": 30, "mean_tokens": 2179.6666666666665, "bits_per_token": 1.1748792438574374, "bits_per_sample": 2560.8451251945944, "total_bits": 76825.35375583783, "seconds": 187.59967970848083}}
-{"0.4": {"n": 30, "mean_tokens": 517.3333333333334, "bits_per_token": 0.28911557052916925, "bits_per_sample": 149.56912182042353, "total_bits": 4487.073654612706, "seconds": 46.38302421569824}}
-{"1.0": {"n": 30, "mean_tokens": 412.6333333333333, "bits_per_token": 0.16189856540110176, "bits_per_sample": 66.80474470334129, "total_bits": 2004.1423411002386, "seconds": 37.6548125743866}}
-EARLY_BITS_DONE

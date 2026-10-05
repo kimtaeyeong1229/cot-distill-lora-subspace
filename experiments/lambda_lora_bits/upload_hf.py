@@ -45,7 +45,7 @@ CELLS = {
     "pairD/qwen0.5b": ("D", "Qwen2.5-0.5B-Instruct"), "pairD/llama1b": ("D", "Llama-3.2-1B-Instruct"),
     "pairD/olmo1b": ("D", "OLMo-2-1B-Instruct"), "pairD/qwen1.5b": ("D", "Qwen2.5-1.5B-Instruct"),
     # side experiments kept for the record rather than used in the main tables
-    "control_tokens": ("-", "토큰 통제 대조군"), "canary": ("-", "카나리 점검"),
+    "control_tokens": ("-", "token-count control"), "canary": ("-", "canary check"),
 }
 PAIR_DIR = {"A": "sweep", "B": "pairB", "C": "pairC", "D": "pairD"}
 ENDPOINTS = {
@@ -335,7 +335,7 @@ def main():
         return
     if a.what in ("adapters", "both"):
         path, n, size = stage_adapters()
-        print(f"[stage] adapters {n}개 {size / 2**30:.1f} GiB -> {path}", flush=True)
+        print(f"[stage] {n} adapters {size / 2**30:.1f} GiB -> {path}", flush=True)
         if not a.stage_only:
             api.create_repo(MODEL_REPO, repo_type="model", private=False, exist_ok=True)
             api.upload_large_folder(repo_id=MODEL_REPO, repo_type="model", folder_path=str(path),
@@ -344,7 +344,7 @@ def main():
             print(f"[done] https://huggingface.co/{MODEL_REPO}", flush=True)
     if a.what in ("data", "both"):
         path, counts, size = stage_data()
-        print(f"[stage] data {sum(counts.values())}개 파일 {size / 2**30:.2f} GiB -> {path}", flush=True)
+        print(f"[stage] data {sum(counts.values())} files {size / 2**30:.2f} GiB -> {path}", flush=True)
         if not a.stage_only:
             api.create_repo(DATA_REPO, repo_type="dataset", private=False, exist_ok=True)
             api.upload_large_folder(repo_id=DATA_REPO, repo_type="dataset", folder_path=str(path),

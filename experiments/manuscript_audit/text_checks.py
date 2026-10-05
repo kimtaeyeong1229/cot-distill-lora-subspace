@@ -139,7 +139,7 @@ V('App D beta4/8 accuracy max %',8.0,1,max(100*gb[c][k]['accuracy'] for c in CEL
 sr2=rv['graft_seed_recovery']
 # the early-marker ratio is read from the manuscript itself: every printed "0.87--x" must equal the JSON maximum
 import re, glob
-txt=' '.join(open(f).read() for f in glob.glob('/home/lab/workspace/NAACL_cot_distill_lora_subspace/sections/*.tex'))
+txt=' '.join(open(f).read() for f in glob.glob(SECTIONS+'*.tex'))
 hi=max(h(c,'ampV') for c in CELLS)
 for m in re.finditer(r'0\.87--(\d\.\d\d)',txt): V('printed early-marker ratio upper end (0.87--x)',float(m.group(1)),2,hi,'seed_spread head ampV / base0 head')
 sd_=rv['split_difficulty']; V('Limitations level-5 share before filter %',30,0,100*sd_['A']['level5_share_all'],'review_stats.split_difficulty.level5_share_all')

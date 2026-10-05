@@ -136,7 +136,7 @@ def rngcell(cell):
     return out if len(out)==2 else out*2
 # --- Table 1 (tab31, body, tab:lenbody): held and switch intervals; pair A ratios in its caption
 import math,re
-lc=J('length_confound'); BODY4='/home/lab/workspace/NAACL_cot_distill_lora_subspace/sections/04_where_the_adapter_switches.tex'
+lc=J('length_confound'); BODY4=SECTIONS+'04_where_the_adapter_switches.tex'
 c=Checker('Table 1 (tab31, body)')
 grp={'A held':('A',[0]),'A switch':('A',[1]),'B held':('B',[0,1]),'B switch':('B',[2]),'B after':('B',[3]),'C held':('C',[0,1]),'C switch':('C',[2,3])}
 def rngtok(cell): t=tok(cell); return t[0],t[-1]

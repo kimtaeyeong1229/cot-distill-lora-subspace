@@ -1,15 +1,0 @@
-Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 16576.24it/s]
-train {"n": 375, "tokens": 932485, "H_base_bits": 1083289.1772603132, "H_tuned_bits": 409591.26631400594, "W_bits": 673697.9109463074, "W_clipped_bits": 673697.9109463074, "H_base_bits_per_token": 1.1617228987708255, "W_bits_per_token": 0.7224758692593526, "W_bits_per_sample": 1796.5277625234862, "W_over_H": 0.6219003430368607}
-held {"n": 300, "tokens": 682675, "H_base_bits": 792000.5998976703, "H_tuned_bits": 705854.2036741216, "W_bits": 86146.39622354867, "W_clipped_bits": 88733.34423224027, "H_base_bits_per_token": 1.1601429668549021, "W_bits_per_token": 0.1261894696942889, "W_bits_per_sample": 287.1546540784956, "W_over_H": 0.10877061991452927}
-c=0.25: CL=35604632 bits (4.047/param), zeros=0.100, retained W=0.9996
-c=0.5: CL=26910737 bits (3.059/param), zeros=0.199, retained W=0.9976
-c=0.75: CL=21931145 bits (2.493/param), zeros=0.294, retained W=0.9940
-c=1: CL=18505655 bits (2.103/param), zeros=0.385, retained W=0.9892
-c=1.25: CL=15926178 bits (1.810/param), zeros=0.470, retained W=0.9809
-c=1.5: CL=13913266 bits (1.581/param), zeros=0.548, retained W=0.9686
-c=2: CL=10909778 bits (1.240/param), zeros=0.682, retained W=0.9175
-c=2.5: CL=8459274 bits (0.961/param), zeros=0.787, retained W=0.8086
-c=3: CL=6220253 bits (0.707/param), zeros=0.865, retained W=0.6127
-c=4: CL=2753384 bits (0.313/param), zeros=0.954, retained W=0.2368
-{"delta_W_bits": 566014.9156668715, "delta_W_token_scaled_bits": 556028.1232984284, "trainable_params": 8798208}
-{"c_star": 0.75, "fidelity_met": true, "CL_update_bits": 21931144.825874176, "CL_update_bits_per_param": 2.492683149327019}

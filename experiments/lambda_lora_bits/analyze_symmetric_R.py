@@ -10,14 +10,13 @@ symmetric version divides by the geometric mean of the data-only overlaps at bot
 using the treatment and baseline columns of experiments/phi_resample_s012.json (seed means, as in Table 3).
 Reported per cell: R_sym at every lambda, its drop over each interval, and the interval of the largest drop.
 
-Run from the repo root; writes experiments/symmetric_R.json.
+Writes experiments/symmetric_R.json.
 """
 
 import json
-from pathlib import Path
 
-X = Path("experiments")
-LAM = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+from config import LAMBDAS as LAM, RESULTS as X
+
 SWITCH = {"A": "0.2->0.4", "B": "0.4->0.6", "D": "0.4->0.6"}   # first switch step (pair C is "D" in this file)
 
 

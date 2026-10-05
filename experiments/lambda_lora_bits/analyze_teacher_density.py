@@ -10,22 +10,18 @@ student's (Table 1, seed means from experiments/seed_spread.json).
 Pair A's teacher still closes </think> in 91% of its answers at lambda 0.2, yet its reflective density
 has already fallen there; this is what the think rate alone cannot show.
 
-Run from the repo root; writes experiments/teacher_density.json.
+Writes experiments/teacher_density.json.
 """
 
 import json
 import statistics as st
 from pathlib import Path
 
-from analyze_main_density import LAMBDAS, REFLECTIVE
-
-E = Path("experiments/lambda_lora_bits")
-PAIRS = {"A": "sweep", "B": "pairB", "C": "pairD"}
-STUDENTS = ["Qwen", "Llama", "OLMo"]
+from config import EXP as E, LAMBDAS, PAIR_DIR as PAIRS, REFLECTIVE, RESULTS, STUDENTS
 
 
 def main():
-    spread = json.loads(Path("experiments/seed_spread.json").read_text())
+    spread = json.loads((RESULTS / "seed_spread.json").read_text())
     out = {}
     pooled_t, pooled_s = [], []
     for pair, tag in PAIRS.items():
@@ -49,7 +45,7 @@ def main():
               flush=True)
     out["pooled_corr"] = st.correlation(pooled_t, pooled_s)
     print(f"pooled r = {out['pooled_corr']:.3f}")
-    Path("experiments/teacher_density.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / "teacher_density.json").write_text(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":

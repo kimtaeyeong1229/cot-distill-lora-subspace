@@ -52,19 +52,13 @@ Run from the repo root; writes experiments/length_confound.json.
 import json
 import math
 import statistics as st
-import sys
 from pathlib import Path
 
-X = Path("experiments")
-E = X / "lambda_lora_bits"
-sys.path.insert(0, str(E))
-LAM = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
-SEEDS = [0, 1, 2]
-PAIRS = {"A": ("sweep", "A"), "B": ("pairB", "B"), "C": ("pairD", "D")}   # paper name -> (split dir, json key)
-STUDENTS = {"Qwen": "Qwen2.5-0.5B", "Llama": "Llama-3.2-1B", "OLMo": "OLMo-2-1B"}
-RUNS = {"A": {"Qwen": "sweep", "Llama": "sweep_llama", "OLMo": "sweep_olmo2"},
-        "B": {"Qwen": "pairB/qwen0.5b", "Llama": "pairB/llama1b", "OLMo": "pairB/olmo1b"},
-        "C": {"Qwen": "pairD/qwen0.5b", "Llama": "pairD/llama1b", "OLMo": "pairD/olmo1b"}}
+from config import CELL_DIR, EXP as E, LAMBDAS as LAM, PAIR_DIR, PAIR_KEY, RESULTS as X, SEEDS, STUDENT_SHORT
+
+PAIRS = {p: (PAIR_DIR[p], PAIR_KEY[p]) for p in PAIR_DIR}   # paper name -> (split dir, json key)
+STUDENTS = dict(STUDENT_SHORT)                              # short name -> name in the result files
+RUNS = {p: {s: CELL_DIR[f"{p}/{s}"] for s in STUDENT_SHORT} for p in PAIR_DIR}
 SWITCH_DROP, HELD_CHANGE, ON_LEVEL, OFF_LEVEL, MARKER_FLOOR = 50.0, 15.0, 50.0, 15.0, 2.0
 
 

@@ -7,22 +7,18 @@ adapters there, as in analyze_length_confound.half_reference_retention. Here eac
 interval's end is scored separately, giving per-seed kept shares and per-seed loss per unit of log-length
 drop, -ln(kept) / log_len_drop, and the switch/held ratio for every pairing of seeds.
 
-Run from the repo root; writes experiments/pairA_seed_ratio.json.
+Writes experiments/pairA_seed_ratio.json.
 """
 
 import json
 import math
 import statistics as st
-import sys
-from pathlib import Path
 
-X = Path("experiments")
-E = X / "lambda_lora_bits"
-sys.path.insert(0, str(E))
-from analyze_length_confound import RUNS, SEEDS  # noqa: E402
-from ablate_subspace import consensus, left_basis, read_adapter  # noqa: E402
+import torch
 
-import torch  # noqa: E402
+from analyze_length_confound import RUNS, SEEDS
+from ablate_subspace import consensus, left_basis, read_adapter
+from config import EXP as E, RESULTS as X
 
 HALVES = ["halfA", "halfA_seed1", "halfA_seed2", "halfB", "halfB_seed1", "halfB_seed2"]
 INTERVALS = {"held": ("0.0", "0.2"), "switch": ("0.2", "0.4")}

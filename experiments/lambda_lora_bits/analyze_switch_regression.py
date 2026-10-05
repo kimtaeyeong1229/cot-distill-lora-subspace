@@ -7,17 +7,16 @@ interval (several bootstrap seeds, to show how stable the lower end is). In pair
 interval shortens solutions by about 0.2 and every switch by about 0.6-0.7, so length and class are
 confounded there; only pair A separates them, and the pooled switch coefficient is not identified well.
 
-Run from the repo root; writes experiments/switch_regression.json.
+Writes experiments/switch_regression.json.
 """
 
 import json
 import math
 import random
-from pathlib import Path
 
 import numpy as np
 
-X = Path("experiments")
+from config import RESULTS as X
 
 
 def fit(rows):

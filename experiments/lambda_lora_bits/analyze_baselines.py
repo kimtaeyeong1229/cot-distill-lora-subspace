@@ -12,7 +12,7 @@ truncation, and the reflective-marker density of each problem's first sample, fo
   nothink / budget     NoThinking prefill, and cutting at rm_pre's mean length with a forced answer
   merge0.5 / merge0.7  task-arithmetic merge of the lambda0 and lambda1 adapters
 
-Tables report mean +- SD over seeds 0-2. Run from the repo root; writes experiments/baselines.json.
+Tables report mean +- SD over seeds 0-2. Writes experiments/baselines.json.
 """
 
 import gzip
@@ -20,10 +20,9 @@ import json
 import statistics as st
 from pathlib import Path
 
-from analyze_main_density import CELLS, PROBLEMS, REFLECTIVE, SAMPLES
+from analyze_main_density import CELLS
+from config import EVAL_PROBLEMS as PROBLEMS, EVAL_SAMPLES as SAMPLES, EXP as E, REFLECTIVE, RESULTS, SEEDS
 
-E = Path("experiments/lambda_lora_bits")
-SEEDS = [0, 1, 2]
 CONDS = {"rm_pre": "lambda0.0_rm_pre", "rm_other": "lambda0.0_rm_decisive", "rm_scale": "lambda0.0_rm_scale",
          "gs_tau": "lambda0.0_gs_tau", "gs_energy": "lambda0.0_gs_energy", "nothink": "lambda0.0_nothink",
          "budget": "lambda0.0_budget", "merge0.5": "merge0.5", "merge0.7": "merge0.7",
@@ -74,7 +73,7 @@ def main():
         for c, r in row.items():
             print(f"  {c:9s} acc {r['accuracy']['mean']:.3f}±{r['accuracy']['sd']:.3f}  tok {r['tokens']['mean']:6.0f}"
                   f"  trunc {r['truncated']['mean']:.2f}  markers {r['markers']['mean']:5.1f}  (n={len(r['accuracy']['seeds'])})")
-    Path("experiments/baselines.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / "baselines.json").write_text(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":

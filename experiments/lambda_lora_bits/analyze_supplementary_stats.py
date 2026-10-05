@@ -19,29 +19,22 @@
                       -ln(kept) / marker_log_ratio; plus, for pair A, the switch/held ratio of the length-
                       normalised loss per student. The measure assumes no loss at zero length change.
 
-Run from the repo root inside the container; writes experiments/supplementary_stats.json.
+Run inside the container; writes experiments/supplementary_stats.json.
 """
 
 import json
 import statistics as st
-import sys
-from pathlib import Path
 
 import torch
 
-X = Path("experiments")
-E = X / "lambda_lora_bits"
-sys.path.insert(0, str(E))
-from ablate_subspace import consensus, left_basis, read_adapter  # noqa: E402
-from common import build_prompt, load_tokenizer, read_jsonl  # noqa: E402
+from ablate_subspace import consensus, left_basis, read_adapter
+from common import build_prompt, load_tokenizer, read_jsonl
+from config import CELL_DIR, EXP as E, LAMBDAS as LAM, MODELS as MODEL_DIR, PAIR_DIR, RESULTS as X, SEEDS
+from config import STUDENT_SHORT
 
-LAM = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
-SEEDS = [0, 1, 2]
-PAIRS = {"A": "sweep", "B": "pairB", "C": "pairD"}
-RUNS = {"A": {"Qwen": "sweep", "Llama": "sweep_llama", "OLMo": "sweep_olmo2"},
-        "B": {"Qwen": "pairB/qwen0.5b", "Llama": "pairB/llama1b", "OLMo": "pairB/olmo1b"},
-        "C": {"Qwen": "pairD/qwen0.5b", "Llama": "pairD/llama1b", "OLMo": "pairD/olmo1b"}}
-OLMO = Path("models/OLMo-2-1B-Instruct")
+PAIRS = dict(PAIR_DIR)
+RUNS = {p: {s: CELL_DIR[f"{p}/{s}"] for s in STUDENT_SHORT} for p in PAIR_DIR}   # pair -> student -> cell dir
+OLMO = MODEL_DIR / "OLMo-2-1B-Instruct"
 
 
 def train_think_rate():

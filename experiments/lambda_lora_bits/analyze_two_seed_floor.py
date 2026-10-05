@@ -14,15 +14,14 @@ Kept shares:
 Per unit of log training-length drop: -ln(interval kept) / log_len_drop. For pair A, the switch/held ratio of that
 loss per student. This uses neither the half-data reference nor the leave-one-out region of the shared region.
 
-Run from the repo root; writes experiments/two_seed_floor.json.
+Run from any directory; writes experiments/two_seed_floor.json.
 """
 
 import json
 import math
-from pathlib import Path
 
-X = Path("experiments")
-LAM = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+from config import LAMBDAS as LAM, RESULTS as X
+
 PAIR = {"A": "A", "B": "B", "C": "C"}
 
 

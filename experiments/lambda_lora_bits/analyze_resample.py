@@ -29,14 +29,11 @@ from pathlib import Path
 import torch
 from safetensors import safe_open
 
-EXP = Path(__file__).resolve().parent
-LAMBDAS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+from config import CELL_DIR, EXP, LAMBDAS, PAIR_KEY, PAIRS, RESULTS, SEEDS, STUDENT_SHORT, STUDENTS
+
 HALVES = ["halfA", "halfB"]
-CELLS = [
-    ("A", "Qwen2.5-0.5B", "sweep"), ("A", "Llama-3.2-1B", "sweep_llama"), ("A", "OLMo-2-1B", "sweep_olmo2"),
-    ("B", "Qwen2.5-0.5B", "pairB/qwen0.5b"), ("B", "Llama-3.2-1B", "pairB/llama1b"), ("B", "OLMo-2-1B", "pairB/olmo1b"),
-    ("D", "Qwen2.5-0.5B", "pairD/qwen0.5b"), ("D", "Llama-3.2-1B", "pairD/llama1b"), ("D", "OLMo-2-1B", "pairD/olmo1b"),
-]
+# (pair key, student, cell directory); pair C keeps its directory key "D" in the output
+CELLS = [(PAIR_KEY[p], STUDENT_SHORT[s], CELL_DIR[f"{p}/{s}"]) for p in PAIRS for s in STUDENTS]
 # lambda interval in which each teacher pair stops emitting </think>, read off the teacher generations
 # lambda at which each pair's </think> rate reaches zero, measured by measure_think_rate.py
 TEACHER_ZERO = {"A": "0.4", "B": "0.8", "D": "0.8"}
@@ -79,8 +76,8 @@ def chance(x):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--output", default=str(EXP.parent / "phi_resample.json"))
-    ap.add_argument("--seeds", nargs="+", type=int, default=[0])
+    ap.add_argument("--output", default=str(RESULTS / "phi_resample_s012.json"))
+    ap.add_argument("--seeds", nargs="+", type=int, default=SEEDS)
     a = ap.parse_args()
 
     results = {}
@@ -100,7 +97,7 @@ def main():
                              retention_sd=st.stdev(vals["retention"]) if len(a.seeds) > 1 else 0.0,
                              retention_seeds=vals["retention"])
         if len(a.seeds) > 1:
-            print(f"\n=== 쌍 {pair} / {student}: seed {a.seeds} 평균 R")
+            print(f"\n=== pair {pair} / {student}: mean R over seeds {a.seeds}")
             print("  " + "  ".join(f"λ{lam} {rows[lam]['retention']:.2f}±{rows[lam]['retention_sd']:.2f}" for lam in LAMBDAS))
         results[f"{pair}/{student}"] = dict(rows=rows, seeds=a.seeds, teacher_zero=TEACHER_ZERO[pair],
                                             chance=st.mean(per_seed[s][1] for s in a.seeds),
@@ -121,12 +118,12 @@ def cell_rows(pair, student, tag, seed):
             if p.exists():
                 basis[(lam, half)] = load_basis(p)
     if len(basis) < 12:
-        print(f"\n=== 쌍 {pair} / {student} seed {seed}: {len(basis)}/12 — 건너뜀")
+        print(f"\n=== pair {pair} / {student} seed {seed}: {len(basis)}/12 half adapters, skipped")
         return None
 
     zero = TEACHER_ZERO[pair]
-    print(f"\n=== 쌍 {pair} / {student} seed {seed}  (teacher 0% 도달 λ{zero})")
-    print(f"{'lam':5s} {'처리 phi':>16s} {'재표집 기준선':>14s} {'유지율':>9s}")
+    print(f"\n=== pair {pair} / {student} seed {seed}  (teacher think rate reaches 0% at λ{zero})")
+    print(f"{'lam':5s} {'treatment phi':>16s} {'data baseline':>14s} {'R':>9s}")
     rows, crossing = {}, None
     for lam in LAMBDAS:
         # both quantities cross the halves, so neither inherits a shared training set and
@@ -145,9 +142,9 @@ def cell_rows(pair, student, tag, seed):
              for i in range(1, len(LAMBDAS)) if rows[LAMBDAS[i]]["retention"]]
     if drops:
         factor, crossing = max(drops)
-        print(f"  가장 큰 낙차: λ{LAMBDAS[LAMBDAS.index(crossing) - 1]} → λ{crossing}  {factor:.1f}배")
+        print(f"  largest drop: λ{LAMBDAS[LAMBDAS.index(crossing) - 1]} → λ{crossing}  x{factor:.1f}")
     ref = basis[("0.0", "halfA")]
-    print(f"  무작위 수준 {chance(ref):.3f} | adapter 분기 λ = {crossing or '없음'} | teacher 0% 도달 λ{zero}")
+    print(f"  chance {chance(ref):.3f} | adapter switch λ = {crossing or 'none'} | teacher reaches 0% at λ{zero}")
     return rows, chance(ref)
 
 

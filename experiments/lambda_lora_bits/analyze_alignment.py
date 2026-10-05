@@ -32,8 +32,8 @@ import statistics as st
 from itertools import permutations
 from pathlib import Path
 
-EXP = Path(__file__).resolve().parent
-LAMBDAS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+from config import EXP, LAMBDAS, PAIR_DIR, PAIR_KEY, RESULTS
+
 INTERVALS = [f"{LAMBDAS[i - 1]}→{LAMBDAS[i]}" for i in range(1, len(LAMBDAS))]
 
 
@@ -54,12 +54,17 @@ def permutation_p(teacher, adapter):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--think", default=str(EXP.parent / "think_rate.json"))
-    ap.add_argument("--resample", default=str(EXP.parent / "phi_resample.json"))
-    ap.add_argument("--output", default=str(EXP.parent / "alignment.json"))
+    ap.add_argument("--think", default=str(RESULTS / "think_rate.json"))
+    ap.add_argument("--resample", default=str(RESULTS / "phi_resample_s012.json"))
+    ap.add_argument("--output", default=None,
+                    help="default: alignment_s012.json (think), alignment_markers_s012.json (markers) or "
+                         "alignment_length_s012.json (length)")
     ap.add_argument("--teacher", choices=["think", "markers", "length"], default="think")
-    ap.add_argument("--density", default=str(EXP.parent / "teacher_density.json"))
+    ap.add_argument("--density", default=str(RESULTS / "teacher_density.json"))
     a = ap.parse_args()
+    if a.output is None:
+        a.output = str(RESULTS / {"think": "alignment_s012.json", "markers": "alignment_markers_s012.json",
+                                  "length": "alignment_length_s012.json"}[a.teacher])
 
     think = json.loads(Path(a.think).read_text())
     if a.teacher == "markers":
@@ -68,14 +73,14 @@ def main():
         think = {p: {"rates": dens[q]["teacher"]} for p, q in (("A", "A"), ("B", "B"), ("D", "C"))}
     if a.teacher == "length":
         think = {}
-        for p, d in (("A", "sweep"), ("B", "pairB"), ("D", "pairD")):
+        for p, d in ((PAIR_KEY[q], PAIR_DIR[q]) for q in PAIR_DIR):    # keyed like the adapter results (C is "D")
             stats = json.loads((EXP / d / "splits" / "split_stats.json").read_text())
             think[p] = {"rates": {l: math.log(stats["per_lambda"][l]["train_tokens"] / stats["n_train"])
                                   for l in LAMBDAS}}
     res = json.loads(Path(a.resample).read_text())
 
-    print("구간: " + "  ".join(f"{s:>11s}" for s in INTERVALS))
-    print(f"\n{'칸':16s} {'adapter 낙차 프로파일':>58s} {'r':>7s} {'p':>7s}")
+    print("intervals: " + "  ".join(f"{s:>11s}" for s in INTERVALS))
+    print(f"\n{'cell':16s} {'adapter drop profile':>58s} {'r':>7s} {'p':>7s}")
     by_pair, out = {}, {}
     for key, cell in sorted(res.items()):
         pair = key.split("/")[0]
@@ -89,7 +94,7 @@ def main():
         by_pair.setdefault(pair, []).append((key, r, p))
         out[key] = dict(teacher_profile=teacher, adapter_profile=adapter, r=r, p=p)
 
-    print(f"\n{'쌍':4s} {'teacher 낙차 프로파일':>58s} {'평균 r':>8s} {'칸':>4s}")
+    print(f"\n{'pair':4s} {'teacher drop profile':>58s} {'mean r':>8s} {'cells':>5s}")
     for pair, cells in sorted(by_pair.items()):
         rates = think[pair]["rates"]
         teacher = [rates[LAMBDAS[i - 1]] - rates[LAMBDAS[i]] for i in range(1, len(LAMBDAS))]
@@ -97,8 +102,8 @@ def main():
               f"{st.mean(r for _, r, _ in cells):8.3f} {len(cells):4d}")
     every = [r for cells in by_pair.values() for _, r, _ in cells]
     if every:
-        print(f"\n{len(every)}칸 r 평균 {st.mean(every):.3f} (최소 {min(every):.3f}, 최대 {max(every):.3f})"
-              f" | p ≤ 0.05 인 칸 {sum(1 for c in by_pair.values() for _, _, p in c if p <= 0.05)}/{len(every)}")
+        print(f"\n{len(every)} cells: mean r {st.mean(every):.3f} (min {min(every):.3f}, max {max(every):.3f})"
+              f" | cells with p <= 0.05: {sum(1 for c in by_pair.values() for _, _, p in c if p <= 0.05)}/{len(every)}")
     # Pair level: the three students share one teacher profile, so the statistic is their mean r and
     # the same teacher ordering is applied to all three. Pooled: the three pairs have separate teachers,
     # so their orderings are permuted independently -- 120^3 joint orderings, enumerated exactly.
@@ -113,18 +118,18 @@ def main():
         p_pair = sum(1 for x in dist if x >= obs - 1e-12) / len(dist)
         summary[pair] = dict(mean_r=obs, p=p_pair, cells=len(cells))
         null.append(dist); pooled_obs += obs
-        print(f"쌍 {pair}: 학생 평균 r {obs:.3f}, 정확 p {p_pair:.4f} (순열 {len(dist)}개)")
+        print(f"pair {pair}: mean r over students {obs:.3f}, exact p {p_pair:.4f} ({len(dist)} permutations)")
     if len(null) == 3:
         import numpy as np
         A, B, C = (np.array(d) for d in null)
         total = A[:, None, None] + B[None, :, None] + C[None, None, :]
         p_pool = float((total >= pooled_obs - 1e-9).mean())
         summary["pooled"] = dict(mean_r=pooled_obs / 3, p=p_pool, orderings=int(total.size))
-        print(f"세 쌍 합산: 평균 r {pooled_obs / 3:.3f}, 정확 p {p_pool:.2e} (결합 순열 {total.size:,}개)")
+        print(f"three pairs pooled: mean r {pooled_obs / 3:.3f}, exact p {p_pool:.2e} ({total.size:,} joint orderings)")
     if a.teacher == "length":
         # how collinear the two teacher signals are: per pair, r between the five length drops and the five
         # think-rate drops (think_rate.json)
-        tr = json.loads((EXP.parent / "think_rate.json").read_text())
+        tr = json.loads((RESULTS / "think_rate.json").read_text())
         for pair in by_pair:
             ln = [think[pair]["rates"][LAMBDAS[i - 1]] - think[pair]["rates"][LAMBDAS[i]] for i in range(1, len(LAMBDAS))]
             th = [tr[pair]["rates"][LAMBDAS[i - 1]] - tr[pair]["rates"][LAMBDAS[i]] for i in range(1, len(LAMBDAS))]

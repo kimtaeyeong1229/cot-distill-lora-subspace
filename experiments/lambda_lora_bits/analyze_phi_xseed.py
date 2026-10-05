@@ -5,10 +5,10 @@ from collections import defaultdict
 from pathlib import Path
 import torch
 from safetensors import safe_open
-E=Path("experiments/lambda_lora_bits"); LAM=["0.0","0.2","0.4","0.6","0.8","1.0"]; S=[0,1,2]
-CELLS=[("A","Qwen-0.5B","sweep"),("A","Llama-1B","sweep_llama"),("A","OLMo-1B","sweep_olmo2"),
-       ("B","Qwen-0.5B","pairB/qwen0.5b"),("B","Llama-1B","pairB/llama1b"),("B","OLMo-1B","pairB/olmo1b"),
-       ("D","Qwen-0.5B","pairD/qwen0.5b"),("D","Llama-1B","pairD/llama1b"),("D","OLMo-1B","pairD/olmo1b")]
+from config import CELL_DIR, EXP as E, LAMBDAS as LAM, PAIR_KEY, PAIRS, RESULTS, SEEDS as S, STUDENTS
+# (pair key, student label, cell directory); the output keys this file has always used, e.g. "D/Llama-1B"
+LABEL = {"Qwen": "Qwen-0.5B", "Llama": "Llama-1B", "OLMo": "OLMo-1B"}
+CELLS = [(PAIR_KEY[p], LABEL[s], CELL_DIR[f"{p}/{s}"]) for p in PAIRS for s in STUDENTS]
 def basis(p):
     c=json.loads((p.parent/"adapter_config.json").read_text()); s=c["lora_alpha"]/c["r"]
     parts=defaultdict(dict)
@@ -34,14 +34,14 @@ for pair,stu,tag in CELLS:
             p=E/tag/"runs"/f"lambda{l}_seed{s}"/"adapter"/"adapter_model.safetensors"
             if p.exists(): B[(l,s)]=basis(p)
     if len(B)<18: print(f"{pair}/{stu}: {len(B)}/18 skip",flush=True); continue
-    print(f"\n=== {pair}/{stu}"); print(f"{'lam':5s} {'같은시드':>9s} {'교차시드':>9s} {'seed기준선':>10s} {'판정':>5s}")
+    print(f"\n=== {pair}/{stu}"); print(f"{'lam':5s} {'same-seed':>9s} {'cross-seed':>10s} {'seed null':>10s} {'verdict':>7s}")
     rows={}
     for l in LAM:
         same=[ov(B[("0.0",s)],B[(l,s)]) for s in S]
         xs=[ov(B[("0.0",i)],B[(l,j)]) for i in S for j in S if i!=j]
         null=[ov(B[(l,i)],B[(l,j)]) for i in S for j in S if i<j]
-        v="아래" if st.mean(xs)+st.stdev(xs)<st.mean(null)-st.stdev(null) else "위"
+        v="below" if st.mean(xs)+st.stdev(xs)<st.mean(null)-st.stdev(null) else "above"
         print(f"{l:5s} {st.mean(same):9.3f} {st.mean(xs):9.3f} {st.mean(null):10.3f} {v:>5s}",flush=True)
-        rows[l]=dict(same=st.mean(same),xseed=st.mean(xs),xseed_sd=st.stdev(xs),null=st.mean(null),null_sd=st.stdev(null),below=v=="아래")
+        rows[l]=dict(same=st.mean(same),xseed=st.mean(xs),xseed_sd=st.stdev(xs),null=st.mean(null),null_sd=st.stdev(null),below=v=="below")
     out[f"{pair}/{stu}"]=rows
-Path("experiments/phi_xseed.json").write_text(json.dumps(out,indent=2))
+(RESULTS / "phi_xseed.json").write_text(json.dumps(out,indent=2))

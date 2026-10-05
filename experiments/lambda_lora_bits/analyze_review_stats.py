@@ -32,16 +32,14 @@
                          (split_ids.json, cot/lambda0.0.jsonl level field); a problem is kept only if every
                          teacher in the split run solved it completely, correctly and within 8,192 tokens
 
-Run from the repo root; writes experiments/review_stats.json.
+Writes experiments/review_stats.json.
 """
 
 import json
 import math
 import statistics as st
-from pathlib import Path
 
-X = Path("experiments")
-CELLS = ["A/Qwen", "A/Llama", "A/OLMo", "B/Qwen", "B/Llama", "B/OLMo", "C/Qwen", "C/Llama", "C/OLMo"]
+from config import CELL_NAMES as CELLS, EXP, RESULTS as X
 
 
 def main():
@@ -152,7 +150,7 @@ def main():
                      for beta in ("beta1", "beta2")}
     out["graft_seed_recovery"] = gs
     diff = {}
-    E = X / "lambda_lora_bits"
+    E = EXP
     for pair, d in (("A", "sweep"), ("B", "pairB"), ("C", "pairD")):
         rows = [json.loads(l) for l in open(E / d / "cot" / "lambda0.0.jsonl")]
         ids = json.loads((E / d / "splits" / "split_ids.json").read_text())

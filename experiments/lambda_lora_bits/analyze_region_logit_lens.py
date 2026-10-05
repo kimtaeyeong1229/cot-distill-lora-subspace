@@ -35,25 +35,20 @@ tokens (top100_hits; top100_hits_by_word splits it by cue word for the region, p
 and the top 15 tokens of both signs for the five region directions carrying most of the
 lambda = 0 update energy in the last third, and for the two with the highest cue score (labelled as such).
 
-Run from the repo root (GPU if available); writes experiments/region_logit_lens.json.
+Uses a GPU if available; writes experiments/region_logit_lens.json.
 """
 
 import json
 import statistics as st
-import sys
 from collections import defaultdict
-from pathlib import Path
 
 import torch
 from safetensors import safe_open
 
-X = Path("experiments")
-E = X / "lambda_lora_bits"
-sys.path.insert(0, str(E))
-from ablate_subspace import LAMBDAS, consensus  # noqa: E402
-from analyze_region_anatomy import PRE, RUNS, SEEDS, load  # noqa: E402
+from ablate_subspace import LAMBDAS, consensus
+from analyze_region_anatomy import PRE, RUNS, SEEDS, load
+from config import MODELS as MODEL_DIR, RESULTS as X, STUDENT_MODEL as MODELS
 
-MODELS = {"Qwen": "Qwen2.5-0.5B-Instruct", "Llama": "Llama-3.2-1B-Instruct", "OLMo": "OLMo-2-1B-Instruct"}
 CUE_WORDS = ["Wait", "Hmm", "Actually", "Alternatively", "But", "Let", "Hold", "Verify", "Check", "Double", "Reconsider"]
 CORE = {"Wait", "Hmm", "Alternatively", "Actually"}
 WRITE = ("o_proj", "down_proj")
@@ -63,7 +58,7 @@ DEV = "cuda" if torch.cuda.is_available() else "cpu"
 
 
 def weights(name):
-    path = Path("models") / name
+    path = MODEL_DIR / name
     config = json.loads((path / "config.json").read_text())
     tensors = {}
     for f in sorted(path.glob("*.safetensors")):
@@ -140,7 +135,7 @@ def main():
     out = {"cells": {}}
     for short, name in MODELS.items():
         W_U, g_final, post_w, tied, config = weights(name)
-        tok = AutoTokenizer.from_pretrained(str(Path("models") / name))
+        tok = AutoTokenizer.from_pretrained(str(MODEL_DIR / name))
         cues, labels = cue_ids(tok)
         core_mask = torch.tensor([w in CORE for w, _ in labels])
         d = config["hidden_size"]

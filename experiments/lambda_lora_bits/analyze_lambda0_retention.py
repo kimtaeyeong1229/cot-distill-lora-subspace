@@ -8,21 +8,17 @@ reference, is the share of the region kept. At lambda = 0.2 this equals the firs
 reference in Table 18. A random adapter of the same rank gives the chance level, divided by the same
 reference. Modules are weighted by the mean update norm of the cell's adapters, as elsewhere.
 
-Run from the repo root; writes experiments/lambda0_retention.json.
+Writes experiments/lambda0_retention.json.
 """
 
 import json
 import statistics as st
-import sys
-from pathlib import Path
 
 import torch
 
-X = Path("experiments")
-E = X / "lambda_lora_bits"
-sys.path.insert(0, str(E))
-from analyze_length_confound import LAM, RUNS, SEEDS  # noqa: E402
-from ablate_subspace import consensus, left_basis, read_adapter  # noqa: E402
+from analyze_length_confound import LAM, RUNS, SEEDS
+from ablate_subspace import consensus, left_basis, read_adapter
+from config import EXP as E, RESULTS as X
 
 HALVES = ["halfA", "halfA_seed1", "halfA_seed2", "halfB", "halfB_seed1", "halfB_seed2"]
 

@@ -1,9 +1,0 @@
-[2026-09-17 16:29:27] train sweep_llama lambda0.8_halfA
-[2026-09-17 16:32:14] train sweep_llama lambda1.0_halfA
-[2026-09-17 16:35:00] train sweep_llama lambda0.0_halfB
-[2026-09-17 16:47:01] train sweep_llama lambda0.2_halfB
-[2026-09-17 16:53:29] train sweep_llama lambda0.4_halfB
-[2026-09-17 16:56:33] train sweep_llama lambda0.6_halfB
-[2026-09-17 16:59:27] train sweep_llama lambda0.8_halfB
-[2026-09-17 17:02:13] train sweep_llama lambda1.0_halfB
-[2026-09-17 17:04:53] done sweep_llama

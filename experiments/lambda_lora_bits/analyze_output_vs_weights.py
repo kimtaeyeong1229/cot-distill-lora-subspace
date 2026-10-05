@@ -7,14 +7,13 @@ student's mean response length and its reflective-marker density (main_density.j
 only pair whose teacher signals come apart -- markers fall from lambda 0.2, the tag only at 0.4 -- so
 it is where the adapter and the outputs can be told apart. Table 4 reports the pair means.
 
-Run from the repo root; writes experiments/output_vs_weights.json.
+Writes experiments/output_vs_weights.json.
 """
 
 import json
 import statistics as st
-from pathlib import Path
+from config import LAMBDAS, RESULTS
 
-LAMBDAS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
 STUDENTS = {"Qwen": "Qwen2.5-0.5B", "Llama": "Llama-3.2-1B", "OLMo": "OLMo-2-1B"}
 DIR = {"A": "A", "B": "B", "C": "D"}  # the adapter and think-rate files keep pair C's directory name
 
@@ -30,7 +29,7 @@ def corr(a, b):
 
 
 def main():
-    exp = Path("experiments")
+    exp = RESULTS
     density = json.loads((exp / "main_density.json").read_text())
     resample = json.loads((exp / "phi_resample_s012.json").read_text())
     think = json.loads((exp / "think_rate.json").read_text())

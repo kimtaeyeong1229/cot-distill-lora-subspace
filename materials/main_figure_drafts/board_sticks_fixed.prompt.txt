@@ -1,7 +1,0 @@
-Make a minimal edit to this figure. Keep every character exactly as drawn (same robot designs, faces, glasses, colors, poses as far as possible), all three panels, all other icons, all text, speech bubbles, colors and layout unchanged.
-Only change panel 1:
-- Make the two teacher robots the SAME size: enlarge the coral Instruct teacher on the right so it matches the height and scale of the blue Reasoning teacher on the left.
-- Remove the small chalkboard each teacher is holding, and instead each teacher holds a thin wooden pointer stick in the same hand, raised slightly as if pointing. No chalkboards anywhere in panel 1.
-Additionally fix two errors, without touching any character:
-- Panel 1 slider: show ONE row of tick labels only, above the slider, evenly spaced and in order: "λ = 0", "0.2", "0.4", "0.6", "0.8", "1.0". Remove the second row of labels under the slider.
-- Panel 3 bars: replace the two gradient bars with solid two-color bars. Left card ("mostly memorized"): mostly coral with diagonal hatching and a short solid blue segment at its left end. Right card ("mostly understood"): mostly solid blue with a short coral hatched segment at its right end.

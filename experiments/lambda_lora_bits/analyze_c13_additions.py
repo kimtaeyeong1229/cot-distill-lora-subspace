@@ -13,26 +13,19 @@
    analyze_removal_vs_untrained.py; completed = finish_reason == "stop", and completed accuracy is accuracy over
    completed responses only.
 
-Run from the repo root (inside the project container); writes experiments/c13_additions.json.
+Run inside the project container; writes experiments/c13_additions.json.
 """
 
 import gzip
 import json
 import math
-import sys
-from pathlib import Path
 
 import pandas as pd
 
-E = Path("experiments/lambda_lora_bits")
-X = Path("experiments")
-sys.path.insert(0, str(E))
-from common import is_correct  # noqa: E402
+from common import is_correct
+from config import CELL_NAMES as CELLS, EVAL_PROBLEMS as PROBLEMS, EVAL_SAMPLES as SAMPLES, EXP as E
+from config import LAMBDAS as LAMS, RESULTS as X, SEEDS, STUDENT_MODEL as MODELS
 
-CELLS = [f"{p}/{s}" for p in "ABC" for s in ("Qwen", "Llama", "OLMo")]
-MODELS = {"Qwen": "Qwen2.5-0.5B-Instruct", "Llama": "Llama-3.2-1B-Instruct", "OLMo": "OLMo-2-1B-Instruct"}
-LAMS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
-SEEDS, SAMPLES, PROBLEMS = [0, 1, 2], 2, 200
 
 
 def per_unit():

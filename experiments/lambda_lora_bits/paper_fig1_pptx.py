@@ -21,7 +21,7 @@ from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.oxml.ns import qn
 from pptx.util import Emu, Pt
 
-OUT = Path("/home/lab/workspace/cot-distill-lora-bit/materials/main_figure_pptx")
+OUT = Path(__file__).resolve().parents[2] / "materials" / "main_figure_pptx"
 W_EMU = 12192000
 K = W_EMU / 2000
 E = lambda v: Emu(int(round(v * K)))

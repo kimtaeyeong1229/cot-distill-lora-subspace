@@ -24,12 +24,7 @@ from vllm import LLM, SamplingParams
 from vllm.lora.request import LoRARequest
 
 from common import build_prompt, is_correct, load_tokenizer, read_jsonl
-
-# hedging and self-correction markers: what a student trained on long CoT writes and a short-answer
-# student does not, independent of the stripped tags
-REFLECTIVE = re.compile(
-    r"\b(wait|hmm|actually|but let me|let me check|recheck|verify|reconsider|alternatively|"
-    r"on second thought|let me re|double-check|double check|is that right|hold on)\b", re.I)
+from config import REFLECTIVE   # hedging and self-correction markers (see config.py)
 
 
 def main():
@@ -59,7 +54,7 @@ def main():
             continue
         jobs.append((name, path))
     if not jobs:
-        print("모두 완료됨")
+        print("all conditions already done")
         return
 
     tokenizer = load_tokenizer(a.base)
