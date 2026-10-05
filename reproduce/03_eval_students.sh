@@ -4,9 +4,9 @@
 #
 # Paper artifacts:
 #   <cell>/eval_math500/ and, for A/Qwen and A/Llama, <cell>/eval_math500_7680/
-#       student markers, length, truncation and accuracy across lambda: Table 6; the lambda0 / lambda1
-#       rows of Tables 2, 3, 8, 9, 12, 14, 16 and 17, Figure 3 (gray bars); Table 15
-#   base_eval/<student>/eval_main_s{0,1,2}/base.json       untrained students: Tables 3, 12 and 17
+#       student markers, length, truncation and accuracy across lambda: Table 10; the lambda0 / lambda1
+#       rows of Tables 2, 3, 5, 7, 9, 11, 12 and 17, Figure 3 (gray bars); Table 15
+#   base_eval/<student>/eval_main_s{0,1,2}/base.json       untrained students: Tables 3, 7 and 17
 #   <cell>/eval_ablation_loo/lambda0.0_base.json          seed-0 lambda0 reference of the beta = 2, 4, 8 grafts (App. C)
 #
 # Run inside the container: docker exec cot-distill-lora-bit bash reproduce/03_eval_students.sh

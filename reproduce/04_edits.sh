@@ -4,13 +4,13 @@
 #
 # Paper artifacts:
 #   runs_edit_s{0,1,2}/ + eval_main_s{0,1,2}/, all seeds:
-#     shared-region removal, controls, grafts (beta 1, 2), amplify   Figure 3; Tables 2-5, 8, 9, 12, 14, 16 and 17
+#     shared-region removal, controls, grafts (beta 1, 2), amplify   Figure 3; Tables 2-5, 7-9, 11, 12 and 17
 #     lambda0.0_rmseed / rmseed_other     two-seed region and its control       Table 3
 #     lambda0.0_gs_tau                    Gold-Switch top removal, tau = 0.6    Table 3
-#     lambda0.0_gs_energy                 top removal, energy-matched           Tables 2, 9 and 14; App. A
+#     lambda0.0_gs_energy                 top removal, energy-matched           Tables 2, 11 and 12; App. A
 #     merge0.5 / merge0.7                 merged with the lambda1 adapter       Table 3
 #     lambda0.0_nothink                   think-skip prompt                     Table 3
-#     lambda0.0_budget                    length-matched cut                    Tables 2, 3, 9 and 14
+#     lambda0.0_budget                    length-matched cut                    Tables 2, 3, 11 and 12
 #   runs_graft_beta/ + eval_graft_beta/   grafts at beta = 2, 4, 8, seed 0      App. C
 #   eval_gsm8k_s{0,1,2}/, eval_gpqa_diamond_s{0,1,2}/                           Table 3; Figure 4
 #
