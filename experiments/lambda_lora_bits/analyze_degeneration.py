@@ -29,7 +29,10 @@ E = Path("experiments/lambda_lora_bits")
 SEEDS = [0, 1, 2]
 TAIL, N, MIN_WORDS, CUT = 300, 10, 100, 0.5
 EDITS = {"rm_pre": "lambda0.0_rm_pre", "graft1": "graft1", "graft2": "graft2", "graft_other2": "graft_orth2",
-         "graft_whole2": "graft_full2", "ampn4": "ampn4"}
+         "graft_whole2": "graft_full2", "ampn4": "ampn4",
+         # removal controls, added for the review (same rule, same responses)
+         "rm_other": "lambda0.0_rm_decisive", "rm_scale": "lambda0.0_rm_scale", "rm_top": "lambda0.0_gs_energy",
+         "cut": "lambda0.0_budget"}
 BETA = ["graft4", "graft8", "graft_orth4", "graft_orth8", "graft_full4", "graft_full8"]
 
 
