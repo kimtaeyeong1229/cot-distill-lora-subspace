@@ -1,0 +1,689 @@
+{
+  "definitions": "Floor-corrected coverage of the two-seed lambda = 0 region across the held and switch intervals (read only).\n\nInput: experiments/length_confound.json, two_seed_region.<cell>.coverage (coverage of the region built from two\nlambda = 0 seeds, eigenvalue cut 0.75, by the held-out third seed at every lambda, mean over the three choices\nof held-out seed) and .chance, and pairs.<P>.intervals[] (class, log_len_drop). No new adapters are read.\n\nTwo floors f are subtracted from the coverage:\n  chance   the coverage a random adapter of the same rank would have (two_seed_region.<cell>.chance)\n  lambda1  the coverage at lambda = 1 (the short-answer adapter, which never thinks)\nKept shares:\n  interval   (cov(b) - f) / (cov(a) - f) for the interval a -> b (the share of the interval start that the end keeps)\n  cumulative (cov(b) - f) / (cov(0) - f) (the share of the lambda = 0 level)\nPer unit of log training-length drop: -ln(interval kept) / log_len_drop. For pair A, the switch/held ratio of that\nloss per student. This uses neither the half-data reference nor the leave-one-out region of the shared region.",
+  "floors": {
+    "chance": {
+      "cells": {
+        "A/Qwen": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.6681452695953419,
+            "kept_interval": 0.4766572196484398,
+            "kept_cumulative": 0.4766572196484398,
+            "loss_per_log_len": 1.10897689055077
+          },
+          "0.2->0.4": {
+            "class": "switch",
+            "log_len_drop": 0.8029944885562647,
+            "kept_interval": 0.15416008485619,
+            "kept_cumulative": 0.07348151742831908,
+            "loss_per_log_len": 2.328488839064844
+          },
+          "0.4->0.6": {
+            "class": "after",
+            "log_len_drop": 0.09576528241170228,
+            "kept_interval": 0.6783917688448177,
+            "kept_cumulative": 0.04984925658559868,
+            "loss_per_log_len": 4.051889348569271
+          },
+          "0.6->0.8": {
+            "class": "after",
+            "log_len_drop": 0.05752251972160097,
+            "kept_interval": 0.8679410024933131,
+            "kept_cumulative": 0.04326621373445091,
+            "loss_per_log_len": 2.4621928384750618
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": 0.036377395519819236,
+            "kept_interval": 0.9901822346282289,
+            "kept_cumulative": 0.04284143619948117,
+            "loss_per_log_len": 0.2712200054528668
+          }
+        },
+        "A/Llama": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.6681452695953419,
+            "kept_interval": 0.525184686267164,
+            "kept_cumulative": 0.525184686267164,
+            "loss_per_log_len": 0.963870170443301
+          },
+          "0.2->0.4": {
+            "class": "switch",
+            "log_len_drop": 0.8029944885562647,
+            "kept_interval": 0.22433562469512847,
+            "kept_cumulative": 0.11781763467405929,
+            "loss_per_log_len": 1.861297985557436
+          },
+          "0.4->0.6": {
+            "class": "after",
+            "log_len_drop": 0.09576528241170228,
+            "kept_interval": 0.8145408732282414,
+            "kept_cumulative": 0.09596727902909419,
+            "loss_per_log_len": 2.142014987544728
+          },
+          "0.6->0.8": {
+            "class": "after",
+            "log_len_drop": 0.05752251972160097,
+            "kept_interval": 0.9123743729540623,
+            "kept_cumulative": 0.08755808602827733,
+            "loss_per_log_len": 1.5942430359829365
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": 0.036377395519819236,
+            "kept_interval": 0.9488299168054303,
+            "kept_cumulative": 0.0830777314818531,
+            "loss_per_log_len": 1.443910958499808
+          }
+        },
+        "A/OLMo": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.6681452695953419,
+            "kept_interval": 0.5704328585385547,
+            "kept_cumulative": 0.5704328585385547,
+            "loss_per_log_len": 0.8401762774548917
+          },
+          "0.2->0.4": {
+            "class": "switch",
+            "log_len_drop": 0.8029944885562647,
+            "kept_interval": 0.23992396072164382,
+            "kept_cumulative": 0.1368605107463392,
+            "loss_per_log_len": 1.7776376507071672
+          },
+          "0.4->0.6": {
+            "class": "after",
+            "log_len_drop": 0.09576528241170228,
+            "kept_interval": 0.7864240832722463,
+            "kept_cumulative": 0.10763040169986124,
+            "loss_per_log_len": 2.5088328448177126
+          },
+          "0.6->0.8": {
+            "class": "after",
+            "log_len_drop": 0.05752251972160097,
+            "kept_interval": 0.9175154694983876,
+            "kept_cumulative": 0.09875255854794823,
+            "loss_per_log_len": 1.4965588976888164
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": 0.036377395519819236,
+            "kept_interval": 0.9291283148959382,
+            "kept_cumulative": 0.09175379831531762,
+            "loss_per_log_len": 2.0207171825150563
+          }
+        },
+        "B/Qwen": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.20685213499465704,
+            "kept_interval": 0.7633232497463687,
+            "kept_cumulative": 0.7633232497463687,
+            "loss_per_log_len": 1.3056364206027868
+          },
+          "0.2->0.4": {
+            "class": "held",
+            "log_len_drop": 0.19185320200989778,
+            "kept_interval": 0.8367567284403112,
+            "kept_cumulative": 0.6387158652001981,
+            "loss_per_log_len": 0.9289493002791657
+          },
+          "0.4->0.6": {
+            "class": "switch",
+            "log_len_drop": 0.678602852871351,
+            "kept_interval": 0.4158054184536867,
+            "kept_cumulative": 0.2655815176025769,
+            "loss_per_log_len": 1.29315382117226
+          },
+          "0.6->0.8": {
+            "class": "after",
+            "log_len_drop": 0.5062019633270953,
+            "kept_interval": 0.5785252426179219,
+            "kept_cumulative": 0.1536456119058667,
+            "loss_per_log_len": 1.0811358673920897
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": 0.013722981428619052,
+            "kept_interval": 0.9398722766238629,
+            "kept_cumulative": 0.14440725105523342,
+            "loss_per_log_len": 4.518791284873087
+          }
+        },
+        "B/Llama": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.20685213499465704,
+            "kept_interval": 0.7747430804250431,
+            "kept_cumulative": 0.7747430804250431,
+            "loss_per_log_len": 1.2338466495676124
+          },
+          "0.2->0.4": {
+            "class": "held",
+            "log_len_drop": 0.19185320200989778,
+            "kept_interval": 0.8428207945108426,
+            "kept_cumulative": 0.6529695785856124,
+            "loss_per_log_len": 0.891311286122612
+          },
+          "0.4->0.6": {
+            "class": "switch",
+            "log_len_drop": 0.678602852871351,
+            "kept_interval": 0.43081689824783576,
+            "kept_cumulative": 0.28131032849645,
+            "loss_per_log_len": 1.2408909064154878
+          },
+          "0.6->0.8": {
+            "class": "after",
+            "log_len_drop": 0.5062019633270953,
+            "kept_interval": 0.5655052037164745,
+            "kept_cumulative": 0.1590824546239333,
+            "loss_per_log_len": 1.1261034582863574
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": 0.013722981428619052,
+            "kept_interval": 0.9535327377862579,
+            "kept_cumulative": 0.15169032849131728,
+            "loss_per_log_len": 3.467287370885213
+          }
+        },
+        "B/OLMo": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.20685213499465704,
+            "kept_interval": 0.830512485397323,
+            "kept_cumulative": 0.830512485397323,
+            "loss_per_log_len": 0.897802270474949
+          },
+          "0.2->0.4": {
+            "class": "held",
+            "log_len_drop": 0.19185320200989778,
+            "kept_interval": 0.8760099222069878,
+            "kept_cumulative": 0.727537177724841,
+            "loss_per_log_len": 0.6899955799682577
+          },
+          "0.4->0.6": {
+            "class": "switch",
+            "log_len_drop": 0.678602852871351,
+            "kept_interval": 0.4649081933060575,
+            "kept_cumulative": 0.3382379948590439,
+            "loss_per_log_len": 1.1286650555579154
+          },
+          "0.6->0.8": {
+            "class": "after",
+            "log_len_drop": 0.5062019633270953,
+            "kept_interval": 0.5502292855607657,
+            "kept_cumulative": 0.18610845026079767,
+            "loss_per_log_len": 1.1802012794710042
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": 0.013722981428619052,
+            "kept_interval": 0.9522477692438065,
+            "kept_cumulative": 0.1772213565982665,
+            "loss_per_log_len": 3.5655529009343194
+          }
+        },
+        "C/Qwen": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.22102095338143166,
+            "kept_interval": 0.7674404173339415,
+            "kept_cumulative": 0.7674404173339415,
+            "loss_per_log_len": 1.1975988277260758
+          },
+          "0.2->0.4": {
+            "class": "held",
+            "log_len_drop": 0.19909611665360394,
+            "kept_interval": 0.8599221243727748,
+            "kept_cumulative": 0.6599389940033319,
+            "loss_per_log_len": 0.7579929203352459
+          },
+          "0.4->0.6": {
+            "class": "switch",
+            "log_len_drop": 0.5999802795998517,
+            "kept_interval": 0.5216550730487616,
+            "kept_cumulative": 0.34426052412453434,
+            "loss_per_log_len": 1.0846167969797926
+          },
+          "0.6->0.8": {
+            "class": "switch",
+            "log_len_drop": 0.6857441741878046,
+            "kept_interval": 0.2669091213441113,
+            "kept_cumulative": 0.09188627400754269,
+            "loss_per_log_len": 1.9261513225144844
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": -0.055558839598870945,
+            "kept_interval": 0.8310851676710475,
+            "kept_cumulative": 0.07636531944022644,
+            "loss_per_log_len": null
+          }
+        },
+        "C/Llama": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.22102095338143166,
+            "kept_interval": 0.80141642646541,
+            "kept_cumulative": 0.80141642646541,
+            "loss_per_log_len": 1.0015999858460196
+          },
+          "0.2->0.4": {
+            "class": "held",
+            "log_len_drop": 0.19909611665360394,
+            "kept_interval": 0.8797557069892562,
+            "kept_cumulative": 0.7050506748578801,
+            "loss_per_log_len": 0.6434631568751208
+          },
+          "0.4->0.6": {
+            "class": "switch",
+            "log_len_drop": 0.5999802795998517,
+            "kept_interval": 0.5589447486235579,
+            "kept_cumulative": 0.3940843722253076,
+            "loss_per_log_len": 0.9695396168213918
+          },
+          "0.6->0.8": {
+            "class": "switch",
+            "log_len_drop": 0.6857441741878046,
+            "kept_interval": 0.22665867762826075,
+            "kept_cumulative": 0.08932264268255152,
+            "loss_per_log_len": 2.164524427228172
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": -0.055558839598870945,
+            "kept_interval": 0.6935721412275033,
+            "kept_cumulative": 0.06195169654543643,
+            "loss_per_log_len": null
+          }
+        },
+        "C/OLMo": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.22102095338143166,
+            "kept_interval": 0.8562212369460364,
+            "kept_cumulative": 0.8562212369460364,
+            "loss_per_log_len": 0.7023156831193169
+          },
+          "0.2->0.4": {
+            "class": "held",
+            "log_len_drop": 0.19909611665360394,
+            "kept_interval": 0.8909403986450889,
+            "kept_cumulative": 0.7628420901730927,
+            "loss_per_log_len": 0.5800100390901924
+          },
+          "0.4->0.6": {
+            "class": "switch",
+            "log_len_drop": 0.5999802795998517,
+            "kept_interval": 0.6004293496146949,
+            "kept_cumulative": 0.45803278006134446,
+            "loss_per_log_len": 0.8502117724973608
+          },
+          "0.6->0.8": {
+            "class": "switch",
+            "log_len_drop": 0.6857441741878046,
+            "kept_interval": 0.3929407072451685,
+            "kept_cumulative": 0.17997972453877542,
+            "loss_per_log_len": 1.3621647631950586
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": -0.055558839598870945,
+            "kept_interval": 0.9249787719490004,
+            "kept_cumulative": 0.16647742457959586,
+            "loss_per_log_len": null
+          }
+        }
+      },
+      "pairA_switch_over_held": {
+        "Qwen": 2.0996730039238303,
+        "Llama": 1.9310671111456765,
+        "OLMo": 2.115791290956328
+      }
+    },
+    "lambda1": {
+      "cells": {
+        "A/Qwen": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.6681452695953419,
+            "kept_interval": 0.4532329332419473,
+            "kept_cumulative": 0.4532329332419473,
+            "loss_per_log_len": 1.1843967476077828
+          },
+          "0.2->0.4": {
+            "class": "switch",
+            "log_len_drop": 0.8029944885562647,
+            "kept_interval": 0.07062924494180585,
+            "kept_cumulative": 0.03201149985763864,
+            "loss_per_log_len": 3.300534466576705
+          },
+          "0.4->0.6": {
+            "class": "after",
+            "log_len_drop": 0.09576528241170228,
+            "kept_interval": 0.22871415822233115,
+            "kept_cumulative": 0.0073214832433740945,
+            "loss_per_log_len": 15.405188971588345
+          },
+          "0.6->0.8": {
+            "class": "after",
+            "log_len_drop": 0.05752251972160097,
+            "kept_interval": 0.060614786276660775,
+            "kept_cumulative": 0.0004437901420252739,
+            "loss_per_log_len": 48.73250391797705
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": 0.036377395519819236,
+            "kept_interval": 0.0,
+            "kept_cumulative": 0.0,
+            "loss_per_log_len": null
+          }
+        },
+        "A/Llama": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.6681452695953419,
+            "kept_interval": 0.48216405028509907,
+            "kept_cumulative": 0.48216405028509907,
+            "loss_per_log_len": 1.0917848299544062
+          },
+          "0.2->0.4": {
+            "class": "switch",
+            "log_len_drop": 0.8029944885562647,
+            "kept_interval": 0.07857805179535356,
+            "kept_cumulative": 0.03788751171715997,
+            "loss_per_log_len": 3.1677214402302196
+          },
+          "0.4->0.6": {
+            "class": "after",
+            "log_len_drop": 0.09576528241170228,
+            "kept_interval": 0.37103003643754606,
+            "kept_cumulative": 0.014057404852945817,
+            "loss_per_log_len": 10.353149219999464
+          },
+          "0.6->0.8": {
+            "class": "after",
+            "log_len_drop": 0.05752251972160097,
+            "kept_interval": 0.3475959516812696,
+            "kept_cumulative": 0.0048862970180286,
+            "loss_per_log_len": 18.37044929984991
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": 0.036377395519819236,
+            "kept_interval": 0.0,
+            "kept_cumulative": 0.0,
+            "loss_per_log_len": null
+          }
+        },
+        "A/OLMo": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.6681452695953419,
+            "kept_interval": 0.5270366772086112,
+            "kept_cumulative": 0.5270366772086112,
+            "loss_per_log_len": 0.9586016182216055
+          },
+          "0.2->0.4": {
+            "class": "switch",
+            "log_len_drop": 0.8029944885562647,
+            "kept_interval": 0.09423163906519247,
+            "kept_cumulative": 0.0496635299408402,
+            "loss_per_log_len": 2.9414887851325884
+          },
+          "0.4->0.6": {
+            "class": "after",
+            "log_len_drop": 0.09576528241170228,
+            "kept_interval": 0.35197873063399476,
+            "kept_cumulative": 0.017480506227380326,
+            "loss_per_log_len": 10.903581164788681
+          },
+          "0.6->0.8": {
+            "class": "after",
+            "log_len_drop": 0.05752251972160097,
+            "kept_interval": 0.44082226299386756,
+            "kept_cumulative": 0.007705796313432191,
+            "loss_per_log_len": 14.239875452235482
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": 0.036377395519819236,
+            "kept_interval": 0.0,
+            "kept_cumulative": 0.0,
+            "loss_per_log_len": null
+          }
+        },
+        "B/Qwen": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.20685213499465704,
+            "kept_interval": 0.7233768629461464,
+            "kept_cumulative": 0.7233768629461464,
+            "loss_per_log_len": 1.5654899754676432
+          },
+          "0.2->0.4": {
+            "class": "held",
+            "log_len_drop": 0.19185320200989778,
+            "kept_interval": 0.798668341407095,
+            "kept_cumulative": 0.5777381993414662,
+            "loss_per_log_len": 1.171778782639784
+          },
+          "0.4->0.6": {
+            "class": "switch",
+            "log_len_drop": 0.678602852871351,
+            "kept_interval": 0.2451388931527036,
+            "kept_cumulative": 0.14162610271860307,
+            "loss_per_log_len": 2.0718013670211017
+          },
+          "0.6->0.8": {
+            "class": "after",
+            "log_len_drop": 0.5062019633270953,
+            "kept_interval": 0.07624028693438639,
+            "kept_cumulative": 0.010797614708665177,
+            "loss_per_log_len": 5.0846607531085395
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": 0.013722981428619052,
+            "kept_interval": 0.0,
+            "kept_cumulative": 0.0,
+            "loss_per_log_len": null
+          }
+        },
+        "B/Llama": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.20685213499465704,
+            "kept_interval": 0.7344638082761134,
+            "kept_cumulative": 0.7344638082761134,
+            "loss_per_log_len": 1.4919573276366764
+          },
+          "0.2->0.4": {
+            "class": "held",
+            "log_len_drop": 0.19185320200989778,
+            "kept_interval": 0.80455346443541,
+            "kept_cumulative": 0.5909154014509717,
+            "loss_per_log_len": 1.1335117462436042
+          },
+          "0.4->0.6": {
+            "class": "switch",
+            "log_len_drop": 0.678602852871351,
+            "kept_interval": 0.2585784270558776,
+            "kept_cumulative": 0.15279797503028472,
+            "loss_per_log_len": 1.993148470359164
+          },
+          "0.6->0.8": {
+            "class": "after",
+            "log_len_drop": 0.5062019633270953,
+            "kept_interval": 0.05702920947634101,
+            "kept_cumulative": 0.00871394772556283,
+            "loss_per_log_len": 5.658199499316374
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": 0.013722981428619052,
+            "kept_interval": 0.0,
+            "kept_cumulative": 0.0,
+            "loss_per_log_len": null
+          }
+        },
+        "B/OLMo": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.20685213499465704,
+            "kept_interval": 0.7940059383384821,
+            "kept_cumulative": 0.7940059383384821,
+            "loss_per_log_len": 1.1151170315607646
+          },
+          "0.2->0.4": {
+            "class": "held",
+            "log_len_drop": 0.19185320200989778,
+            "kept_interval": 0.8423745507431254,
+            "kept_cumulative": 0.6688503955952526,
+            "loss_per_log_len": 0.894071755074267
+          },
+          "0.4->0.6": {
+            "class": "switch",
+            "log_len_drop": 0.678602852871351,
+            "kept_interval": 0.292589513292846,
+            "kept_cumulative": 0.19569861171294248,
+            "loss_per_log_len": 1.8110513764797425
+          },
+          "0.6->0.8": {
+            "class": "after",
+            "log_len_drop": 0.5062019633270953,
+            "kept_interval": 0.05519363562998943,
+            "kept_cumulative": 0.01080131786817893,
+            "loss_per_log_len": 5.722829697980642
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": 0.013722981428619052,
+            "kept_interval": 0.0,
+            "kept_cumulative": 0.0,
+            "loss_per_log_len": null
+          }
+        },
+        "C/Qwen": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.22102095338143166,
+            "kept_interval": 0.7482125914489108,
+            "kept_cumulative": 0.7482125914489108,
+            "loss_per_log_len": 1.3124010361179945
+          },
+          "0.2->0.4": {
+            "class": "held",
+            "log_len_drop": 0.19909611665360394,
+            "kept_interval": 0.8444432107910465,
+            "kept_cumulative": 0.6318230430774077,
+            "loss_per_log_len": 0.8492269653079659
+          },
+          "0.4->0.6": {
+            "class": "switch",
+            "log_len_drop": 0.5999802795998517,
+            "kept_interval": 0.4590597834709878,
+            "kept_cumulative": 0.2900445493470954,
+            "loss_per_log_len": 1.2976673678488269
+          },
+          "0.6->0.8": {
+            "class": "switch",
+            "log_len_drop": 0.6857441741878046,
+            "kept_interval": 0.05793666439683535,
+            "kept_cumulative": 0.016804213715654014,
+            "loss_per_log_len": 4.15374270095158
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": -0.055558839598870945,
+            "kept_interval": 0.0,
+            "kept_cumulative": 0.0,
+            "loss_per_log_len": null
+          }
+        },
+        "C/Llama": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.22102095338143166,
+            "kept_interval": 0.7883013350130654,
+            "kept_cumulative": 0.7883013350130654,
+            "loss_per_log_len": 1.0762547792150745
+          },
+          "0.2->0.4": {
+            "class": "held",
+            "log_len_drop": 0.19909611665360394,
+            "kept_interval": 0.8696817472038743,
+            "kept_cumulative": 0.6855712823573094,
+            "loss_per_log_len": 0.7013092189642055
+          },
+          "0.4->0.6": {
+            "class": "switch",
+            "log_len_drop": 0.5999802795998517,
+            "kept_interval": 0.5164565438300349,
+            "kept_cumulative": 0.354067775035381,
+            "loss_per_log_len": 1.101309746812697
+          },
+          "0.6->0.8": {
+            "class": "switch",
+            "log_len_drop": 0.6857441741878046,
+            "kept_interval": 0.08240967583537846,
+            "kept_cumulative": 0.029178610564419456,
+            "loss_per_log_len": 3.6399177969396543
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": -0.055558839598870945,
+            "kept_interval": 0.0,
+            "kept_cumulative": 0.0,
+            "loss_per_log_len": null
+          }
+        },
+        "C/OLMo": {
+          "0.0->0.2": {
+            "class": "held",
+            "log_len_drop": 0.22102095338143166,
+            "kept_interval": 0.8275046563898454,
+            "kept_cumulative": 0.8275046563898454,
+            "loss_per_log_len": 0.8566633244169273
+          },
+          "0.2->0.4": {
+            "class": "held",
+            "log_len_drop": 0.19909611665360394,
+            "kept_interval": 0.8646176375942115,
+            "kept_cumulative": 0.7154751211059979,
+            "loss_per_log_len": 0.7306416101226544
+          },
+          "0.4->0.6": {
+            "class": "switch",
+            "log_len_drop": 0.5999802795998517,
+            "kept_interval": 0.48888770965596245,
+            "kept_cumulative": 0.3497869932733336,
+            "loss_per_log_len": 1.1927432830951321
+          },
+          "0.6->0.8": {
+            "class": "switch",
+            "log_len_drop": 0.6857441741878046,
+            "kept_interval": 0.04631127401816776,
+            "kept_cumulative": 0.016199081293472358,
+            "loss_per_log_len": 4.48034407562781
+          },
+          "0.8->1.0": {
+            "class": "after",
+            "log_len_drop": -0.055558839598870945,
+            "kept_interval": 0.0,
+            "kept_cumulative": 0.0,
+            "loss_per_log_len": null
+          }
+        }
+      },
+      "pairA_switch_over_held": {
+        "Qwen": 2.7866797787507003,
+        "Llama": 2.9014155109322286,
+        "OLMo": 3.068520571235451
+      }
+    }
+  }
+}
