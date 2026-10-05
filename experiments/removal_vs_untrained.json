@@ -1,0 +1,1156 @@
+{
+  "untrained": {
+    "Qwen": {
+      "accuracy": 0.35083333333333333,
+      "tokens": 939.7541666666667,
+      "completed": 0.9483333333333334,
+      "markers_per_1k": 0.15074353228763496,
+      "opens_okay": 0.0,
+      "accuracy_per_seed": [
+        0.36,
+        0.35,
+        0.3425
+      ],
+      "self_ceiling": {
+        "pairs": 1200,
+        "agreement": 0.8033333333333333,
+        "cohen_kappa": 0.5682387127659251,
+        "exactly_one": 0.19666666666666666,
+        "only_model": 0.09833333333333333,
+        "only_untrained": 0.09833333333333333
+      }
+    },
+    "Llama": {
+      "accuracy": 0.23333333333333334,
+      "tokens": 862.7041666666667,
+      "completed": 0.9466666666666667,
+      "markers_per_1k": 0.035484481453444364,
+      "opens_okay": 0.0,
+      "accuracy_per_seed": [
+        0.2375,
+        0.2325,
+        0.23
+      ],
+      "self_ceiling": {
+        "pairs": 1200,
+        "agreement": 0.8066666666666666,
+        "cohen_kappa": 0.4596273291925466,
+        "exactly_one": 0.19333333333333333,
+        "only_model": 0.09666666666666666,
+        "only_untrained": 0.09666666666666666
+      }
+    },
+    "OLMo": {
+      "accuracy": 0.2225,
+      "tokens": 637.0141666666667,
+      "completed": 0.9866666666666667,
+      "markers_per_1k": 0.9806580841696747,
+      "opens_okay": 0.0,
+      "accuracy_per_seed": [
+        0.2275,
+        0.22,
+        0.22
+      ],
+      "self_ceiling": {
+        "pairs": 1200,
+        "agreement": 0.8516666666666667,
+        "cohen_kappa": 0.5712754555198287,
+        "exactly_one": 0.14833333333333334,
+        "only_model": 0.07416666666666667,
+        "only_untrained": 0.07416666666666667
+      }
+    }
+  },
+  "cells": {
+    "A/Qwen": {
+      "rm_pre": {
+        "accuracy": 0.2025,
+        "tokens": 1438.5708333333334,
+        "completed": 0.885,
+        "markers_per_1k": 0.36828757305105303,
+        "opens_okay": 0.8666666666666667,
+        "accuracy_per_seed": [
+          0.2275,
+          0.1975,
+          0.1825
+        ],
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.715,
+            "cohen_kappa": 0.30698386001884526,
+            "exactly_one": 0.285,
+            "only_model": 0.06833333333333333,
+            "only_untrained": 0.21666666666666667
+          },
+          "problem_level": {
+            "agreement": 0.785,
+            "cohen_kappa": 0.4813027744270204,
+            "exactly_one": 0.215,
+            "solved_model": 0.215,
+            "solved_untrained": 0.35,
+            "pearson_r_accuracy": 0.6586881013992054
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 14.833333333333332,
+          "abs_log2_token_ratio": 0.6142809472372031,
+          "abs_markers_per_1k": 0.21754404076341807,
+          "accuracy_minus_untrained_pp": -14.833333333333332
+        }
+      },
+      "lambda0": {
+        "accuracy": 0.15166666666666667,
+        "tokens": 5916.320833333333,
+        "completed": 0.3025,
+        "markers_per_1k": 21.87174451018904,
+        "opens_okay": 0.8616666666666667,
+        "accuracy_per_seed": [
+          0.1675,
+          0.1475,
+          0.14
+        ],
+        "stored_vs_regraded": 1.0,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7125,
+            "cohen_kappa": 0.27413755619297425,
+            "exactly_one": 0.2875,
+            "only_model": 0.04416666666666667,
+            "only_untrained": 0.24333333333333335
+          },
+          "problem_level": {
+            "agreement": 0.755,
+            "cohen_kappa": 0.37738246505717926,
+            "exactly_one": 0.245,
+            "solved_model": 0.145,
+            "solved_untrained": 0.35,
+            "pearson_r_accuracy": 0.606659713825289
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 19.916666666666664,
+          "abs_log2_token_ratio": 2.6543449777850285,
+          "abs_markers_per_1k": 21.721000977901404,
+          "accuracy_minus_untrained_pp": -19.916666666666664
+        }
+      },
+      "lambda1": {
+        "accuracy": 0.3441666666666667,
+        "tokens": 811.4833333333333,
+        "completed": 0.965,
+        "markers_per_1k": 0.496578400581955,
+        "opens_okay": 0.0,
+        "accuracy_per_seed": [
+          0.355,
+          0.335,
+          0.3425
+        ],
+        "stored_vs_regraded": 1.0,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7683333333333333,
+            "cohen_kappa": 0.4891693489359225,
+            "exactly_one": 0.23166666666666666,
+            "only_model": 0.1125,
+            "only_untrained": 0.11916666666666667
+          },
+          "problem_level": {
+            "agreement": 0.84,
+            "cohen_kappa": 0.650655021834061,
+            "exactly_one": 0.16,
+            "solved_model": 0.36,
+            "solved_untrained": 0.35,
+            "pearson_r_accuracy": 0.7822177900745093
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 0.6666666666666654,
+          "abs_log2_token_ratio": 0.21172194262358207,
+          "abs_markers_per_1k": 0.3458348682943201,
+          "accuracy_minus_untrained_pp": -0.6666666666666654
+        }
+      },
+      "rm_pre_closer_than_lambda1": {
+        "accuracy": false,
+        "tokens": false,
+        "markers": true,
+        "response_kappa": false
+      }
+    },
+    "A/Llama": {
+      "rm_pre": {
+        "accuracy": 0.22083333333333333,
+        "tokens": 1658.7916666666667,
+        "completed": 0.8533333333333334,
+        "markers_per_1k": 0.16996995174067442,
+        "opens_okay": 0.24833333333333332,
+        "accuracy_per_seed": [
+          0.21,
+          0.215,
+          0.2375
+        ],
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7691666666666667,
+            "cohen_kappa": 0.34256329113924056,
+            "exactly_one": 0.23083333333333333,
+            "only_model": 0.10916666666666666,
+            "only_untrained": 0.12166666666666667
+          },
+          "problem_level": {
+            "agreement": 0.835,
+            "cohen_kappa": 0.5508982035928144,
+            "exactly_one": 0.165,
+            "solved_model": 0.245,
+            "solved_untrained": 0.24,
+            "pearson_r_accuracy": 0.6678121516615109
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 1.250000000000001,
+          "abs_log2_token_ratio": 0.9431948756550647,
+          "abs_markers_per_1k": 0.13448547028723007,
+          "accuracy_minus_untrained_pp": -1.250000000000001
+        }
+      },
+      "lambda0": {
+        "accuracy": 0.1175,
+        "tokens": 6968.630833333334,
+        "completed": 0.13333333333333333,
+        "markers_per_1k": 30.728851815381027,
+        "opens_okay": 0.81,
+        "accuracy_per_seed": [
+          0.1175,
+          0.105,
+          0.13
+        ],
+        "stored_vs_regraded": 1.0,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7641666666666667,
+            "cohen_kappa": 0.20326576576576585,
+            "exactly_one": 0.23583333333333334,
+            "only_model": 0.06,
+            "only_untrained": 0.17583333333333334
+          },
+          "problem_level": {
+            "agreement": 0.795,
+            "cohen_kappa": 0.27867698803659413,
+            "exactly_one": 0.205,
+            "solved_model": 0.085,
+            "solved_untrained": 0.24,
+            "pearson_r_accuracy": 0.47406504041729264
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 11.583333333333334,
+          "abs_log2_token_ratio": 3.013937400409553,
+          "abs_markers_per_1k": 30.693367333927583,
+          "accuracy_minus_untrained_pp": -11.583333333333334
+        }
+      },
+      "lambda1": {
+        "accuracy": 0.29833333333333334,
+        "tokens": 943.575,
+        "completed": 0.9475,
+        "markers_per_1k": 0.1203432792039292,
+        "opens_okay": 0.0,
+        "accuracy_per_seed": [
+          0.335,
+          0.265,
+          0.295
+        ],
+        "stored_vs_regraded": 1.0,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7383333333333333,
+            "cohen_kappa": 0.3332389580973952,
+            "exactly_one": 0.26166666666666666,
+            "only_model": 0.16333333333333333,
+            "only_untrained": 0.09833333333333333
+          },
+          "problem_level": {
+            "agreement": 0.795,
+            "cohen_kappa": 0.4789018810371124,
+            "exactly_one": 0.205,
+            "solved_model": 0.295,
+            "solved_untrained": 0.24,
+            "pearson_r_accuracy": 0.6298835472360859
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 6.5,
+          "abs_log2_token_ratio": 0.12927127102230823,
+          "abs_markers_per_1k": 0.08485879775048484,
+          "accuracy_minus_untrained_pp": 6.5
+        }
+      },
+      "rm_pre_closer_than_lambda1": {
+        "accuracy": true,
+        "tokens": false,
+        "markers": false,
+        "response_kappa": true
+      }
+    },
+    "A/OLMo": {
+      "rm_pre": {
+        "accuracy": 0.19833333333333333,
+        "tokens": 732.02,
+        "completed": 0.985,
+        "markers_per_1k": 1.1597098553620293,
+        "opens_okay": 0.0016666666666666668,
+        "accuracy_per_seed": [
+          0.2,
+          0.205,
+          0.19
+        ],
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.8408333333333333,
+            "cohen_kappa": 0.5214112105038964,
+            "exactly_one": 0.15916666666666668,
+            "only_model": 0.0675,
+            "only_untrained": 0.09166666666666666
+          },
+          "problem_level": {
+            "agreement": 0.88,
+            "cohen_kappa": 0.6385542168674697,
+            "exactly_one": 0.12,
+            "solved_model": 0.2,
+            "solved_untrained": 0.22,
+            "pearson_r_accuracy": 0.7947384319783465
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 2.416666666666667,
+          "abs_log2_token_ratio": 0.2005576086887769,
+          "abs_markers_per_1k": 0.1790517711923546,
+          "accuracy_minus_untrained_pp": -2.416666666666667
+        }
+      },
+      "lambda0": {
+        "accuracy": 0.10166666666666667,
+        "tokens": 3015.1675,
+        "completed": 0.3875,
+        "markers_per_1k": 14.989671126387853,
+        "opens_okay": 0.78,
+        "accuracy_per_seed": [
+          0.125,
+          0.08,
+          0.1
+        ],
+        "stored_vs_regraded": 1.0,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7958333333333333,
+            "cohen_kappa": 0.26802306474261306,
+            "exactly_one": 0.20416666666666666,
+            "only_model": 0.041666666666666664,
+            "only_untrained": 0.1625
+          },
+          "problem_level": {
+            "agreement": 0.805,
+            "cohen_kappa": 0.27130044843049334,
+            "exactly_one": 0.195,
+            "solved_model": 0.085,
+            "solved_untrained": 0.22,
+            "pearson_r_accuracy": 0.5456656441936634
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 12.083333333333334,
+          "abs_log2_token_ratio": 2.2428407873315703,
+          "abs_markers_per_1k": 14.009013042218179,
+          "accuracy_minus_untrained_pp": -12.083333333333334
+        }
+      },
+      "lambda1": {
+        "accuracy": 0.1975,
+        "tokens": 683.4816666666667,
+        "completed": 0.9516666666666667,
+        "markers_per_1k": 0.41191747585008215,
+        "opens_okay": 0.0,
+        "accuracy_per_seed": [
+          0.2225,
+          0.19,
+          0.18
+        ],
+        "stored_vs_regraded": 1.0,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.8316666666666667,
+            "cohen_kappa": 0.4931436385762857,
+            "exactly_one": 0.16833333333333333,
+            "only_model": 0.07166666666666667,
+            "only_untrained": 0.09666666666666666
+          },
+          "problem_level": {
+            "agreement": 0.88,
+            "cohen_kappa": 0.6445497630331752,
+            "exactly_one": 0.12,
+            "solved_model": 0.21,
+            "solved_untrained": 0.22,
+            "pearson_r_accuracy": 0.7783662063314015
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 2.4999999999999996,
+          "abs_log2_token_ratio": 0.10157718311897922,
+          "abs_markers_per_1k": 0.5687406083195925,
+          "accuracy_minus_untrained_pp": -2.4999999999999996
+        }
+      },
+      "rm_pre_closer_than_lambda1": {
+        "accuracy": true,
+        "tokens": false,
+        "markers": true,
+        "response_kappa": true
+      }
+    },
+    "B/Qwen": {
+      "rm_pre": {
+        "accuracy": 0.35833333333333334,
+        "tokens": 965.585,
+        "completed": 0.9525,
+        "markers_per_1k": 0.14850391362143092,
+        "opens_okay": 0.006666666666666667,
+        "accuracy_per_seed": [
+          0.355,
+          0.3625,
+          0.3575
+        ],
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7708333333333334,
+            "cohen_kappa": 0.4993476347968566,
+            "exactly_one": 0.22916666666666666,
+            "only_model": 0.11833333333333333,
+            "only_untrained": 0.11083333333333334
+          },
+          "problem_level": {
+            "agreement": 0.83,
+            "cohen_kappa": 0.6336206896551723,
+            "exactly_one": 0.17,
+            "solved_model": 0.38,
+            "solved_untrained": 0.35,
+            "pearson_r_accuracy": 0.8157157219256191
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 0.7500000000000007,
+          "abs_log2_token_ratio": 0.03911985766170939,
+          "abs_markers_per_1k": 0.002239618666204035,
+          "accuracy_minus_untrained_pp": 0.7500000000000007
+        }
+      },
+      "lambda0": {
+        "accuracy": 0.175,
+        "tokens": 5226.454166666666,
+        "completed": 0.44916666666666666,
+        "markers_per_1k": 19.154022417388408,
+        "opens_okay": 0.55,
+        "accuracy_per_seed": [
+          0.1775,
+          0.18,
+          0.1675
+        ],
+        "stored_vs_regraded": 1.0,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7458333333333333,
+            "cohen_kappa": 0.36937868293187237,
+            "exactly_one": 0.25416666666666665,
+            "only_model": 0.03916666666666667,
+            "only_untrained": 0.215
+          },
+          "problem_level": {
+            "agreement": 0.8,
+            "cohen_kappa": 0.504950495049505,
+            "exactly_one": 0.2,
+            "solved_model": 0.18,
+            "solved_untrained": 0.35,
+            "pearson_r_accuracy": 0.689391826534228
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 17.583333333333336,
+          "abs_log2_token_ratio": 2.4754771849437716,
+          "abs_markers_per_1k": 19.003278885100773,
+          "accuracy_minus_untrained_pp": -17.583333333333336
+        }
+      },
+      "lambda1": {
+        "accuracy": 0.2625,
+        "tokens": 2301.911666666667,
+        "completed": 0.7766666666666666,
+        "markers_per_1k": 4.802173104596828,
+        "opens_okay": 0.0,
+        "accuracy_per_seed": [
+          0.2575,
+          0.28,
+          0.25
+        ],
+        "stored_vs_regraded": 1.0,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7583333333333333,
+            "cohen_kappa": 0.4368658672751104,
+            "exactly_one": 0.24166666666666667,
+            "only_model": 0.07666666666666666,
+            "only_untrained": 0.165
+          },
+          "problem_level": {
+            "agreement": 0.83,
+            "cohen_kappa": 0.6028037383177569,
+            "exactly_one": 0.17,
+            "solved_model": 0.26,
+            "solved_untrained": 0.35,
+            "pearson_r_accuracy": 0.7313542071152226
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 8.833333333333332,
+          "abs_log2_token_ratio": 1.292477160701029,
+          "abs_markers_per_1k": 4.651429572309193,
+          "accuracy_minus_untrained_pp": -8.833333333333332
+        }
+      },
+      "rm_pre_closer_than_lambda1": {
+        "accuracy": true,
+        "tokens": true,
+        "markers": true,
+        "response_kappa": true
+      }
+    },
+    "B/Llama": {
+      "rm_pre": {
+        "accuracy": 0.23666666666666666,
+        "tokens": 1141.1408333333334,
+        "completed": 0.9183333333333333,
+        "markers_per_1k": 0.07006790493917801,
+        "opens_okay": 0.05333333333333334,
+        "accuracy_per_seed": [
+          0.23,
+          0.2125,
+          0.2675
+        ],
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7733333333333333,
+            "cohen_kappa": 0.369592088998764,
+            "exactly_one": 0.22666666666666666,
+            "only_model": 0.115,
+            "only_untrained": 0.11166666666666666
+          },
+          "problem_level": {
+            "agreement": 0.855,
+            "cohen_kappa": 0.5996686913307564,
+            "exactly_one": 0.145,
+            "solved_model": 0.235,
+            "solved_untrained": 0.24,
+            "pearson_r_accuracy": 0.732871528300704
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 0.3333333333333327,
+          "abs_log2_token_ratio": 0.4035390231126607,
+          "abs_markers_per_1k": 0.03458342348573365,
+          "accuracy_minus_untrained_pp": 0.3333333333333327
+        }
+      },
+      "lambda0": {
+        "accuracy": 0.17083333333333334,
+        "tokens": 5095.480833333333,
+        "completed": 0.47583333333333333,
+        "markers_per_1k": 44.64799907663171,
+        "opens_okay": 0.5716666666666667,
+        "accuracy_per_seed": [
+          0.175,
+          0.1775,
+          0.16
+        ],
+        "stored_vs_regraded": 0.9983333333333333,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7808333333333334,
+            "cohen_kappa": 0.32448630136986334,
+            "exactly_one": 0.21916666666666668,
+            "only_model": 0.07833333333333334,
+            "only_untrained": 0.14083333333333334
+          },
+          "problem_level": {
+            "agreement": 0.82,
+            "cohen_kappa": 0.43396226415094313,
+            "exactly_one": 0.18,
+            "solved_model": 0.15,
+            "solved_untrained": 0.24,
+            "pearson_r_accuracy": 0.5831513294280676
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 6.25,
+          "abs_log2_token_ratio": 2.5622804632477196,
+          "abs_markers_per_1k": 44.61251459517827,
+          "accuracy_minus_untrained_pp": -6.25
+        }
+      },
+      "lambda1": {
+        "accuracy": 0.23583333333333334,
+        "tokens": 1764.5725,
+        "completed": 0.8641666666666666,
+        "markers_per_1k": 2.8095063446409676,
+        "opens_okay": 0.0,
+        "accuracy_per_seed": [
+          0.2475,
+          0.2225,
+          0.2375
+        ],
+        "stored_vs_regraded": 0.9933333333333333,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7675,
+            "cohen_kappa": 0.3525680693069307,
+            "exactly_one": 0.2325,
+            "only_model": 0.1175,
+            "only_untrained": 0.115
+          },
+          "problem_level": {
+            "agreement": 0.855,
+            "cohen_kappa": 0.6053347849755035,
+            "exactly_one": 0.145,
+            "solved_model": 0.245,
+            "solved_untrained": 0.24,
+            "pearson_r_accuracy": 0.6356602972293776
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 0.2500000000000002,
+          "abs_log2_token_ratio": 1.0323808775378862,
+          "abs_markers_per_1k": 2.774021863187523,
+          "accuracy_minus_untrained_pp": 0.2500000000000002
+        }
+      },
+      "rm_pre_closer_than_lambda1": {
+        "accuracy": false,
+        "tokens": true,
+        "markers": true,
+        "response_kappa": true
+      }
+    },
+    "B/OLMo": {
+      "rm_pre": {
+        "accuracy": 0.21416666666666667,
+        "tokens": 759.8966666666666,
+        "completed": 0.9783333333333334,
+        "markers_per_1k": 1.445502072441732,
+        "opens_okay": 0.0,
+        "accuracy_per_seed": [
+          0.2175,
+          0.2,
+          0.225
+        ],
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.8366666666666667,
+            "cohen_kappa": 0.5215252602926995,
+            "exactly_one": 0.16333333333333333,
+            "only_model": 0.0775,
+            "only_untrained": 0.08583333333333333
+          },
+          "problem_level": {
+            "agreement": 0.92,
+            "cohen_kappa": 0.7630331753554502,
+            "exactly_one": 0.08,
+            "solved_model": 0.21,
+            "solved_untrained": 0.22,
+            "pearson_r_accuracy": 0.8459827076746655
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 0.8333333333333331,
+          "abs_log2_token_ratio": 0.25447779213582483,
+          "abs_markers_per_1k": 0.4648439882720573,
+          "accuracy_minus_untrained_pp": -0.8333333333333331
+        }
+      },
+      "lambda0": {
+        "accuracy": 0.105,
+        "tokens": 2827.0241666666666,
+        "completed": 0.48833333333333334,
+        "markers_per_1k": 16.79791758624815,
+        "opens_okay": 0.5516666666666666,
+        "accuracy_per_seed": [
+          0.0925,
+          0.095,
+          0.1275
+        ],
+        "stored_vs_regraded": 0.9983333333333333,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.8008333333333333,
+            "cohen_kappa": 0.2906538450123172,
+            "exactly_one": 0.19916666666666666,
+            "only_model": 0.04083333333333333,
+            "only_untrained": 0.15833333333333333
+          },
+          "problem_level": {
+            "agreement": 0.825,
+            "cohen_kappa": 0.3320610687022899,
+            "exactly_one": 0.175,
+            "solved_model": 0.075,
+            "solved_untrained": 0.22,
+            "pearson_r_accuracy": 0.6420458191001271
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 11.75,
+          "abs_log2_token_ratio": 2.1498868537321205,
+          "abs_markers_per_1k": 15.817259502078477,
+          "accuracy_minus_untrained_pp": -11.75
+        }
+      },
+      "lambda1": {
+        "accuracy": 0.16166666666666665,
+        "tokens": 1206.9316666666666,
+        "completed": 0.8441666666666666,
+        "markers_per_1k": 5.215049919000289,
+        "opens_okay": 0.0,
+        "accuracy_per_seed": [
+          0.15,
+          0.1725,
+          0.1625
+        ],
+        "stored_vs_regraded": 0.9966666666666667,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.8058333333333333,
+            "cohen_kappa": 0.3781194117490058,
+            "exactly_one": 0.19416666666666665,
+            "only_model": 0.06666666666666667,
+            "only_untrained": 0.1275
+          },
+          "problem_level": {
+            "agreement": 0.845,
+            "cohen_kappa": 0.4756427604871449,
+            "exactly_one": 0.155,
+            "solved_model": 0.135,
+            "solved_untrained": 0.22,
+            "pearson_r_accuracy": 0.6369214696322647
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 6.083333333333335,
+          "abs_log2_token_ratio": 0.9219466344704907,
+          "abs_markers_per_1k": 4.234391834830614,
+          "accuracy_minus_untrained_pp": -6.083333333333335
+        }
+      },
+      "rm_pre_closer_than_lambda1": {
+        "accuracy": true,
+        "tokens": true,
+        "markers": true,
+        "response_kappa": true
+      }
+    },
+    "C/Qwen": {
+      "rm_pre": {
+        "accuracy": 0.345,
+        "tokens": 1024.88,
+        "completed": 0.945,
+        "markers_per_1k": 0.3779511139783265,
+        "opens_okay": 0.025,
+        "accuracy_per_seed": [
+          0.3475,
+          0.3025,
+          0.385
+        ],
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7658333333333334,
+            "cohen_kappa": 0.4839396888946026,
+            "exactly_one": 0.23416666666666666,
+            "only_model": 0.11416666666666667,
+            "only_untrained": 0.12
+          },
+          "problem_level": {
+            "agreement": 0.86,
+            "cohen_kappa": 0.6963123644251626,
+            "exactly_one": 0.14,
+            "solved_model": 0.37,
+            "solved_untrained": 0.35,
+            "pearson_r_accuracy": 0.8008016713986745
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 0.5833333333333357,
+          "abs_log2_token_ratio": 0.125099686967427,
+          "abs_markers_per_1k": 0.22720758169069152,
+          "accuracy_minus_untrained_pp": -0.5833333333333357
+        }
+      },
+      "lambda0": {
+        "accuracy": 0.1625,
+        "tokens": 5230.6625,
+        "completed": 0.4066666666666667,
+        "markers_per_1k": 16.60170941778246,
+        "opens_okay": 0.8983333333333333,
+        "accuracy_per_seed": [
+          0.15,
+          0.1725,
+          0.165
+        ],
+        "stored_vs_regraded": 1.0,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7183333333333334,
+            "cohen_kappa": 0.29462096311368524,
+            "exactly_one": 0.2816666666666667,
+            "only_model": 0.04666666666666667,
+            "only_untrained": 0.235
+          },
+          "problem_level": {
+            "agreement": 0.76,
+            "cohen_kappa": 0.3924050632911393,
+            "exactly_one": 0.24,
+            "solved_model": 0.15,
+            "solved_untrained": 0.35,
+            "pearson_r_accuracy": 0.5988146161746727
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 18.833333333333332,
+          "abs_log2_token_ratio": 2.476638373472446,
+          "abs_markers_per_1k": 16.450965885494824,
+          "accuracy_minus_untrained_pp": -18.833333333333332
+        }
+      },
+      "lambda1": {
+        "accuracy": 0.24916666666666668,
+        "tokens": 1399.4175,
+        "completed": 0.8716666666666667,
+        "markers_per_1k": 0.07557490063081425,
+        "opens_okay": 0.0,
+        "accuracy_per_seed": [
+          0.245,
+          0.2425,
+          0.26
+        ],
+        "stored_vs_regraded": 1.0,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7533333333333333,
+            "cohen_kappa": 0.4198372538963351,
+            "exactly_one": 0.24666666666666667,
+            "only_model": 0.0725,
+            "only_untrained": 0.17416666666666666
+          },
+          "problem_level": {
+            "agreement": 0.835,
+            "cohen_kappa": 0.6158323632130384,
+            "exactly_one": 0.165,
+            "solved_model": 0.265,
+            "solved_untrained": 0.35,
+            "pearson_r_accuracy": 0.7194979975949263
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 10.166666666666666,
+          "abs_log2_token_ratio": 0.5744711260797422,
+          "abs_markers_per_1k": 0.07516863165682071,
+          "accuracy_minus_untrained_pp": -10.166666666666666
+        }
+      },
+      "rm_pre_closer_than_lambda1": {
+        "accuracy": true,
+        "tokens": true,
+        "markers": false,
+        "response_kappa": true
+      }
+    },
+    "C/Llama": {
+      "rm_pre": {
+        "accuracy": 0.23583333333333334,
+        "tokens": 1213.5275,
+        "completed": 0.9116666666666666,
+        "markers_per_1k": 0.10564486194786284,
+        "opens_okay": 0.0,
+        "accuracy_per_seed": [
+          0.225,
+          0.23,
+          0.2525
+        ],
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7958333333333333,
+            "cohen_kappa": 0.43146658415841577,
+            "exactly_one": 0.20416666666666666,
+            "only_model": 0.10333333333333333,
+            "only_untrained": 0.10083333333333333
+          },
+          "problem_level": {
+            "agreement": 0.89,
+            "cohen_kappa": 0.6849942726231386,
+            "exactly_one": 0.11,
+            "solved_model": 0.21,
+            "solved_untrained": 0.24,
+            "pearson_r_accuracy": 0.7717755355424443
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 0.2500000000000002,
+          "abs_log2_token_ratio": 0.4922689730740004,
+          "abs_markers_per_1k": 0.07016038049441847,
+          "accuracy_minus_untrained_pp": 0.2500000000000002
+        }
+      },
+      "lambda0": {
+        "accuracy": 0.15,
+        "tokens": 6149.090833333334,
+        "completed": 0.27166666666666667,
+        "markers_per_1k": 19.0829812524273,
+        "opens_okay": 0.8266666666666667,
+        "accuracy_per_seed": [
+          0.16,
+          0.1625,
+          0.1275
+        ],
+        "stored_vs_regraded": 1.0,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.7816666666666666,
+            "cohen_kappa": 0.30319148936170204,
+            "exactly_one": 0.21833333333333332,
+            "only_model": 0.0675,
+            "only_untrained": 0.15083333333333335
+          },
+          "problem_level": {
+            "agreement": 0.84,
+            "cohen_kappa": 0.4884910485933504,
+            "exactly_one": 0.16,
+            "solved_model": 0.14,
+            "solved_untrained": 0.24,
+            "pearson_r_accuracy": 0.6380058869683589
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 8.333333333333334,
+          "abs_log2_token_ratio": 2.8334352892248083,
+          "abs_markers_per_1k": 19.047496770973854,
+          "accuracy_minus_untrained_pp": -8.333333333333334
+        }
+      },
+      "lambda1": {
+        "accuracy": 0.30333333333333334,
+        "tokens": 938.625,
+        "completed": 0.9375,
+        "markers_per_1k": 0.1468711205916808,
+        "opens_okay": 0.0,
+        "accuracy_per_seed": [
+          0.295,
+          0.3225,
+          0.2925
+        ],
+        "stored_vs_regraded": 0.9983333333333333,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.76,
+            "cohen_kappa": 0.3925759280089989,
+            "exactly_one": 0.24,
+            "only_model": 0.155,
+            "only_untrained": 0.085
+          },
+          "problem_level": {
+            "agreement": 0.8,
+            "cohen_kappa": 0.5260663507109005,
+            "exactly_one": 0.2,
+            "solved_model": 0.35,
+            "solved_untrained": 0.24,
+            "pearson_r_accuracy": 0.6604025583314407
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 7.000000000000001,
+          "abs_log2_token_ratio": 0.12168296274843297,
+          "abs_markers_per_1k": 0.11138663913823645,
+          "accuracy_minus_untrained_pp": 7.000000000000001
+        }
+      },
+      "rm_pre_closer_than_lambda1": {
+        "accuracy": true,
+        "tokens": false,
+        "markers": true,
+        "response_kappa": true
+      }
+    },
+    "C/OLMo": {
+      "rm_pre": {
+        "accuracy": 0.20916666666666667,
+        "tokens": 744.1491666666667,
+        "completed": 0.9833333333333333,
+        "markers_per_1k": 1.4284672503506823,
+        "opens_okay": 0.0,
+        "accuracy_per_seed": [
+          0.215,
+          0.2125,
+          0.2
+        ],
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.8433333333333334,
+            "cohen_kappa": 0.5372934125841428,
+            "exactly_one": 0.15666666666666668,
+            "only_model": 0.07166666666666667,
+            "only_untrained": 0.085
+          },
+          "problem_level": {
+            "agreement": 0.915,
+            "cohen_kappa": 0.7502937720329025,
+            "exactly_one": 0.085,
+            "solved_model": 0.215,
+            "solved_untrained": 0.22,
+            "pearson_r_accuracy": 0.8649111930376528
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 1.3333333333333335,
+          "abs_log2_token_ratio": 0.2242663851753563,
+          "abs_markers_per_1k": 0.44780916618100763,
+          "accuracy_minus_untrained_pp": -1.3333333333333335
+        }
+      },
+      "lambda0": {
+        "accuracy": 0.11666666666666667,
+        "tokens": 2949.09,
+        "completed": 0.41833333333333333,
+        "markers_per_1k": 14.382426581993942,
+        "opens_okay": 0.87,
+        "accuracy_per_seed": [
+          0.135,
+          0.105,
+          0.11
+        ],
+        "stored_vs_regraded": 1.0,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.8008333333333333,
+            "cohen_kappa": 0.3066434580794895,
+            "exactly_one": 0.19916666666666666,
+            "only_model": 0.04666666666666667,
+            "only_untrained": 0.1525
+          },
+          "problem_level": {
+            "agreement": 0.845,
+            "cohen_kappa": 0.44404591104734553,
+            "exactly_one": 0.155,
+            "solved_model": 0.105,
+            "solved_untrained": 0.22,
+            "pearson_r_accuracy": 0.623380227256241
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 10.583333333333334,
+          "abs_log2_token_ratio": 2.210872488785997,
+          "abs_markers_per_1k": 13.401768497824268,
+          "accuracy_minus_untrained_pp": -10.583333333333334
+        }
+      },
+      "lambda1": {
+        "accuracy": 0.13333333333333333,
+        "tokens": 910.3725,
+        "completed": 0.865,
+        "markers_per_1k": 0.316605433088399,
+        "opens_okay": 0.0,
+        "accuracy_per_seed": [
+          0.1225,
+          0.12,
+          0.1575
+        ],
+        "stored_vs_regraded": 0.995,
+        "vs_untrained": {
+          "response_level": {
+            "pairs": 1200,
+            "agreement": 0.8075,
+            "cohen_kappa": 0.3507588532883644,
+            "exactly_one": 0.1925,
+            "only_model": 0.051666666666666666,
+            "only_untrained": 0.14083333333333334
+          },
+          "problem_level": {
+            "agreement": 0.845,
+            "cohen_kappa": 0.46551724137931033,
+            "exactly_one": 0.155,
+            "solved_model": 0.125,
+            "solved_untrained": 0.22,
+            "pearson_r_accuracy": 0.667633723911958
+          }
+        },
+        "distance": {
+          "abs_accuracy_pp": 8.916666666666668,
+          "abs_log2_token_ratio": 0.5151315210353977,
+          "abs_markers_per_1k": 0.6640526510812756,
+          "accuracy_minus_untrained_pp": -8.916666666666668
+        }
+      },
+      "rm_pre_closer_than_lambda1": {
+        "accuracy": true,
+        "tokens": true,
+        "markers": true,
+        "response_kappa": true
+      }
+    }
+  },
+  "summary": {
+    "rm_pre": {
+      "mean_abs_accuracy_pp": 2.5092592592592595,
+      "mean_response_kappa": 0.4460136701541626,
+      "mean_abs_log2_token_ratio": 0.3663116833008915
+    },
+    "lambda0": {
+      "mean_abs_accuracy_pp": 12.99074074074074,
+      "mean_response_kappa": 0.292711236285587,
+      "mean_abs_log2_token_ratio": 2.5133015354370016
+    },
+    "lambda1": {
+      "mean_abs_accuracy_pp": 5.657407407407407,
+      "mean_response_kappa": 0.40514192545937205,
+      "mean_abs_log2_token_ratio": 0.5445178532597609
+    },
+    "untrained_self_kappa": {
+      "Qwen": 0.5682387127659251,
+      "Llama": 0.4596273291925466,
+      "OLMo": 0.5712754555198287
+    },
+    "rm_pre_closer_than_lambda1_cells": {
+      "accuracy": 7,
+      "tokens": 5,
+      "markers": 7,
+      "response_kappa": 8
+    }
+  }
+}
