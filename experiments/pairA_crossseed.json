@@ -1,107 +1,180 @@
 {
+  "teacher_log_marker_drop": {
+    "0.0->0.2": 1.1355343155530113,
+    "0.2->0.4": 1.5861247719300269
+  },
   "A/Qwen": {
     "held": {
       "0": {
-        "kept": 0.5675735148680892,
-        "loss_per_log_len": 0.8476973828485225
+        "kept": 0.5675735148680889,
+        "loss_per_log_len": 0.8476973828485231,
+        "loss_per_log_marker": 0.4987828096791243,
+        "region_dims_mean": 6.25,
+        "region_dims_weighted": 5.089198496967254
       },
       "1": {
-        "kept": 0.5693125291070542,
-        "loss_per_log_len": 0.8431186464758048
+        "kept": 0.5693125291070543,
+        "loss_per_log_len": 0.8431186464758045,
+        "loss_per_log_marker": 0.49608869378473475,
+        "region_dims_mean": 6.279761904761905,
+        "region_dims_weighted": 5.162211534522294
       },
       "2": {
-        "kept": 0.5613950212137776,
-        "loss_per_log_len": 0.8640792801866637
+        "kept": 0.5613950212137774,
+        "loss_per_log_len": 0.8640792801866641,
+        "loss_per_log_marker": 0.5084218730377202,
+        "region_dims_mean": 6.321428571428571,
+        "region_dims_weighted": 5.176840891760167
       }
     },
     "switch": {
       "0": {
-        "kept": 0.15211499680992413,
-        "loss_per_log_len": 2.3451200637843423
+        "kept": 0.1521149968099242,
+        "loss_per_log_len": 2.3451200637843415,
+        "loss_per_log_marker": 1.1872448621618383,
+        "region_dims_mean": 5.791666666666667,
+        "region_dims_weighted": 4.6149419566091305
       },
       "1": {
-        "kept": 0.15422269554125273,
-        "loss_per_log_len": 2.327983159069727
+        "kept": 0.1542226955412526,
+        "loss_per_log_len": 2.327983159069728,
+        "loss_per_log_marker": 1.1785691007839967,
+        "region_dims_mean": 5.7023809523809526,
+        "region_dims_weighted": 4.584607044768249
       },
       "2": {
         "kept": 0.15342931914034652,
-        "loss_per_log_len": 2.3344061588723557
+        "loss_per_log_len": 2.3344061588723557,
+        "loss_per_log_marker": 1.1818208206567227,
+        "region_dims_mean": 5.761904761904762,
+        "region_dims_weighted": 4.577723247575226
       }
     },
     "switch_over_held_by_seed": [
-      2.7664590114741436,
-      2.761157244950736,
-      2.7016110817609964
+      2.7664590114741405,
+      2.7611572449507387,
+      2.701611081760995
+    ],
+    "switch_over_held_per_marker_by_seed": [
+      2.3802842422047656,
+      2.3757225583847053,
+      2.3244885464812457
     ]
   },
   "A/Llama": {
     "held": {
       "0": {
-        "kept": 0.6077834445995797,
-        "loss_per_log_len": 0.7452520578480449
+        "kept": 0.6077834445995798,
+        "loss_per_log_len": 0.7452520578480447,
+        "loss_per_log_marker": 0.4385042620793607,
+        "region_dims_mean": 5.883928571428571,
+        "region_dims_weighted": 5.367310888538849
       },
       "1": {
-        "kept": 0.6267060839516456,
-        "loss_per_log_len": 0.6993652954611713
+        "kept": 0.6267060839516454,
+        "loss_per_log_len": 0.6993652954611719,
+        "loss_per_log_marker": 0.41150461723736104,
+        "region_dims_mean": 5.705357142857143,
+        "region_dims_weighted": 5.243913824341262
       },
       "2": {
-        "kept": 0.6262528359839968,
-        "loss_per_log_len": 0.7004481201511731
+        "kept": 0.6262528359839971,
+        "loss_per_log_len": 0.7004481201511725,
+        "loss_per_log_marker": 0.4121417483081844,
+        "region_dims_mean": 5.919642857142857,
+        "region_dims_weighted": 5.408133538538402
       }
     },
     "switch": {
       "0": {
-        "kept": 0.22015882123371677,
-        "loss_per_log_len": 1.8847029462271252
+        "kept": 0.22015882123371674,
+        "loss_per_log_len": 1.8847029462271256,
+        "loss_per_log_marker": 0.9541532325635356,
+        "region_dims_mean": 5.598214285714286,
+        "region_dims_weighted": 5.101854580642338
       },
       "1": {
-        "kept": 0.2292534789865061,
-        "loss_per_log_len": 1.8342927796369872
+        "kept": 0.22925347898650605,
+        "loss_per_log_len": 1.8342927796369877,
+        "loss_per_log_marker": 0.9286324875027117,
+        "region_dims_mean": 5.464285714285714,
+        "region_dims_weighted": 4.959564962113516
       },
       "2": {
-        "kept": 0.22928544511502194,
-        "loss_per_log_len": 1.8341191470382083
+        "kept": 0.22928544511502183,
+        "loss_per_log_len": 1.834119147038209,
+        "loss_per_log_marker": 0.9285445839390574,
+        "region_dims_mean": 5.473214285714286,
+        "region_dims_weighted": 5.0450250056661945
       }
     },
     "switch_over_held_by_seed": [
-      2.528946986968819,
-      2.6227964005955267,
-      2.6184939244927414
+      2.5289469869688204,
+      2.6227964005955253,
+      2.618493924492744
+    ],
+    "switch_over_held_per_marker_by_seed": [
+      2.1759269295103283,
+      2.256675742151065,
+      2.252973856083917
     ]
   },
   "A/OLMo": {
     "held": {
       "0": {
-        "kept": 0.6488486492705496,
-        "loss_per_log_len": 0.6473978268100368
+        "kept": 0.6488486492705501,
+        "loss_per_log_len": 0.6473978268100357,
+        "loss_per_log_marker": 0.38092710154582404,
+        "region_dims_mean": 5.723214285714286,
+        "region_dims_weighted": 5.53256130908845
       },
       "1": {
-        "kept": 0.656076998406831,
-        "loss_per_log_len": 0.6308165910702668
+        "kept": 0.6560769984068313,
+        "loss_per_log_len": 0.630816591070266,
+        "loss_per_log_marker": 0.37117074801970723,
+        "region_dims_mean": 5.589285714285714,
+        "region_dims_weighted": 5.362839020837486
       },
       "2": {
-        "kept": 0.6531030273635338,
-        "loss_per_log_len": 0.637616407831638
+        "kept": 0.6531030273635332,
+        "loss_per_log_len": 0.6376164078316393,
+        "loss_per_log_marker": 0.37517174150885074,
+        "region_dims_mean": 5.669642857142857,
+        "region_dims_weighted": 5.392093417437101
       }
     },
     "switch": {
       "0": {
-        "kept": 0.23046729094836346,
-        "loss_per_log_len": 1.8277165688060237
+        "kept": 0.2304672909483634,
+        "loss_per_log_len": 1.827716568806024,
+        "loss_per_log_marker": 0.9253032027287135,
+        "region_dims_mean": 5.285714285714286,
+        "region_dims_weighted": 5.066460570760943
       },
       "1": {
-        "kept": 0.22909617336519486,
-        "loss_per_log_len": 1.8351475801701476
+        "kept": 0.229096173365195,
+        "loss_per_log_len": 1.8351475801701467,
+        "loss_per_log_marker": 0.9290652404166619,
+        "region_dims_mean": 5.223214285714286,
+        "region_dims_weighted": 5.049972464101504
       },
       "2": {
-        "kept": 0.23271310662576022,
-        "loss_per_log_len": 1.815639966282074
+        "kept": 0.23271310662576047,
+        "loss_per_log_len": 1.8156399662820726,
+        "loss_per_log_marker": 0.9191892793862153,
+        "region_dims_mean": 5.401785714285714,
+        "region_dims_weighted": 5.161118067524634
       }
     },
     "switch_over_held_by_seed": [
-      2.8231737783425137,
-      2.9091618802488504,
-      2.8475427294234437
+      2.8231737783425186,
+      2.9091618802488526,
+      2.8475427294234357
+    ],
+    "switch_over_held_per_marker_by_seed": [
+      2.429082097266852,
+      2.503066972204753,
+      2.4500493445733853
     ]
   }
 }

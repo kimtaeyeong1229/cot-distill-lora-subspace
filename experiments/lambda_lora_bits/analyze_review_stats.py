@@ -9,6 +9,8 @@
                          share of the lambda0 level, and the share of the lambda1 -> lambda0 gap recovered
   cell_interval          the removal accuracy differences (paired_bootstrap.json cells.*.diff_pp) with the nine
                          cells as the unit: the t interval of the nine-cell mean, mean +- t(0.975, 8) * sd / 3
+  pair_interval          the same differences with the three teacher pairs as the unit: each pair's mean over its
+                         three cells, and the t interval of the mean of the three pair means, t(0.975, 2) * sd / sqrt(3)
   thresholds             the interval classification's slack (length_confound.json): the largest think-rate
                          change in held intervals and the range of first-step switch drops
   amplification          accuracy and completion of the lambda0 adapter and its fixed-norm amplifications
@@ -70,6 +72,14 @@ def main():
         cb[comp] = {"mean": st.mean(d), "ci95": [st.mean(d) - half, st.mean(d) + half],
                     "cells_positive": sum(x > 0 for x in d)}
     out["cell_interval"] = cb
+
+    pb = {}
+    for comp in ("cut", "top", "other"):
+        pm = [st.mean(boot["cells"][c][comp]["diff_pp"] for c in CELLS if c.startswith(p)) for p in "ABC"]
+        half = 4.302653 * st.stdev(pm) / len(pm) ** 0.5        # t(0.975, df = 2)
+        pb[comp] = {"pair_means": dict(zip("ABC", pm)), "mean": st.mean(pm),
+                    "ci95": [st.mean(pm) - half, st.mean(pm) + half]}
+    out["pair_interval"] = pb
 
     held = [abs(r["think_change"]) for p in lc["pairs"].values() for r in p["intervals"] if r["class"] == "held"]
     first = [-r["think_change"] for p in lc["pairs"].values() for r in p["intervals"]
