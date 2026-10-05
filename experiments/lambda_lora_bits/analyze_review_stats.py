@@ -11,6 +11,10 @@
                          cells as the unit: the t interval of the nine-cell mean, mean +- t(0.975, 8) * sd / 3
   pair_interval          the same differences with the three teacher pairs as the unit: each pair's mean over its
                          three cells, and the t interval of the mean of the three pair means, t(0.975, 2) * sd / sqrt(3)
+  amplification_ratios   fixed-norm amplification (ampn1, ampn4, ampV) against the unedited lambda0 adapter
+                         (main_edits.json): early (first-300-word) and whole-response marker ratios and the token
+                         ratio, the region's own amplitude gain (energy_match.json <cell>.mean.gain_*), and the
+                         elasticity ln(early ratio) / ln(gain), with 1 = early markers rise in proportion to the gain
   thresholds             the interval classification's slack (length_confound.json): the largest think-rate
                          change in held intervals and the range of first-step switch drops
   amplification          accuracy and completion of the lambda0 adapter and its fixed-norm amplifications
@@ -32,6 +36,7 @@ Run from the repo root; writes experiments/review_stats.json.
 """
 
 import json
+import math
 import statistics as st
 from pathlib import Path
 
@@ -98,6 +103,19 @@ def main():
     amp["nine_cell"] = {k: {q: st.mean(amp[c][k][q] for c in CELLS) for q in ("accuracy", "completed")}
                         for k in ("base0", "ampn1", "ampn4", "ampV")}
     out["amplification"] = amp
+
+    em = json.loads((X / "energy_match.json").read_text())
+    ar = {}
+    for c in CELLS:
+        b0 = m[c]["base0"]
+        ar[c] = {}
+        for k in ("ampn1", "ampn4", "ampV"):
+            early = m[c][k]["head_markers_per_1k"] / b0["head_markers_per_1k"]
+            gain = em[c]["mean"]["gain_" + k]
+            ar[c][k] = {"early": early, "whole": m[c][k]["markers_per_1k"] / b0["markers_per_1k"],
+                        "tokens": m[c][k]["avg_tokens"] / b0["avg_tokens"], "gain": gain,
+                        "elasticity": math.log(early) / math.log(gain)}
+    out["amplification_ratios"] = ar
 
     out["correlation_points"] = {
         "student_vs_teacher_markers_per_cell": 6, "student_vs_teacher_markers_pooled": 54,
