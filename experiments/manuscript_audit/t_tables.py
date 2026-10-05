@@ -259,25 +259,25 @@ c = Checker('Table 17 (tab08, grafts and loops)')
 def rec1(x):
     g = E(x, 'graft1', 'markers_per_1k'); l1 = ss[x]['table1']['1.0']['mean']; l0 = ss[x]['table1']['0.0']['mean']; return 100 * (g - l1) / (l0 - l1)
 spec = {('Early', '$\\lambda=1$'): (lambda x: ss[x]['base']['base1_head_markers_per_1k']['mean'], 1),
-        ('Early', 'Region graft'): (lambda x: E(x, 'graft2', 'head_markers_per_1k'), 1), ('Early', 'Other graft'): (lambda x: E(x, 'graft_other2', 'head_markers_per_1k'), 1),
-        ('Early', 'Whole graft'): (lambda x: E(x, 'graft_whole2', 'head_markers_per_1k'), 1),
+        ('Early', 'Region'): (lambda x: E(x, 'graft2', 'head_markers_per_1k'), 1), ('Early', 'Other'): (lambda x: E(x, 'graft_other2', 'head_markers_per_1k'), 1),
+        ('Early', 'Whole'): (lambda x: E(x, 'graft_whole2', 'head_markers_per_1k'), 1),
         ('Whole-response', '$\\lambda=1$'): (lambda x: ss[x]['table1']['1.0']['mean'], 1),
-        ('Whole-response', 'Region graft $\\beta=1$'): (lambda x: E(x, 'graft1', 'markers_per_1k'), 1),
-        ('Whole-response', 'Other graft $\\beta=1$'): (lambda x: E(x, 'graft_other1', 'markers_per_1k'), 1),
-        ('Whole-response', 'Whole graft $\\beta=1$'): (lambda x: E(x, 'graft_whole1', 'markers_per_1k'), 1),
-        ('Whole-response', 'Region graft $\\beta=2$'): (lambda x: E(x, 'graft2', 'markers_per_1k'), 1),
-        ('Whole-response', 'Other graft $\\beta=2$'): (lambda x: E(x, 'graft_other2', 'markers_per_1k'), 1),
-        ('Whole-response', 'Whole graft $\\beta=2$'): (lambda x: E(x, 'graft_whole2', 'markers_per_1k'), 1),
-        ('Completed', 'Region graft $\\beta=1$'): (lambda x: E(x, 'graft1', 'completed'), 100),
-        ('Completed', 'Region graft $\\beta=2$'): (lambda x: E(x, 'graft2', 'completed'), 100),
-        ('Completed', 'Other graft $\\beta=2$'): (lambda x: E(x, 'graft_other2', 'completed'), 100),
-        ('Completed', 'Whole graft $\\beta=2$'): (lambda x: E(x, 'graft_whole2', 'completed'), 100),
-        ('MATH', 'Region graft'): (lambda x: E(x, 'graft2', 'accuracy'), 100), ('MATH', 'Other graft'): (lambda x: E(x, 'graft_other2', 'accuracy'), 100),
-        ('MATH', 'Whole graft'): (lambda x: E(x, 'graft_whole2', 'accuracy'), 100),
-        ('Tokens', 'Region graft $\\beta=1$'): (lambda x: E(x, 'graft1', 'avg_tokens') / 1000, 1),
-        ('Whole-response gap', 'Region graft $\\beta=1$'): (rec1, 1)}
-for lab, e in (('$\\lambda=0$', 'base0'), ('$\\lambda=1$', 'base1'), ('Region removed', 'rm_pre'), ('Region graft $\\beta=1$', 'graft1'),
-               ('Region graft $\\beta=2$', 'graft2'), ('Other graft $\\beta=2$', 'graft_other2'), ('Whole graft $\\beta=2$', 'graft_whole2')):
+        ('Whole-response', 'Region, $\\beta=1$'): (lambda x: E(x, 'graft1', 'markers_per_1k'), 1),
+        ('Whole-response', 'Other, $\\beta=1$'): (lambda x: E(x, 'graft_other1', 'markers_per_1k'), 1),
+        ('Whole-response', 'Whole, $\\beta=1$'): (lambda x: E(x, 'graft_whole1', 'markers_per_1k'), 1),
+        ('Whole-response', 'Region, $\\beta=2$'): (lambda x: E(x, 'graft2', 'markers_per_1k'), 1),
+        ('Whole-response', 'Other, $\\beta=2$'): (lambda x: E(x, 'graft_other2', 'markers_per_1k'), 1),
+        ('Whole-response', 'Whole, $\\beta=2$'): (lambda x: E(x, 'graft_whole2', 'markers_per_1k'), 1),
+        ('Completed', 'Region, $\\beta=1$'): (lambda x: E(x, 'graft1', 'completed'), 100),
+        ('Completed', 'Region, $\\beta=2$'): (lambda x: E(x, 'graft2', 'completed'), 100),
+        ('Completed', 'Other, $\\beta=2$'): (lambda x: E(x, 'graft_other2', 'completed'), 100),
+        ('Completed', 'Whole, $\\beta=2$'): (lambda x: E(x, 'graft_whole2', 'completed'), 100),
+        ('MATH', 'Region'): (lambda x: E(x, 'graft2', 'accuracy'), 100), ('MATH', 'Other'): (lambda x: E(x, 'graft_other2', 'accuracy'), 100),
+        ('MATH', 'Whole'): (lambda x: E(x, 'graft_whole2', 'accuracy'), 100),
+        ('Tokens', 'Region, $\\beta=1$'): (lambda x: E(x, 'graft1', 'avg_tokens') / 1000, 1),
+        ('Whole-response gap', 'Region, $\\beta=1$'): (rec1, 1)}
+for lab, e in (('$\\lambda=0$', 'base0'), ('$\\lambda=1$', 'base1'), ('Region removed', 'rm_pre'), ('Region, $\\beta=1$', 'graft1'),
+               ('Region, $\\beta=2$', 'graft2'), ('Other, $\\beta=2$', 'graft_other2'), ('Whole, $\\beta=2$', 'graft_whole2')):
     spec[('Responses', lab)] = ((lambda e: lambda x: dg[x][e]['mean'])(e), 100)
 grid(c, 'tab08.tex', spec)
 
