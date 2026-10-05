@@ -3,32 +3,32 @@
 # generation; CPU is enough, the adapter analyses run faster with a GPU-enabled torch).
 #
 # Paper artifacts (printed numbering of the current manuscript; README.md has the full map with JSON keys):
-#   think_rate.json                       Figure 2 (top); input of Tables 1, 7 and 9
-#   main_density.json, main_edits.json    Tables 2, 6, 12 and 14; per-seed inputs of seed_spread.json
-#   seed_spread.json                      Tables 2, 6, 11, 12 and 14; Figures 1 (caption) and 3
-#   teacher_density.json                  Table 6 (teacher-student r); input of Tables 7 and 10
-#   baselines.json                        Tables 2, 3 and 12; Figures 3 and 5
+#   think_rate.json                       Figure 2 (top); input of Tables 1, 7 and 13
+#   main_density.json, main_edits.json    Tables 2, 6, 8 and 9; per-seed inputs of seed_spread.json
+#   seed_spread.json                      Tables 2, 6, 8, 9 and 16; Figures 1 (caption) and 3
+#   teacher_density.json                  Table 6 (teacher-student r); input of Tables 7 and 11
+#   baselines.json                        Tables 2, 3 and 9; Figures 3 and 5
 #   base_students.json                    Table 3 (untrained students)
 #   graft_beta.json                       App. C (beta = 4, 8)
 #   ood.json                              Table 3; Figure 4
-#   sae_llama.json                        Table 17 (right)
-#   degeneration.json                     Table 14 (loops)
-#   edit_stats.json                       Tables 2 and 13
+#   sae_llama.json                        Table 17 (bottom)
+#   degeneration.json                     Table 8 (loops)
+#   edit_stats.json                       Tables 2 and 14
 #   phi_resample_s012.json                Figure 2 (middle); App. B
 #   alignment_s012.json                   Table 7 (think rate)
 #   alignment_markers_s012.json           Table 7 (teacher markers)
 #   alignment_length_s012.json            Table 7 (training length)
-#   consensus_pre.json, consensus_post.json   Table 8; Figure 1 caption
+#   consensus_pre.json, consensus_post.json   Table 10; Figure 1 caption
 #   coverage_by_lambda.json               input of length_confound.json
 #   phi_xseed.json                        Sec. 4.3, App. B
 #   seed_region_overlap.json              not printed (equals threshold_sensitivity two_seed_region 0.75)
 #   top_overlap.json                      App. A
-#   threshold_sensitivity.json            Table 8; App. A; Sec. 6.2
-#   length_confound.json                  Tables 1 and 9
+#   threshold_sensitivity.json            Table 10; App. A; Sec. 6.2
+#   length_confound.json                  Tables 1 and 13
 #   lambda0_retention.json                Figure 2 (bottom); App. B
 #   region_anatomy.json                   Table 4; App. A
-#   energy_match.json                     Tables 2, 5 and 11; Figure 1 caption
-#   paired_bootstrap.json                 Table 13; Sec. 5.1 and App. C (grades cached in
+#   energy_match.json                     Tables 2, 5 and 16; Figure 1 caption
+#   paired_bootstrap.json                 Table 14; Sec. 5.1 and App. C (grades cached in
 #                                         paired_bootstrap_grades.json, rebuilt when that file is absent)
 #   symmetric_R.json                      App. B
 #   switch_regression.json                App. B
@@ -37,11 +37,11 @@
 #   two_seed_floor.json                   Table 1 (caption); App. B
 #   supplementary_stats.json              App. A and E
 #   think_rate_completed.json             Table 7 (completed and training subsets)
-#   teacher_structure.json                Table 10
-#   student_structure.json                Table 17 (left)
-#   removal_vs_untrained.json             Table 16
+#   teacher_structure.json                Table 11
+#   student_structure.json                Table 17 (top)
+#   removal_vs_untrained.json             Table 12
 #   region_logit_lens.json                App. D
-#   review_stats.json                     Tables 2, 11, 13 and 14; Sec. 5 and Limitations
+#   review_stats.json                     Tables 2, 8, 14 and 16; Sec. 5 and Limitations
 #   c13_additions.json                    App. B and C
 #   agreement_normalised.json             Sec. 4.3
 #   examples.json (+ examples_table.tex)  Table 15
@@ -103,6 +103,6 @@ py analyze_region_logit_lens.py                      # reads the student checkpo
 py analyze_review_stats.py                           # needs main_edits, sae_llama, paired_bootstrap, length_confound, energy_match, seed_spread, degeneration
 py analyze_c13_additions.py                          # needs lambda0_retention, length_confound, main_edits
 py make_examples_table.py                            # Table 15: examples.json and examples_table.tex
-py paper_tables.py                                   # Tables 1, 2, 9 and 13 into $MANUSCRIPT_DIR/tables/
+py paper_tables.py                                   # Tables 1, 2, 13 and 14 into $MANUSCRIPT_DIR/tables/
 # environment record
 py make_lockfile.py

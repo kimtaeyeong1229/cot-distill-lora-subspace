@@ -2,7 +2,7 @@
 # Stage 1: interpolated teachers, their chain-of-thought pools and the shared training splits.
 #
 # Paper artifacts: the training data of every student; the teacher think rate and teacher markers
-# (Figure 2 top; Tables 1, 6, 7, 9 and 10) are counted from these generations in reproduce/06_analysis.sh.
+# (Figure 2 top; Tables 1, 6, 7, 11 and 13) are counted from these generations in reproduce/06_analysis.sh.
 # Outputs: experiments/lambda_lora_bits/{sweep,pairB,pairD}/{teachers,cot,splits}/
 #          (pair A = sweep/, pair B = pairB/, pair C = pairD/)
 #

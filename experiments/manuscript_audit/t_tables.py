@@ -144,8 +144,8 @@ for r in rows('tab04.tex'):
     c.chk(f'{sig} {pr} mean', v[3][0][0], 2, summ[P(pr)]['mean_r'], 'mean_r'); c.chk(f'{sig} {pr} p', v[4][0][0], v[4][0][1], summ[P(pr)]['p'], 'p')
 done(c)
 
-# ---------------- Table 8 (tab05) + caption cuts ----------------
-c = Checker('Table 8 (tab05)')
+# ---------------- Table 10 (tab05) + caption cuts ----------------
+c = Checker('Table 10 (tab05)')
 key = lambda cell: f"{P(cell[0])}/{FULL[cell.split('/')[1]]}"
 for r in rows('tab05.tex'):
     cell = r[0].strip(); e = cp[key(cell)]; q = cq[key(cell)]; v = [tok(x)[0] for x in r[1:]]
@@ -157,8 +157,8 @@ m = re.search(r'\((\d+)--(\d+)\\% at 0.65, (\d+)--(\d+)\\% at 0.85\)', caption('
 for i, cut in enumerate(('0.65', '0.85')): rng(c, f'caption two-seed {cut}', m.groups()[2 * i:2 * i + 2], 0, [100 * th[x]['two_seed_region'][cut]['overlap'] for x in CELLS], 'two_seed')
 done(c)
 
-# ---------------- Table 9 (tab22) ----------------
-c = Checker('Table 9 (tab22)')
+# ---------------- Table 13 (tab22) ----------------
+c = Checker('Table 13 (tab22)')
 cur = None
 for r in rows('tab22.tex'):
     if r[0].strip(): cur = r[0].strip()
@@ -173,8 +173,8 @@ m = re.search(r'\((\d+)\\%, (\d+)\\% and (\d+)\\% at \$\\lambda=0\$\)', caption(
 for x, p in zip(m.groups(), PAIRS): c.chk(f'caption think0 {p}', float(x), 0, lc['pairs'][p]['intervals'][0]['think'][0], 'think[0]')
 done(c)
 
-# ---------------- Table 16 (tab26) ----------------
-c = Checker('Table 16 (tab26)')
+# ---------------- Table 12 (tab26) ----------------
+c = Checker('Table 12 (tab26)')
 kap = lambda d: d['vs_untrained']['response_level']['cohen_kappa']; un = lambda x: ru['untrained'][x.split('/')[1]]
 for r in rows('tab26.tex'):
     x = r[0].strip(); v = [tok(t)[0] for t in r[1:]]; cc = ru['cells'][x]
@@ -184,8 +184,8 @@ for r in rows('tab26.tex'):
         c.chk(f'{x} {nm}', v[j][0], v[j][1], val, 'removal_vs_untrained')
 done(c)
 
-# ---------------- Table 10 (tab27) ----------------
-c = Checker('Table 10 (tab27)')
+# ---------------- Table 11 (tab27) ----------------
+c = Checker('Table 11 (tab27)')
 colmap = [('A', '0.0'), ('A', '0.2'), ('A', '0.4'), ('B', '0.0'), ('B', '0.4'), ('C', '0.0'), ('C', '0.4')]
 fld = {'Markers': (lambda d: d['a_markers_per_1k_all_generations'], 1), 'Words': (lambda d: d['a_mean_words'], 0), 'Tag (\\%)': (lambda d: 100 * d['b_think_tag'], 0),
        'Recap (\\%)': (lambda d: 100 * d['b_tagged_recap'], 0), 'Opener (\\%)': (lambda d: 100 * d['e_opens_monologue'], 0),
@@ -213,7 +213,7 @@ def grid(c, fname, spec):
     done(c)
 
 
-c = Checker('Table 11 (tab10, amplification)')
+c = Checker('Table 16 (tab10, amplification)')
 spec = {('Whole', '$\\lambda=0$'): (lambda x: ss[x]['table1']['0.0']['mean'], 1), ('Early', '$\\lambda=0$'): (lambda x: ss[x]['base']['base0_head_markers_per_1k']['mean'], 1)}
 for lab, e in (('$\\gamma=1$', 'ampn1'), ('$\\gamma=4$', 'ampn4'), ('All in region', 'ampV')):
     spec[('Whole', lab)] = ((lambda e: lambda x: E(x, e, 'markers_per_1k'))(e), 1)
@@ -223,7 +223,7 @@ for lab, g in (('$\\gamma=1$', 'gain_ampn1'), ('$\\gamma=4$', 'gain_ampn4'), ('A
 grid(c, 'tab10.tex', spec)
 cap = caption('tab:10')
 m = re.search(r'change ([\d.]+)--([\d.]+)\$\\times\$ at \$\\gamma \\le 4\$ and ([\d.]+)--([\d.]+)\$\\times\$ with all in region', cap)
-c = Checker('Table 11 caption')
+c = Checker('Table 16 caption')
 r4 = [E(x, e, 'head_markers_per_1k') / ss[x]['base']['base0_head_markers_per_1k']['mean'] for x in CELLS for e in ('ampn1', 'ampn4')]
 rV = [E(x, 'ampV', 'head_markers_per_1k') / ss[x]['base']['base0_head_markers_per_1k']['mean'] for x in CELLS]
 rng(c, 'early gamma<=4', m.groups()[:2], 2, r4, 'edits.ampn1/ampn4 head / base0 head'); rng(c, 'early all', m.groups()[2:], 2, rV, 'edits.ampV head / base0 head')
@@ -235,7 +235,7 @@ c.chk('done l0', float(m.group(4)), 0, 100 * nc['base0']['completed'], 'amplific
 rng(c, 'done amp', m.groups()[4:6], 0, [100 * nc[e]['completed'] for e in ('ampn1', 'ampn4', 'ampV')], 'amplification.nine_cell')
 done(c)
 
-c = Checker('Table 12 (tab06, removal)')
+c = Checker('Table 9 (tab06, removal)')
 spec = {('Whole', '$\\lambda=0$'): (lambda x: ss[x]['table1']['0.0']['mean'], 1),
         ('Whole', 'Region removed'): (lambda x: E(x, 'rm_pre', 'markers_per_1k'), 1),
         ('Whole', 'Length-matched cut'): (lambda x: bl[x]['budget']['markers']['mean'], 1),
@@ -250,14 +250,14 @@ accf = {'$\\lambda=0$': lambda x: ss[x]['base']['base0_accuracy']['mean'], 'Regi
         'Top removed': lambda x: bl[x]['gs_energy']['accuracy']['mean'], 'Scaled down': lambda x: E(x, 'rm_scale', 'accuracy')}
 for lab, f in accf.items(): spec[('MATH', lab)] = (f, 100)
 grid(c, 'tab06.tex', spec)
-c = Checker('Table 12 caption')
+c = Checker('Table 9 caption')
 m = re.search(r'ine-cell mean accuracy (?:is )?([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+) and ([\d.]+)\\%', caption('tab:6'))
 for x, (lab, f) in zip(m.groups(), accf.items()): c.chk(f'mean acc {lab}', float(x), 1, 100 * st.mean(f(y) for y in CELLS), 'nine-cell mean')
 m = re.search(r'seeds of ([\d.]+), ([\d.]+) and (\d+\.\d)', caption('tab:6'))
 for i, x in enumerate(m.groups()): c.chk(f'B/Llama seed {i}', float(x), 1, ss['B/Llama']['table1']['0.0']['seeds'][i], 'table1 seeds')
 done(c)
 
-c = Checker('Table 14 (tab08, grafts and loops)')
+c = Checker('Table 8 (tab08, grafts and loops)')
 def rec1(x):
     g = E(x, 'graft1', 'markers_per_1k'); l1 = ss[x]['table1']['1.0']['mean']; l0 = ss[x]['table1']['0.0']['mean']; return 100 * (g - l1) / (l0 - l1)
 spec = {('Early', '$\\lambda=1$'): (lambda x: ss[x]['base']['base1_head_markers_per_1k']['mean'], 1),
@@ -282,8 +282,8 @@ for lab, e in (('$\\lambda=0$', 'base0'), ('$\\lambda=1$', 'base1'), ('Region re
     spec[('Responses', lab)] = ((lambda e: lambda x: dg[x][e]['mean'])(e), 100)
 grid(c, 'tab08.tex', spec)
 
-# ---------------- Table 13 (tab19, tab19b): value +- SD ----------------
-c = Checker('Table 13 (tab19, tab19b)')
+# ---------------- Table 14 (tab19, tab19b): value +- SD ----------------
+c = Checker('Table 14 (tab19, tab19b)')
 def pmcheck(lab, cell, val, seeds, src):
     t = tok(cell); c.chk(lab, t[0][0], t[0][1], val, src); c.chk(lab + ' sd', t[1][0], t[1][1], st.stdev(seeds), src + ' seeds SD')
 f0 = ['rm_retained', 'rm_acc', 'rm_minus_top', 'rm_minus_cut']; pbk = {'rm_minus_top': 'top', 'rm_minus_cut': 'cut'}

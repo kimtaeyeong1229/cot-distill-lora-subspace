@@ -1,6 +1,6 @@
 """Write the manuscript tables that are computed rather than copied from one JSON field: body Table 1 (tab31, student means
-per interval), body Table 2 (tab32, pair means of the edit effects), appendix Table 9 (tab22, intervals with student-mean
-coverage changes) and appendix Table 13 (tab19 / tab19b, cell value +- SD over seeds).
+per interval), body Table 2 (tab32, pair means of the edit effects), appendix Table 13 (tab22, intervals with student-mean
+coverage changes) and appendix Table 14 (tab19 / tab19b, cell value +- SD over seeds).
 Usage: MANUSCRIPT_DIR=<manuscript checkout> python experiments/lambda_lora_bits/paper_tables.py
 (writes <MANUSCRIPT_DIR>/tables/; an explicit output directory may be given as the first argument).
 The other tables copy JSON fields directly; experiments/manuscript_audit/t_tables.py checks every table."""
