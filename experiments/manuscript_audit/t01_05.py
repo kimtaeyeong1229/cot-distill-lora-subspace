@@ -4,12 +4,12 @@ tr=J('think_rate'); td=J('teacher_density'); ss=J('seed_spread')
 LAM=['0.0','0.2','0.4','0.6','0.8','1.0']
 # ---- numbers of the removed Figure 4 (lambda sweep): marker r per cell is the r column of Table 3 (tab02, checked below);
 # pooled r in the Table 3 caption; teacher markers 15.5 -> 5.0 in Table 7 (tab27, t_new.py) and its caption; B/Llama seeds in the
-# Table 13 caption; R_sym and the A/Qwen B(lambda) collapse in App B text. The tables themselves are checked in t_tables.py.
+# Table 12 caption; R_sym and the A/Qwen B(lambda) collapse in App B text. The tables themselves are checked in t_tables.py.
 import re
 c=Checker('Former Figure 4 numbers (Table 6 and 13 captions, App B text)')
 cap=caption('tab:2'); m=re.search(r'\(([\d.]+) over all 54 points\)',cap); c.chk('pooled r (Table 5 caption)',float(m.group(1)),2,td['pooled_corr'],'teacher_density.pooled_corr')
 cap=caption('tab:6'); m=re.search(r'seeds of ([\d.]+), ([\d.]+) and (\d+\.\d)',cap)
-for i,x in enumerate(m.groups()): c.chk(f'B/Llama lambda0 seed {i} (Table 11 caption)',float(x),1,ss['B/Llama']['table1']['0.0']['seeds'][i],'seed_spread.table1 seeds')
+for i,x in enumerate(m.groups()): c.chk(f'B/Llama lambda0 seed {i} (Table 10 caption)',float(x),1,ss['B/Llama']['table1']['0.0']['seeds'][i],'seed_spread.table1 seeds')
 APP=open(APP_TEX).read()
 m=re.search(r'pair A\'s first interval (?:then )?drops (?:by )?([\d.]+)--([\d.]+) against ([\d.]+)--([\d.]+) at the switch',APP)
 rs=J('symmetric_R'); keyR=lambda p,k: f'{P(p)}/{FULL[k]}'

@@ -88,7 +88,7 @@ Students generate at temperature 0.6 and top-p 0.95, with at most 7,680 new toke
 | `lambda0.0_rm_pre` | Region removed (the shared region V projected out of the λ = 0 adapter, V built leave-one-out) |
 | `lambda0.0_rm_decisive` | Other removed (the same energy removed outside V) |
 | `lambda0.0_rm_scale` | Scaled down |
-| `lambda0.0_gs_energy` | Top removed (matched) (Tables 2, 13 and 14, energy-matched) |
+| `lambda0.0_gs_energy` | Top removed (matched) (Tables 2, 12 and 13, energy-matched) |
 | `lambda0.0_gs_tau` | Gold-Switch-style removal, τ = 0.6 (Table 3) |
 | `lambda1.0_rm_pre` | λ = 1 control: region removed (Appendix C) |
 | `lambda0.0_budget` | Length-matched cut: the unedited λ = 0 adapter, cut at the region-removed mean length and made to answer |
