@@ -228,12 +228,12 @@ def fig_ood():
     for ax, bench, letter, name in ((a, "gsm8k", "a", "GSM8K"), (b, "gpqa_diamond", "b", "GPQA-Diamond")):
         bars(ax, [(r"$\lambda = 0$ adapter", F3_BASE, g(bench, "base0", "markers")),
                   ("Other removed", F3_CONTROL, g(bench, "rm_other", "markers")),
-                  ("Shared removed", F3_SHARED, g(bench, "rm_pre", "markers"))],
+                  ("Region removed", F3_SHARED, g(bench, "rm_pre", "markers"))],
              "Reflective markers", "(per 1,000 words)")
         title(ax, f"({letter}) {name}, markers")
     four = lambda f: [(r"$\lambda = 0$ adapter", F3_BASE, pct(g("gsm8k", "base0", f))),
                       ("Other removed", F3_CONTROL, pct(g("gsm8k", "rm_other", f))),
-                      ("Shared removed", F3_SHARED, pct(g("gsm8k", "rm_pre", f))),
+                      ("Region removed", F3_SHARED, pct(g("gsm8k", "rm_pre", f))),
                       (r"$\lambda = 1$ adapter", LIGHT, pct(g("gsm8k", "base1", f)))]
     bars(c, four("accuracy"), "Accuracy", "(%)", top=75)
     title(c, "(c) GSM8K, accuracy")
@@ -266,7 +266,7 @@ def fig_off():
     gs = fig.add_gridspec(2, 2, width_ratios=[1.0, 1.15], height_ratios=[1.15, 1.0], hspace=0.75, wspace=0.3)
     a, c, b = fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1]), fig.add_subplot(gs[1, :])
     # (a) nine-cell means, one labelled point per method (comparison display; flagged for the user)
-    pts = [("base0", r"$\lambda = 0$"), ("rm_pre", "Shared removed"), ("rmseed", "Two-seed removed"),
+    pts = [("base0", r"$\lambda = 0$"), ("rm_pre", "Region removed"), ("rmseed", "Two-seed removed"),
            ("gs_tau", "Gold-Switch-style"), ("budget", "Length-matched cut"), ("nothink", "Think-skip"),
            ("rmseed_other", "Other removed"), ("merge0.5", r"Merged with $\lambda = 1$"), ("base1", r"$\lambda = 1$")]
     # label position in data coordinates (x, y, ha) and whether a short leader line joins it to its point;

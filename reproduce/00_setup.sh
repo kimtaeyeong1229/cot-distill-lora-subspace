@@ -29,7 +29,7 @@ for m in Qwen2.5-0.5B-Instruct Llama-3.2-1B-Instruct OLMo-2-1B-Instruct \
   [[ -f "models/${m}/config.json" ]] || python "${E}/fetch_model.py" "models/${m}"
 done
 
-# Sparse autoencoder for Table 13 (EleutherAI, one TopK SAE per layer on the Llama-3.2-1B MLP output).
+# Sparse autoencoder for Table 15 (EleutherAI, one TopK SAE per layer on the Llama-3.2-1B MLP output).
 [[ -d models/saes/llama-3.2-1b-131k/layers.11.mlp ]] || \
   python -c "from huggingface_hub import snapshot_download as d; d('EleutherAI/sae-Llama-3.2-1B-131k', local_dir='models/saes/llama-3.2-1b-131k', allow_patterns=['layers.5.mlp/*', 'layers.8.mlp/*', 'layers.11.mlp/*'])"
 

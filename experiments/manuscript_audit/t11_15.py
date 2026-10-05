@@ -3,19 +3,7 @@ ss=J('seed_spread'); bl=J('baselines'); sae=J('sae_llama'); ood=J('ood'); bs=J('
 def ms(c,label,toks,d,scale=1,src=''):
     c.chk(label+' mean',toks[0][0],toks[0][1],scale*d['mean'],src)
     c.chk(label+' sd',toks[1][0],toks[1][1],scale*d['sd'],src)
-# tab11 (Table 13 right block, transposed: rows are conditions, columns pairs A, B, C; seed means, last row r with markers)
-c=Checker('Table 13 bottom (tab11)')
-rowkey={'$\\lambda=0$':('base0.0','sae'),'$\\lambda=1$':('base1.0','sae'),'Shared removed':('lambda0.0_rm_pre','sae'),
-        'Other removed':('lambda0.0_rm_decisive','sae'),'Graft shared ($\\beta=2$)':('graft2','sae'),'Graft other ($\\beta=2$)':('graft_orth2','sae'),
-        'All in region':('ampV','sae'),'$\\lambda=0$, markers deleted':('base0.0','sae_masked')}
-for r in rows('tab11.tex',0):
-    name=r[0].strip(); v=[tok(x) for x in r[1:]]
-    if name.startswith('$r$'):
-        for i,p in enumerate(PAIRS): c.chk(f'{p} r with markers',v[i][0][0],2,sae[p]['corr_keyword_sae'],'sae_llama.corr_keyword_sae')
-        continue
-    k,f=rowkey[name]
-    for i,p in enumerate(PAIRS): c.chk(f'{p} {k}.{f}',v[i][0][0],v[i][0][1],sae[p][k][f]['mean'],f'sae_llama.{k}.{f}.mean')
-c.report()
+# tab11 (SAE features) is checked in t_tables.py; the lines below print the ratios quoted in Sec. 5.4
 for p in PAIRS:
     b0=sae[p]['base0.0']['sae']['mean']; s=sae[p]
     print(f'  {p}: corr_keyword_sae {s["corr_keyword_sae"]:.3f}; masked/base0 {s["base0.0"]["sae_masked"]["mean"]/b0:.3f}; rm_pre/b0 {s["lambda0.0_rm_pre"]["sae"]["mean"]/b0:.3f}; rm_other/b0 {s["lambda0.0_rm_decisive"]["sae"]["mean"]/b0:.3f}; ampn1 {s["ampn1"]["sae"]["mean"]/b0:.3f} ampn4 {s["ampn4"]["sae"]["mean"]/b0:.3f} ampV {s["ampV"]["sae"]["mean"]/b0:.3f} (sd {s["ampV"]["sae"]["sd"]:.3f}); graft2 {s["graft2"]["sae"]["mean"]:.3f} vs base1 {s["base1.0"]["sae"]["mean"]:.3f}; rm_scale/b0 {s["lambda0.0_rm_scale"]["sae"]["mean"]/b0:.3f}')

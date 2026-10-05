@@ -174,16 +174,16 @@ def fig3():
     (a, d), (b, c) = axes                                # draw order a-d below; letters follow reading order
     bars(a, [(r"$\lambda = 0$ adapter", F3_BASE, b0("base0", "markers")),
              ("Other removed", F3_CONTROL, b0("rm_other", "markers")),
-             ("Shared removed", F3_SHARED, b0("rm_pre", "markers"))], "Reflective markers", "(per 1,000 words)")
+             ("Region removed", F3_SHARED, b0("rm_pre", "markers"))], "Reflective markers", "(per 1,000 words)")
     panel_legend(a, "a", r"Remove from the $\lambda = 0$ adapter")
     bars(b, [(r"$\lambda = 1$ adapter", F3_BASE, sb("base1_head_markers_per_1k")),
-             ("Graft other", F3_CONTROL, ed("graft_other2", "head_markers_per_1k")),
-             ("Graft shared", F3_SHARED, ed("graft2", "head_markers_per_1k"))],
+             ("Other graft", F3_CONTROL, ed("graft_other2", "head_markers_per_1k")),
+             ("Region graft", F3_SHARED, ed("graft2", "head_markers_per_1k"))],
          "Reflective markers", "(per 1,000 words, early)")
     panel_legend(b, "c", r"Graft into the $\lambda = 1$ adapter ($\beta = 2$)")
     bars(c, [(r"$\lambda = 1$ adapter", F3_BASE, pct([1 - t for t in t2("trunc1")])),
-             ("Graft other", F3_CONTROL, pct(ed("graft_other2", "completed"))),
-             ("Graft shared", F3_SHARED, pct(ed("graft2", "completed")))], "Completed responses", "(%)")
+             ("Other graft", F3_CONTROL, pct(ed("graft_other2", "completed"))),
+             ("Region graft", F3_SHARED, pct(ed("graft2", "completed")))], "Completed responses", "(%)")
     c.set_yticks([0, 25, 50, 75, 100])
     panel_legend(c, "d", r"Graft into the $\lambda = 1$ adapter ($\beta = 2$)")
     bars(d, [(r"$\lambda = 0$ adapter", F3_BASE, [spread[cell(p, s)]["table1"]["0.0"]["mean"] for p, s in CELLS]),
