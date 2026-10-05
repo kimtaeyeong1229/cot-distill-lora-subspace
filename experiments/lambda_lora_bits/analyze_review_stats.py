@@ -14,6 +14,13 @@
   amplification          accuracy and completion of the lambda0 adapter and its fixed-norm amplifications
                          (main_edits.json), per cell and as nine-cell means
   correlation_points     how many points each reported correlation pools
+  graft1_whole_recovery  per-seed recovery of the whole-response marker gap by the beta = 1 region graft, with
+                         seed-matched lambda0 / lambda1 adapters (seed_spread.json), and its range over seeds
+  graft1_lengthening     beta = 1 region graft against the lambda1 adapter: tokens, completion, early-marker
+                         recovery and loop rate (main_edits.json, degeneration.json)
+  split_difficulty       MATH level of the shared training and held-out problems against all 4,000 problems
+                         (split_ids.json, cot/lambda0.0.jsonl level field); a problem is kept only if every
+                         teacher in the split run solved it completely, correctly and within 8,192 tokens
 
 Run from the repo root; writes experiments/review_stats.json.
 """
@@ -82,6 +89,35 @@ def main():
         "student_vs_teacher_markers_per_cell": 6, "student_vs_teacher_markers_pooled": 54,
         "R_drop_vs_teacher_drop_per_cell": 5, "sae_vs_markers_per_pair": subsets["A"]["points"]}
 
+    spread = json.loads((X / "seed_spread.json").read_text())
+    deg = json.loads((X / "degeneration.json").read_text())
+    g1 = {}
+    for c in CELLS:
+        b0 = spread[c]["base"]["base0_markers_per_1k"]["seeds"]
+        b1 = spread[c]["base"]["base1_markers_per_1k"]["seeds"]
+        g = spread[c]["edits"]["graft1"]["markers_per_1k"]["seeds"]
+        per = [(gi - b1i) / (b0i - b1i) for gi, b0i, b1i in zip(g, b0, b1)]
+        g1[c] = {"seeds": per, "min": min(per), "max": max(per)}
+    out["graft1_whole_recovery"] = g1
+    out["graft1_lengthening"] = {c: {"tokens_lambda1": m[c]["base1"]["avg_tokens"], "tokens_graft1": m[c]["graft1"]["avg_tokens"],
+                                     "token_ratio": m[c]["graft1"]["avg_tokens"] / m[c]["base1"]["avg_tokens"],
+                                     "completed_graft1": m[c]["graft1"]["completed"],
+                                     "completed_lambda1": 1 - m[c]["base1"]["truncated"],
+                                     "early_recovery": rec[c]["beta1"], "loop_graft1": deg[c]["graft1"]["mean"]}
+                                 for c in CELLS}
+    diff = {}
+    E = X / "lambda_lora_bits"
+    for pair, d in (("A", "sweep"), ("B", "pairB"), ("C", "pairD")):
+        rows = [json.loads(l) for l in open(E / d / "cot" / "lambda0.0.jsonl")]
+        ids = json.loads((E / d / "splits" / "split_ids.json").read_text())
+        keep = set(ids["train"]) | set(ids["held"])
+        lv = lambda r: int(str(r.get("level", "")).replace("Level ", "")) if str(r.get("level", "")).replace("Level ", "").isdigit() else None
+        allv = [lv(r) for r in rows if lv(r)]
+        kv = [lv(r) for r in rows if lv(r) and r["unique_id"] in keep]
+        diff[pair] = {"problems": len(rows), "kept": len(keep), "mean_level_all": st.mean(allv), "mean_level_kept": st.mean(kv),
+                      "level5_share_all": sum(v == 5 for v in allv) / len(allv), "level5_share_kept": sum(v == 5 for v in kv) / len(kv),
+                      "split_lambdas": list(json.loads((E / d / "splits" / "split_stats.json").read_text())["per_lambda"])}
+    out["split_difficulty"] = diff
     (X / "review_stats.json").write_text(json.dumps(out, indent=2))
     print(json.dumps({"recovery": {c: {k: round(v, 3) for k, v in r.items()} for c, r in rec.items()},
                       "cell_interval": cb, "thresholds": out["thresholds"],
