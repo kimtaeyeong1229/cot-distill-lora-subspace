@@ -5,7 +5,8 @@ Style copies the plots in Morris et al. ("How much do language models memorize?"
 with a visible grey grid, black left and bottom spines only, thin lines with small dot markers, small tick labels,
 a bold axis title with the unit in a lighter line below it, a white boxed legend with a bold title inside the
 plot, and a thick dashed black reference line labelled in bold. Panels carry no titles beyond a short label.
-Figure 2 (where): per teacher pair, the teacher think rate, R(lambda) and the shared-region coverage share one
+Figure 2 (where): per teacher pair, the teacher think rate, R(lambda) and the share of the lambda = 0 region kept (against
+a same-teacher half-data reference, analyze_lambda0_retention.py) share one
 lambda axis (stacked rows as in Wu et al. 2026, Figure 3).
 Figure 3 (what): the edits as grouped bars per cell, the unedited adapter next to its control edit and its
 shared-region edit, as in Arditi et al. (2024, Figures 1 and 3), which put models on the x axis and conditions as
@@ -58,6 +59,7 @@ load = lambda n: json.loads((EXP / n).read_text())
 think = load("think_rate.json")
 resample = load("phi_resample_s012.json")
 coverage = load("coverage_by_lambda.json")
+kept0 = load("lambda0_retention.json")       # Figure 2 bottom: share of the lambda = 0 region kept
 base = load("baselines.json")
 spread = load("seed_spread.json")
 CELLS = [(p, s) for p, _ in PAIRS for s, _ in STU]
@@ -111,9 +113,9 @@ def fig2():
         for s, full in STU:
             rows = resample[f"{d}/{full}"]["rows"]
             mid.plot(X, [rows[l]["retention"] for l in L], color=COL[s], lw=1.1, marker="o", ms=2.2)
-            cv = coverage[f"{d}/{full}"]["coverage"]
-            bot.plot(X, [cv[l] for l in L], color=COL[s], lw=1.1, marker="o", ms=2.2)
-        chance = st.mean(coverage[f"{d}/{full}"]["chance"] for _, full in STU)
+            kp = kept0[f"{p}/{s}"]["kept"]
+            bot.plot(X, [kp[l] for l in L], color=COL[s], lw=1.1, marker="o", ms=2.2)
+        chance = st.mean(kept0[f"{p}/{s}"]["chance_kept"] for s, _ in STU)
         bot.axhline(chance, color="#555555", ls=":", lw=1.0)
         if j == 0:
             SW_A = sw
@@ -121,12 +123,12 @@ def fig2():
             CHANCE_B = chance
         for a in (top, mid, bot):
             switch_line(a, sw)
-        mid.set_ylim(0, 1.05); bot.set_ylim(0, 0.65)
+        mid.set_ylim(0, 1.05); bot.set_ylim(0, 1.05)
         bot.set_xticks(X); bot.set_xticklabels(["0", "0.2", "0.4", "0.6", "0.8", "1"]); bot.set_xlim(-0.03, 1.03)
         labels(bot, x=r"Interpolation ratio $\lambda$")
     labels(axes[0, 0], y="Think rate", yunit="(teacher, %)")
     labels(axes[1, 0], y=r"Overlap ratio $R(\lambda)$", yunit=r"(1 = as at $\lambda = 0$)")
-    labels(axes[2, 0], y="Region coverage", yunit="(share of the shared region)")
+    labels(axes[2, 0], y="Region kept", yunit=r"(share of the $\lambda = 0$ region)")
     fig.align_ylabels(axes[:, 0])
     handles = [Line2D([], [], color=COL[s], lw=1.1, marker="o", ms=2.2, label=full) for s, full in STU]
     legend(axes[2, 0], handles, "Student", "upper right")
