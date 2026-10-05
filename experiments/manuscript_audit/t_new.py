@@ -138,11 +138,11 @@ def rngcell(cell):
 import math,re
 lc=J('length_confound'); BODY4='/home/lab/workspace/NAACL_cot_distill_lora_subspace/sections/04_where_the_adapter_switches.tex'
 c=Checker('Table 1 (tab31, body)')
-grp={'A held':('A',[0]),'A switch':('A',[1]),'B held':('B',[0,1]),'B switch':('B',[2]),'C held':('C',[0,1]),'C switch':('C',[2,3])}
+grp={'A held':('A',[0]),'A switch':('A',[1]),'B held':('B',[0,1]),'B switch':('B',[2]),'B after':('B',[3]),'C held':('C',[0,1]),'C switch':('C',[2,3])}
 def rngtok(cell): t=tok(cell); return t[0],t[-1]
 for r in rows('tab31.tex'):
     lab=r[0].strip(); p,idx=grp[lab]; ivs=[lc['pairs'][p]['intervals'][i] for i in idx]
-    cls='held' if 'held' in lab else 'switch'
+    cls='held' if 'held' in lab else ('after' if 'after' in lab else 'switch')
     if any(x['class']!=cls for x in ivs): c.err.append(f'{lab} class mismatch')
     d=[x['log_len_drop'] for x in ivs]; t=rngcell(r[1]); c.chk(f'{lab} dlogL lo',t[0][0],2,min(d),'log_len_drop'); c.chk(f'{lab} dlogL hi',t[1][0],2,max(d),'log_len_drop')
     t=tok(r[2]); c.chk(f'{lab} think start',t[0][0],0,ivs[0]['think'][0],'think[0]'); c.chk(f'{lab} think end',t[1][0],0,ivs[-1]['think'][1],'think[1]')
@@ -152,19 +152,23 @@ for r in rows('tab31.tex'):
 cap=open(BODY4).read(); i=cap.index('\\label{tab:lenbody}'); cap=cap[cap.rindex('\\caption{',0,i):i]
 cs=J('pairA_crossseed'); v=[x for k in ('A/Qwen','A/Llama','A/OLMo') for x in cs[k]['switch_over_held_by_seed']]
 fl=J('two_seed_floor')['floors']; w=[x for f in ('chance','lambda1') for x in fl[f]['pairA_switch_over_held'].values()]
-m=re.search(r'ratio is ([\d.]+)--([\d.]+) with a cross-seed build at cut 0.75 and ([\d.]+)--([\d.]+) with two floors',cap); g=[float(x) for x in m.groups()]
+m=re.search(r'ratio is ([\d.]+)--([\d.]+) with a cross-seed build \(a region from the other two seeds at cut 0.75\) and ([\d.]+)--([\d.]+) with two floors',cap); g=[float(x) for x in m.groups()]
 c.chk('caption cross-seed lo',g[0],2,min(v),'pairA_crossseed.switch_over_held_by_seed'); c.chk('caption cross-seed hi',g[1],2,max(v),'')
 c.chk('caption floors lo',g[2],2,min(w),'two_seed_floor.pairA_switch_over_held'); c.chk('caption floors hi',g[3],2,max(w),'')
 c.report()
 # --- Table 2 (tab32, body, tab:editbody): per-pair ranges of the edit effects
-ss2=J('seed_spread')
+ss2=J('seed_spread'); me2=J('main_edits')
+rec=lambda x,e,f: 100*(me2[x][e][f]-me2[x]['base1'][f])/(me2[x]['base0'][f]-me2[x]['base1'][f])  # main_edits gap recovery
 c=Checker('Table 2 (tab32, body)')
 h=lambda x,e: ss2[x]['edits'][e]['head_markers_per_1k']['mean']/ss2[x]['base']['base0_head_markers_per_1k']['mean']
 spec={'Rem.\\ region, kept (\\%)':lambda x: 100*bl[x]['rm_pre']['markers']['mean']/bl[x]['base0']['markers']['mean'],
       'Rem.\\ other, kept (\\%)':lambda x: 100*bl[x]['rm_other']['markers']['mean']/bl[x]['base0']['markers']['mean'],
       'Rem.\\ $-$ cut, acc.\\ (pp)':lambda x: es['cells'][x]['rm_minus_cut']['value'],
-      'Graft $\\beta=1$, recovered (\\%)':lambda x: 100*rv['graft_recovery_early'][x]['beta1'],
-      'Graft $\\beta=2$, recovered (\\%)':lambda x: 100*rv['graft_recovery_early'][x]['beta2'],
+      'Rem.\\ top, kept (\\%)':lambda x: 100*bl[x]['gs_energy']['markers']['mean']/bl[x]['base0']['markers']['mean'],
+      'Graft $\\beta=1$, early rec.\\ (\\%)':lambda x: 100*rv['graft_recovery_early'][x]['beta1'],
+      'Graft $\\beta=2$, early rec.\\ (\\%)':lambda x: 100*rv['graft_recovery_early'][x]['beta2'],
+      'Graft $\\beta=2$, whole rec.\\ (\\%)':lambda x: rec(x,'graft2','markers_per_1k'),
+      'Whole $\\beta=2$, early rec.\\ (\\%)':lambda x: rec(x,'graft_full2','head_markers_per_1k'),
       '$\\lambda=1$ host, done (\\%)':lambda x: 100*(1-ss2[x]['table2']['trunc1']['mean']),
       'Graft $\\beta=2$, done (\\%)':lambda x: 100*ss2[x]['edits']['graft2']['completed']['mean'],
       'All in region, gain ($\\times$)':lambda x: em[x]['mean']['gain_ampV'],

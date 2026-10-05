@@ -13,7 +13,7 @@ for i,x in enumerate(m.groups()): c.chk(f'B/Llama lambda0 seed {i} (Table 11 cap
 cap=caption('tab:structure'); m=re.search(r'fall from ([\d.]+) to ([\d.]+)',cap)
 c.chk('A teacher markers 0.0 (Table 10 caption)',float(m.group(1)),1,td['A']['teacher']['0.0'],'teacher_density'); c.chk('A teacher markers 0.2',float(m.group(2)),1,td['A']['teacher']['0.2'],'teacher_density')
 APP=open(APP_TEX).read()
-m=re.search(r'pair A\'s first interval then drops by ([\d.]+)--([\d.]+) against ([\d.]+)--([\d.]+) at the switch',APP)
+m=re.search(r'pair A\'s first interval (?:then )?drops by ([\d.]+)--([\d.]+) against ([\d.]+)--([\d.]+) at the switch',APP)
 rs=J('symmetric_R'); keyR=lambda p,k: f'{P(p)}/{FULL[k]}'
 d1=[rs[keyR('A',k)]['drops']['0.0->0.2'] for k in STUD]; d2=[rs[keyR('A',k)]['drops']['0.2->0.4'] for k in STUD]
 g=[float(x) for x in m.groups()]

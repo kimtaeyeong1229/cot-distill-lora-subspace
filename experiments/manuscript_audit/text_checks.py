@@ -150,5 +150,24 @@ for c,x in (('B/OLMo',67),('C/OLMo',96)): V(f'5.1 early markers kept under other
 bcr=[iv(p,j)['log_len_drop']/iv(p,i)['log_len_drop'] for p in 'BC' for i in range(5) if iv(p,i)['class']=='held' for j in range(5) if iv(p,j)['class']=='switch']
 R('4.3 B,C switch vs held log-length drop ("about three times")',2.7,3.5,1,bcr,'length_confound log_len_drop')
 R('Limitations lambda0 tokens (k)',2.8,7.0,1,[ss[c]['table2']['tokens0']['mean']/1000 for c in CELLS],'seed_spread.table2.tokens0')
+# ---- added with the c13 pass (manuscript after 065ed2e)
+me=J('main_edits'); st_=J('student_structure')['summary']['all']['level']; ca=J('c13_additions'); tdn=J('teacher_density')
+wrec=lambda c,e,f: 100*(me[c][e][f]-me[c]['base1'][f])/(me[c]['base0'][f]-me[c]['base1'][f])
+R('intro/T2 graft beta2 whole-response recovery pair A %',6,59,0,[wrec(c,'graft2','markers_per_1k') for c in CELLS if c[0]=='A'],'main_edits graft2 markers_per_1k')
+for c,x,y in zip(('A/Qwen','A/Llama','A/OLMo'),(136,37,32),(59,16,6)):
+    V(f'5.2 whole-update whole-response recovery {c} %',x,0,wrec(c,'graft_full2','markers_per_1k'),'main_edits graft_full2')
+    V(f'5.2 region whole-response recovery {c} %',y,0,wrec(c,'graft2','markers_per_1k'),'main_edits graft2')
+for k,part,key,sub,a,b in (('hesitation','head','c_markers_per_1k','hesitation',9.85,0.03),('sentence share','head','e_monologue_sentence_share',None,0.42,0.03),('recap','whole','b_boxed_recap_completed',None,0.79,0.03)):
+    g=lambda c: st_[c][part][key] if sub is None else st_[c][part][key][sub]
+    V(f'5.1 {k} lambda0',a,2,g('lambda0'),'student_structure summary'); V(f'5.1 {k} removed',b,2,g('rm_pre'),'student_structure summary')
+below=[c for c in CELLS if ca['lambda1_vs_untrained'][c]['d_accuracy_pp']<0]
+V('App C lambda1 below untrained cells',6,0,len(below),'c13_additions')
+R('App C lambda1 deficit pp',0.7,10.2,1,[-ca['lambda1_vs_untrained'][c]['d_accuracy_pp'] for c in below],'c13_additions d_accuracy_pp')
+R('App C lambda1 completed deficit pp',1.2,8.5,1,[-ca['lambda1_vs_untrained'][c]['d_accuracy_completed_pp'] for c in below],'c13_additions d_accuracy_completed_pp')
+V('App C lambda1 truncates more (of the six)',5,0,sum(ca['lambda1_vs_untrained'][c]['d_truncated_pp']>0 for c in below),'c13_additions d_truncated_pp')
+pu0=lambda c,i: ca['lambda0_region_per_unit'][c][i]['loss_per_unit']
+R('App B pair B lambda0 region after switch',1.05,1.24,2,[pu0(f'B/{k}',3) for k in STUD],'c13_additions lambda0_region_per_unit')
+R('App B pair B lambda0 region switch',1.34,1.40,2,[pu0(f'B/{k}',2) for k in STUD],'c13_additions lambda0_region_per_unit')
+for l,x in (('0.6',5.0),('0.8',4.2),('1.0',3.7)): V(f'App B pair B teacher markers at {l}',x,1,tdn['B']['teacher'][l],'teacher_density.B.teacher')
 print(f'{n} in-text values/ranges checked, {len(bad)} mismatches')
 for b in bad: print('  MISMATCH',b)

@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+"""Two read-only summaries the cycle-13 manuscript pass quotes in the body (no new generation).
+
+1. lambda0_region_per_unit: loss of the lambda = 0 region per unit of log training-length drop, per cell and
+   lambda interval. kept(lambda) is experiments/lambda0_retention.json <cell>.kept (the region built from the
+   three lambda = 0 adapters, coverage relative to lambda = 0 half-data adapters, Figure 2 bottom); the interval
+   loss is -ln(kept(end) / kept(start)) / log_len_drop, with log_len_drop from experiments/length_confound.json
+   pairs.<P>.intervals[i].log_len_drop. Intervals whose solutions barely shorten (|drop| < 0.05) get None.
+
+2. lambda1_vs_untrained: the unedited lambda = 1 adapter (experiments/main_edits.json <cell>.base1) against the
+   untrained student on the same first 200 MATH-500 problems, 2 samples, 3 seeds. Untrained responses are
+   regraded with common.is_correct from base_eval/<model>/eval_main_s<seed>/base.samples.jsonl.gz, as in
+   analyze_removal_vs_untrained.py; completed = finish_reason == "stop", and completed accuracy is accuracy over
+   completed responses only.
+
+Run from the repo root (inside the project container); writes experiments/c13_additions.json.
+"""
+
+import gzip
+import json
+import math
+import sys
+from pathlib import Path
+
+import pandas as pd
+
+E = Path("experiments/lambda_lora_bits")
+X = Path("experiments")
+sys.path.insert(0, str(E))
+from common import is_correct  # noqa: E402
+
+CELLS = [f"{p}/{s}" for p in "ABC" for s in ("Qwen", "Llama", "OLMo")]
+MODELS = {"Qwen": "Qwen2.5-0.5B-Instruct", "Llama": "Llama-3.2-1B-Instruct", "OLMo": "OLMo-2-1B-Instruct"}
+LAMS = ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"]
+SEEDS, SAMPLES, PROBLEMS = [0, 1, 2], 2, 200
+
+
+def per_unit():
+    ret = json.loads((X / "lambda0_retention.json").read_text())
+    lc = json.loads((X / "length_confound.json").read_text())
+    out = {}
+    for cell in CELLS:
+        kept = ret[cell]["kept"]
+        ivs = lc["pairs"][cell[0]]["intervals"]
+        rows = []
+        for i, iv in enumerate(ivs):
+            a, b = kept[LAMS[i]], kept[LAMS[i + 1]]
+            d = iv["log_len_drop"]
+            rows.append({"interval": f"{LAMS[i]}->{LAMS[i + 1]}", "class": iv["class"], "log_len_drop": d,
+                         "kept_ratio": b / a, "loss_per_unit": (-math.log(b / a) / d) if abs(d) >= 0.05 else None})
+        out[cell] = rows
+    return out
+
+
+def untrained_stats(answers):
+    out = {}
+    for short, name in MODELS.items():
+        n = c = done = done_c = 0
+        for s in SEEDS:
+            path = E / "base_eval" / name / f"eval_main_s{s}" / "base.samples.jsonl.gz"
+            rows = [json.loads(line) for line in gzip.open(path, "rt")]
+            assert len(rows) == PROBLEMS * SAMPLES, path
+            for i, r in enumerate(rows):
+                ok = is_correct(r["problem"], r["text"], answers[i // SAMPLES])
+                fin = r["finish_reason"] == "stop"
+                n += 1; c += ok; done += fin; done_c += ok and fin
+        out[short] = {"accuracy": c / n, "truncated": 1 - done / n, "accuracy_completed": done_c / done}
+    return out
+
+
+def main():
+    rows = pd.read_parquet(E / "data" / "math500.parquet").to_dict("records")[:PROBLEMS]
+    answers = [str(r["answer"]) for r in rows]
+    me = json.loads((X / "main_edits.json").read_text())
+    unt = untrained_stats(answers)
+    l1 = {}
+    for cell in CELLS:
+        b1, u = me[cell]["base1"], unt[cell.split("/")[1]]
+        l1[cell] = {"lambda1": {k: b1[k] for k in ("accuracy", "truncated", "accuracy_completed")}, "untrained": u,
+                    "d_accuracy_pp": 100 * (b1["accuracy"] - u["accuracy"]),
+                    "d_accuracy_completed_pp": 100 * (b1["accuracy_completed"] - u["accuracy_completed"]),
+                    "d_truncated_pp": 100 * (b1["truncated"] - u["truncated"])}
+    out = {"lambda0_region_per_unit": per_unit(), "untrained": unt, "lambda1_vs_untrained": l1}
+    (X / "c13_additions.json").write_text(json.dumps(out, indent=1))
+    for cell, v in l1.items():
+        print(cell, " ".join(f"{k} {v[k]:+.1f}" for k in ("d_accuracy_pp", "d_accuracy_completed_pp", "d_truncated_pp")))
+    for cell in CELLS[3:6]:
+        print(cell, [(r["interval"], r["class"], None if r["loss_per_unit"] is None else round(r["loss_per_unit"], 2))
+                     for r in out["lambda0_region_per_unit"][cell]])
+
+
+if __name__ == "__main__":
+    main()
