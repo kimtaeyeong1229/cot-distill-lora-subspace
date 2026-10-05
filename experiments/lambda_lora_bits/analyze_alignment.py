@@ -18,10 +18,16 @@ into one number that would pretend there are nine independent tests.
 --teacher markers swaps the teacher profile for the drop in the teacher's reflective-marker density
 (experiments/teacher_density.json) instead of the </think> rate, to test whether the adapter follows
 the reasoning itself rather than the tag; the permutation test is unchanged.
+
+--teacher length uses the drop in log mean training-solution length instead (split_stats.json train_tokens /
+n_train per lambda, Qwen2.5-0.5B tokenizer), to show how much of the alignment training length alone also
+gives: across the five intervals, length and think-rate drops are correlated, so the test locates the change
+but cannot attribute it to one of them.
 """
 
 import argparse
 import json
+import math
 import statistics as st
 from itertools import permutations
 from pathlib import Path
@@ -51,7 +57,7 @@ def main():
     ap.add_argument("--think", default=str(EXP.parent / "think_rate.json"))
     ap.add_argument("--resample", default=str(EXP.parent / "phi_resample.json"))
     ap.add_argument("--output", default=str(EXP.parent / "alignment.json"))
-    ap.add_argument("--teacher", choices=["think", "markers"], default="think")
+    ap.add_argument("--teacher", choices=["think", "markers", "length"], default="think")
     ap.add_argument("--density", default=str(EXP.parent / "teacher_density.json"))
     a = ap.parse_args()
 
@@ -60,6 +66,12 @@ def main():
         # teacher_density.json names the paper's pair C "C"; the adapter results keep the directory's "D"
         dens = json.loads(Path(a.density).read_text())
         think = {p: {"rates": dens[q]["teacher"]} for p, q in (("A", "A"), ("B", "B"), ("D", "C"))}
+    if a.teacher == "length":
+        think = {}
+        for p, d in (("A", "sweep"), ("B", "pairB"), ("D", "pairD")):
+            stats = json.loads((EXP / d / "splits" / "split_stats.json").read_text())
+            think[p] = {"rates": {l: math.log(stats["per_lambda"][l]["train_tokens"] / stats["n_train"])
+                                  for l in LAMBDAS}}
     res = json.loads(Path(a.resample).read_text())
 
     print("구간: " + "  ".join(f"{s:>11s}" for s in INTERVALS))
