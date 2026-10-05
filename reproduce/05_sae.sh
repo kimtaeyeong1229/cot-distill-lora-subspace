@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Stage 5: thinking features of the Llama-3.2-1B students, read with EleutherAI's public SAE (layer 11).
 #
-# Paper artifacts: Table 17, bottom (via reproduce/06_analysis.sh -> experiments/sae_llama.json) and the SAE
+# Paper artifacts: Table 13, bottom (via reproduce/06_analysis.sh -> experiments/sae_llama.json) and the SAE
 # reconstruction check in the appendix.
 # Outputs: experiments/lambda_lora_bits/sae_llama/{check*,select_L11*,A,B,C}/
 #

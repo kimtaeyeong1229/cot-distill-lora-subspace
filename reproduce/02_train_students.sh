@@ -4,8 +4,8 @@
 # Paper artifacts: every adapter the paper analyses.
 #   full-data adapters   <cell>/runs/lambda<l>_seed{0,1,2}/      every table; Figures 2-5
 #   data-half adapters   <cell>/runs/lambda<l>_half{A,B}[_seed{1,2}]/   data-only baseline B(lambda) of R(lambda)
-#                        (Figure 2 middle; Tables 13 and 14) and the half-data reference of the share of the
-#                        lambda0 region kept (Figure 2 bottom; Tables 1 and 13)
+#                        (Figure 2 middle; Tables 9 and 12) and the half-data reference of the share of the
+#                        lambda0 region kept (Figure 2 bottom; Tables 1 and 9)
 #
 # Run inside the container: docker exec cot-distill-lora-bit bash reproduce/02_train_students.sh
 # CELLS (default: all nine, as "<cell dir>:<student>") restricts the run. train_lora.py skips any run

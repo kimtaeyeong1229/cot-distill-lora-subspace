@@ -125,8 +125,8 @@ for r in rows('tab02b.tex'):
 m = re.search(r'\(([\d.]+) over all 54 points\)', caption('tab:2')); c.chk('pooled r', float(m.group(1)), 2, td['pooled_corr'], 'pooled_corr')
 done(c)
 
-# ---------------- Table 14 (tab04) ----------------
-c = Checker('Table 14 (tab04)')
+# ---------------- Table 12 (tab04) ----------------
+c = Checker('Table 12 (tab04)')
 sig = None
 for r in rows('tab04.tex'):
     if r[0].strip(): sig = r[0].strip()
@@ -155,8 +155,8 @@ m = re.search(r'\((\d+)--(\d+)\\% at 0.65, (\d+)--(\d+)\\% at 0.85\)', caption('
 for i, cut in enumerate(('0.65', '0.85')): rng(c, f'caption two-seed {cut}', m.groups()[2 * i:2 * i + 2], 0, [100 * th[x]['two_seed_region'][cut]['overlap'] for x in CELLS], 'two_seed')
 done(c)
 
-# ---------------- Table 13 (tab22) ----------------
-c = Checker('Table 13 (tab22)')
+# ---------------- Table 9 (tab22) ----------------
+c = Checker('Table 9 (tab22)')
 cur = None
 for r in rows('tab22.tex'):
     if r[0].strip(): cur = r[0].strip()
@@ -233,7 +233,7 @@ c.chk('done l0', float(m.group(4)), 0, 100 * nc['base0']['completed'], 'amplific
 rng(c, 'done amp', m.groups()[4:6], 0, [100 * nc[e]['completed'] for e in ('ampn1', 'ampn4', 'ampV')], 'amplification.nine_cell')
 done(c)
 
-c = Checker('Table 12 (tab06, removal)')
+c = Checker('Table 11 (tab06, removal)')
 spec = {('Whole', '$\\lambda=0$'): (lambda x: ss[x]['table1']['0.0']['mean'], 1),
         ('Whole', 'Region removed'): (lambda x: E(x, 'rm_pre', 'markers_per_1k'), 1),
         ('Whole', 'Length-matched cut'): (lambda x: bl[x]['budget']['markers']['mean'], 1),
@@ -248,14 +248,14 @@ accf = {'$\\lambda=0$': lambda x: ss[x]['base']['base0_accuracy']['mean'], 'Regi
         'Top removed': lambda x: bl[x]['gs_energy']['accuracy']['mean'], 'Scaled down': lambda x: E(x, 'rm_scale', 'accuracy')}
 for lab, f in accf.items(): spec[('MATH', lab)] = (f, 100)
 grid(c, 'tab06.tex', spec)
-c = Checker('Table 12 caption')
+c = Checker('Table 11 caption')
 m = re.search(r'ine-cell mean accuracy (?:is )?([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+) and ([\d.]+)\\%', caption('tab:6'))
 for x, (lab, f) in zip(m.groups(), accf.items()): c.chk(f'mean acc {lab}', float(x), 1, 100 * st.mean(f(y) for y in CELLS), 'nine-cell mean')
 m = re.search(r'seeds of ([\d.]+), ([\d.]+) and (\d+\.\d)', caption('tab:6'))
 for i, x in enumerate(m.groups()): c.chk(f'B/Llama seed {i}', float(x), 1, ss['B/Llama']['table1']['0.0']['seeds'][i], 'table1 seeds')
 done(c)
 
-c = Checker('Table 9 (tab08, grafts and loops)')
+c = Checker('Table 17 (tab08, grafts and loops)')
 def rec1(x):
     g = E(x, 'graft1', 'markers_per_1k'); l1 = ss[x]['table1']['1.0']['mean']; l0 = ss[x]['table1']['0.0']['mean']; return 100 * (g - l1) / (l0 - l1)
 spec = {('Early', '$\\lambda=1$'): (lambda x: ss[x]['base']['base1_head_markers_per_1k']['mean'], 1),
@@ -281,8 +281,8 @@ for lab, e in (('$\\lambda=0$', 'base0'), ('$\\lambda=1$', 'base1'), ('Region re
     spec[('Responses', lab)] = ((lambda e: lambda x: dg[x][e]['mean'])(e), 100)
 grid(c, 'tab08.tex', spec)
 
-# ---------------- Table 11 (tab19, tab19b): value +- SD ----------------
-c = Checker('Table 11 (tab19, tab19b)')
+# ---------------- Table 15 (tab19, tab19b): value +- SD ----------------
+c = Checker('Table 15 (tab19, tab19b)')
 def pmcheck(lab, cell, val, seeds, src):
     t = tok(cell); c.chk(lab, t[0][0], t[0][1], val, src); c.chk(lab + ' sd', t[1][0], t[1][1], st.stdev(seeds), src + ' seeds SD')
 f0 = ['rm_retained', 'rm_acc', 'rm_minus_top', 'rm_minus_cut']; pbk = {'rm_minus_top': 'top', 'rm_minus_cut': 'cut'}
@@ -322,8 +322,8 @@ for r in rows('tab19b.tex'):
         else: c.err.append(f'unknown row {lab}')
 done(c)
 
-# ---------------- Table 17 (tab29, tab11) ----------------
-c = Checker('Table 17 (tab29, tab11)')
+# ---------------- Table 13 (tab29, tab11) ----------------
+c = Checker('Table 13 (tab29, tab11)')
 conds = ['lambda0', 'rm_pre', 'rm_decisive', 'graft2', 'lambda1', 'untrained']
 rowf = {'Hesitation': lambda h, w: h['c_markers_per_1k']['hesitation'], 'Verification': lambda h, w: h['c_markers_per_1k']['verification'],
         'Attempts': lambda h, w: h['c_attempts_per_solution'], 'Opener': lambda h, w: h['e_opens_monologue'],
@@ -360,9 +360,9 @@ c.chk('top chance max %', float(g[2]), 1, 100 * max(to[x]['chance'] for x in CEL
 rng(c, 'region spanned %', g[3:5], 0, [100 * to[x]['cover_region'] for x in CELLS], 'top_overlap.cover_region')
 done(c)
 
-# ---------------- Table 15 (tab25, examples) ----------------
+# ---------------- Table 14 (tab25, examples) ----------------
 ex = J('examples')
-c = Checker('Table 15 (tab25)')
+c = Checker('Table 14 (tab25)')
 for r, e in zip(rows('tab25.tex'), ex['students'] + ex['teachers']):
     r[0] = r[0].replace(r'\addlinespace', '').strip()
     if r[0] != e['row']: c.err.append(f'row name {r[0]} vs {e["row"]}')
