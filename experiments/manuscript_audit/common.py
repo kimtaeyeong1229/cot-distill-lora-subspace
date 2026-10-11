@@ -15,6 +15,7 @@ def P(p,alt='D'): return alt if p=='C' else p
 NUM=re.compile(r'[-+]?\d[\d,]*\.?\d*')
 def parse_num_tokens(cell):
     c=cell.replace('$-$','-').replace('$+$','+').replace('$\\pm$',' PM ').replace('$\\rightarrow$',' TO ')
+    c=re.sub(r'\\(?:textbf|underline|best|second)\{([^{}]*)\}',r'\1',c)  # keep numbers inside rank marks
     c=re.sub(r'\\[a-zA-Z]+\{[^}]*\}','',c)  # drop commands like \multicolumn{..}
     toks=[]
     for m in re.finditer(r'(?<![\w.])([-+]?)(\d[\d,]*(?:\.\d+)?)',c):
@@ -24,7 +25,7 @@ def parse_num_tokens(cell):
         toks.append((v,dec))
     return toks
 def rows(fname, block=0):
-    txt=open(TAB+fname).read()
+    txt=re.sub(r'\\rowcolor\{[^}]*\}','',open(TAB+fname).read())
     blocks=re.findall(r'\\midrule(.*?)\\bottomrule',txt,re.S)
     # take content between first \midrule after header and \bottomrule for each tabular
     tabs=re.split(r'\\begin\{tabular\}\{',txt)[1:]
@@ -72,7 +73,7 @@ def sname(s):
 QLO=[f'{p}/{k}' for p in PAIRS for k in STUD]   # column order of the transposed appendix tables
 def trows(fname):
     """Rows of a transposed table (one header; sections titled by a \\multicolumn row): yields (section, label, cells)."""
-    txt=open(TAB+fname).read()
+    txt=re.sub(r'\\rowcolor\{[^}]*\}','',open(TAB+fname).read())
     tab=re.split(r'\\begin\{tabular\}\{',txt)[1]
     body=re.split(r'(?<!c)\\midrule',tab,1)[1].split('\\bottomrule')[0]
     sec=''
