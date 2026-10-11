@@ -258,7 +258,7 @@ for name, x0, x1, t in [("a", MARGIN, A_END, "(a) Interpolated teachers"), ("b",
 
 # ---------------------------------------------------------------- (a) interpolated teachers
 LABEL_GAP = 14
-text("label reasoning", A_MODEL_CX, ROWS[0] - A_MODEL_H / 2 - LABEL_GAP - text_h(T_LABEL) / 2, "Reasoning model",
+text("label reasoning", A_MODEL_CX, ROWS[0] - A_MODEL_H / 2 - LABEL_GAP - text_h(T_LABEL) / 2, "LRM",
      T_LABEL, bold=True)
 trapezoid("reasoning model", A_MX0, ROWS[0] - A_MODEL_H / 2, A_MX1, ROWS[0] + A_MODEL_H / 2, LAVENDER)
 trapezoid("instruct model", A_MX0, ROWS[5] - A_MODEL_H / 2, A_MX1, ROWS[5] + A_MODEL_H / 2, PINK)
