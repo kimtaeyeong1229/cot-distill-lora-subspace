@@ -101,7 +101,7 @@ def text_h(size):
 # ---------------------------------------------------------------- drawing primitives (all record their boxes)
 prs = Presentation()
 prs.slide_width = Emu(W_EMU)
-prs.slide_height = E(H)
+prs.slide_height = E(H) + Emu(160000)   # room below the legend so descenders are not clipped on export
 s = prs.slides.add_slide(prs.slide_layouts[6])
 BOXES = []                            # (kind, name, x0, y0, x1, y1)
 FONTS_USED = []
