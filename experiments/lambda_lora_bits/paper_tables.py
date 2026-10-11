@@ -90,7 +90,7 @@ for j, (name, f, d) in enumerate(rows):
     if f is None:
         if j:
             t2.append('\\midrule')
-        t2.append(f'\\multicolumn{{4}}{{l}}{{{name}}} \\\\')
+        t2.append(f'\\rowcolor{{band}}\\multicolumn{{4}}{{l}}{{{name}}} \\\\')
         continue
     t2.append(name + ' & ' + ' & '.join(num(st.mean([f(c) for c in C(p)]), d) for p in P) + ' \\\\')
 t2 += ['\\bottomrule', '\\end{tabular}']
