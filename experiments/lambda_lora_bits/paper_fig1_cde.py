@@ -299,7 +299,7 @@ _, sa1 = text("switch label a", A_BUS - 12, SWY, ["teacher stops", "thinking"], 
               align="right")
 line("switch", sa1 + 10, SWY, B_X1, SWY, color=HOT_PINK, w=2.25, dash=MSO_LINE_DASH_STYLE.DASH)
 BOXES.pop()                                              # the dashed line crosses the bus and the arrows by design
-text("switch label b", B_X1, SWY - 6 - text_h(T_SMALL) / 2, "adapters change direction", T_SMALL, color=HOT_PINK,
+text("switch label b", B_X1, SWY - 6 - text_h(T_SMALL) / 2, "update subspace shifts", T_SMALL, color=HOT_PINK,
      bold=True, align="right")
 
 # ---------------------------------------------------------------- (c) editing the shared region
