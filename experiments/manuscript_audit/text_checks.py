@@ -232,6 +232,12 @@ R('App A top removal directions per module',1.6,2.5,1,[v['dims_top'] for v in to
 _r=[v['dims_top']/v['dims_region'] for v in to.values() if isinstance(v,dict) and 'dims_top' in v]; n+=1
 if not (0.22<=min(_r) and max(_r)<=0.34): bad.append(f'App A quarter-to-third ratio: {min(_r):.3f}-{max(_r):.3f}')
 _tr=J('think_rate'); V('App A pair C think rate at 0.6 (%)',27,0,100*_tr['D']['rates']['0.6'],'think_rate D 0.6')
+import math as _m
+_iv=lc['pairs']['A']['intervals']; _h,_s=_iv[0],_iv[1]
+R('App B linear switch/held ratio pair A',1.47,1.63,2,[((1-_s['kept_vs_half_reference'][k])/_s['log_len_drop'])/((1-_h['kept_vs_half_reference'][k])/_h['log_len_drop']) for k in ('Qwen','Llama','OLMo')],'length_confound kept_vs_half_reference')
+_lead=sorted(c for c in CELLS if me[c]['graft2']['markers_per_1k']>me[c]['graft_full2']['markers_per_1k']); n+=1
+if _lead!=['B/Qwen','C/Qwen']: bad.append(f'5.2 region graft leads on whole-response markers: {_lead}')
+_lead2=[c for c in CELLS if me[c]['graft2']['head_markers_per_1k']>me[c]['graft_full2']['head_markers_per_1k']]; V('5.2 region leads on early metric (cells)',5,0,len(_lead2),'main_edits head')
 _md=J('main_density'); _bs=J('base_students'); _M={'Qwen':'Qwen2.5-0.5B-Instruct','Llama':'Llama-3.2-1B-Instruct','OLMo':'OLMo-2-1B-Instruct'}
 V('Limitations cells where no lambda beats untrained',5,0,sum(max(v['accuracy'] for v in _md[c].values())<=_bs[_M[c.split('/')[1]]]['accuracy']['mean'] for c in CELLS),'main_density accuracy vs base_students')
 _SW={'A':0.4,'B':0.6,'C':0.6}; n+=1
