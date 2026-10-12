@@ -228,6 +228,8 @@ R('Table 11 caption random dW ratio (per seed)',1.06,1.12,2,[em[c]['seeds'][s]['
 R('Table 11 caption random dims (cell means)',6.9,10.7,1,[em[c]['mean']['dims_rand'] for c in CELLS],'energy_match mean.dims_rand')
 R('Table 11 caption post-switch dW ratio (per seed)',0.06,0.33,2,[em[c]['seeds'][s]['ratio_dW_post'] for c in CELLS for s in em[c]['seeds']],'energy_match ratio_dW_post')
 kp=lambda c: pct(bl[c]['rm_post']['markers']['mean'],bl[c]['base0']['markers']['mean'])
+_md=J('main_density'); _bs=J('base_students'); _M={'Qwen':'Qwen2.5-0.5B-Instruct','Llama':'Llama-3.2-1B-Instruct','OLMo':'OLMo-2-1B-Instruct'}
+V('Limitations cells where no lambda beats untrained',5,0,sum(max(v['accuracy'] for v in _md[c].values())<=_bs[_M[c.split('/')[1]]]['accuracy']['mean'] for c in CELLS),'main_density accuracy vs base_students')
 R('5.1 post-switch kept % in B/Qwen, B/Llama, C/Qwen, C/Llama',9,23,0,[kp(c) for c in ('B/Qwen','B/Llama','C/Qwen','C/Llama')],'baselines rm_post/base0 markers')
 R('5.1 post-switch kept % in pair A, B/OLMo, C/OLMo',104,181,0,[kp(c) for c in ('A/Qwen','A/Llama','A/OLMo','B/OLMo','C/OLMo')],'baselines rm_post/base0 markers')
 R('5.1 post-switch dW ratio (per seed)',0.06,0.33,2,[em[c]['seeds'][s]['ratio_dW_post'] for c in CELLS for s in em[c]['seeds']],'energy_match ratio_dW_post')
