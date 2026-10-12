@@ -9,4 +9,5 @@ s=open('audit.log').read()
 cells=sum(int(m) for m in re.findall(r'^### .*?: (\d+) values checked',s,re.M))
 mm=sum(int(m) for m in re.findall(r'(\d+) mismatches',s))
 print(f'TOTAL table values checked: {cells}; total mismatches (tables + text): {mm}')
+if 'Traceback' in s: print('WARNING: an audit script crashed (see audit.log); its checks did not run')
 PY

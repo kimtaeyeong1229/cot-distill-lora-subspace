@@ -358,7 +358,7 @@ g = m.groups()
 for i, cut in enumerate(('0.4', '0.6')): rng(c, f'cut {cut} dims', g[2 * i:2 * i + 2], 1, [th[x]['shared_region'][cut]['dims'] for x in CELLS], 'threshold_sensitivity dims')
 ratios = [th[x]['shared_region'][cut]['pre_loo'] / th[x]['shared_region'][cut]['post'] for x in CELLS for cut in ('0.4', '0.5', '0.6')]
 rng(c, 'pre/post ratio', g[4:6], 1, ratios, 'pre_loo/post')
-m = re.search(r'top removal takes lie inside the region \((\d+)--(\d+)\\%, against at most ([\d.]+)\\% by chance\), and they span (\d+)--(\d+)\\% of it', APP)
+m = re.search(r'mostly inside it \((\d+)--(\d+)\\%, against at most ([\d.]+)\\% by chance\), and they span (\d+)--(\d+)\\% of it', APP)
 g = m.groups()
 rng(c, 'top inside %', g[0:2], 0, [100 * to[x]['cover_top'] for x in CELLS], 'top_overlap.cover_top')
 c.chk('top chance max %', float(g[2]), 1, 100 * max(to[x]['chance'] for x in CELLS), 'top_overlap.chance')
