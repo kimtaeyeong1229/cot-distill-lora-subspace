@@ -229,6 +229,7 @@ R('Table 11 caption random dims (cell means)',6.9,10.7,1,[em[c]['mean']['dims_ra
 R('Table 11 caption post-switch dW ratio (per seed)',0.06,0.33,2,[em[c]['seeds'][s]['ratio_dW_post'] for c in CELLS for s in em[c]['seeds']],'energy_match ratio_dW_post')
 kp=lambda c: pct(bl[c]['rm_post']['markers']['mean'],bl[c]['base0']['markers']['mean'])
 R('5.1 post-switch kept % in B/Qwen, B/Llama, C/Qwen, C/Llama',9,23,0,[kp(c) for c in ('B/Qwen','B/Llama','C/Qwen','C/Llama')],'baselines rm_post/base0 markers')
+R('5.1 post-switch kept % in pair A, B/OLMo, C/OLMo',104,181,0,[kp(c) for c in ('A/Qwen','A/Llama','A/OLMo','B/OLMo','C/OLMo')],'baselines rm_post/base0 markers')
 R('5.1 post-switch dW ratio (per seed)',0.06,0.33,2,[em[c]['seeds'][s]['ratio_dW_post'] for c in CELLS for s in em[c]['seeds']],'energy_match ratio_dW_post')
 R('5.2 whole-update graft region share of ||B||^2 (cell means)',0.34,0.59,2,[em[c]['mean']['region_B'] for c in CELLS],'energy_match mean.region_B')
 print(f'{n} in-text values/ranges checked, {len(bad)} mismatches')
