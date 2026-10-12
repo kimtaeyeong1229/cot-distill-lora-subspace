@@ -238,6 +238,10 @@ R('App B linear switch/held ratio pair A',1.47,1.63,2,[((1-_s['kept_vs_half_refe
 _lead=sorted(c for c in CELLS if me[c]['graft2']['markers_per_1k']>me[c]['graft_full2']['markers_per_1k']); n+=1
 if _lead!=['B/Qwen','C/Qwen']: bad.append(f'5.2 region graft leads on whole-response markers: {_lead}')
 _lead2=[c for c in CELLS if me[c]['graft2']['head_markers_per_1k']>me[c]['graft_full2']['head_markers_per_1k']]; V('5.2 region leads on early metric (cells)',5,0,len(_lead2),'main_edits head')
+_wh=[100*sae['B'][k]['sae_head']['mean'] for k in ('base1.0','graft2')]; V('5.4 pair B SAE head lambda1',0.17,2,sae['B']['base1.0']['sae_head']['mean'],'sae_llama sae_head'); V('5.4 pair B SAE head graft2',0.45,2,sae['B']['graft2']['sae_head']['mean'],'sae_llama sae_head')
+_px=J('phi_xseed'); _iv=lc['pairs']['A']['intervals']
+R('App B whole-update linear ratio',1.19,1.44,2,[((1-v['0.4']['xseed']/v['0.2']['xseed'])/_iv[1]['log_len_drop'])/((1-v['0.2']['xseed']/v['0.0']['xseed'])/_iv[0]['log_len_drop']) for k,v in _px.items() if k.startswith('A/')],'phi_xseed')
+R('5.1 early markers removed',0.07,1.3,1,[me[c]['lambda0.0_rm_pre']['head_markers_per_1k'] for c in CELLS],'main_edits head'); R('5.1 early markers lambda0',10,16,0,[me[c]['lambda0.0']['head_markers_per_1k'] if 'lambda0.0' in me[c] else me[c]['base0']['head_markers_per_1k'] for c in CELLS],'main_edits head')
 _md=J('main_density'); _bs=J('base_students'); _M={'Qwen':'Qwen2.5-0.5B-Instruct','Llama':'Llama-3.2-1B-Instruct','OLMo':'OLMo-2-1B-Instruct'}
 V('Limitations cells where no lambda beats untrained',5,0,sum(max(v['accuracy'] for v in _md[c].values())<=_bs[_M[c.split('/')[1]]]['accuracy']['mean'] for c in CELLS),'main_density accuracy vs base_students')
 _SW={'A':0.4,'B':0.6,'C':0.6}; n+=1
