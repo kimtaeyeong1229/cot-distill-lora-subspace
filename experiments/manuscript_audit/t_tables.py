@@ -340,7 +340,7 @@ for r in rows('tab29.tex'):
         if cell in ('--', '-'): continue
         t = tok(cell)[0]; c.chk(f'{name} {cn}', t[0], t[1], rowf[name](sst[cn]['head'], sst[cn]['whole']), 'student_structure')
 rowkey = {'$\\lambda=0$': ('base0.0', 'sae'), '$\\lambda=1$': ('base1.0', 'sae'), 'Region removed': ('lambda0.0_rm_pre', 'sae'),
-          'Other removed': ('lambda0.0_rm_decisive', 'sae'), 'Graft region ($\\beta=2$)': ('graft2', 'sae'), 'Graft other ($\\beta=2$)': ('graft_orth2', 'sae'),
+          'Other removed': ('lambda0.0_rm_decisive', 'sae'), 'Graft region ($\\beta=2$)': ('graft2', 'sae'), 'Graft other ($\\beta=2$)': ('graft_orth2', 'sae'), 'Graft whole update ($\\beta=2$)': ('graft_full2', 'sae'),
           'All in region': ('ampV', 'sae'), '$\\lambda=0$, markers deleted': ('base0.0', 'sae_masked')}
 for r in rows('tab11.tex'):
     name = r[0].strip(); v = [tok(x)[0] for x in r[1:]]
