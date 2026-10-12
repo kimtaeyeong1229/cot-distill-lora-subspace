@@ -231,8 +231,12 @@ kp=lambda c: pct(bl[c]['rm_post']['markers']['mean'],bl[c]['base0']['markers']['
 R('App A top removal directions per module',1.6,2.5,1,[v['dims_top'] for v in to.values() if isinstance(v,dict) and 'dims_top' in v],'top_overlap dims_top')
 _r=[v['dims_top']/v['dims_region'] for v in to.values() if isinstance(v,dict) and 'dims_top' in v]; n+=1
 if not (0.22<=min(_r) and max(_r)<=0.34): bad.append(f'App A quarter-to-third ratio: {min(_r):.3f}-{max(_r):.3f}')
+_tr=J('think_rate'); V('App A pair C think rate at 0.6 (%)',27,0,100*_tr['D']['rates']['0.6'],'think_rate D 0.6')
 _md=J('main_density'); _bs=J('base_students'); _M={'Qwen':'Qwen2.5-0.5B-Instruct','Llama':'Llama-3.2-1B-Instruct','OLMo':'OLMo-2-1B-Instruct'}
 V('Limitations cells where no lambda beats untrained',5,0,sum(max(v['accuracy'] for v in _md[c].values())<=_bs[_M[c.split('/')[1]]]['accuracy']['mean'] for c in CELLS),'main_density accuracy vs base_students')
+_SW={'A':0.4,'B':0.6,'C':0.6}; n+=1
+_pk=[max(_md[c],key=lambda l:_md[c][l]['accuracy']) for c in CELLS]
+if not all(float(l)>_SW[c[0]] and l in ('0.8','1.0') for c,l in zip(CELLS,_pk)): bad.append(f'Limitations accuracy peak after switch at 0.8 or 1: {_pk}')
 R('5.1 post-switch kept % in B/Qwen, B/Llama, C/Qwen, C/Llama',9,23,0,[kp(c) for c in ('B/Qwen','B/Llama','C/Qwen','C/Llama')],'baselines rm_post/base0 markers')
 R('5.1 post-switch kept % in pair A, B/OLMo, C/OLMo',104,181,0,[kp(c) for c in ('A/Qwen','A/Llama','A/OLMo','B/OLMo','C/OLMo')],'baselines rm_post/base0 markers')
 R('5.1 post-switch dW ratio (per seed)',0.06,0.33,2,[em[c]['seeds'][s]['ratio_dW_post'] for c in CELLS for s in em[c]['seeds']],'energy_match ratio_dW_post')
