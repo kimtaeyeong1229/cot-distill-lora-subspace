@@ -1,0 +1,111 @@
+#!/usr/bin/env python3
+import json
+import statistics as st
+from collections import defaultdict
+import torch
+from ablate_subspace import consensus, left_basis, read_adapter
+from config import CELL_DIR, EXP as E, LAMBDAS as LAM, PAIR_DIR, RESULTS as X, SEEDS, STUDENT_SHORT
+
+PRE = {"A": ["0.0", "0.2"], "B": ["0.0", "0.2", "0.4"], "C": ["0.0", "0.2", "0.4"]}
+RUNS = {p: {s: CELL_DIR[f"{p}/{s}"] for s in STUDENT_SHORT} for p in PAIR_DIR}
+
+
+def load(tag, lam, seed):
+    path = E / tag / "runs" / f"lambda{lam}_seed{seed}" / "adapter"
+    config = json.loads((path / "adapter_config.json").read_text())
+    scale = config["lora_alpha"] / config["r"]
+    raw, parts = read_adapter(path / "adapter_model.safetensors")
+    out = {}
+    for key, names in parts.items():
+        if len(names) == 2:
+            B, A = (raw[names["B"]].float(), raw[names["A"]].float())
+            out[key] = (left_basis(B, A, scale), scale * B, A)
+    return out
+
+
+def energy_in(V, sB, A):
+    G = A @ A.T
+    total = float(torch.trace(sB.T @ sB @ G))
+    VB = V.T @ sB
+    return (float(torch.trace(VB.T @ VB @ G)) / total, total)
+
+
+def main():
+    out = {}
+    for pair, cells in RUNS.items():
+        for short, tag in cells.items():
+            ads = {(l, s): load(tag, l, s) for l in PRE[pair] + ["1.0"] for s in SEEDS}
+            if "0.0" not in PRE[pair]:
+                raise SystemExit("lambda 0 must be pre-switch")
+            keys = sorted(set.intersection(*[set(a) for a in ads.values()]))
+            layers = sorted({k[0] for k in keys})
+            third = {l: min(2, 3 * i // len(layers)) for i, l in enumerate(layers)}
+            rows = []
+            for k in keys:
+                V, kv = consensus([ads[l, s][k][0] for l in PRE[pair] for s in SEEDS], threshold=0.5)
+                d = V.shape[0]
+                row = {
+                    "layer": k[0],
+                    "module": k[1],
+                    "third": ["early", "middle", "late"][third[k[0]]],
+                    "dims": kv,
+                    "chance_share": kv / d,
+                }
+                for lam in ("0.0", "1.0"):
+                    shares, norms = zip(*(energy_in(V, ads[lam, s][k][1], ads[lam, s][k][2]) for s in SEEDS))
+                    row[f"share_{lam}"] = st.mean(shares)
+                    row[f"energy_{lam}"] = st.mean(norms)
+                rows.append(row)
+
+            def group(field):
+                g = defaultdict(list)
+                for r in rows:
+                    g[r[field]].append(r)
+                res = {}
+                for name, rs in g.items():
+                    res[name] = {
+                        "dims": st.mean((r["dims"] for r in rs)),
+                        "share_0.0": sum((r["share_0.0"] * r["energy_0.0"] for r in rs))
+                        / sum((r["energy_0.0"] for r in rs)),
+                        "share_1.0": sum((r["share_1.0"] * r["energy_1.0"] for r in rs))
+                        / sum((r["energy_1.0"] for r in rs)),
+                        "chance_share": st.mean((r["chance_share"] for r in rs)),
+                        "energy_frac_0.0": sum((r["energy_0.0"] for r in rs))
+                        / sum((r["energy_0.0"] for r in rows)),
+                    }
+                return res
+
+            tot0 = sum((r["energy_0.0"] for r in rows))
+            tot1 = sum((r["energy_1.0"] for r in rows))
+            cell = {
+                "overall": {
+                    "dims": st.mean((r["dims"] for r in rows)),
+                    "share_0.0": sum((r["share_0.0"] * r["energy_0.0"] for r in rows)) / tot0,
+                    "share_1.0": sum((r["share_1.0"] * r["energy_1.0"] for r in rows)) / tot1,
+                    "chance_share": st.mean((r["chance_share"] for r in rows)),
+                },
+                "by_module": group("module"),
+                "by_depth": group("third"),
+                "modules": rows,
+            }
+            out[f"{pair}/{short}"] = cell
+            o = cell["overall"]
+            print(
+                f"{pair}/{short:6s} dims {o['dims']:.2f} | energy in region: lambda0 {o['share_0.0']:.3f} lambda1 {o['share_1.0']:.3f} chance {o['chance_share']:.4f} | depth "
+                + " ".join(
+                    (f"{n}:{v['dims']:.1f}/{v['share_0.0']:.2f}" for n, v in sorted(cell["by_depth"].items()))
+                )
+                + " | module "
+                + " ".join(
+                    (
+                        f"{n}:{v['dims']:.1f}/{v['share_0.0']:.2f}"
+                        for n, v in sorted(cell["by_module"].items())
+                    )
+                ),
+                flush=True,
+            )
+    (X / "region_anatomy.json").write_text(json.dumps(out, indent=1))
+
+
+if __name__ == "__main__":
+    main()

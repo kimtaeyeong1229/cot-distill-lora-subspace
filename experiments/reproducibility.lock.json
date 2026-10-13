@@ -1,5 +1,22 @@
 {
   "models": {
+    "DeepSeek-R1-Distill-Llama-8B": {
+      "hf_commit": "6a6f4aa4197940add57724a7707d069478df56b1",
+      "files": {
+        "config.json": {
+          "bytes": 826,
+          "sha256_at_download": "cccf055d6f8f210387a248c91dc40e0c7a4bafab"
+        },
+        "model-00001-of-000002.safetensors": {
+          "bytes": 8667826246,
+          "sha256_at_download": "7e6b24744354ef4ba547547cc758339090f46ba2da917845cfc69f7d4ded9edb"
+        },
+        "model-00002-of-000002.safetensors": {
+          "bytes": 7392730108,
+          "sha256_at_download": "19fb83b79bd0d06d49b7cf6f86b83f5183cd292aa2c028d633ca4fceac1ae742"
+        }
+      }
+    },
     "DeepSeek-R1-Distill-Qwen-1.5B": {
       "hf_commit": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
       "files": {
@@ -13,6 +30,31 @@
         }
       }
     },
+    "Llama-3.1-8B-Instruct": {
+      "hf_commit": "0e9e39f249a16976918f6564b8830bc894c89659",
+      "files": {
+        "config.json": {
+          "bytes": 855,
+          "sha256_at_download": "0bb6fd75b3ad2fe988565929f329945262c2814e"
+        },
+        "model-00001-of-00004.safetensors": {
+          "bytes": 4976698672,
+          "sha256_at_download": "2b1879f356aed350030bb40eb45ad362c89d9891096f79a3ab323d3ba5607668"
+        },
+        "model-00002-of-00004.safetensors": {
+          "bytes": 4999802720,
+          "sha256_at_download": "09d433f650646834a83c580877bd60c6d1f88f7755305c12576b5c7058f9af15"
+        },
+        "model-00003-of-00004.safetensors": {
+          "bytes": 4915916176,
+          "sha256_at_download": "fc1cdddd6bfa91128d6e94ee73d0ce62bfcdb7af29e978ddcab30c66ae9ea7fa"
+        },
+        "model-00004-of-00004.safetensors": {
+          "bytes": 1168138808,
+          "sha256_at_download": "92ecfe1a2414458b4821ac8c13cf8cb70aed66b5eea8dc5ad9eeb4ff309d6d7b"
+        }
+      }
+    },
     "Llama-3.2-1B-Instruct": {
       "hf_commit": "9213176726f574b556790deb65791e0c5aa438b6",
       "files": {
@@ -23,23 +65,6 @@
         "model.safetensors": {
           "bytes": 2471645608,
           "sha256_at_download": "1ff795ff6a07e6a68085d206fb84417da2f083f68391c2843cd2b8ac6df8538f"
-        }
-      }
-    },
-    "Llama-3.2-3B-Instruct": {
-      "hf_commit": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
-      "files": {
-        "config.json": {
-          "bytes": 878,
-          "sha256_at_download": "a5a40fa6da567ab026a5a2bf37125a90182be07d"
-        },
-        "model-00001-of-00002.safetensors": {
-          "bytes": 4965799096,
-          "sha256_at_download": "13cbd6d16e927a0c5bad54102514e6e18b4a47b3a6eb911e39d678d328d19f55"
-        },
-        "model-00002-of-00002.safetensors": {
-          "bytes": 1459729952,
-          "sha256_at_download": "7b770216613ac5c34d7c54bdff1fa616bc4e338a9d0b20af6303e48c295ee23c"
         }
       }
     },
@@ -66,36 +91,6 @@
         "model.safetensors": {
           "bytes": 988097824,
           "sha256_at_download": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
-        }
-      }
-    },
-    "Qwen2.5-1.5B-Instruct": {
-      "hf_commit": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
-      "files": {
-        "config.json": {
-          "bytes": 660,
-          "sha256_at_download": "f81ead14ab072d65a07817f83a3ee0e5a1890d10"
-        },
-        "model.safetensors": {
-          "bytes": 3087467144,
-          "sha256_at_download": "dd924a11b4c220f385b51ffa522daea7c9f3d850e31b162bb5661df483c6d3ee"
-        }
-      }
-    },
-    "Qwen2.5-3B-Instruct": {
-      "hf_commit": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
-      "files": {
-        "config.json": {
-          "bytes": 661,
-          "sha256_at_download": "51b83fbd4e2d363b60235b9c8d494046a83c1cbf"
-        },
-        "model-00001-of-00002.safetensors": {
-          "bytes": 3968658944,
-          "sha256_at_download": "67347b23fb4165b652eb6611f5e1f2a06dfcddba8e909df1b2b0b1857bee06c2"
-        },
-        "model-00002-of-00002.safetensors": {
-          "bytes": 2203268048,
-          "sha256_at_download": "a40d941d0e7e0b966ad8b62bb6d6b7c88cce1299197b599d9d0a4ce59aabfc1d"
         }
       }
     },
@@ -151,23 +146,6 @@
         "model-00003-of-00003.safetensors": {
           "bytes": 99630640,
           "sha256_at_download": "e3cccb84e8926f3f18c334465639939a68af310b0729938fccc2de66a9a31953"
-        }
-      }
-    },
-    "SmolLM2-1.7B-Instruct": {
-      "hf_commit": "31b70e2e869a7173562077fd711b654946d38674",
-      "files": {
-        "config.json": {
-          "bytes": 908,
-          "sha256_at_download": "207e75b189e8d8b72a8966dddcce5502f653e5ba"
-        },
-        "model.safetensors": {
-          "bytes": 3422777952,
-          "sha256_at_download": "f55217be716b6a997b97b9d8d7eb6fad02e00858f5010ec24f64603c3a98a0e8"
-        },
-        "training_args.bin": {
-          "bytes": 6520,
-          "sha256_at_download": "7649586c424c337f6c403fdb617ac9d954daf9a7192f3afe5b6318f37e9bb19e"
         }
       }
     }

@@ -1,8 +1,0 @@
-Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 10943.75it/s]
-trainable params: 11,272,192 || all params: 1,247,086,592 || trainable%: 0.9039
-{"step": 10, "epoch": 0, "loss": 0.2378443807887472, "grad_norm": 0.15598253905773163, "lr": 0.00018544194045464886, "tokens": 126950, "elapsed_min": 0.7101028362909952}
-{"step": 20, "epoch": 1, "loss": 0.1643765343066346, "grad_norm": 0.11115241050720215, "lr": 0.00013348796121709862, "tokens": 254018, "elapsed_min": 1.4042353749275207}
-{"step": 30, "epoch": 1, "loss": 0.167847164949343, "grad_norm": 0.140769362449646, "lr": 6.651203878290139e-05, "tokens": 377694, "elapsed_min": 2.0838193535804748}
-{"step": 40, "epoch": 2, "loss": 0.16840050350062571, "grad_norm": 0.14408622682094574, "lr": 1.4558059545351165e-05, "tokens": 511332, "elapsed_min": 2.810284471511841}
-{"step": 48, "epoch": 2, "loss": 0.13092623076279244, "grad_norm": 0.13880397379398346, "lr": 0.0, "tokens": 604188, "elapsed_min": 3.3254327376683555}
-{"steps": 48, "train_samples": 508, "train_label_tokens_per_epoch": 201396, "trainable_params": 11272192, "minutes": 3.3264700373013816, "peak_mem_gb": 7.011641979217529}

@@ -1,19 +1,0 @@
-Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights: 100%|██████████| 146/146 [00:00<00:00, 18578.57it/s]
-[W916 04:00:39.617386782 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 220200960 bytes (free: 209321984, total: 16611278848).
-[W916 04:00:51.922285787 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 295698432 bytes (free: 58327040, total: 16611278848).
-[W916 04:01:00.060972017 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 358612992 bytes (free: 215613440, total: 16611278848).
-[W916 04:01:07.694613851 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 417333248 bytes (free: 410648576, total: 16611278848).
-[W916 04:01:12.168440245 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 471859200 bytes (free: 140115968, total: 16611278848).
-Traceback (most recent call last):
-  File "/home/leap/workspace/cot-distill-lora-bit/experiments/lambda_lora_bits/measure_bits.py", line 183, in <module>
-    main()
-  File "/home/leap/workspace/cot-distill-lora-bit/experiments/lambda_lora_bits/measure_bits.py", line 113, in main
-    tuned = sample_bits(model, encoded, pad, args.token_budget)
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/leap/workspace/cot-distill-lora-bit/experiments/lambda_lora_bits/common.py", line 179, in sample_bits
-    states, targets = hidden[row, :-1][keep], targets[keep]
-                      ~~~~~~~~~~~~~~~~^^^^^^
-torch.AcceleratorError: CUDA error: the launch timed out and was terminated
-Search for `cudaErrorLaunchTimeout' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
-For more detailed error information, run with CUDA_LOG_FILE=stderr
-

@@ -1,4 +1,0 @@
-{"0.0": {"generated": 200, "teacher_accuracy": 0.91, "truncated_rate": 0.0, "too_long_for_student": 0, "kept": 182, "avg_teacher_tokens_all": 453.795, "avg_student_tokens_kept": 476.0}}
-{"0.4": {"generated": 200, "teacher_accuracy": 0.88, "truncated_rate": 0.05, "too_long_for_student": 0, "kept": 176, "avg_teacher_tokens_all": 1079.425, "avg_student_tokens_kept": 664.0852272727273}}
-{"1.0": {"generated": 200, "teacher_accuracy": 0.925, "truncated_rate": 0.005, "too_long_for_student": 0, "kept": 185, "avg_teacher_tokens_all": 414.25, "avg_student_tokens_kept": 349.4108108108108}}
-Shared problems across 3 lambdas: 160
