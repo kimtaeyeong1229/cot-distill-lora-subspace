@@ -163,7 +163,7 @@ summ = [
     + ci_txt(*ci["cut"]["ci95"])
     + " \\\\",
     "Median & " + " & ".join((num(nine[k]["median"], 1) for k in rem_keys)) + " \\\\",
-    "Mean w/o B/Q, C/Q & "
+    "Mean w/o B/Qwen, C/Qwen & "
     + " & ".join((num(nine[k]["mean_without_B_C_Qwen"], 1) for k in rem_keys))
     + " \\\\",
 ]
@@ -186,7 +186,7 @@ gsum = [
     "Mean & " + " & ".join((num(nine[k]["mean"], 1) for k in gkeys)) + " & & \\\\",
     "95\\% CI, cells fixed & " + " & ".join((ci_txt(*nine[k]["ci95"]) for k in gkeys)) + " & & \\\\",
     "Median & " + " & ".join((num(nine[k]["median"], 1) for k in gkeys)) + " & & \\\\",
-    "Mean w/o B/Q, C/Q & "
+    "Mean w/o B/Qwen, C/Qwen & "
     + " & ".join((num(nine[k]["mean_without_B_C_Qwen"], 1) for k in gkeys))
     + " & & \\\\",
 ]
