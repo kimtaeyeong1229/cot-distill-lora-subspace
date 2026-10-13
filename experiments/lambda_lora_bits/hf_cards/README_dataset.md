@@ -2,7 +2,7 @@
 license: other
 language:
 - en
-pretty_name: "CoT distillation across interpolated teachers: teacher CoT, splits and student generations"
+pretty_name: "Where Do Distilled Students Store Thinking? Teacher CoT, splits and student generations"
 task_categories:
 - text-generation
 tags:
@@ -15,32 +15,32 @@ size_categories:
 - 10K<n<100K
 ---
 
-# CoT distillation across interpolated teachers: teacher CoT, splits and student generations
+# Where Do Distilled Students Store Thinking? Teacher CoT, splits and student generations
 
-This repository holds the data half of the paper on what a student's weights keep when its teacher stops thinking. The paper is [citation pending]. The LoRA adapters and analysis outputs are in the companion model repository, [`kimtaeyeong1229/cot-distill-lora-subspace`](https://huggingface.co/kimtaeyeong1229/cot-distill-lora-subspace).
+This repository holds the data for the paper *Where Do Distilled Students Store Thinking?* [citation pending]. The LoRA adapters and analysis outputs are in the companion model repository, [`kimtaeyeong1229/cot-distill-lora-subspace`](https://huggingface.co/kimtaeyeong1229/cot-distill-lora-subspace), and the code is on [GitHub](https://github.com/kimtaeyeong1229/cot-distill-lora-subspace).
 
-**Question.** A teacher is built by mixing a reasoning model (λ = 0) and a short-answer instruct model (λ = 1) with ratio λ, using weight interpolation. At some λ this teacher abruptly stops thinking: it drops `</think>` and reflective phrases. Small students are distilled from each teacher with LoRA, and the adapters serve as a measuring instrument for what changes in the student's weights at that point. The paper finds that adapters trained before the switch share a small region of directions. That region acts like an on/off switch for thinking: removing it turns thinking off, while grafting it into a short-answer adapter starts thinking but does not finish the solution.
+**Question.** A teacher is built by mixing a reasoning model (λ = 0) and a short-answer instruct model (λ = 1) with ratio λ, using weight interpolation. At some λ this teacher abruptly stops thinking: it drops `</think>` and reflective phrases. Small students are distilled from each teacher with LoRA, and the adapters serve as a measuring instrument for what changes in the student's weights at that point. The paper finds that adapters trained before that point share a small region of directions tied to thinking-like behavior (reflective markers, monologue format and long solutions), which largely empties after thinking stops. Removing it largely turns this behavior off in every pair, student and benchmark. Grafted at twice its weight into a short-answer adapter, it turns early markers on, but the student rarely finishes its solution.
 
 All generations were sampled at temperature 0.6 and top-p 0.95, so they cannot be reproduced exactly even from the same checkpoints. This repository keeps them.
 
 ## Pairs and directory names
 
-| paper pair | directory here | λ = 0 (reasoning) | λ = 1 (instruct) | student cells |
+| paper pair | directory | λ = 0 (reasoning) | λ = 1 (instruct) | student cells |
 |---|---|---|---|---|
-| A | `pairA` (teacher), `sweep*` (students) | DeepSeek-R1-Distill-Qwen-1.5B | Qwen2.5-Math-1.5B-Instruct | `sweep`, `sweep_llama`, `sweep_olmo2` |
+| A | `pairA` | DeepSeek-R1-Distill-Qwen-1.5B | Qwen2.5-Math-1.5B-Instruct | `pairA/qwen0.5b`, `pairA/llama1b`, `pairA/olmo1b` |
 | B | `pairB` | Qwen3-4B-Thinking-2507 | Qwen3-4B-Instruct-2507 | `pairB/qwen0.5b`, `pairB/llama1b`, `pairB/olmo1b` |
-| C | **`pairD`** | DeepSeek-R1-Distill-Llama-8B | Llama-3.1-8B-Instruct | `pairD/qwen0.5b`, `pairD/llama1b`, `pairD/olmo1b` |
+| C | `pairC` | DeepSeek-R1-Distill-Llama-8B | Llama-3.1-8B-Instruct | `pairC/qwen0.5b`, `pairC/llama1b`, `pairC/olmo1b` |
 
-**The paper's pair C is stored under the directory `pairD`.** This is a historical name. In student directory names, `qwen0.5b` / `sweep` is Qwen2.5-0.5B-Instruct, `llama1b` / `sweep_llama` is Llama-3.2-1B-Instruct, and `olmo1b` / `sweep_olmo2` is OLMo-2-0425-1B-Instruct.
+In student directory names, `qwen0.5b` is Qwen2.5-0.5B-Instruct, `llama1b` is Llama-3.2-1B-Instruct and `olmo1b` is OLMo-2-0425-1B-Instruct.
 
 λ ∈ {0.0, 0.2, 0.4, 0.6, 0.8, 1.0}. Seeds 0, 1 and 2 are the student training seeds.
 
 ## Contents
 
 ```
-teacher_cot/pair{A,B,D}/lambda{λ}.jsonl
-splits/pair{A,B,D}/lambda{λ}/{train,held,train_halfA,train_halfB}.jsonl
-splits/pair{A,B,D}/{split_ids,split_stats}.json
+teacher_cot/pair{A,B,C}/lambda{λ}.jsonl
+splits/pair{A,B,C}/lambda{λ}/{train,held,train_halfA,train_halfB}.jsonl
+splits/pair{A,B,C}/{split_ids,split_stats}.json
 student_generations/<cell>/eval_math500/lambda{λ}_seed{s}.json          (see note below)
 student_generations/<cell>/eval_main_s{s}/<condition>.json
 student_generations/<cell>/eval_main_s{s}/<condition>.samples.jsonl.gz
@@ -55,7 +55,7 @@ Each interpolated teacher wrote solutions to the same 4,000 MATH training proble
 - `unique_id`, `problem`, `answer`, `level`, `type`
 - `cot_response`: the raw generation, including `</think>` where the teacher wrote it
 - `generated_tokens`, `finish_reason`
-- `teacher`: a local path that names the λ
+- `teacher`: the pair and λ of the teacher, e.g. `pairC/lambda0.6`
 
 The teacher's think rate (the share of responses containing `</think>`) and reflective-marker density are counted on these files. Do not count them on the splits, where the tags are stripped.
 
@@ -72,7 +72,7 @@ A solution is kept only if it is complete, correct and fits in 8,192 tokens. Onl
 Students generate at temperature 0.6 and top-p 0.95, with at most 7,680 new tokens (OLMo 3,840).
 
 - **`eval_math500/lambda{λ}_seed{s}.json`**: the unedited adapters on MATH-500. The file holds 500 problems × 4 samples in `records`, with per-sample fields `correct`, `tokens` and `truncated` and the first response's text in `response_0`. The paper uses the first 200 problems and the first 2 samples. `truncated` separates an answer that ran out of generation budget from a wrong one.
-  These files cover all nine cells, seeds 0–2. For `sweep` and `sweep_llama` the paper reads the re-run at the 7,680-token limit in `eval_math500_7680/` (same format). For `pairD/olmo1b`, the seed-0 files are the 200 problems × 2 samples evaluation of the retrained seed-0 adapters.
+  These files cover all nine cells, seeds 0–2. For `pairA/qwen0.5b` and `pairA/llama1b` they are in `eval_math500_7680/` (same format), the evaluation at the 7,680-token limit. For `pairC/olmo1b`, the seed-0 files are the 200 problems × 2 samples evaluation of the retrained seed-0 adapters.
 - **`eval_main_s{s}/`**: the paper's evaluation, covering the first 200 MATH-500 problems × 2 samples for each edit of seed s's adapters.
   - `<condition>.json` holds the summary: accuracy, average tokens, truncation rate, reflective markers per 1,000 words and `</think>` rate.
   - `<condition>.samples.jsonl.gz` holds the responses, two consecutive lines per problem, with fields `problem`, `text`, `finish_reason` and `tokens`.
@@ -113,12 +113,12 @@ The edited adapters themselves are in the model repository under `<cell>/runs_ed
 - The teacher data covers MATH problems only, from three teacher pairs whose family and scale change together.
 - "Thinking" on the student side is a reflective-marker proxy. Read it next to token counts and truncation, which are included.
 - The GPQA-Diamond records cannot be re-scored or re-read, because their text is withheld.
-- Some `teacher` and `adapter` fields hold paths from the original machine. They identify the run and do not point to anything downloadable.
+- Some `adapter` fields in the student summaries hold paths from the original machine. They identify the run and do not point to anything downloadable.
 
 ## Licensing
 
 The problems come from MATH (Hendrycks et al., 2021), GSM8K (Cobbe et al., 2021) and GPQA (Rein et al., 2024), and their own terms apply. The generations were produced by the checkpoints listed above:
-- Pair C (`pairD`) descends from Llama 3.1 and carries the Llama 3.1 Community License conditions.
+- Pair C (`pairC`) descends from Llama 3.1 and carries the Llama 3.1 Community License conditions.
 - Llama-3.2-1B-Instruct student outputs carry the Llama 3.2 Community License conditions.
 
 Built with Llama.

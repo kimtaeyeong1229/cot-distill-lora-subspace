@@ -20,13 +20,16 @@ language:
 - en
 ---
 
-# CoT distillation across interpolated teachers: LoRA adapters
+# Where Do Distilled Students Store Thinking? LoRA adapters
 
-This repository holds the LoRA adapters and analysis outputs for the paper on what a student's weights keep when its teacher stops thinking. The paper is [citation pending].
+This repository holds the LoRA adapters and analysis outputs for the paper *Where Do Distilled Students Store Thinking?* [citation pending]. The generations are in the companion [dataset repository](https://huggingface.co/datasets/kimtaeyeong1229/cot-distill-lora-subspace), and the code is on [GitHub](https://github.com/kimtaeyeong1229/cot-distill-lora-subspace).
 
-**Question.** Small students often get worse when distilled on a reasoning model's long solutions. A recent remedy mixes a reasoning model (λ = 0) with a short-answer instruct model (λ = 1) by weight interpolation. The ratio λ then tunes the teacher's solution length. At some λ such a mixed teacher abruptly stops thinking: it drops `</think>` and the reflective phrases ("wait", "let me check", ...). This repository asks two things about that point. What changes in the student's weights? And does the changed part carry the way of thinking? We train students with LoRA and use the adapters as a measuring instrument, not as a proposed distillation method. The update is confined to a pair of small matrices, so adapters trained under different teachers can be compared on equal terms.
+**Question.** Small students often get worse when distilled on a reasoning model's long solutions. A recent remedy mixes a reasoning model (λ = 0) with a short-answer instruct model (λ = 1) by weight interpolation. The ratio λ then tunes the teacher's solution length. At some λ such a mixed teacher abruptly stops thinking: it drops `</think>` and the reflective phrases ("wait", "let me check", ...). The paper asks what the student's weights keep at that point. We train students with LoRA and use the adapters as a measuring instrument, not as a proposed distillation method. The update is confined to a pair of small matrices, so adapters trained under different teachers can be compared on equal terms.
 
-We use 3 teacher pairs × 3 students × 6 λ values × 3 seeds. Across them, the adapter changes its update direction at the same λ where its own teacher stops thinking. Before that point, the adapters keep sharing a small region of 5–8 of their 16 directions. The edits stored here show that this **shared region** acts like an on/off switch for thinking. Removing it turns thinking off, but removing the same energy elsewhere in the adapter does not. Amplifying it at a fixed norm does not add thinking. Grafting it into a short-answer adapter starts thinking but does not finish the solution.
+We use 3 teacher pairs × 3 students × 6 λ values × 3 seeds. In each pair, the adapters' update subspace shifts most at the λ where the teacher stops thinking and its solutions shorten most. This locates the change; it does not attribute it to thinking alone. Before that point, the adapters share a small **shared region** of 5–8 of their 16 directions, tied to thinking-like behavior (reflective markers, monologue format and long solutions). The region largely empties after thinking stops. The edits stored here test it:
+- **Removal.** Removing the region largely turns this behavior off in every pair, student and benchmark. Only in pair A and C/Qwen does it leave clearly fewer markers than removing the update's top components, and elsewhere same-energy random directions often nearly match it.
+- **Graft.** Added at twice its weight to a short-answer (λ = 1) adapter, the region turns early markers on, as the whole update does, but the student rarely finishes its solution.
+- **Amplify.** At a fixed norm the region's weight can rise only 1.2–1.6×, and early markers move 0.87–1.79×.
 
 ## Teachers, students, cells
 
@@ -34,19 +37,17 @@ Each teacher is θ(λ) = λ·θ_instruct + (1 − λ)·θ_reasoning. The mix is 
 
 | paper pair | directory | λ = 0 (reasoning) | λ = 1 (instruct) |
 |---|---|---|---|
-| A | `sweep`, `sweep_llama`, `sweep_olmo2` | DeepSeek-R1-Distill-Qwen-1.5B | Qwen2.5-Math-1.5B-Instruct |
+| A | `pairA/` | DeepSeek-R1-Distill-Qwen-1.5B | Qwen2.5-Math-1.5B-Instruct |
 | B | `pairB/` | Qwen3-4B-Thinking-2507 | Qwen3-4B-Instruct-2507 |
-| C | `pairD/` | DeepSeek-R1-Distill-Llama-8B | Llama-3.1-8B-Instruct |
+| C | `pairC/` | DeepSeek-R1-Distill-Llama-8B | Llama-3.1-8B-Instruct |
 
-**The paper's pair C is stored under the directory `pairD`.** This is a historical name. No `pairC` directory remains in this repository.
-
-The paper calls each teacher-pair × student combination a "cell".
+The paper calls each teacher-pair × student combination a "cell" and names it pair/student, e.g. C/Qwen.
 
 | | Qwen2.5-0.5B-Instruct | Llama-3.2-1B-Instruct | OLMo-2-0425-1B-Instruct |
 |---|---|---|---|
-| pair A | `sweep` | `sweep_llama` | `sweep_olmo2` |
+| pair A | `pairA/qwen0.5b` | `pairA/llama1b` | `pairA/olmo1b` |
 | pair B | `pairB/qwen0.5b` | `pairB/llama1b` | `pairB/olmo1b` |
-| pair C | `pairD/qwen0.5b` | `pairD/llama1b` | `pairD/olmo1b` |
+| pair C | `pairC/qwen0.5b` | `pairC/llama1b` | `pairC/olmo1b` |
 
 The interpolated teacher checkpoints are not uploaded. Each one is an element-wise average of two public checkpoints and can be rebuilt with `interpolate.py` in the code repository.
 
@@ -129,11 +130,11 @@ Two conditions in the paper are generation-time and have no adapter of their own
 | `pairA_crossseed.json`, `pairA_seed_ratio.json`, `two_seed_floor.json` | Pair A held vs switch contrast without a shared LoRA initialization, per seed pairing, and floor-corrected (Table 1 caption, Appendix B) |
 | `agreement_normalised.json` | Region kept relative to the whole update's cross-seed overlap and to same-λ self-agreement (Section 4.3) |
 | `alignment_length_s012.json`, `think_rate_completed.json` | Interval correlation of R with the drop in training length, and the think rate on completed and training solutions (Table 12) |
-| `symmetric_R.json`, `switch_regression.json`, `c13_additions.json` | Symmetric-normalisation R, switch-indicator regression of region loss, pair B loss per unit length and λ = 1 vs untrained (Appendices B and C) |
+| `symmetric_R.json`, `switch_regression.json`, `additional_stats.json` | Symmetric-normalisation R, switch-indicator regression of region loss, pair B loss per unit length and λ = 1 vs untrained (Appendices B and C) |
 | `region_anatomy.json` | Region dimension and share of update energy by module type and depth (Table 4, Appendix A) |
 | `energy_match.json` | Energy match of the removal controls and amplitude gain of the amplification edits, read from the edited adapters (Tables 2, 5 and 8) |
 | `paired_bootstrap.json`, `paired_bootstrap_grades.json` | Problem-level paired bootstrap of the removal against its controls, and the per-problem grades it reads (Table 15; Section 5.1; Appendix C) |
-| `review_stats.json` | Seed-level graft recovery, amplification, interval and SAE-subset statistics (Tables 2, 5 and 15; Section 5) |
+| `summary_stats.json` | Seed-level graft recovery, amplification, interval and SAE-subset statistics (Tables 2, 5 and 15; Section 5) |
 | `removal_vs_untrained.json` | Region removal against the untrained student, per problem (Table 7) |
 | `teacher_structure.json`, `student_structure.json` | Structure of the teacher's training solutions and of the student responses per edit (Tables 6 and 13) |
 | `region_logit_lens.json` | Region directions read through the unembedding (Appendix C) |
@@ -142,6 +143,7 @@ Two conditions in the paper are generation-time and have no adapter of their own
 | `coverage_by_lambda.json`, `length_confound.json` | Coverage of the λ = 0 region at every λ, and every interval classed by the teacher with length, region kept and coverage changes (Tables 1 and 9; Appendix B) |
 | `threshold_sensitivity.json`, `top_overlap.json` | The region rebuilt at other eigenvalue cuts and the two-seed overlap (Table 16; Appendix A), and the top singular directions taken by top removal (Appendix A) |
 | `edit_stats.json`, `degeneration.json` | Per-cell edit effects with seed spread (Table 15) and responses ending in a loop (Table 17) |
+| `diagnostic.json`, `output_vs_weights.json` | Supplementary checks not reported in the paper: region energy and similarity to λ = 0 of each adapter against its marker density, and per-cell correlations of R and of student length and markers with the teacher's think rate and markers |
 | `reproducibility.lock.json` | Hub commits and file hashes of the downloaded checkpoints, plus the software environment |
 
 
@@ -159,7 +161,7 @@ tok = AutoTokenizer.from_pretrained(base_id)
 base = AutoModelForCausalLM.from_pretrained(base_id, torch_dtype=torch.bfloat16)
 model = PeftModel.from_pretrained(
     base, "kimtaeyeong1229/cot-distill-lora-subspace",
-    subfolder="sweep_llama/lambda0.0_seed0",          # or e.g. "sweep_llama/runs_edit_s0/lambda0.0_rm_pre"
+    subfolder="pairA/llama1b/lambda0.0_seed0",        # or e.g. "pairA/llama1b/runs_edit_s0/lambda0.0_rm_pre"
 )
 
 problem = "What is the smallest positive integer n such that 3n is a perfect square?"
@@ -189,16 +191,16 @@ The generations behind these numbers are in the [dataset repository](https://hug
 - The students are 1B parameters or smaller, and training is on MATH only. The only evidence outside mathematics is GPQA-Diamond, and it is read through markers and length, not accuracy.
 - Teacher family and scale change together across pairs A, B and C, so no claim is made about scale.
 - "Thinking" is measured by a reflective-marker proxy. The internal re-check uses an SAE and was done only for Llama. Those features were selected by a text contrast of teacher solutions, so they may capture style rather than reasoning.
-- The finding that amplifying does not add thinking cannot fully rule out a ceiling effect, because 51–87% of λ = 0 responses already hit the generation limit.
+- Amplification at a fixed norm raises the region's weight only 1.2–1.6×, and 51–87% of λ = 0 responses already hit the generation limit, so a ceiling effect on amplification cannot be ruled out.
 - Thinking and length are separated only at generation time, by the length-matched cut. There is no training-time control that uses short solutions of matched length.
-- The edits turn thinking off, but the edited students are not better than the untrained students. They should not be read as a recipe for better models.
+- The removal edits turn this behavior off, but the edited students are not better than the untrained students. They should not be read as a recipe for better models.
 
 ## Licensing
 
 Each adapter is subject to the licence of its base student and to the terms of the teacher whose outputs it was trained on:
 - Qwen2.5-0.5B-Instruct and OLMo-2-0425-1B-Instruct are released under Apache-2.0.
 - Adapters on Llama-3.2-1B-Instruct are subject to the Llama 3.2 Community License.
-- The pair C teachers (`pairD`: DeepSeek-R1-Distill-Llama-8B and Llama-3.1-8B-Instruct) descend from Llama 3.1, so adapters trained on their outputs also carry the Llama 3.1 Community License conditions.
+- The pair C teachers (`pairC`: DeepSeek-R1-Distill-Llama-8B and Llama-3.1-8B-Instruct) descend from Llama 3.1, so adapters trained on their outputs also carry the Llama 3.1 Community License conditions.
 
 Built with Llama.
 
